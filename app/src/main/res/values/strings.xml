@@ -1,5 +1,5 @@
 <resources>
-    <string name="appkongname">水库管家</string>
+    <string name="appkongname">水库管家三个责任人</string>
     <string name="text_login_bt_tip">登录</string>
     <string name="text_task_item_bt_tip">查看任务项</string>
     <string name="text_do_task_bt_tip">做任务</string>
