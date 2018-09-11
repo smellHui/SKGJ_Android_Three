@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.setting;
+package com.tepia.main.view.maincommon.setting;
 
 import android.Manifest;
 import android.app.AlertDialog;

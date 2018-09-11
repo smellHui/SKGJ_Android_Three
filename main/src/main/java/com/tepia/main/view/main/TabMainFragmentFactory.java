@@ -5,10 +5,8 @@ import com.tepia.main.view.main.map.MapArcgisFragment;
 import com.tepia.main.view.maintechnology.threekeypoint.ThreePointFragment;
 import com.tepia.main.view.maintechnology.yunwei.YunWeiFragment;
 import com.tepia.main.view.mainworker.homepage.HomeFragment;
-import com.tepia.main.view.mainworker.reservoirs.ReservoirsFragment;
-import com.tepia.main.view.mainworker.setting.SettingFragment;
-import com.tepia.main.view.main.work.WorkFragment;
-import com.tepia.main.view.main.work.WorkFragmentNew;
+import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
+import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
 import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
 

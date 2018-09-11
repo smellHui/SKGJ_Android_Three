@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.setting.voiceassistant;
+package com.tepia.main.view.maincommon.setting.voiceassistant;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;

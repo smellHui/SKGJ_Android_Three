@@ -20,6 +20,69 @@ public class AppRoutePath {
     public final static String appMain = "/app/main";
 
     /**
+     * 巡查责任人首页 （第一页）（包含 巡检 保洁 维修责任人）
+     */
+    public final static String app_main_fragment_home_xuncha = "/app/main/fragment/home/xuncha";
+    /**
+     * 技术责任人首页 （第一页）
+     */
+    public final static String app_main_fragment_home_jishu = "/app/main/fragment/home/jishu";
+    /**
+     * 行政责任人首页 （第一页）
+     */
+    public final static String app_main_fragment_home_admin = "/app/main/fragment/home/xingzheng";
+
+    /**
+     * 巡检责任人 运维页（第二页）
+     */
+    public final static String app_main_fragment_yunwei_xunjian = "/app/main/fragment/yunwei/xunjian";
+    /**
+     * 保洁责任人 运维页（第二页）
+     */
+    public final static String app_main_fragment_yunwei_baojie = "/app/main/fragment/yunwei/baojie";
+    /**
+     * 维护责任人 运维页（第二页）
+     */
+    public final static String app_main_fragment_yunwei_weihu = "/app/main/fragment/yunwei/weihu";
+    /**
+     * 巡查责任人 运维页（第二页）（身兼多职的人员 巡检保洁）
+     */
+    public final static String app_main_fragment_yunwei = "/app/main/fragment/yunwei/more";
+    /**
+     * 技术责任人 运维页（第二页）
+     */
+    public final static String app_main_fragment_yunwei_jishu = "/app/main/fragment/yunwei/jishu";
+    /**
+     * 行政责任人 运维页（第二页）
+     */
+    public final static String app_main_fragment_yunwei_xingzheng = "/app/main/fragment/yunwei/xingzheng";
+
+    /**
+     * 巡查责任人 上报页（第三页）
+     */
+    public final static String app_main_fragment_shangbao_xuncha = "/app/main/fragment/shangbao/xuncha";
+    /**
+     * 技术责任人 三个重点页（第三页）
+     */
+    public final static String app_main_fragment_threekey_jishu = "/app/main/fragment/threekey/jishu";
+
+    /**
+     * 行政责任人 三个重点页（第三页）
+     */
+    public final static String app_main_fragment_threekey_xingzheng = "/app/main/fragment/threekey/xingzheng";
+
+    /**
+     * 水库页（第四页）
+     */
+    public final static String app_main_fragment_reservoirs = "/app/main/fragment/reservoirs";
+
+    /**
+     * 我的页（第五页）
+     */
+    public final static String app_main_fragment_mine = "/app/main/fragment/mine";
+
+
+    /**
      * 首页巡检、维护、保洁
      */
     public final static String app_task_list = "/app/task/list";
@@ -70,6 +133,7 @@ public class AppRoutePath {
     public final static String app_messtation_list = "/app/messtation/list";
     public final static String applogin = "/app/login";
     public final static String token = "/app/token";
+
 
 
 }

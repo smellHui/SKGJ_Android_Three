@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.setting;
+package com.tepia.main.view.maincommon.setting;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,7 +21,7 @@ import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.login.LoginActivity;
 import com.tepia.main.view.main.TabMainFragmentFactory;
-import com.tepia.main.view.mainworker.setting.voiceassistant.VoiceAssistantSettingActivity;
+import com.tepia.main.view.maincommon.setting.voiceassistant.VoiceAssistantSettingActivity;
 
 
 /**

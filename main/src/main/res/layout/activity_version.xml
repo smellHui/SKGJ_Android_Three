@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_common"
-    tools:context="com.tepia.main.view.mainworker.setting.VersionActivity">
+    tools:context="com.tepia.main.view.maincommon.setting.VersionActivity">
 
     <include layout="@layout/toolbar" />
 

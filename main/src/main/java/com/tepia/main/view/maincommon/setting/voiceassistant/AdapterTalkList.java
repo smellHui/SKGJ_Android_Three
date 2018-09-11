@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.setting.voiceassistant;
+package com.tepia.main.view.maincommon.setting.voiceassistant;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

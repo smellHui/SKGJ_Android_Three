@@ -151,30 +151,30 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
-            android:name=".view.mainworker.setting.VersionActivity"
+            android:name=".view.maincommon.setting.VersionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
-            android:name=".view.mainworker.setting.AboutUsActivity"
+            android:name=".view.maincommon.setting.AboutUsActivity"
             android:screenOrientation="portrait" />
 
         <!-- 语音助手设置页 -->
         <activity
-            android:name=".view.mainworker.setting.voiceassistant.VoiceAssistantSettingActivity"
+            android:name=".view.maincommon.setting.voiceassistant.VoiceAssistantSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.mainworker.setting.voiceassistant.SpeakActivity"
+            android:name=".view.maincommon.setting.voiceassistant.SpeakActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".view.mainworker.setting.voiceassistant.VoiceAssistantReadMeActivity" />
+        <activity android:name=".view.maincommon.setting.voiceassistant.VoiceAssistantReadMeActivity" />
         <activity
-            android:name=".view.mainworker.setting.SuggestionActivity"
+            android:name=".view.maincommon.setting.SuggestionActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.mainworker.setting.ChangeKeyWordActivity"
+            android:name=".view.maincommon.setting.ChangeKeyWordActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.main.question.problemlist.ProblemListActivity"
@@ -189,7 +189,7 @@
             android:name=".view.main.detail.vedio.VideoPlayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.mainworker.setting.EditUserInfoActivity"
+            android:name=".view.maincommon.setting.EditUserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.vedio.VedioComunicationActivity"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:overrideLibrary="com.inpor.fastmeetingcloud"
-    package="com.tepia.reservoirthree">
+    package="com.tepia.reservoirthree"
+    tools:overrideLibrary="com.inpor.fastmeetingcloud">
 
     <!--               tools:replace="android:icon,android:theme,android:allowBackup,android:label,android:name"
 
@@ -18,8 +18,7 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon,android:theme,android:name,android:label"
-        >
+        tools:replace="android:icon,android:theme,android:name,android:label">
 
         <activity
             android:name="com.tepia.main.view.SplashActivity"

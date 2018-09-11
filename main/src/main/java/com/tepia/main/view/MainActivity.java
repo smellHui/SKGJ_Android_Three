@@ -2,8 +2,6 @@ package com.tepia.main.view;
 
 
 import android.Manifest;
-import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,13 +16,13 @@ import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.gaodelibrary.UtilsContextOfGaode;
 import com.inpor.fastmeetingcloud.receiver.HstApplication;
 import com.pgyersdk.javabean.AppBean;
@@ -47,8 +45,8 @@ import com.tepia.main.view.main.map.MapArcgisFragment;
 import com.tepia.main.view.maintechnology.threekeypoint.ThreePointFragment;
 import com.tepia.main.view.maintechnology.yunwei.YunWeiFragment;
 import com.tepia.main.view.mainworker.homepage.HomeFragment;
-import com.tepia.main.view.mainworker.reservoirs.ReservoirsFragment;
-import com.tepia.main.view.mainworker.setting.SettingFragment;
+import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
+import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
 import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
 
@@ -58,9 +56,10 @@ import cn.jpush.android.api.JPushInterface;
 
 
 /**
- * MVPPlugin
- * 邮箱 784787081@qq.com
- */
+ * @author         :      zhang xinhua
+ * Version         :       1.0
+ * 功能描述        :
+ **/
 @Route(path = AppRoutePath.appMain)
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
@@ -139,13 +138,12 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         mTabHost = findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        if("1".equals(valuestr)) {
+        if ("1".equals(valuestr)) {
 
             //巡检责任人
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
                     homeFragment.getClass(), null);
-
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[one]).setIndicator(createIndicator(one)),
                     xunchaFragment.getClass(), null);
@@ -156,7 +154,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     reservoirsFragment.getClass(), null);
             mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
                     settingFragment.getClass(), null);
-        }else if("2".equals(valuestr)){
+        } else if ("2".equals(valuestr)) {
             //技术责任人
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
@@ -172,7 +170,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     reservoirsFragment.getClass(), null);
             mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
                     settingFragment.getClass(), null);
-        }else{
+        } else {
             //行政责任人
             mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
                     homeFragment.getClass(), null);
@@ -200,13 +198,13 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     position = one;
                 } else if (titles[two].equals(tabId)) {
                     position = two;
-                }else if (titles[third].equals(tabId)) {
+                } else if (titles[third].equals(tabId)) {
                     position = third;
-                }else if (titles[four].equals(tabId)) {
+                } else if (titles[four].equals(tabId)) {
                     position = four;
-                }else if (titles[five].equals(tabId)) {
+                } else if (titles[five].equals(tabId)) {
                     position = five;
-                }else if (titles[six].equals(tabId)) {
+                } else if (titles[six].equals(tabId)) {
                     position = six;
                 }
             }
@@ -305,7 +303,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      * 初始化各个页面
      */
     private void initViewPager() {
-        homeFragment = TabMainFragmentFactory.getInstance().getHomeFragment();
+        homeFragment = (HomeFragment)ARouter.getInstance().build(AppRoutePath.app_main_fragment_home_xuncha).navigation();
+
         threePointFragment = TabMainFragmentFactory.getInstance().getThreePointFragment();
         yunWeiFragment = TabMainFragmentFactory.getInstance().getYunWeiFragment();
         reservoirsFragment = TabMainFragmentFactory.getInstance().getReservoirsFragment();
@@ -358,7 +357,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mTabHost.getCurrentTab()==1){
+            if (mTabHost.getCurrentTab() == 1) {
                 //当前显示地图界面
                 if (MapArcgisFragment.status == 1) {
                     EventBus.getDefault().post(1);
@@ -368,7 +367,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 } else {
                     backFun();
                 }
-            }else {
+            } else {
                 backFun();
             }
 
@@ -377,7 +376,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         return super.onKeyDown(keyCode, event);
     }
 
-    private void backFun(){
+    private void backFun() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
             ToastUtils.shortToast("再按一次退出程序");
             mExitTime = System.currentTimeMillis();

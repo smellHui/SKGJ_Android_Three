@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.setting;
+package com.tepia.main.view.maincommon.setting;
 
 import android.content.Intent;
 import android.support.v7.widget.OrientationHelper;

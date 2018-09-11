@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
@@ -20,6 +22,8 @@ import com.tepia.main.R;
  *         Version :       1.0
  *         Company :       北京太比雅科技(武汉研发中心)
  **/
+
+@Route(path = AppRoutePath.app_main_fragment_home_xuncha)
 public class HomeFragment extends BaseCommonFragment {
 
 
