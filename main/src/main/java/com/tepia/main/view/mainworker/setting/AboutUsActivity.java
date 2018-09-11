@@ -1,4 +1,4 @@
-package com.tepia.main.view.main.setting;
+package com.tepia.main.view.mainworker.setting;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

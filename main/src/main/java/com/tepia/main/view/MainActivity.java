@@ -1,4 +1,4 @@
-package com.tepia.main.view.main;
+package com.tepia.main.view;
 
 
 import android.Manifest;
@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.gaodelibrary.UtilsContextOfGaode;
-import com.example.gaodelibrary.WakeLockScreenReceiver;
 import com.inpor.fastmeetingcloud.receiver.HstApplication;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -40,14 +39,18 @@ import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
 import com.tepia.main.model.dictmap.DictMapManager;
-import com.tepia.main.view.WakeLockScreenReceiverOfMain;
-import com.tepia.main.view.main.detail.liuliangzhanandrainfull.LiuliangFragment;
-import com.tepia.main.view.main.detail.vedio.VedioFragment;
-import com.tepia.main.view.main.map.MapArcgis2Fragment;
+import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
+import com.tepia.main.view.main.MainContract;
+import com.tepia.main.view.main.MainPresenter;
+import com.tepia.main.view.main.TabMainFragmentFactory;
 import com.tepia.main.view.main.map.MapArcgisFragment;
-import com.tepia.main.view.main.setting.SettingFragment;
-import com.tepia.main.view.main.work.WorkFragment;
-import com.tepia.main.view.main.work.WorkFragmentNew;
+import com.tepia.main.view.maintechnology.threekeypoint.ThreePointFragment;
+import com.tepia.main.view.maintechnology.yunwei.YunWeiFragment;
+import com.tepia.main.view.mainworker.homepage.HomeFragment;
+import com.tepia.main.view.mainworker.reservoirs.ReservoirsFragment;
+import com.tepia.main.view.mainworker.setting.SettingFragment;
+import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
+import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -64,10 +67,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Autowired(name = "position")
     int position = 0;
 
-    public WorkFragment mTabMainTaskFragment;
-//    public WorkFragmentNew mTabMainTaskFragment;
-    public MapArcgisFragment mapArcgisFragment;
-    public SettingFragment settingFragment;
+    private HomeFragment homeFragment;
+    private ThreePointFragment threePointFragment;
+    private YunWeiFragment yunWeiFragment;
+    private ReservoirsFragment reservoirsFragment;
+    private SettingFragment settingFragment;
+    private ShangbaoFragment shangbaoFragment;
+    private XunchaFragment xunchaFragment;
+
 
     private TabFragmentHost mTabHost;
     private String titles[];
@@ -75,6 +82,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     private static final int one = 1;
     private static final int two = 2;
     private static final int third = 3;
+    private static final int four = 4;
+    private static final int five = 5;
+    private static final int six = 6;
     private boolean hasMeasured;
     /**
      * 锁屏相关
@@ -84,15 +94,18 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     private WakeLockScreenReceiverOfMain WakeLockScreenReceiver = null;
     private boolean isRegisterReceiver = false;
 
+    private String valuestr;
+
 
     // 图片
     private int mImages[] = {
             R.drawable.selector_tabbar_bus,
             R.drawable.selector_tabbar_exchange,
             R.drawable.selector_tabbar_clloction,
+            R.drawable.selector_tabbar_bus,
+            R.drawable.selector_tabbar_exchange,
+            R.drawable.selector_tabbar_clloction,
             R.drawable.selector_tabbar_bus
-
-
     };
 
     @Override
@@ -103,7 +116,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     public void initView() {
         //视讯客户端初始化
-//        HstApplication.initHstApplication(Utils.getContext());
         HstApplication.init(Utils.getContext());
         initViewPager();
         registerPowerReceiver();
@@ -112,49 +124,90 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
 
     private void setNewBottom() {
-
+        valuestr = getIntent().getStringExtra("key");
         titles = new String[]{
-                getString(R.string.work),
-                getString(R.string.main_map),
-                getString(R.string.setting_tepia),
-                getString(R.string.work)
+                getString(R.string.main_home),
+                getString(R.string.main_xuncha),
+                getString(R.string.main_shangbao),
+                getString(R.string.main_yunwei),
+                getString(R.string.main_threepoint),
+                getString(R.string.main_reservoirs),
+                getString(R.string.main_setting)
+
         };
+
         mTabHost = findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-        mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
-                mTabMainTaskFragment.getClass(), null);
 
-       /* mTabHost.addTab(mTabHost.newTabSpec(titles[one]).setIndicator(createIndicator(one)),
-                questionFragment.getClass(), null);*/
-        mapArcgisFragment = TabMainFragmentFactory.getInstance().getMapArcgisFragment();
-        mTabHost.addTab(mTabHost.newTabSpec(titles[one]).setIndicator(createIndicator(one)),
-                mapArcgisFragment.getClass(), null);
+        if("1".equals(valuestr)) {
 
-        mTabHost.addTab(mTabHost.newTabSpec(titles[two]).setIndicator(createIndicator(two)),
-                settingFragment.getClass(), null);
-        //  2018/7/29 需要删除  //WaterLevelFragment
-       /* mTabHost.addTab(mTabHost.newTabSpec(titles[3]).setIndicator(createIndicator(3)),
-                LiuliangFragment.class, null);*/
+            //巡检责任人
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
+                    homeFragment.getClass(), null);
+
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[one]).setIndicator(createIndicator(one)),
+                    xunchaFragment.getClass(), null);
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[two]).setIndicator(createIndicator(two)),
+                    shangbaoFragment.getClass(), null);
+            mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
+                    reservoirsFragment.getClass(), null);
+            mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
+                    settingFragment.getClass(), null);
+        }else if("2".equals(valuestr)){
+            //技术责任人
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
+                    homeFragment.getClass(), null);
+
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[third]).setIndicator(createIndicator(third)),
+                    yunWeiFragment.getClass(), null);
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[four]).setIndicator(createIndicator(four)),
+                    threePointFragment.getClass(), null);
+            mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
+                    reservoirsFragment.getClass(), null);
+            mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
+                    settingFragment.getClass(), null);
+        }else{
+            //行政责任人
+            mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
+                    homeFragment.getClass(), null);
+
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[third]).setIndicator(createIndicator(third)),
+                    yunWeiFragment.getClass(), null);
+
+            mTabHost.addTab(mTabHost.newTabSpec(titles[four]).setIndicator(createIndicator(four)),
+                    threePointFragment.getClass(), null);
+            mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
+                    reservoirsFragment.getClass(), null);
+            mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
+                    settingFragment.getClass(), null);
+        }
+
 
         mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onTabChanged(String tabId) {
                 if (titles[zero].equals(tabId)) {
-                    ImageView imageView = mTabHost.getCurrentTabView().findViewById(R.id.tabImg);
-                    animation(imageView);
                     position = zero;
-//                    mTabHost.setCurrentTab(zero);
                 } else if (titles[one].equals(tabId)) {
-                    ImageView imageView = mTabHost.getCurrentTabView().findViewById(R.id.tabImg);
-                    animation(imageView);
                     position = one;
-//                    mTabHost.setCurrentTab(one);
                 } else if (titles[two].equals(tabId)) {
-                    ImageView imageView = mTabHost.getCurrentTabView().findViewById(R.id.tabImg);
-                    animation(imageView);
                     position = two;
-//                    mTabHost.setCurrentTab(two);
+                }else if (titles[third].equals(tabId)) {
+                    position = third;
+                }else if (titles[four].equals(tabId)) {
+                    position = four;
+                }else if (titles[five].equals(tabId)) {
+                    position = five;
+                }else if (titles[six].equals(tabId)) {
+                    position = six;
                 }
             }
         });
@@ -162,49 +215,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void animation(ImageView imageView) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            imageView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                    v.removeOnLayoutChangeListener(this);
-                    //进行自己的动画操作
-                    final Animator animator = ViewAnimationUtils.createCircularReveal(imageView,
-                            imageView.getWidth() / 2,
-                            imageView.getHeight() / 2,
-                            0,
-                            (float) Math.hypot(imageView.getWidth(), imageView.getHeight()));
-                    // Math.hypot确定圆的半径（算长宽的斜边长，这样半径不会太短也不会很长效果比较舒服）
-                    animator.addListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            imageView.setVisibility(View.VISIBLE);
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-                    animator.setDuration(500);
-                    animator.start();
-                }
-            });
-        }
-
-    }
 
     /**
      * 获取每个图标布局
@@ -218,7 +228,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         //手工加载一个布局
         LayoutInflater inflater = LayoutInflater.from(this);
         view = inflater.inflate(R.layout.tab_layout, null);
-
         ImageView imageView = view.findViewById(R.id.tabImg);
         imageView.setImageResource(mImages[index]);
 
@@ -296,11 +305,13 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      * 初始化各个页面
      */
     private void initViewPager() {
-        mTabMainTaskFragment = TabMainFragmentFactory.getInstance().getTabMainTaskFragment();
-//        mTabMainTaskFragment = TabMainFragmentFactory.getInstance().getWorkFragmentNew();
-//        questionFragment = TabMainFragmentFactory.getInstance().getQuestionFragment();
-        mapArcgisFragment = TabMainFragmentFactory.getInstance().getMapArcgisFragment();
+        homeFragment = TabMainFragmentFactory.getInstance().getHomeFragment();
+        threePointFragment = TabMainFragmentFactory.getInstance().getThreePointFragment();
+        yunWeiFragment = TabMainFragmentFactory.getInstance().getYunWeiFragment();
+        reservoirsFragment = TabMainFragmentFactory.getInstance().getReservoirsFragment();
         settingFragment = TabMainFragmentFactory.getInstance().getSettingFragment();
+        shangbaoFragment = TabMainFragmentFactory.getInstance().getShangbaoFragment();
+        xunchaFragment = TabMainFragmentFactory.getInstance().getXunchaFragment();
 
     }
 

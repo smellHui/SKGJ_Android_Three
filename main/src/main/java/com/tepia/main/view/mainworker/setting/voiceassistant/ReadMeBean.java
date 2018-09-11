@@ -1,4 +1,4 @@
-package com.tepia.main.view.main.setting.voiceassistant;
+package com.tepia.main.view.mainworker.setting.voiceassistant;
 
 public class ReadMeBean {
     private String title;

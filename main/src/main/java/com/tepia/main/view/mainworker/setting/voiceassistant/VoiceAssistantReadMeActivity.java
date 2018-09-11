@@ -1,7 +1,6 @@
-package com.tepia.main.view.main.setting.voiceassistant;
+package com.tepia.main.view.mainworker.setting.voiceassistant;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;

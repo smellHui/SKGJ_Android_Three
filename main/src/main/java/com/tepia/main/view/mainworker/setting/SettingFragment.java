@@ -1,31 +1,27 @@
-package com.tepia.main.view.main.setting;
+package com.tepia.main.view.mainworker.setting;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.esri.arcgisruntime.mapping.view.MapView;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
-import com.tepia.main.APPCostant;
 import com.tepia.main.R;
 import com.tepia.main.common.MySettingView;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.login.LoginActivity;
 import com.tepia.main.view.main.TabMainFragmentFactory;
-import com.tepia.main.view.main.setting.voiceassistant.VoiceAssistantSettingActivity;
+import com.tepia.main.view.mainworker.setting.voiceassistant.VoiceAssistantSettingActivity;
 
 
 /**

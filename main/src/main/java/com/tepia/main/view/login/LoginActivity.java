@@ -26,6 +26,7 @@ import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.view.floatview.FloatUtil;
 import com.tepia.main.R;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.MainActivity;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -106,16 +107,20 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 return ;
             }
 
-            if(TextUtils.isEmpty(psEt.getText())){
+            /*if(TextUtils.isEmpty(psEt.getText())){
                 ToastUtils.shortToast(R.string.hintps);
                 return ;
-            }
+            }*/
 
             String registId = JPushInterface.getRegistrationID(Utils.getContext());
             LogUtil.e("LoginActivity","获取极光推送注册："+registId);
-            mPresenter.login(usernameEt.getText().toString(),psEt.getText().toString(),registId);
-           /* ARouter.getInstance().build(AppRoutePath.appMain).navigation();
-            finish();*/
+//            mPresenter.login(usernameEt.getText().toString(),psEt.getText().toString(),registId);
+            Intent intent = new Intent();
+            intent.setClass(this, MainActivity.class);
+            intent.putExtra("key",usernameEt.getText().toString());
+            startActivity(intent);
+            finish();
+
         });
     }
 

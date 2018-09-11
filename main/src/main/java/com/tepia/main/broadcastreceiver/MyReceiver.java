@@ -1,24 +1,21 @@
-package com.tepia.main.view;
+package com.tepia.main.broadcastreceiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.SPUtils;
-import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.APPCostant;
 import com.tepia.main.R;
 import com.tepia.main.model.VedioBean;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.NotificationUtil;
-import com.tepia.main.view.main.MainActivity;
+import com.tepia.main.view.vedio.VedioComunicationActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,8 +23,6 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
-
-import static android.content.Context.POWER_SERVICE;
 
 /**
  * 自定义接收器

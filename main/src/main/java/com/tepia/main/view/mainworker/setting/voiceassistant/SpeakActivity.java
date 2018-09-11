@@ -1,4 +1,4 @@
-package com.tepia.main.view.main.setting.voiceassistant;
+package com.tepia.main.view.mainworker.setting.voiceassistant;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -30,20 +30,17 @@ import com.tepia.base.utils.Utils;
 import com.tepia.base.view.floatview.FloatUtil;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivitySpeakBinding;
-import com.tepia.main.view.main.setting.VersionActivity;
 import com.tepia.voice.xunfei.OtherCmdBean;
-import com.tepia.voice.xunfei.SpreakCompleteLister;
 import com.tepia.voice.xunfei.TalkBean;
 import com.tepia.voice.xunfei.XuFeiManager;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static com.tepia.main.view.main.MainActivity.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE;
+import static com.tepia.main.view.MainActivity.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE;
 
 /**
  * Created by Joeshould on 2018/7/26.

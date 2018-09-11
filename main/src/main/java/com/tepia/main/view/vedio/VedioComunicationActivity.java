@@ -1,4 +1,4 @@
-package com.tepia.main.view;
+package com.tepia.main.view.vedio;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -10,30 +10,19 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.os.PowerManager;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.thread.DefaultThreadFactory;
-import com.google.gson.Gson;
 import com.inpor.fastmeetingcloud.manager.LoginManager;
-import com.inpor.fastmeetingcloud.receiver.HstApplication;
-import com.inpor.fastmeetingcloud.ui.StartTheMiddleTierActivity;
-import com.inpor.fastmeetingcloud.util.Constant;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
-import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.permissiondialog.PromptDialog;
 import com.tepia.main.R;
 import com.tepia.main.model.VedioBean;
-import com.tepia.main.model.user.UserManager;
-import com.tepia.main.utils.ExecutorServiceUtil;
 import com.tepia.main.utils.NotificationUtil;
 import com.tepia.main.utils.PermissionUtil;
 import com.yanzhenjie.permission.AndPermission;
@@ -42,14 +31,8 @@ import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RationaleListener;
 import com.yanzhenjie.permission.SettingService;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ThreadFactory;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * 视频自定义消息下发成功时弹出界面

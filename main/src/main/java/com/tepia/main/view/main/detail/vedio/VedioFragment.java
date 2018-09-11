@@ -1,20 +1,13 @@
 package com.tepia.main.view.main.detail.vedio;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hikvision.netsdk.HCNetSDK;
 import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
 import com.hikvision.netsdk.NET_DVR_IPPARACFG_V40;
@@ -25,16 +18,12 @@ import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
-import com.tepia.main.common.MyListView;
 import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.utils.EmptyLayoutUtil;
-import com.tepia.main.view.main.MainActivity;
-import com.youth.banner.WeakHandler;
 
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 

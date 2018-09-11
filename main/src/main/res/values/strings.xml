@@ -65,7 +65,7 @@
     <string name="errro_login">用户名或密码错误</string>
     <string name="work">工作</string>
     <string name="question">问题反馈</string>
-    <string name="setting_tepia">我的</string>
+    <string name="main_setting">我的</string>
     <string name="text_select_task_type_title">选择任务类型</string>
     <string name="main_map">综合监控</string>
     <string name="text_tabmain_title">水库管家工作台</string>
@@ -221,6 +221,12 @@
     <string name="status">运行状态</string>
     <string name="liuliangstr">最新流量</string>
     <string name="zuixingtuxiang">最新图像</string>
+    <string name="main_home">首页</string>
+    <string name="main_threepoint">三个重点</string>
+    <string name="main_yunwei">运维</string>
+    <string name="main_reservoirs">水库</string>
+    <string name="main_shangbao">上报</string>
+    <string name="main_xuncha">巡查</string>
 
     <!--LHotelEntityAdapter中item setTag的key-->
     <item name="tag_groupItemIndex" type="id">groupItemIndex</item>

@@ -1,4 +1,4 @@
-package com.tepia.main.view.main.setting;
+package com.tepia.main.view.mainworker.setting;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -9,8 +9,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -22,9 +20,8 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.MyEditUserInfoView;
 import com.tepia.main.R;
-import com.tepia.main.view.main.MainActivity;
 
-import static com.tepia.main.view.main.MainActivity.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE;
+import static com.tepia.main.view.MainActivity.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE;
 
 /**
  * 点击设置后显示页面

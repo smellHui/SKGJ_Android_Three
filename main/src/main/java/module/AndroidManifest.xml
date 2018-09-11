@@ -42,7 +42,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:name,android:allowBackup">
         <activity
-            android:name="com.tepia.main.view.main.MainActivity"
+            android:name="com.tepia.main.view.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 

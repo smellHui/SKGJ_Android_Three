@@ -4,7 +4,7 @@
     package="com.tepia.main">
 
     <permission
-        android:name="com.tepia.reservoirnew.permission.JPUSH_MESSAGE"
+        android:name="com.tepia.reservoirthree.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.tepia.reservoirnew.permission.JPUSH_MESSAGE" />
@@ -69,7 +69,7 @@
             android:theme="@style/TranslucentFullScreenTheme" />
         <!-- 主页 -->
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.MainActivity"
             android:screenOrientation="portrait" />
 
         <!-- 任务详情页 -->
@@ -131,7 +131,7 @@
 
         <!-- 极光推送 -->
         <receiver
-            android:name=".view.MyReceiver"
+            android:name=".broadcastreceiver.MyReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -151,30 +151,30 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
-            android:name=".view.main.setting.VersionActivity"
+            android:name=".view.mainworker.setting.VersionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity
-            android:name=".view.main.setting.AboutUsActivity"
+            android:name=".view.mainworker.setting.AboutUsActivity"
             android:screenOrientation="portrait" />
 
         <!-- 语音助手设置页 -->
         <activity
-            android:name=".view.main.setting.voiceassistant.VoiceAssistantSettingActivity"
+            android:name=".view.mainworker.setting.voiceassistant.VoiceAssistantSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.main.setting.voiceassistant.SpeakActivity"
+            android:name=".view.mainworker.setting.voiceassistant.SpeakActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".view.main.setting.voiceassistant.VoiceAssistantReadMeActivity" />
+        <activity android:name=".view.mainworker.setting.voiceassistant.VoiceAssistantReadMeActivity" />
         <activity
-            android:name=".view.main.setting.SuggestionActivity"
+            android:name=".view.mainworker.setting.SuggestionActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.main.setting.ChangeKeyWordActivity"
+            android:name=".view.mainworker.setting.ChangeKeyWordActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.main.question.problemlist.ProblemListActivity"
@@ -189,10 +189,10 @@
             android:name=".view.main.detail.vedio.VideoPlayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.main.setting.EditUserInfoActivity"
+            android:name=".view.mainworker.setting.EditUserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.VedioComunicationActivity"
+            android:name=".view.vedio.VedioComunicationActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".view.main.jihua.JihuaActivity" />
         <activity android:name=".view.main.work.plan.planlist.PlanListActivity" />

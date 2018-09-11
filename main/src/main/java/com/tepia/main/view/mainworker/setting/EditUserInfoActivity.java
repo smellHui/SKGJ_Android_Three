@@ -1,4 +1,4 @@
-package com.tepia.main.view.main.setting;
+package com.tepia.main.view.mainworker.setting;
 
 import android.text.InputType;
 import android.text.TextUtils;

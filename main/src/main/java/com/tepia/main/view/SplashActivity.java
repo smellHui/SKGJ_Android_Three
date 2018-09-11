@@ -12,7 +12,6 @@ import com.tepia.base.utils.LogUtil;
 import com.tepia.base.view.dialog.permissiondialog.PromptDialog;
 import com.tepia.main.R;
 import com.tepia.main.view.login.LoginActivity;
-import com.tepia.main.view.main.MainActivity;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
@@ -20,8 +19,6 @@ import com.yanzhenjie.permission.RationaleListener;
 import com.yanzhenjie.permission.SettingService;
 
 import java.util.List;
-
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 
 /*************************************************************

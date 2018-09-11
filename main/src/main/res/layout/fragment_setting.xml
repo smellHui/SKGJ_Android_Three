@@ -10,6 +10,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include
+            android:visibility="gone"
+            layout="@layout/toolbar"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

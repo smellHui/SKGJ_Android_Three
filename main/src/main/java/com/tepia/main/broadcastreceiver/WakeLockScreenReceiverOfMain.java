@@ -1,4 +1,4 @@
-package com.tepia.main.view;
+package com.tepia.main.broadcastreceiver;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+
+import com.tepia.main.view.vedio.VedioComunicationActivity;
 
 /**
  * 锁屏通知

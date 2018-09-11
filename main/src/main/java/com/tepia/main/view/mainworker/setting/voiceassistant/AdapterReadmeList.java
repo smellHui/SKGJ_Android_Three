@@ -1,7 +1,6 @@
-package com.tepia.main.view.main.setting.voiceassistant;
+package com.tepia.main.view.mainworker.setting.voiceassistant;
 
 import android.databinding.DataBindingUtil;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;

@@ -1,7 +1,5 @@
 package com.tepia.main.view.main.work;
 
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,9 +16,6 @@ import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.model.MainItemBean;
 import com.tepia.main.model.task.response.TaskNumResponse;
-import com.tepia.main.view.VedioComunicationActivity;
-import com.tepia.main.view.main.question.problemlist.ProblemListActivity;
-import com.tepia.main.view.main.question.QuestionActivity;
 
 import java.util.ArrayList;
 import java.util.List;

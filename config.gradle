@@ -5,7 +5,7 @@ ext {
     ]
 
     android = [
-            applicationId: "com.tepia.reservoirnew",
+            applicationId: "com.tepia.reservoirthree",
             compileSdkVersion: 26,
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 17,

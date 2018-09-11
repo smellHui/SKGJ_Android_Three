@@ -1,11 +1,10 @@
-package com.tepia.main.view.main.setting.voiceassistant;
+package com.tepia.main.view.mainworker.setting.voiceassistant;
 
 import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;

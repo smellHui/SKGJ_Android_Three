@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.tepia.base.R;
+import com.tepia.base.utils.ToastUtils;
 
 import java.util.List;
 
@@ -60,6 +61,7 @@ public abstract class BaseCommonFragment extends Fragment {
     TextView tvLeftText;
 
     TextView tvRightText;
+    TextView tv_right_tianqi;
 
     private BaseActivity mActivity;
     /**
@@ -95,6 +97,13 @@ public abstract class BaseCommonFragment extends Fragment {
         tvCenterText = view.findViewById(R.id.tv_center_text);
         tvLeftText = view.findViewById(R.id.tv_left_text);
         tvRightText = view.findViewById(R.id.tv_right_text);
+        tv_right_tianqi = view.findViewById(R.id.tv_right_tianqi);
+        tv_right_tianqi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.shortToast("获取天气预报");
+            }
+        });
         if (loToolbarCommon != null) {
             ImmersionBar.setTitleBar(getBaseActivity(), loToolbarCommon);
         }
@@ -162,6 +171,14 @@ public abstract class BaseCommonFragment extends Fragment {
             loToolbarCommon.setTitle(title);
             mActivity.setSupportActionBar(loToolbarCommon);
         }
+    }
+
+    /**
+     * 天气按钮
+     * @return
+     */
+    public TextView getRightTianqi(){
+        return tv_right_tianqi;
     }
 
     @Override

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:overrideLibrary="com.inpor.fastmeetingcloud"
-    package="com.tepia.reservoirnew">
+    package="com.tepia.reservoirthree">
 
     <!--               tools:replace="android:icon,android:theme,android:allowBackup,android:label,android:name"
 
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="com.tepia.reservoirnew.MyApplication"
+        android:name="com.tepia.reservoirthree.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/appkongname"

@@ -1,11 +1,9 @@
-package com.tepia.reservoirnew;
+package com.tepia.reservoirthree;
 
 import com.example.gaodelibrary.UtilsContextOfGaode;
-import com.inpor.fastmeetingcloud.receiver.HstApplication;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.tepia.base.BaseApplication;
 import com.tepia.base.utils.LogUtil;
-import com.tepia.voice.xunfei.XuFeiManager;
 
 import cn.jpush.android.api.JPushInterface;
 
