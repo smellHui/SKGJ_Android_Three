@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="25dp">
+
+        <com.tepia.main.common.KeyboardLayout
+            android:id="@+id/kbl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lo_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_item_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/bg_task_item_count_num"
+                    android:gravity="center"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="3dp"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_position_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp" />
+
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.tepia.base.view.arcgisLayout.ArcgisLayout
+                    android:id="@+id/al_mapview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <com.tepia.base.view.ScrollLayout.ScrollLayout
+                    android:id="@+id/scroll_down_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#000000">
+
+                    <com.tepia.base.view.ScrollLayout.ContentScrollView
+                        android:id="@+id/content_scroll_layout"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <com.tepia.base.common.NoScrollViewPager
+                                android:id="@+id/viewPager"
+                                android:layout_width="match_parent"
+                                android:layout_height="600dp" />
+
+                        </LinearLayout>
+                    </com.tepia.base.view.ScrollLayout.ContentScrollView>
+
+                    <TextView
+                        android:id="@+id/tv_foot"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="点击或上滑打开" />
+                </com.tepia.base.view.ScrollLayout.ScrollLayout>
+
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_main_color" />
+
+            <LinearLayout
+                android:id="@+id/lo_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+
+                android:paddingTop="10dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_pre"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_pre_item"
+                    android:gravity="center"
+                    android:text="@string/text_task_deal_pre_item_tip"
+                    android:textColor="@color/main_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/numTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="@dimen/padding_detail"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="0/0"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_detail" />
+
+                <TextView
+                    android:id="@+id/tv_save_and_next"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="@dimen/padding_detail"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_bt_next_item"
+                    android:gravity="center"
+                    android:text="@string/text_task_deal_next_item_tip"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+        </com.tepia.main.common.KeyboardLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

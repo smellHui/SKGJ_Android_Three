@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textquesdm">16sp</dimen>
+    <dimen name="smalltextquesdm">14sp</dimen>
+    <dimen name="margin">30dp</dimen>
+    <dimen name="margintop">10dp</dimen>
+    <dimen name="paddinglogin">8dp</dimen>
+    <dimen name="textsizeloginuser">16sp</dimen>
+    <dimen name="autodimen_setting">15dp</dimen>
+    <dimen name="fixed_height_bottom_padding">5dp</dimen>
+    <dimen name="padding_detail">10dp</dimen>
+    <dimen name="text_detail">14sp</dimen>
+
+    <!--综合监控-基础信息相关字号-->
+    <dimen name="base_river_title">16dp</dimen>
+    <dimen name="base_river_left">14dp</dimen>
+    <dimen name="base_river_more">12dp</dimen>
+    <dimen name="base_river_paddingRight">5dp</dimen>
+    <dimen name="indicatorHeight">3dp</dimen>
+    <dimen name="marin_10">10dp</dimen>
+    <dimen name="marin_5">5dp</dimen>
+    <!--详情页面距离底部的距离-->
+    <dimen name="detailmaringbottom">10dp</dimen>
+    <dimen name="maringin_detailofly">10dp</dimen>
+    <dimen name="drawablepadding">8dp</dimen>
+</resources>

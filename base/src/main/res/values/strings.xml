@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_base_name">Base</string>
+    <string name="loading_dialog_message">正在登录中...</string>
+
+
+    <!--权限相关-->
+    <string name="permission_location_message">位置信息权限：获取当前位置</string>
+    <string name="permission_location_no">位置信息权限</string>
+    <string name="permission_save_message">1.存储空间权限：缓存图片和数据，降低流量消耗\n2.定位权限：地图定位需要\n3.麦克风权限：语音助手帮助您智能开启页面，探索新玩法</string>
+    <string name="permission_save_no">存储空间权限</string>
+    <string name="permission_phone_message">手机/电话权限：校验IMEI码，以及拨打电话</string>
+    <string name="permission_phone_no">手机/电话权限</string>
+    <string name="btn_refuse">拒绝</string>
+    <string name="prompt_info">水库管家需要下列权限才能正常使用</string>
+    <string name="permission_path">路径：设置>应用>水库管家>权限</string>
+    <string name="excusme_sure">确定</string>
+
+    <string name="setting_save">个人信息</string>
+    <string name="setting_t_head">头像</string>
+    <string name="setting_t_name">姓名</string>
+    <string name="setting_t_name_e">请输入真实姓名</string>
+    <string name="setting_t_ph_e">请输入手机号</string>
+    <string name="setting_t_email_e">请输入邮箱</string>
+    <string name="setting_t_phone">手机号</string>
+    <string name="setting_t_email">邮箱</string>
+    <string name="setting_t_address">地址</string>
+    <string name="setting_t_null">--</string>
+    <string name="setting_update">提\t\t交</string>
+    <string name="setting_update_success">提交成功</string>
+    <string name="setting_update_failed">提交失败</string>
+    <string name="setting_update_edit">编辑</string>
+    <string name="setting_update_cancel">取消</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

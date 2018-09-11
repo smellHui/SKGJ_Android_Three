@@ -1,0 +1,117 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        resConfigs "zh"
+        defaultConfig {
+//            buildConfigField 'String','API_SERVER_URL','"http://192.168.30.220:8998/skgj_web/xcx/"'
+//            buildConfigField 'String','API_SERVER_URL_IMAGE','"http://192.168.30.220:8998/skgj_web/"'
+            buildConfigField 'String', 'API_SERVER_URL', '"http://218.201.212.243:8996/skgj_web/xcx/"'
+            buildConfigField 'String', 'API_SERVER_URL_IMAGE', '"http://218.201.212.243:8996/skgj_web/"'
+//            buildConfigField 'String','API_SERVER_URL','"http://192.168.30.220:8765/"'
+//            buildConfigField 'String','API_SERVER_URL_IMAGE','"http://218.201.212.243:8996/skgj_web/"'
+        }
+        //ARouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    // 禁止gradle严格检查图片的合法性
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.constraint
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.support
+    implementation rootProject.ext.dependencies.constraint
+    implementation rootProject.ext.dependencies.cardview
+    // json 解析.
+    implementation rootProject.ext.dependencies.gson
+    implementation rootProject.ext.dependencies.barlibrary
+    // 图片加载
+    implementation rootProject.ext.dependencies.glide
+    //多渠道打包
+    implementation rootProject.ext.dependencies.walle
+    //突破64k
+    implementation rootProject.ext.dependencies.multidex
+    //logger
+    implementation rootProject.ext.dependencies.logger
+//    implementation rootProject.ext.dependencies.xutils
+    //logger
+    implementation rootProject.ext.dependencies.litepal
+    //retrofit相关
+    implementation rootProject.ext.dependencies.okhttp3
+    implementation rootProject.ext.dependencies.retrofit
+    implementation rootProject.ext.dependencies.converter_gson
+    implementation rootProject.ext.dependencies.adapter_rxjava
+    //rx相关
+    implementation rootProject.ext.dependencies.rxandroid
+    implementation rootProject.ext.dependencies.rxjava
+    //权限管理
+    implementation rootProject.ext.dependencies.lovedise
+    //持久化
+    implementation rootProject.ext.dependencies.franmontiel
+    implementation rootProject.ext.dependencies.interceptor
+    implementation rootProject.ext.dependencies.MPAndroidChart
+    implementation rootProject.ext.dependencies.agentweb
+    implementation rootProject.ext.dependencies.bottom_navigation_bar
+    implementation rootProject.ext.dependencies.BaseRecyclerViewAdapterHelper
+//    implementation rootProject.ext.dependencies.xutils
+//    implementation rootProject.ext.dependencies.BoomMenu
+    implementation rootProject.ext.dependencies.MagicIndicator
+
+    //图片选择器
+//    implementation rootProject.ext.dependencies.Picasso
+    implementation rootProject.ext.dependencies.TimePickerDialog
+//        implementation rootProject.ext.dependencies.arcgisandroid
+    implementation rootProject.ext.dependencies.Banner
+//    implementation rootProject.ext.dependencies.EventBus
+    implementation rootProject.ext.dependencies.jpinyin
+    implementation rootProject.ext.dependencies.Pgyer
+    implementation rootProject.ext.dependencies.Tiny
+    implementation rootProject.ext.dependencies.arcgisandroid
+//    implementation rootProject.ext.dependencies.GaodeLiabrary
+
+    implementation rootProject.ext.dependencies.Arouter
+    implementation rootProject.ext.dependencies.constraint
+    annotationProcessor rootProject.ext.dependencies.Arouter_compiler
+    implementation rootProject.ext.dependencies.androidWeakhandler
+
+}

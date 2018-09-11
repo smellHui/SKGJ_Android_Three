@@ -1,0 +1,7 @@
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@drawable/bg_view_state_shape" />
+    <item android:state_selected="true" android:drawable="@drawable/bg_view_state_shape"></item>
+    <item android:state_pressed="true" android:drawable="@drawable/bg_view_state_shape"></item>
+    <item android:state_checked="false" android:drawable="@drawable/bg_view_unstate_shape" />
+</selector>

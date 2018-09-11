@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_common"
+    tools:context="com.tepia.main.view.main.setting.VersionActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <com.tepia.base.view.MyEditUserInfoView
+
+        android:id="@+id/edit_change_keyword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height" />
+
+    <com.tepia.base.view.MyEditUserInfoView
+
+        android:id="@+id/editziliaoMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height" />
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/remindMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height" />
+
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/suggestionMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginTop="10dp" />
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/curversionMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height" />
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/mv_version_update"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height" />
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/aboutusMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height" />
+
+
+</LinearLayout>

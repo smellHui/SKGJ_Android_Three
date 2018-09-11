@@ -1,0 +1,114 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_common"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/s_bg"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/headIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/s_head" />
+
+            <TextView
+                android:id="@+id/userTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headIv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="--"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+
+                />
+
+
+        </RelativeLayout>
+        <EditText
+            android:visibility="gone"
+            android:id="@+id/changeipEv"
+            android:hint="修改ip地址"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.tepia.main.common.MySettingView
+            android:id="@+id/daibanMv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <View
+            style="@style/LineH"
+            android:layout_marginLeft="@dimen/autodimen_setting"
+            android:layout_marginRight="@dimen/autodimen_setting" />
+
+        <com.tepia.main.common.MySettingView
+            android:id="@+id/msgMv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            style="@style/LineH"
+            android:layout_marginLeft="@dimen/autodimen_setting"
+            android:layout_marginRight="@dimen/autodimen_setting" />
+
+        <com.tepia.main.common.MySettingView
+            android:id="@+id/setMv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            style="@style/LineH"
+            android:layout_marginLeft="@dimen/autodimen_setting"
+            android:layout_marginRight="@dimen/autodimen_setting" />
+
+        <com.tepia.main.common.MySettingView
+            android:id="@+id/mv_voice_assistant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            style="@style/LineH"
+            android:layout_marginLeft="@dimen/autodimen_setting"
+            android:layout_marginRight="@dimen/autodimen_setting" />
+
+
+
+        <FrameLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/loginoutBtn"
+                android:layout_width="211dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_loginout_btn"
+                android:gravity="center"
+                android:text="@string/loginout"
+                android:textColor="@color/white" />
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

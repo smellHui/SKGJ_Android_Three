@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <!--    <include layout="@layout/toolbar" />-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@string/main_name"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+    </LinearLayout>
+
+
+    <!--  <View
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="0.8" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/margintop"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginTop="@dimen/margintop"
+            android:background="@drawable/login_edit_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/login_user_new" />
+            <TextView
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="账号："
+                android:textSize="@dimen/textsizeloginuser"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:gravity="center_vertical"
+                android:id="@+id/usernameEt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:text=""
+                android:background="@null"
+                android:hint="@string/hintstr"
+
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_color"
+
+
+                android:textSize="@dimen/textsizeloginuser" />
+            <!--ZYSYWZXGCXJ1-->
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/margintop"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginTop="@dimen/margintop"
+            android:background="@drawable/login_edit_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/login_ps_new" />
+            <TextView
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="密码："
+                android:textSize="@dimen/textsizeloginuser"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <EditText
+                android:gravity="center_vertical"
+                android:id="@+id/psEt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:hint="@string/hintps"
+                android:inputType="textPassword"
+                android:text=""
+                android:textColor="@color/white"
+                android:textColorHint="@color/text_color"
+                android:textSize="@dimen/textsizeloginuser" />
+            <!--123456-->
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bt_login"
+
+            android:background="@color/blue_user"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/margintop"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:letterSpacing="0.5"
+            android:text="@string/text_login_bt_tip"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="10dp"
+            android:text="@string/design_company_name"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </FrameLayout>
+
+
+</LinearLayout>

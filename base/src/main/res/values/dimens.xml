@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- loading dialog -->
+    <dimen name="loading_spacing">10dp</dimen>
+    <dimen name="text_size_small">15sp</dimen>
+    <dimen name="progressbar_size">28dp</dimen>
+    <dimen name="same_btn_padding">0dp</dimen>
+    <dimen name="same_btn_radius">5dp</dimen>
+    <dimen name="loginradius">19dp</dimen>
+
+    <!--设置页面相关item高度-->
+    <dimen name="setting_item_height">48dp</dimen>
+</resources>

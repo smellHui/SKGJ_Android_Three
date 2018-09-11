@@ -1,0 +1,227 @@
+<resources>
+    <string name="main_name">水库管家</string>
+    <!-- 登录页面 -->
+    <string name="text_login_bt_tip">登录</string>
+    <!--任务列表页-->
+    <string name="text_et_search_hint">搜索</string>
+    <string name="text_task_status_dzx">待执行</string>
+    <string name="text_task_status_zxz">执行中</string>
+    <string name="text_task_status_ywc">已完成</string>
+    <string name="text_task_status_ysh">已审核</string>
+
+    <!-- 任务详情页 -->
+    <string name="text_task_item_bt_tip">查看任务项</string>
+    <string name="text_do_task_bt_tip">执行任务</string>
+    <!-- 任务处理页 -->
+    <string name="text_task_deal_desc_hint">请输入详细描述</string>
+    <string name="text_task_deal_up_image_tip">巡检图片</string>
+    <string name="text_task_deal_pre_item_tip">上一项</string>
+    <string name="text_task_deal_next_item_tip">保存并下一项</string>
+    <string name="text_task_deal_up_image_bj_before_tip">保洁前</string>
+    <string name="text_task_deal_up_image_bj_after_tip">保洁后</string>
+    <string name="text_task_deal_up_image_wxyh_before_tip">维修养护前</string>
+    <string name="text_task_deal_up_image_wxyh_after_tip">维修养护后</string>
+
+    <string name="question_success">提交成功</string>
+    <string name="typestr">事件类型</string>
+    <string name="infostr">问题信息</string>
+    <string name="titlestr">事件名称</string>
+    <string name="hinttitle">请输入事件名称</string>
+    <string name="contentstr">事件描述</string>
+    <string name="hintcotent">请输入事件详细描述</string>
+    <string name="picstr">上传图片%1$d/9</string>
+    <string name="picstr_problem">上传图片(%1$d张)</string>
+    <string name="sendbtnstr">提\t\t交</string>
+
+    <!-- 等待窗提示语 -->
+    <string name="data_loading"> 数据加载中 ... </string>
+    <string name="data_uploading"> 数据加载中 ... </string>
+    <string name="data_saving">请稍等...</string>
+
+    <string name="question_baojie">保洁</string>
+    <string name="question_xunjian">巡检</string>
+    <string name="question_weixiu">维修养护</string>
+    <string name="question_qita">其他</string>
+    <string name="http_error">数据返回失败</string>
+    <string name="question_fragment_title">事件上报</string>
+    <string name="selectresviorstr">选择水库</string>
+    <string name="hintstr">请输入用户名</string>
+    <string name="hintps">请输入密码</string>
+    <!--我的页面-->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="setting_title">我的</string>
+    <string name="loginout">退出登录</string>
+    <string name="daibanstr">待办事项</string>
+    <string name="msgstr">消息通知</string>
+    <string name="setstr">设置</string>
+    <string name="text_voice_assistant">语音助手</string>
+
+    <string name="no_network">请先连接网络</string>
+    <string name="logintitle">水库管家</string>
+    <string name="design_company_name">北京太比雅科技股份有限公司</string>
+    <string name="cancel">取消</string>
+    <string name="exit_message">是否确定退出登录？</string>
+    <string name="sure">确定</string>
+    <string name="errro_login">用户名或密码错误</string>
+    <string name="work">工作</string>
+    <string name="question">问题反馈</string>
+    <string name="setting_tepia">我的</string>
+    <string name="text_select_task_type_title">选择任务类型</string>
+    <string name="main_map">综合监控</string>
+    <string name="text_tabmain_title">水库管家工作台</string>
+    <string name="zonglanstr">全部</string>
+    <string name="xunjianstr">巡检</string>
+    <string name="weihustr">维护</string>
+    <string name="baojiestr">保洁</string>
+    <string name="shuikuxunjian">巡检计划</string>
+    <string name="selecttype">选择类型</string>
+    <string name="resviorstr">水库</string>
+    <string name="shujutongji">上报日志</string>
+
+
+    <string name="setting_setting">设置</string>
+    <string name="setting_v_suggestion">意见反馈</string>
+    <string name="setting_v_curversion">当前版本</string>
+    <string name="setting_v_about">关于我们</string>
+    <string name="setting_v_content">请输入遇到的问题或意见</string>
+    <string name="setting_v_add">添加图片说明</string>
+    <string name="setting_v_teltitle">联系电话</string>
+    <string name="setting_v_tel">选填，便于我们联系您</string>
+    <string name="setting_v_count">400</string>
+    <string name="setting_v_ziliao">个人信息</string>
+    <string name="setting_v_remind">消息提醒</string>
+    <string name="text_back">返回</string>
+
+    <!--修改密码-->
+    <string name="text_old_password_tip">原密码</string>
+    <string name="text_new_password_tip">新密码</string>
+    <string name="text_new_password_again_tip">再次输入</string>
+    <string name="text_old_password_et_tip">请输入原密码</string>
+    <string name="text_new_password_et_tip">请输入新密码</string>
+    <string name="text_new_password_again_et_tip">请再次输入新密码</string>
+
+
+    <string name="text_baseinfo">最新信息</string>
+    <string name="text_realtime">实时数据</string>
+    <string name="text_history">历史数据</string>
+    <string name="stationName">站点名称</string>
+    <string name="belongtown">所属乡镇</string>
+    <string name="longtude">经度</string>
+    <string name="latitude">纬度</string>
+    <string name="staionType">用途</string>
+    <string name="belongRiver">所属河流</string>
+    <string name="belongshuixi">所属水系</string>
+    <string name="belongxishui">所属溪水</string>
+    <string name="manageUnit">管理单位</string>
+    <string name="whenbuild">兴建时间</string>
+    <string name="whenfinish">竣工时间</string>
+    <string name="baxing">坝型</string>
+    <string name="bagao">坝高</string>
+    <string name="bakuan">坝宽</string>
+    <string name="bachang">坝长</string>
+    <string name="badinggaocheng">坝顶高程</string>
+    <string name="badikuan">坝底最大宽度</string>
+    <string name="sishuiwei">死水位</string>
+    <string name="sikurong">死库容</string>
+    <string name="xushuiwei">正常蓄水位</string>
+    <string name="xushuikurong">正常蓄水位库容</string>
+    <string name="xinglikurong">兴利库容</string>
+    <string name="hongshuiwei">设计洪水位</string>
+    <string name="jiaohehongshuiwei">校核洪水位</string>
+    <string name="jiyumianji">集雨面积</string>
+    <string name="kurongxishu">库容系数</string>
+    <string name="guangainongtian">灌溉农田</string>
+    <string name="nongtiangongshuiliang">多年平均农田灌溉供水量</string>
+    <string name="nongcunrengongshuiliang">农村人供水量</string>
+    <string name="zongshuiliang">多年平均总水量</string>
+    <string name="kaifaliyong">水资源开发利用量</string>
+
+    <string name="yiliudao">溢洪道类型</string>
+    <string name="yiliudaozongchang">溢洪道总长</string>
+    <string name="yinshuiliudaochang">引水渠道长</string>
+    <string name="qudigaocheng">渠底高程</string>
+    <string name="yiliufangshi">溢流方式</string>
+    <string name="yandinggaocheng">堰顶高程</string>
+
+
+    <!--水质站-->
+    <string name="locationstation">测站位置</string>
+    <string name="belongliuyu">所属流域</string>
+
+
+    <string name="TIME">监测时间</string>
+    <string name="templeture">温度(℃)</string>
+    <string name="PH">PH</string>
+    <string name="YULU">余氯</string>
+    <string name="ZHUODU">浊度</string>
+    <string name="ANDAN">氨氮</string>
+    <string name="COD">COD</string>
+    <string name="m_start_time">起始时间:</string>
+    <string name="m_start_time_p">请选择起始时间</string>
+    <string name="m_end_time">终止时间:</string>
+    <string name="m_end_time_p">请选择终止时间</string>
+    <string name="timestr">逐时</string>
+    <string name="daystr">逐天</string>
+
+    <!--时间选择器相关-->
+    <string name="starttime">选择时间</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="text_tuwen">图表数据</string>
+
+    <string name="empty_tv">暂无数据</string>
+    <string name="time_unit">时间</string>
+    <string name="monthstr">逐月</string>
+    <string name="yearstr">逐年</string>
+    <string name="cannot">起始日期不能大于终止日期</string>
+    <string name="todaystr">今天</string>
+    <string name="starttimeTitle">请选择起始时间</string>
+    <string name="endtimeTitle">请选择终止时间</string>
+    <string name="tostr">至</string>
+    <string name="setting_t_null">--</string>
+    <string name="jiancetime">检测时间</string>
+    <string name="phstr">PH值</string>
+    <string name="watertem">水温</string>
+    <string name="wt">浊度</string>
+    <string name="clstr">余氯</string>
+    <string name="shuiwenstr">水温值</string>
+    <string name="huaxuexuyangstr">需氧量</string>
+    <string name="zhuodustr">浊度值</string>
+    <string name="yulustr">余氯值</string>
+
+    <!--语音助手页面-->
+    <string name="text_voice_assistant_setting">语音助手设置</string>
+    <string name="text_setting_hint">设置</string>
+    <string name="text_open_voice_assistant">打开语音助手</string>
+    <string name="text_voice_assistant_readme">语音助手说用说明</string>
+
+    <string name="text_floating_window_hint">悬浮窗</string>
+    <string name="text_prompt_tone_hint">提示音</string>
+    <string name="text_yuliang">雨量信息</string>
+    <string name="onehour">近1小时降雨</string>
+    <string name="threehour">近3小时降雨</string>
+    <string name="sixhour">近6小时降雨</string>
+    <string name="teststr">sfsfsfsfwefwrgwoituwituw\n\nafsfsfsdfsdf</string>
+    <string name="text_image">图像信息</string>
+    <string name="tijiaostr">提交</string>
+    <string name="suggetionstr">意见反馈</string>
+    <string name="excuteStatusstr">问题确认结果</string>
+    <string name="updatemanstr">上报人员</string>
+    <string name="updatetimestr">上报时间</string>
+    <string name="text_vedio">视频信息</string>
+    <string name="readstr">简要说明：打开语音助手后，可以语音告知打开某个页面，目前可以打开事件上报，事件日志，修改密码，巡检、保洁、维护等页面。而且可以和语音机器人对话，也许有意想不到的回答等着你。更多交互在陆续加入中，比如报表查询功能。</string>
+
+    <string name="whiteCard">为了不影响您的应用使用轨迹功能时退到后台无法使用定位功能，小米手机需要手动开启后台配置--选择 无限制</string>
+    <string name="xiaomiMind">小米手机温馨提示</string>
+    <string name="go_set">去设置</string>
+    <string name="askstr">邀请你进行视频通话</string>
+    <string name="status">运行状态</string>
+    <string name="liuliangstr">最新流量</string>
+    <string name="zuixingtuxiang">最新图像</string>
+
+    <!--LHotelEntityAdapter中item setTag的key-->
+    <item name="tag_groupItemIndex" type="id">groupItemIndex</item>
+</resources>

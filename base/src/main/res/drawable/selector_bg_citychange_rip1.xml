@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--切换背景色-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/theme_trans" android:state_pressed="true"></item>
+    <item android:drawable="@color/bgWhiteColor"></item>
+
+</selector>

@@ -1,0 +1,156 @@
+apply plugin: 'com.android.application'
+
+//定义时间
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        resConfigs "zh"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+        ndk {
+            abiFilters  'armeabi-v7a'  // 'armeabi-v7a' 'armeabi'
+        }
+        //解决arcgis问题
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+            /*ndk {
+                abiFilters  'armeabi-v7a'
+            }*/
+
+        }
+
+        //极光推送
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : rootProject.ext.android.applicationId,
+                JPUSH_APPKEY : "8da6435de1af09abcaf1d8a9", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
+    }
+
+    //极光推荐关于使用NDK r17时，可能Android Studio会出现以下提示/darwin-x86_64/bin/mips64el-linux-android-strip”
+    /*packagingOptions {
+        doNotStrip '*//*mips*//*.so'
+        doNotStrip '*//*mips64*//*.so'
+    }*/
+
+    dataBinding {
+        enabled = true
+    }
+    // 禁止gradle严格检查图片的合法性
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        release {
+            try {
+                storeFile file("./tepia.jks")
+                storePassword "tepiacom"
+                keyAlias "tepia"
+                keyPassword "tepiacom"
+            } catch (ex) {
+                throw new Exception(ex.toString())
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            //混淆
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //其它
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+        }
+        debug {
+            signingConfig signingConfigs.release
+            debuggable true
+            minifyEnabled false
+        }
+    }
+
+    //配置自定义打包名
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "水库管家_v${defaultConfig.versionName}_${releaseTime()}.apk"
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs', '../main/libs'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+        resolutionStrategy.force 'com.android.support:support-v4:26.1.0'
+    }
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.constraint
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.support
+    implementation rootProject.ext.dependencies.constraint
+
+    implementation rootProject.ext.dependencies.litepal
+
+//    implementation rootProject.ext.dependencies.GaodeLiabrary
+    implementation rootProject.ext.dependencies.Pgyer
+
+
+    implementation rootProject.ext.dependencies.Arouter
+    annotationProcessor rootProject.ext.dependencies.Arouter_compiler
+    implementation rootProject.ext.dependencies.jpush
+    implementation rootProject.ext.dependencies.jcore
+
+    // 总是依赖最新版本
+    implementation project(':photopicker')
+
+    implementation project(':base')
+    if (!isModule.toBoolean()) {
+        implementation project(':main')
+        implementation project(':voice')
+//        implementation project(':gaodelibrary')
+//        implementation(name: 'gaodelibrary-release', ext: 'aar')
+        
+        implementation(name: 'gaodelibrary-release-new', ext: 'aar')
+
+        /*implementation(name: 'app-neutral-release', ext: 'aar', {
+            exclude group: 'com.android.support', module: 'support-v4'
+        })*/
+
+        implementation(name: 'shixun-release', ext: 'aar', {
+            exclude group: 'com.android.support', module: 'support-v4'
+        })
+
+    }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_main_color">#efefef</color>
+    <color name="main_color">#59abf1</color>
+    <!--文字颜色-->
+    <color name="color_white">#FFFFFF</color>
+    <color name="nav_bg">#4CB8F6</color>
+    <color name="bottom_navigationnav_bg">#4CB8F6</color>
+
+    <!--综合监控模块相关颜色-->
+    <color name="magicIndicator">#ffffff</color>
+    <color name="magicIndicator_tab_select">#59abf1</color>
+    <color name="magicIndicatortext_color_unselect">#dddddd</color><!--首页tablayout未选中字体颜色-->
+    <color name="magicIndicatortext_color_select">#59abf1</color>
+    <color name="bgcolor">#f4f5f7</color><!--背景页面-->
+    <color name="text_color">#999999</color> <!--次要字体-->
+    <color name="color_333">#333333</color>
+    <color name="main_textcolor">#4c4c4c</color><!--字体颜色-->
+    <color name="linecolor">#f6f5f5</color>
+    <color name="bottom_text_unchecked">#999999</color>
+    <color name="bottom_text_checked1">#0994ff</color>
+
+    <color name="blue_touch_user">#B3B3B3</color>
+    <color name="blue_user">#4CB8F6</color>
+    <color name="color_c8c8c8">#C8C8C8</color>
+    <color name="color_tab_checked">#0176da</color>
+    <color name="grey_search">#FF999999</color>
+
+    <!--页面共用背景底色-->
+    <color name="background_common">#f4f5f7</color>
+    <color name="bg_color">#f4f5f7</color>
+    <color name="b5b5">#ffffff</color>
+    <color name="uncheck">#ffffff</color>
+    <color name="map_bg">#204f7e</color>
+    <color name="white_detail">#ffffff</color>
+</resources>

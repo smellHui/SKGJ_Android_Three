@@ -1,0 +1,174 @@
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        if (isModule.toBoolean()) {
+            applicationId "com.tepia.main"
+        }
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        resConfigs "zh"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+
+        //极光推送
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: rootProject.ext.android.applicationId,
+                JPUSH_APPKEY : "8da6435de1af09abcaf1d8a9", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    sourceSets {
+        main {
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/java/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下则需要排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+    // 禁止gradle严格检查图片的合法性
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /*sourceSets{
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }*/
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+
+}
+
+
+
+
+
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.android.support:support-v4:26.1.0'
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
+        resolutionStrategy.force "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+        resolutionStrategy.force "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    }
+
+
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.constraint
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.support
+    implementation rootProject.ext.dependencies.constraint
+    implementation rootProject.ext.dependencies.cardview
+    implementation rootProject.ext.dependencies.design
+    // json 解析.
+    implementation rootProject.ext.dependencies.gson
+    implementation rootProject.ext.dependencies.barlibrary
+    // 图片加载
+    implementation rootProject.ext.dependencies.glide
+    //多渠道打包
+    implementation rootProject.ext.dependencies.walle
+    //突破64k
+    implementation rootProject.ext.dependencies.multidex
+    //logger
+    implementation rootProject.ext.dependencies.logger
+//    implementation rootProject.ext.dependencies.xutils
+    //logger
+    implementation rootProject.ext.dependencies.litepal
+    //retrofit相关
+    implementation rootProject.ext.dependencies.okhttp3
+    implementation rootProject.ext.dependencies.retrofit
+    implementation rootProject.ext.dependencies.converter_gson
+    implementation rootProject.ext.dependencies.adapter_rxjava
+    //rx相关
+    implementation rootProject.ext.dependencies.rxandroid
+    implementation rootProject.ext.dependencies.rxjava
+    //权限管理
+    implementation rootProject.ext.dependencies.lovedise
+    //持久化
+    implementation rootProject.ext.dependencies.franmontiel
+    implementation rootProject.ext.dependencies.interceptor
+    implementation rootProject.ext.dependencies.MPAndroidChart
+    implementation rootProject.ext.dependencies.agentweb
+//    implementation rootProject.ext.dependencies.bottom_navigation_bar
+    implementation rootProject.ext.dependencies.BaseRecyclerViewAdapterHelper
+//    implementation rootProject.ext.dependencies.xutils
+//    implementation rootProject.ext.dependencies.BoomMenu
+    implementation rootProject.ext.dependencies.MagicIndicator
+
+    //图片选择器
+//    implementation rootProject.ext.dependencies.Picasso
+    implementation rootProject.ext.dependencies.TimePickerDialog
+//    implementation rootProject.ext.dependencies.submitbutton
+    implementation rootProject.ext.dependencies.arcgisandroid
+    implementation rootProject.ext.dependencies.Banner
+//    implementation rootProject.ext.dependencies.EventBus
+    implementation rootProject.ext.dependencies.jpinyin
+    implementation rootProject.ext.dependencies.Pgyer
+    implementation rootProject.ext.dependencies.Tiny
+    implementation rootProject.ext.dependencies.BadgeView
+//    implementation rootProject.ext.dependencies.GaodeLiabrary
+
+
+    implementation rootProject.ext.dependencies.Arouter
+    annotationProcessor rootProject.ext.dependencies.Arouter_compiler
+    implementation project(':photopicker')
+    implementation project(':base')
+    implementation project(':voice')
+//    implementation project(':gaodelibrary')
+//    implementation(name: 'gaodelibrary-release', ext: 'aar')
+    implementation(name: 'gaodelibrary-release-new', ext: 'aar')
+
+    /* implementation(name: 'app-neutral-release', ext: 'aar', {
+        exclude group: 'com.android.support', module: 'support-v4'
+    })*/
+    implementation(name: 'shixun-release', ext: 'aar', {
+        exclude group: 'com.android.support', module: 'support-v4'
+    })
+
+
+    implementation rootProject.ext.dependencies.jpush
+    implementation rootProject.ext.dependencies.jcore
+
+
+}

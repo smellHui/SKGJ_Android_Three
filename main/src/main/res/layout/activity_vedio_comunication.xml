@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/theme_trans_halfal">
+
+    <TextView
+        android:id="@+id/whoaskTv"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/logo"
+        android:drawablePadding="20dp"
+        android:gravity="center"
+        android:text="水库管家"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/whoaskTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/askstr"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/refusebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/vedio_refuse_250"
+            android:gravity="center"
+            android:text="拒绝"
+            android:textSize="14sp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/agreebtn"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/vedio_agree_250"
+            android:gravity="center"
+            android:text="接听"
+            android:textSize="14sp"
+
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

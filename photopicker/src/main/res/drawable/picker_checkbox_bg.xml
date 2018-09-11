@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item android:state_selected="true">
+    <layer-list>
+      <!--<item>
+        <shape
+            android:shape="oval">
+          <size
+              android:width="5dp"
+              android:height="5dp" />
+          <gradient
+              android:endColor="#FFFFFF"
+              android:gradientRadius="10dp"
+              android:startColor="#FFFFFF"
+              android:type="radial" />
+        </shape>
+      </item>-->
+      <item android:drawable="@drawable/picker_checkbox_marked_new"
+          
+          />
+    </layer-list>
+  </item>
+
+  <item>
+    <layer-list>
+     <!-- <item>
+        <shape
+            android:shape="oval">
+          <size
+              android:width="5dp"
+              android:height="5dp" />
+          <gradient
+              android:endColor="#FFFFFF"
+              android:gradientRadius="5dp"
+              android:startColor="#FFFFFF"
+              android:type="radial" />
+        </shape>
+      </item>-->
+      <item android:drawable="@drawable/picker_checkbox_n_new"/>
+    </layer-list>
+  </item>
+
+</selector>

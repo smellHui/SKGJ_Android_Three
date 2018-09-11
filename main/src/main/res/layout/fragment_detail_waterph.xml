@@ -1,0 +1,216 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nestedsv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_common"
+
+    >
+
+    <LinearLayout
+        android:layout_marginBottom="@dimen/detailmaringbottom"
+
+        android:id="@+id/baseinfoLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/baseinfoLyChild"
+
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="16dp"
+                android:background="@drawable/bg_btn_green" />
+
+            <TextView
+                android:id="@+id/onetitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:text="@string/text_baseinfo"
+                android:textColor="@color/color_333"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/baseIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_down_enter"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dddddd" />
+
+        <FrameLayout
+            android:id="@+id/recycleLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/maringin_detailofly"
+            android:layout_marginTop="@dimen/maringin_detailofly"
+            android:visibility="visible">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/baseinfoRecV"
+                android:background="@drawable/a_yuanjiao_bg"
+
+                android:layout_margin="@dimen/maringin_detailofly"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/realtimeLyChild"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="16dp"
+                android:background="@drawable/bg_btn_green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:text="@string/text_tuwen"
+                android:textColor="@color/color_333"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/realtimeIv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/detail_search"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dddddd" />
+
+
+        <LinearLayout
+            android:id="@+id/linechartLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_detail"
+            android:orientation="vertical">
+
+            <include layout="@layout/time_common_layout"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/timeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_check"
+                    android:text="@string/phstr"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/dayBtn"
+
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_uncheck"
+
+                    android:text="@string/shuiwenstr"
+                    android:textColor="@color/uncheck" />
+
+                <Button
+                    android:id="@+id/monthBtn"
+
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_uncheck"
+
+                    android:text="@string/huaxuexuyangstr"
+                    android:textColor="@color/uncheck" />
+
+                <Button
+                    android:id="@+id/yearBtn"
+
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_uncheck"
+
+                    android:text="@string/zhuodustr"
+                    android:textColor="@color/uncheck" />
+
+                <Button
+                    android:id="@+id/yuluBtn"
+
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_5"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_uncheck"
+
+                    android:text="@string/yulustr"
+                    android:textColor="@color/uncheck" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dddddd" />
+
+            <FrameLayout
+                android:id="@+id/historyBarLy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/maringin_detailofly"
+
+                android:background="@drawable/a_yuanjiao_bg"
+                android:orientation="vertical">
+
+                <com.github.mikephil.charting.charts.LineChart
+
+                    android:id="@+id/line_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp" />
+            </FrameLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

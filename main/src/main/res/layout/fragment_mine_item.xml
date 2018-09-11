@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    >
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:text="@string/main_name"
+        android:textColor="#333333"
+        android:textSize="@dimen/textquesdm" />
+
+    <View
+        android:id="@+id/lineviewBottom"
+        style="@style/LineH"
+        android:layout_alignLeft="@+id/titleTv"
+        android:layout_alignParentBottom="true"
+        />
+
+    <ImageView
+        android:id="@+id/rightIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:src="@drawable/question_selector"
+        />
+
+</RelativeLayout>
+

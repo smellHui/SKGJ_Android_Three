@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#f4f5f7"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/headMv"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"/>
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/nameMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"/>
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/phoneMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"/>
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:id="@+id/emailMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"/>
+
+    <com.tepia.base.view.MyEditUserInfoView
+        android:visibility="visible"
+        android:id="@+id/addressMv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"/>
+
+   <!-- <Button
+        android:id="@+id/updateBtn"
+        android:layout_width="320dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_bg"
+        android:gravity="center"
+        android:text="@string/setting_update"
+        android:textColor="#ffffff"
+        android:textSize="18sp"/>-->
+
+   <!-- <Button
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/updateBtn"
+         />-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="211dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_loginout_btn"
+            android:gravity="center"
+            android:text="@string/tijiaostr"
+            android:textColor="@color/white" />
+    </FrameLayout>
+</LinearLayout>

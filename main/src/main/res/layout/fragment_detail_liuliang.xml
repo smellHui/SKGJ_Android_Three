@@ -1,0 +1,254 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nestedsv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_common">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="16dp"
+                android:background="@drawable/bg_btn_green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:text="@string/text_baseinfo"
+                android:textColor="@color/color_333"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dddddd" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/maringin_detailofly"
+            android:layout_marginTop="@dimen/maringin_detailofly"
+            android:visibility="visible">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/new_baseinfoRecV"
+                android:background="@drawable/a_yuanjiao_bg"
+
+                android:layout_margin="@dimen/maringin_detailofly"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:id="@+id/baseinfoLyChild"
+
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="16dp"
+                android:background="@drawable/bg_btn_green" />
+
+            <TextView
+                android:id="@+id/onetitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:text="用水量详细信息"
+                android:textColor="@color/color_333"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/baseIv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/detail_search"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dddddd" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <include layout="@layout/time_common_layout" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/timeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_check"
+                    android:text="@string/timestr"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/dayBtn"
+
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_uncheck"
+
+                    android:text="@string/daystr"
+                    android:textColor="@color/uncheck" />
+
+                <Button
+                    android:id="@+id/monthBtn"
+
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_uncheck"
+
+                    android:text="@string/monthstr"
+                    android:textColor="@color/uncheck" />
+
+                <Button
+                    android:id="@+id/yearBtn"
+
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="@dimen/marin_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/sel_btn_uncheck"
+
+                    android:text="@string/yearstr"
+                    android:textColor="@color/uncheck" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dddddd" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/showLintIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="@dimen/maringin_detailofly"
+            android:layout_marginTop="@dimen/maringin_detailofly"
+            android:src="@drawable/base_chart1" />
+
+        <LinearLayout
+            android:id="@+id/recycleLy"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_margin="@dimen/maringin_detailofly"
+            android:layout_marginRight="@dimen/maringin_detailofly"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="时间"
+                    android:textColor="@color/color_333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="累计用水量(m³)"
+                    android:textColor="@color/color_333"
+                    android:textSize="16sp"
+
+                    />
+
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/baseinfoRecV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/a_yuanjiao_bg"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/lintFl"
+            android:layout_width="match_parent"
+
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/maringin_detailofly"
+            android:background="@drawable/a_yuanjiao_bg"
+
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/line_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="5dp" />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

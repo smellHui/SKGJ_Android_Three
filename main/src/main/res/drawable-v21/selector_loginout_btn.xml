@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/theme_trans">
+
+    <item>
+        <shape
+            android:shape="rectangle">
+
+            <solid android:color="#59abf1" />
+
+            <corners android:radius="@dimen/same_btn_radius" />
+
+            <!-- padding：Button里面的文字与Button边界的间隔 -->
+            <padding
+                android:bottom="@dimen/same_btn_padding"
+                android:left="@dimen/same_btn_padding"
+                android:right="@dimen/same_btn_padding"
+                android:top="@dimen/same_btn_padding" />
+
+        </shape>
+    </item>
+</ripple>

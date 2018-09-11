@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tepia.main">
+
+    <permission
+        android:name="com.tepia.reservoirnew.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.tepia.reservoirnew.permission.JPUSH_MESSAGE" />
+
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 见网址说明http://unclechen.github.io/2016/03/05/Android6.0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9D%83%E9%99%90%E7%AE%80%E4%BB%8B/ -->
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 程序可以读取设备外部存储空间 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 改变网络状态如是否能联网 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <!-- 允许读写系统设置项 -->
+    <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS" /> -->
+    <!-- 显示系统窗口 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 获取设备信息 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application android:theme="@style/AppTheme">
+
+        <!-- 欢迎页 -->
+        <activity
+            android:name=".view.SplashActivity"
+            android:configChanges="orientation|screenSize|uiMode|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 登录页 -->
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.TokenActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/TranslucentFullScreenTheme" />
+        <!-- 主页 -->
+        <activity
+            android:name=".view.main.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 任务详情页 -->
+        <activity
+            android:name=".view.main.work.task.taskdetail.TaskDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <!-- 任务处理页 -->
+        <activity
+            android:name=".view.main.work.task.taskdeal.TaskDealActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 任务分列 列表页 -->
+        <activity
+            android:name=".view.main.work.task.tasklist.TaskTypeListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 任务编辑页 -->
+        <activity
+            android:name=".view.main.work.task2.taskedit.TaskEditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 图片添加 -->
+        <activity
+            android:name="com.tepia.photo_picker.PhotoPickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.AppCompat.NoActionBar" />
+        <!-- 图片查看 -->
+        <activity
+            android:name="com.tepia.photo_picker.PhotoPagerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.AppCompat.NoActionBar" />
+
+        <!--
+         蒲公英
+         新包名878d98e5d7fb8c5e38aae321aff634f1
+        -->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="878d98e5d7fb8c5e38aae321aff634f1" />
+
+        <!-- 高德地图 -->
+        <service
+            android:name="com.example.gaodelibrary.GaodeLibraryService"
+            android:enabled="true"
+            android:exported="false" />
+        <service android:name="com.amap.api.location.APSService" />
+
+        <!--
+        新包名accd6f6e488da555ae643d10629b5871
+        旧包名对应注册的key  333157bcf69e38f8ce70621b9d8a4ab7
+        -->
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="accd6f6e488da555ae643d10629b5871" />
+        <!-- 高德地图 -->
+
+
+        <!-- 极光推送 -->
+        <receiver
+            android:name=".view.MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.tepia.reservoirnew" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".view.main.question.QuestionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name=".view.main.setting.VersionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+        <activity
+            android:name=".view.main.setting.AboutUsActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 语音助手设置页 -->
+        <activity
+            android:name=".view.main.setting.voiceassistant.VoiceAssistantSettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.setting.voiceassistant.SpeakActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".view.main.setting.voiceassistant.VoiceAssistantReadMeActivity" />
+        <activity
+            android:name=".view.main.setting.SuggestionActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.setting.ChangeKeyWordActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.main.question.problemlist.ProblemListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.question.problemlist.ProblemDetailActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.detail.vedio.VideoPlayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.setting.EditUserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.VedioComunicationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.main.jihua.JihuaActivity" />
+        <activity android:name=".view.main.work.plan.planlist.PlanListActivity" />
+        <activity android:name=".view.main.work.task2.tasklist.TaskTypeListActivity" />
+        <activity android:name=".view.main.jihua.PlanDetailActivity" />
+        <activity android:name=".view.main.jihua.EditPlanActivity" />
+        <activity android:name=".view.main.jihua.AddPlanActivity" />
+        <activity android:name=".view.main.work.task2.taskdetail.TaskDetailActivity" />
+        <activity android:name=".view.main.question.problemconfigure.ProblemCallListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.main.question.problemconfigure.ProblemConfigureListActivity"
+            android:screenOrientation="portrait"
+            />
+    </application>
+
+</manifest>

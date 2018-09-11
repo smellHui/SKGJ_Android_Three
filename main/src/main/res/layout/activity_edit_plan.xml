@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.main.jihua.EditPlanActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <include layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="554dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="*计划名称:"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                    <!--android:background="@drawable/bg_search_edittext"-->
+                    <EditText
+                        android:id="@+id/et_plan_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:hint="请输入计划名称"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/darker_gray"
+                        android:text="" />
+                </LinearLayout>
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="*计划类型:"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                    <!--android:background="@drawable/bg_search_edittext"-->
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:overlapAnchor="false"
+                        android:paddingRight="5dp"
+                        android:popupBackground="@drawable/bg_search_edittext"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="*运维类型:"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                    <!--android:background="@drawable/bg_search_edittext"-->
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:overlapAnchor="false"
+                        android:paddingRight="5dp"
+                        android:popupBackground="@drawable/bg_search_edittext"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="*水库名称:"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                    <!--android:background="@drawable/bg_search_edittext"-->
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextView1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:completionThreshold="0"
+                        android:maxLines="1"
+                        android:lines="1"
+                        android:paddingRight="5dp"
+                        android:singleLine="true"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/darker_gray"
+                        android:hint="请输入水库关键词" />
+                </LinearLayout>
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="top|center_horizontal"
+                        android:text="*执行时间:"
+                        android:textColor="@android:color/black"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_addView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical" />
+                </LinearLayout>
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="*详情描述:"
+                        android:textColor="@android:color/black"
+                        android:layout_marginTop="5dp"
+                        android:textSize="16sp" />
+                    <!--android:background="@drawable/bg_search_edittext"-->
+                    <EditText
+                        android:id="@+id/et_remarks"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:paddingLeft="5dp"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/darker_gray"
+                        android:text="" />
+                </LinearLayout>
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="计划状态:"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3">
+
+                        <TextView
+                            android:id="@+id/tv_isGenerate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#CCD7D6"
+                            android:gravity="center_vertical"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="5dp"
+                            android:textColor="@color/white"
+                            android:text="未生成" />
+
+                    </LinearLayout>
+                </LinearLayout>
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <Button
+                    android:id="@+id/bt_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginRight="70dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/bg_btn_green"
+                    android:text="确认修改"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

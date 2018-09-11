@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#59abf1</color>
+    <color name="colorPrimaryDark">#59abf1</color>
+    <color name="colorAccent">#59abf1</color>
+
+    <!--文字颜色-->
+    <color name="color_white">#FFFFFF</color>
+    <color name="nav_bg">#4CB8F6</color>
+    <color name="bottom_navigationnav_bg">#4CB8F6</color>
+
+    <!--综合监控模块相关颜色-->
+    <color name="magicIndicator">#ffffff</color>
+    <color name="magicIndicator_tab_select">#31aefd</color>
+    <color name="magicIndicatortext_color_unselect">#000000</color><!--首页tablayout未选中字体颜色-->
+    <color name="magicIndicatortext_color_select">#31aefd</color><!--首页tablayout已选中字体颜色-->
+
+</resources>

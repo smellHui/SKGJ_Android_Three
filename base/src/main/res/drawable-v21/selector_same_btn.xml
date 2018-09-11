@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/theme_trans">
+
+    <item>
+        <shape
+            android:shape="rectangle">
+
+            <solid android:color="@color/white" />
+            <stroke android:color="@color/colorPrimary"
+                android:width="2dp"
+                />
+            <corners android:radius="@dimen/loginradius" />
+
+            <!-- padding：Button里面的文字与Button边界的间隔 -->
+            <padding
+                android:bottom="@dimen/same_btn_padding"
+                android:left="@dimen/same_btn_padding"
+                android:right="@dimen/same_btn_padding"
+                android:top="@dimen/same_btn_padding" />
+
+        </shape>
+    </item>
+</ripple>

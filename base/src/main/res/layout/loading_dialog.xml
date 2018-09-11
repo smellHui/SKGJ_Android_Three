@@ -1,0 +1,39 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_view"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/iosstyle_halftransparent_bg"
+    android:orientation="horizontal"
+    android:padding="@dimen/loading_spacing">
+    <!--android:background="@drawable/iosstyle_halftransparent_bg"-->
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loading_progressbar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="false"
+        android:indeterminateDrawable="@drawable/loading_gradient_rotate"
+        android:layout_width="@dimen/progressbar_size"
+        android:layout_height="@dimen/progressbar_size"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/animationIv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/loading_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/loading_dialog_message"
+        android:textColor="@color/color_loading"
+        android:textSize="@dimen/text_size_small"/>
+
+</LinearLayout>
