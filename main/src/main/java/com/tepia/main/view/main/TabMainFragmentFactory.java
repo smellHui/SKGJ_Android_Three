@@ -9,7 +9,7 @@ import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
-import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
+
 
 import java.util.ArrayList;
 
@@ -81,21 +81,7 @@ public class TabMainFragmentFactory {
         return shangbaoFragment;
     }
 
-    /**
-     * 巡检
-     */
-    public XunchaFragment xunchaFragment;
 
-    public XunchaFragment getXunchaFragment() {
-        if (xunchaFragment == null) {
-            synchronized (XunchaFragment.class) {
-                if (xunchaFragment == null) {
-                    xunchaFragment = new XunchaFragment();
-                }
-            }
-        }
-        return xunchaFragment;
-    }
 
 
     /**
@@ -187,9 +173,7 @@ public class TabMainFragmentFactory {
         if (shangbaoFragment != null) {
             shangbaoFragment = null;
         }
-        if (xunchaFragment != null) {
-            xunchaFragment = null;
-        }
+
     }
 
 

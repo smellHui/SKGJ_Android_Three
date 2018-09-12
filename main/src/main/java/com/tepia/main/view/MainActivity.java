@@ -52,7 +52,7 @@ import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
-import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
+
 
 import org.greenrobot.eventbus.EventBus;
 

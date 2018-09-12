@@ -224,6 +224,9 @@
     <string name="main_home">首页</string>
     <string name="main_threepoint">三个重点</string>
     <string name="main_yunwei">运维</string>
+    <string name="main_yunwei_xunjian">巡检</string>
+    <string name="main_yunwei_baojie">保洁</string>
+    <string name="main_yunwei_weihu">维护</string>
     <string name="main_reservoirs">水库</string>
     <string name="main_shangbao">上报</string>
     <string name="main_xuncha">巡查</string>

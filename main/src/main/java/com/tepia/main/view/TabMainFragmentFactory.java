@@ -12,9 +12,10 @@ import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
 import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
 import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
-import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
+
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : liying
@@ -84,21 +85,6 @@ public class TabMainFragmentFactory {
         return shangbaoFragment;
     }
 
-    /**
-     * 巡检
-     */
-    public XunchaFragment xunchaFragment;
-
-    public XunchaFragment getXunchaFragment() {
-        if (xunchaFragment == null) {
-            synchronized (XunchaFragment.class) {
-                if (xunchaFragment == null) {
-                    xunchaFragment = new XunchaFragment();
-                }
-            }
-        }
-        return xunchaFragment;
-    }
 
 
     /**
@@ -188,34 +174,10 @@ public class TabMainFragmentFactory {
         if (shangbaoFragment != null) {
             shangbaoFragment = null;
         }
-        if (xunchaFragment != null) {
-            xunchaFragment = null;
-        }
+
     }
 
     ArrayList<String> titles = new ArrayList();
-
-    public ArrayList<String> getTitles(String valuestr) {
-
-        switch (valuestr) {
-            case "1":
-                titles.add("首页");
-                titles.add("巡查");
-                titles.add("上报");
-                titles.add("水库");
-                titles.add("我的");
-
-                break;
-            default:
-                titles.add("首页");
-                titles.add("运维");
-                titles.add("三个重点");
-                titles.add("水库");
-                titles.add("我的");
-                break;
-        }
-        return titles;
-    }
 
     public ArrayList<String> getTitles() {
 
@@ -225,26 +187,6 @@ public class TabMainFragmentFactory {
 
     ArrayList imageIds = new ArrayList<Integer>();
 
-    public ArrayList<Integer> getImageIds(String valuestr) {
-
-        switch (valuestr) {
-            case "1":
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                break;
-            default:
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                imageIds.add(R.drawable.selector_tabbar_bus);
-                break;
-        }
-        return imageIds;
-    }
 
     public ArrayList<Integer> getImageIds() {
         return imageIds;
@@ -252,26 +194,6 @@ public class TabMainFragmentFactory {
 
     ArrayList<BaseCommonFragment> tabMianfragments;
 
-    public ArrayList<? extends BaseCommonFragment> getMainFragments(String valuestr) {
-
-        switch (valuestr) {
-            case "1":
-                tabMianfragments.add(getHomeXunChaFragment());
-                tabMianfragments.add(getXunchaFragment());
-                tabMianfragments.add(getShangbaoFragment());
-                tabMianfragments.add(getReservoirsFragment());
-                tabMianfragments.add(getSettingFragment());
-                break;
-            default:
-                tabMianfragments.add(getHomeXunChaFragment());
-                tabMianfragments.add(getXunchaFragment());
-                tabMianfragments.add(getThreePointJiShuFragment());
-                tabMianfragments.add(getReservoirsFragment());
-                tabMianfragments.add(getSettingFragment());
-                break;
-        }
-        return tabMianfragments;
-    }
 
     public ArrayList<? extends BaseCommonFragment> getMainFragments() {
         return tabMianfragments;
@@ -292,7 +214,21 @@ public class TabMainFragmentFactory {
         }
         for (int i = 0; i < menuData.size(); i++) {
             BaseCommonFragment fragment = getRouteFragment(menuData.get(i));
-            if (fragment != null) {
+            if ("110".equals(menuData.get(i).getMenuCode())) {
+                List<MenuItemBean> items = menuData.get(i).getChildren();
+                if (items!= null && items.size() == 1){
+                    BaseCommonFragment fragment1 = getRouteFragment(items.get(0));
+                    if (fragment1 != null) {
+                        tabMianfragments.add(fragment1);
+                        titles.add(items.get(0).getMenuName());
+                        imageIds.add(R.drawable.selector_tabbar_bus);
+                    }
+                }else {
+                    tabMianfragments.add(fragment);
+                    titles.add(menuData.get(i).getMenuName());
+                    imageIds.add(R.drawable.selector_tabbar_bus);
+                }
+            } else if (fragment != null) {
                 tabMianfragments.add(fragment);
                 titles.add(menuData.get(i).getMenuName());
                 imageIds.add(R.drawable.selector_tabbar_bus);

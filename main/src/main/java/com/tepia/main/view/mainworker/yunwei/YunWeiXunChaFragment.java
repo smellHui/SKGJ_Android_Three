@@ -4,6 +4,8 @@ package com.tepia.main.view.mainworker.yunwei;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
@@ -12,6 +14,7 @@ import com.tepia.main.R;
  * Version         :       1.0
  * 功能描述        :        主页二 运维页 巡查责任人
  **/
+@Route(path = AppRoutePath.app_main_fragment_yunwei)
 public class YunWeiXunChaFragment extends BaseCommonFragment {
 
 
