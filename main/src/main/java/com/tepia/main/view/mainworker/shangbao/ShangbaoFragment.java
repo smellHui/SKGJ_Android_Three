@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
@@ -15,6 +17,7 @@ import com.tepia.main.R;
  * Version         :       1.0
  * 功能描述        :       主页三 上报页 巡查责任人
  **/
+@Route(path = AppRoutePath.app_main_fragment_shangbao_xuncha)
 public class ShangbaoFragment extends BaseCommonFragment {
 
 

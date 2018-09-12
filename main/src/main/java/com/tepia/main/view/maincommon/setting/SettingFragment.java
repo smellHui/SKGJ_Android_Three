@@ -214,7 +214,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     public void onResume() {
         super.onResume();
         if(NetUtil.isNetworkConnected(getBaseActivity())) {
-            saveUserInfoBean();
+//            saveUserInfoBean();
         }
 
     }

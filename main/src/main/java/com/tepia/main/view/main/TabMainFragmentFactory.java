@@ -1,6 +1,7 @@
 package com.tepia.main.view.main;
 
 
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.view.main.map.MapArcgisFragment;
 import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
 import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
@@ -9,6 +10,8 @@ import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
 import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
+
+import java.util.ArrayList;
 
 /**
  * @author : liying
@@ -188,9 +191,6 @@ public class TabMainFragmentFactory {
             xunchaFragment = null;
         }
     }
-
-
-
 
 
 }

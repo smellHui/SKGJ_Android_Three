@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,11 +25,13 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.gaodelibrary.UtilsContextOfGaode;
+import com.inpor.fastmeetingcloud.base.BaseFragment;
 import com.inpor.fastmeetingcloud.receiver.HstApplication;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.tepia.base.AppRoutePath;
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
@@ -38,9 +41,10 @@ import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
 import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
+import com.tepia.main.model.user.MenuData;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
-import com.tepia.main.view.main.TabMainFragmentFactory;
+
 import com.tepia.main.view.main.map.MapArcgisFragment;
 import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
 import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
@@ -52,39 +56,21 @@ import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+
 import cn.jpush.android.api.JPushInterface;
 
 
 /**
- * @author         :      zhang xinhua
+ * @author :      zhang xinhua
  * Version         :       1.0
- * 功能描述        :
+ * 功能描述        :        主页
  **/
 @Route(path = AppRoutePath.appMain)
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
-    @Autowired(name = "position")
-    int position = 0;
-
-    private HomeXunChaFragment homeXunChaFragment;
-    private ThreePointJiShuFragment threePointJiShuFragment;
-    private YunWeiJiShuFragment yunWeiJiShuFragment;
-    private ReservoirsFragment reservoirsFragment;
-    private SettingFragment settingFragment;
-    private ShangbaoFragment shangbaoFragment;
-    private XunchaFragment xunchaFragment;
-
-
     private TabFragmentHost mTabHost;
-    private String titles[];
-    private static final int zero = 0;
-    private static final int one = 1;
-    private static final int two = 2;
-    private static final int third = 3;
-    private static final int four = 4;
-    private static final int five = 5;
-    private static final int six = 6;
-    private boolean hasMeasured;
+
     /**
      * 锁屏相关
      */
@@ -93,19 +79,11 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     private WakeLockScreenReceiverOfMain WakeLockScreenReceiver = null;
     private boolean isRegisterReceiver = false;
 
+    /**
+     * 暂时暂时身份标识 等接口 好之后 再改为动态菜单
+     */
     private String valuestr;
 
-
-    // 图片
-    private int mImages[] = {
-            R.drawable.selector_tabbar_bus,
-            R.drawable.selector_tabbar_exchange,
-            R.drawable.selector_tabbar_clloction,
-            R.drawable.selector_tabbar_bus,
-            R.drawable.selector_tabbar_exchange,
-            R.drawable.selector_tabbar_clloction,
-            R.drawable.selector_tabbar_bus
-    };
 
     @Override
     public int getLayoutId() {
@@ -116,75 +94,22 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public void initView() {
         //视讯客户端初始化
         HstApplication.init(Utils.getContext());
-        initViewPager();
         registerPowerReceiver();
         setNewBottom();
     }
 
 
     private void setNewBottom() {
-        valuestr = getIntent().getStringExtra("key");
-        titles = new String[]{
-                getString(R.string.main_home),
-                getString(R.string.main_xuncha),
-                getString(R.string.main_shangbao),
-                getString(R.string.main_yunwei),
-                getString(R.string.main_threepoint),
-                getString(R.string.main_reservoirs),
-                getString(R.string.main_setting)
-
-        };
 
         mTabHost = findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-
-        if ("1".equals(valuestr)) {
-
-            //巡检责任人
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
-                    homeXunChaFragment.getClass(), null);
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[one]).setIndicator(createIndicator(one)),
-                    xunchaFragment.getClass(), null);
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[two]).setIndicator(createIndicator(two)),
-                    shangbaoFragment.getClass(), null);
-            mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
-                    reservoirsFragment.getClass(), null);
-            mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
-                    settingFragment.getClass(), null);
-        } else if ("2".equals(valuestr)) {
-            //技术责任人
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
-                    homeXunChaFragment.getClass(), null);
-
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[third]).setIndicator(createIndicator(third)),
-                    yunWeiJiShuFragment.getClass(), null);
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[four]).setIndicator(createIndicator(four)),
-                    threePointJiShuFragment.getClass(), null);
-            mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
-                    reservoirsFragment.getClass(), null);
-            mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
-                    settingFragment.getClass(), null);
-        } else {
-            //行政责任人
-            mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
-                    homeXunChaFragment.getClass(), null);
-
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[third]).setIndicator(createIndicator(third)),
-                    yunWeiJiShuFragment.getClass(), null);
-
-            mTabHost.addTab(mTabHost.newTabSpec(titles[four]).setIndicator(createIndicator(four)),
-                    threePointJiShuFragment.getClass(), null);
-            mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
-                    reservoirsFragment.getClass(), null);
-            mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
-                    settingFragment.getClass(), null);
+        TabMainFragmentFactory.getInstance().setMenuData(valuestr);
+        ArrayList<String> titles = TabMainFragmentFactory.getInstance().getTitles();
+        ArrayList<Integer> imageIds = TabMainFragmentFactory.getInstance().getImageIds();
+        ArrayList<? extends BaseCommonFragment> fragments = TabMainFragmentFactory.getInstance().getMainFragments();
+        for (int i = 0; i <fragments.size() ; i++) {
+            mTabHost.addTab(mTabHost.newTabSpec(titles.get(i)).setIndicator(createIndicator(imageIds.get(i), titles.get(i))),
+                    fragments.get(i).getClass(), null);
         }
 
 
@@ -192,21 +117,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onTabChanged(String tabId) {
-                if (titles[zero].equals(tabId)) {
-                    position = zero;
-                } else if (titles[one].equals(tabId)) {
-                    position = one;
-                } else if (titles[two].equals(tabId)) {
-                    position = two;
-                } else if (titles[third].equals(tabId)) {
-                    position = third;
-                } else if (titles[four].equals(tabId)) {
-                    position = four;
-                } else if (titles[five].equals(tabId)) {
-                    position = five;
-                } else if (titles[six].equals(tabId)) {
-                    position = six;
-                }
+
             }
         });
 
@@ -217,21 +128,21 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     /**
      * 获取每个图标布局
      *
-     * @param index
+     * @param imageId
+     * @param title
      * @return
      */
-    private View createIndicator(int index) {
+    private View createIndicator(Integer imageId, String title) {
         View view = null;
 
         //手工加载一个布局
         LayoutInflater inflater = LayoutInflater.from(this);
         view = inflater.inflate(R.layout.tab_layout, null);
         ImageView imageView = view.findViewById(R.id.tabImg);
-        imageView.setImageResource(mImages[index]);
+        imageView.setImageResource(imageId);
 
         TextView textView = view.findViewById(R.id.tabTv);
-        textView.setText(titles[index]);
-
+        textView.setText(title);
         return view;
     }
 
@@ -240,6 +151,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     public void initData() {
+        valuestr = getIntent().getStringExtra("key");
+        initTabMenu(valuestr);
+
         PgyUpdateManager.register(this, new UpdateManagerListener() {
             @Override
             public void onNoUpdateAvailable() {
@@ -287,6 +201,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         });
     }
 
+    private void initTabMenu(String valuestr) {
+    }
+
     @Override
     protected void initListener() {
 
@@ -294,25 +211,12 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     protected void initRequestData() {
-        DictMapManager.getInstance().getDictMapEntity();
-        setStatusBarTextDark();
-        mTabHost.setCurrentTab(position);
-    }
-
-    /**
-     * 初始化各个页面
-     */
-    private void initViewPager() {
-        homeXunChaFragment = (HomeXunChaFragment)ARouter.getInstance().build(AppRoutePath.app_main_fragment_home_xuncha).navigation();
-
-        threePointJiShuFragment = TabMainFragmentFactory.getInstance().getThreePointJiShuFragment();
-        yunWeiJiShuFragment = TabMainFragmentFactory.getInstance().getYunWeiJiShuFragment();
-        reservoirsFragment = TabMainFragmentFactory.getInstance().getReservoirsFragment();
-        settingFragment = TabMainFragmentFactory.getInstance().getSettingFragment();
-        shangbaoFragment = TabMainFragmentFactory.getInstance().getShangbaoFragment();
-        xunchaFragment = TabMainFragmentFactory.getInstance().getXunchaFragment();
+//        DictMapManager.getInstance().getDictMapEntity();
+//        setStatusBarTextDark();
 
     }
+
+
 
 
     //注册锁屏监听广播
