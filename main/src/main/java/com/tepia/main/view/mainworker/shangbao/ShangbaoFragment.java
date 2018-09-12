@@ -11,8 +11,10 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
 /**
- * A simple {@link Fragment} subclass.
- */
+ * @author         :      zhang xinhua
+ * Version         :       1.0
+ * 功能描述        :       主页三 上报页 巡查责任人
+ **/
 public class ShangbaoFragment extends BaseCommonFragment {
 
 

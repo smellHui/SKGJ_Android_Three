@@ -42,9 +42,9 @@ import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
 import com.tepia.main.view.main.TabMainFragmentFactory;
 import com.tepia.main.view.main.map.MapArcgisFragment;
-import com.tepia.main.view.maintechnology.threekeypoint.ThreePointFragment;
-import com.tepia.main.view.maintechnology.yunwei.YunWeiFragment;
-import com.tepia.main.view.mainworker.homepage.HomeFragment;
+import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
+import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
+import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
@@ -66,9 +66,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Autowired(name = "position")
     int position = 0;
 
-    private HomeFragment homeFragment;
-    private ThreePointFragment threePointFragment;
-    private YunWeiFragment yunWeiFragment;
+    private HomeXunChaFragment homeXunChaFragment;
+    private ThreePointJiShuFragment threePointJiShuFragment;
+    private YunWeiJiShuFragment yunWeiJiShuFragment;
     private ReservoirsFragment reservoirsFragment;
     private SettingFragment settingFragment;
     private ShangbaoFragment shangbaoFragment;
@@ -143,7 +143,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             //巡检责任人
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
-                    homeFragment.getClass(), null);
+                    homeXunChaFragment.getClass(), null);
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[one]).setIndicator(createIndicator(one)),
                     xunchaFragment.getClass(), null);
@@ -158,14 +158,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             //技术责任人
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
-                    homeFragment.getClass(), null);
+                    homeXunChaFragment.getClass(), null);
 
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[third]).setIndicator(createIndicator(third)),
-                    yunWeiFragment.getClass(), null);
+                    yunWeiJiShuFragment.getClass(), null);
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[four]).setIndicator(createIndicator(four)),
-                    threePointFragment.getClass(), null);
+                    threePointJiShuFragment.getClass(), null);
             mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
                     reservoirsFragment.getClass(), null);
             mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
@@ -173,14 +173,14 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         } else {
             //行政责任人
             mTabHost.addTab(mTabHost.newTabSpec(titles[zero]).setIndicator(createIndicator(zero)),
-                    homeFragment.getClass(), null);
+                    homeXunChaFragment.getClass(), null);
 
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[third]).setIndicator(createIndicator(third)),
-                    yunWeiFragment.getClass(), null);
+                    yunWeiJiShuFragment.getClass(), null);
 
             mTabHost.addTab(mTabHost.newTabSpec(titles[four]).setIndicator(createIndicator(four)),
-                    threePointFragment.getClass(), null);
+                    threePointJiShuFragment.getClass(), null);
             mTabHost.addTab(mTabHost.newTabSpec(titles[five]).setIndicator(createIndicator(five)),
                     reservoirsFragment.getClass(), null);
             mTabHost.addTab(mTabHost.newTabSpec(titles[six]).setIndicator(createIndicator(six)),
@@ -303,10 +303,10 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      * 初始化各个页面
      */
     private void initViewPager() {
-        homeFragment = (HomeFragment)ARouter.getInstance().build(AppRoutePath.app_main_fragment_home_xuncha).navigation();
+        homeXunChaFragment = (HomeXunChaFragment)ARouter.getInstance().build(AppRoutePath.app_main_fragment_home_xuncha).navigation();
 
-        threePointFragment = TabMainFragmentFactory.getInstance().getThreePointFragment();
-        yunWeiFragment = TabMainFragmentFactory.getInstance().getYunWeiFragment();
+        threePointJiShuFragment = TabMainFragmentFactory.getInstance().getThreePointJiShuFragment();
+        yunWeiJiShuFragment = TabMainFragmentFactory.getInstance().getYunWeiJiShuFragment();
         reservoirsFragment = TabMainFragmentFactory.getInstance().getReservoirsFragment();
         settingFragment = TabMainFragmentFactory.getInstance().getSettingFragment();
         shangbaoFragment = TabMainFragmentFactory.getInstance().getShangbaoFragment();

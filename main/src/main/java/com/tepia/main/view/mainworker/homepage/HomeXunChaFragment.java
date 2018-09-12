@@ -21,13 +21,16 @@ import com.tepia.main.R;
  *         Time    :       下午2:16
  *         Version :       1.0
  *         Company :       北京太比雅科技(武汉研发中心)
+ *
+ *         主页一 首页 巡查责任人
+ *
  **/
 
 @Route(path = AppRoutePath.app_main_fragment_home_xuncha)
-public class HomeFragment extends BaseCommonFragment {
+public class HomeXunChaFragment extends BaseCommonFragment {
 
 
-    public HomeFragment() {
+    public HomeXunChaFragment() {
         // Required empty public constructor
     }
 
