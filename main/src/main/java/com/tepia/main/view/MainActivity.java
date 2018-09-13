@@ -294,7 +294,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     protected void initRequestData() {
-        DictMapManager.getInstance().getDictMapEntity();
+//        DictMapManager.getInstance().getDictMapEntity();
         setStatusBarTextDark();
         mTabHost.setCurrentTab(position);
     }
