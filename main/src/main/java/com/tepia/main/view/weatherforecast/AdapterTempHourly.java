@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.main.R;
 import com.tepia.main.databinding.LvItemTempHourlyBinding;
 import com.tepia.main.model.weather.HourlyBean;
+import com.tepia.main.model.weather.WeatherManager;
 
 import java.util.List;
 
@@ -29,5 +31,6 @@ public class AdapterTempHourly extends BaseQuickAdapter<HourlyBean,BaseViewHolde
         LvItemTempHourlyBinding mBinding = DataBindingUtil.bind(helper.itemView);
         mBinding.tvHour.setText(item.getTime());
         mBinding.tvTempHour.setText(item.getTemp()+"℃");
+        mBinding.ivTempStatus.setImageResource(WeatherImgManager.getInstance().getImgRes(item.getImg()));
     }
 }

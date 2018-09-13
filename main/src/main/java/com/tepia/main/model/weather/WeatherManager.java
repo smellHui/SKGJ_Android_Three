@@ -7,9 +7,12 @@ import com.google.gson.Gson;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.TimeFormatUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.user.UserManager;
 
+
+import net.lucode.hackware.magicindicator.buildins.UIUtil;
 
 import java.util.Date;
 
@@ -36,25 +39,7 @@ public class WeatherManager {
 
     private WeatherManager() {
         this.mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL_WEATHER).create(WeatherService.class);
-        String temp = SPUtils.getInstance().getString("WEATHERBEAN", "");
-        if (!TextUtils.isEmpty(temp)) {
-            WeahterBean bean = new Gson().fromJson(temp, WeahterBean.class);
-            if (bean == null) {
-                getWeatherEntity();
-            } else {
-                Date lastUpdateTime = TimeFormatUtils.strToDateLong(bean.getUpdatetime());
-                Date nowDate = new Date(System.currentTimeMillis());
 
-                if (lastUpdateTime.getHours() != nowDate.getTime()) {
-                    getWeatherBean();
-                } else {
-                    weatherBean = bean;
-                }
-            }
-
-        } else {
-            getWeatherEntity();
-        }
     }
 
     private void getWeatherEntity() {
@@ -68,7 +53,7 @@ public class WeatherManager {
             public void onNext(WeatherResponse weatherResponse) {
                 if (weatherResponse.getStatus().equals("0")) {
                     weatherBean = weatherResponse.getResult();
-                    SPUtils.getInstance().putString("WEATHERBEAN", new Gson().toJson(weatherBean));
+                    SPUtils.getInstance(Utils.getContext()).putString("WEATHERBEAN", new Gson().toJson(weatherBean));
                 }
             }
 
@@ -100,6 +85,27 @@ public class WeatherManager {
 
 
     public WeahterBean getWeatherBean() {
+        weatherBean = null;
+        String temp = SPUtils.getInstance(Utils.getContext()).getString("WEATHERBEAN", "");
+        if (!TextUtils.isEmpty(temp)) {
+            WeahterBean bean = new Gson().fromJson(temp, WeahterBean.class);
+            if (bean == null) {
+                getWeatherEntity();
+            } else {
+                Date lastUpdateTime = TimeFormatUtils.strToDateLong(bean.getUpdatetime());
+                Date nowDate = new Date(System.currentTimeMillis());
+
+                if (lastUpdateTime.getHours() != nowDate.getTime()) {
+//                    getWeatherEntity();
+                    weatherBean = bean;
+                } else {
+                    weatherBean = bean;
+                }
+            }
+
+        } else {
+            getWeatherEntity();
+        }
         return weatherBean;
     }
 }
