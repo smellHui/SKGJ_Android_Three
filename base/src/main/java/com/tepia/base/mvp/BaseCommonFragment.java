@@ -33,7 +33,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.gyf.barlibrary.ImmersionBar;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.R;
 import com.tepia.base.utils.ToastUtils;
 
@@ -101,7 +103,7 @@ public abstract class BaseCommonFragment extends Fragment {
         tv_right_tianqi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.shortToast("获取天气预报");
+                ARouter.getInstance().build(AppRoutePath.app_weather_forecast).navigation();
             }
         });
         if (loToolbarCommon != null) {

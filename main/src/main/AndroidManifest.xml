@@ -207,6 +207,8 @@
         <activity android:name=".view.main.question.problemconfigure.ProblemConfigureListActivity"
             android:screenOrientation="portrait"
             />
+        <!--天气预报-->
+        <activity android:name=".view.weatherforecast.WeatherForecastActivity" />
     </application>
 
 </manifest>

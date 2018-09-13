@@ -135,5 +135,8 @@ public class AppRoutePath {
     public final static String token = "/app/token";
 
 
-
+    /**
+     * 天气预报
+     */
+    public final static String app_weather_forecast = "/app/weather/forecast";
 }

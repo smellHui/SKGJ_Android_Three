@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 public class APPCostant {
 
+
     /**
      * host 地址
      * 贵州本地地址 http://192.168.10.99:8765  魏爽192.168.10.220
@@ -26,7 +27,11 @@ public class APPCostant {
      * 图片服务器地址
      */
     public static final String API_SERVER_IMAGGE_URL = "http://119.1.151.132:3003/";
-
+    /**
+     * 天气接口host
+     */
+    public static final String API_SERVER_URL_WEATHER = "http://0992e2b3fa5e4f1c91215b933a6f8901-cn-beijing.alicloudapi.com/";
+    public static final String API_SERVER_URL_WEATHER_APP_CODE = "APPCODE 818a5f6e6f284c3f9ed03876db9e8267";
     /**
      * 用户
      */
@@ -82,5 +87,6 @@ public class APPCostant {
      * 极光推送注册id保存
      */
     public static String regisid_jiguang = "regisid_jiguang";
+
 
 }
