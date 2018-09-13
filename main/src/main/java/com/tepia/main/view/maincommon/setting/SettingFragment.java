@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.AppManager;
@@ -28,6 +30,7 @@ import com.tepia.main.view.maincommon.setting.voiceassistant.VoiceAssistantSetti
  * 设置页面
  * by ly on 2018/6/4
  */
+@Route(path = AppRoutePath.app_main_fragment_mine)
 public class SettingFragment extends BaseCommonFragment implements View.OnClickListener{
 
     private ImageView headIv;
@@ -211,7 +214,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     public void onResume() {
         super.onResume();
         if(NetUtil.isNetworkConnected(getBaseActivity())) {
-            saveUserInfoBean();
+//            saveUserInfoBean();
         }
 
     }

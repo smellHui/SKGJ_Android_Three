@@ -1,14 +1,17 @@
 package com.tepia.main.view.main;
 
 
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.view.main.map.MapArcgisFragment;
-import com.tepia.main.view.maintechnology.threekeypoint.ThreePointFragment;
-import com.tepia.main.view.maintechnology.yunwei.YunWeiFragment;
-import com.tepia.main.view.mainworker.homepage.HomeFragment;
+import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
+import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
+import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
-import com.tepia.main.view.mainworker.xuncha.XunchaFragment;
+
+
+import java.util.ArrayList;
 
 /**
  * @author : liying
@@ -35,17 +38,17 @@ public class TabMainFragmentFactory {
     /**
      * 工作模块
      */
-    public HomeFragment homeFragment;
+    public HomeXunChaFragment homeXunChaFragment;
 
-    public HomeFragment getHomeFragment() {
-        if (homeFragment == null) {
-            synchronized (HomeFragment.class) {
-                if (homeFragment == null) {
-                    homeFragment = new HomeFragment();
+    public HomeXunChaFragment getHomeXunChaFragment() {
+        if (homeXunChaFragment == null) {
+            synchronized (HomeXunChaFragment.class) {
+                if (homeXunChaFragment == null) {
+                    homeXunChaFragment = new HomeXunChaFragment();
                 }
             }
         }
-        return homeFragment;
+        return homeXunChaFragment;
     }
 
 
@@ -78,53 +81,39 @@ public class TabMainFragmentFactory {
         return shangbaoFragment;
     }
 
-    /**
-     * 巡检
-     */
-    public XunchaFragment xunchaFragment;
 
-    public XunchaFragment getXunchaFragment() {
-        if (xunchaFragment == null) {
-            synchronized (XunchaFragment.class) {
-                if (xunchaFragment == null) {
-                    xunchaFragment = new XunchaFragment();
-                }
-            }
-        }
-        return xunchaFragment;
-    }
 
 
     /**
      * 运维
      */
-    public YunWeiFragment yunWeiFragment;
+    public YunWeiJiShuFragment yunWeiJiShuFragment;
 
-    public YunWeiFragment getYunWeiFragment() {
-        if (yunWeiFragment == null) {
-            synchronized (YunWeiFragment.class) {
-                if (yunWeiFragment == null) {
-                    yunWeiFragment = new YunWeiFragment();
+    public YunWeiJiShuFragment getYunWeiJiShuFragment() {
+        if (yunWeiJiShuFragment == null) {
+            synchronized (YunWeiJiShuFragment.class) {
+                if (yunWeiJiShuFragment == null) {
+                    yunWeiJiShuFragment = new YunWeiJiShuFragment();
                 }
             }
         }
-        return yunWeiFragment;
+        return yunWeiJiShuFragment;
     }
 
     /**
      * 三个重点
      */
-    public ThreePointFragment threePointFragment;
+    public ThreePointJiShuFragment threePointJiShuFragment;
 
-    public ThreePointFragment getThreePointFragment() {
-        if (threePointFragment == null) {
-            synchronized (ThreePointFragment.class) {
-                if (threePointFragment == null) {
-                    threePointFragment = new ThreePointFragment();
+    public ThreePointJiShuFragment getThreePointJiShuFragment() {
+        if (threePointJiShuFragment == null) {
+            synchronized (ThreePointJiShuFragment.class) {
+                if (threePointJiShuFragment == null) {
+                    threePointJiShuFragment = new ThreePointJiShuFragment();
                 }
             }
         }
-        return threePointFragment;
+        return threePointJiShuFragment;
     }
 
 
@@ -166,14 +155,14 @@ public class TabMainFragmentFactory {
      * 清空静态变量fragment
      */
     public  void clearFragment(){
-        if (threePointFragment != null) {
-            threePointFragment = null;
+        if (threePointJiShuFragment != null) {
+            threePointJiShuFragment = null;
         }
-        if (yunWeiFragment != null) {
-            yunWeiFragment = null;
+        if (yunWeiJiShuFragment != null) {
+            yunWeiJiShuFragment = null;
         }
-        if (homeFragment != null) {
-            homeFragment = null;
+        if (homeXunChaFragment != null) {
+            homeXunChaFragment = null;
         }
         if (reservoirsFragment != null) {
             reservoirsFragment = null;
@@ -184,13 +173,8 @@ public class TabMainFragmentFactory {
         if (shangbaoFragment != null) {
             shangbaoFragment = null;
         }
-        if (xunchaFragment != null) {
-            xunchaFragment = null;
-        }
+
     }
-
-
-
 
 
 }

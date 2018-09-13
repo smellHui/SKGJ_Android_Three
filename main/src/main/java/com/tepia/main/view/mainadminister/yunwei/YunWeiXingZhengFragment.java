@@ -1,22 +1,24 @@
-package com.tepia.main.view.maintechnology.yunwei;
+package com.tepia.main.view.mainadminister.yunwei;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
 /**
- * A simple {@link Fragment} subclass.
- */
-public class YunWeiFragment extends BaseCommonFragment {
+ * @author         :      zhang xinhua
+ * Version         :       1.0
+ * 功能描述        :      主页二 行政责任人 运维页
+ **/
+@Route(path = AppRoutePath.app_main_fragment_yunwei_xingzheng)
+public class YunWeiXingZhengFragment extends BaseCommonFragment {
 
 
-    public YunWeiFragment() {
+    public YunWeiXingZhengFragment() {
         // Required empty public constructor
     }
 

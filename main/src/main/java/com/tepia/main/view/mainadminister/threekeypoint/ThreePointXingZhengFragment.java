@@ -4,16 +4,21 @@ package com.tepia.main.view.mainadminister.threekeypoint;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
 /**
- * A simple {@link Fragment} subclass.
- */
-public class ThreePointFragment extends BaseCommonFragment {
+ * @author         :      zhang xinhua
+ * Version         :       1.0
+ * 功能描述        :      主页三   三个重点  行政责任人
+ **/
+@Route(path = AppRoutePath.app_main_fragment_threekey_xingzheng)
+public class ThreePointXingZhengFragment extends BaseCommonFragment {
 
 
-    public ThreePointFragment() {
+    public ThreePointXingZhengFragment() {
         // Required empty public constructor
     }
 

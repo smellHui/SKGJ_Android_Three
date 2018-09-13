@@ -7,16 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
 /**
- * A simple {@link Fragment} subclass.
- */
-public class ThreePointFragment extends BaseCommonFragment {
+ * @author         :      zhang xinhua
+ * Version         :       1.0
+ * 功能描述        :       主页三  三个重点 技术责任人
+ **/
+@Route(path = AppRoutePath.app_main_fragment_threekey_jishu)
+public class ThreePointJiShuFragment extends BaseCommonFragment {
 
 
-    public ThreePointFragment() {
+    public ThreePointJiShuFragment() {
         // Required empty public constructor
     }
 

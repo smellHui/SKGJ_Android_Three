@@ -7,12 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 
 /**
- * A simple {@link Fragment} subclass.
- */
+ * @author         :
+ * Version         :       1.0
+ * 功能描述        :  主页四 —— 水库页
+ **/
+@Route(path = AppRoutePath.app_main_fragment_reservoirs)
 public class ReservoirsFragment extends BaseCommonFragment {
 
 

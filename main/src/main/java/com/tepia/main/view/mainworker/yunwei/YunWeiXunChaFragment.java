@@ -1,11 +1,8 @@
-package com.tepia.main.view.mainworker.shangbao;
+package com.tepia.main.view.mainworker.yunwei;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
@@ -15,19 +12,20 @@ import com.tepia.main.R;
 /**
  * @author         :      zhang xinhua
  * Version         :       1.0
- * 功能描述        :       主页三 上报页 巡查责任人
+ * 功能描述        :        主页二 运维页 巡查责任人
  **/
-@Route(path = AppRoutePath.app_main_fragment_shangbao_xuncha)
-public class ShangbaoFragment extends BaseCommonFragment {
+@Route(path = AppRoutePath.app_main_fragment_yunwei)
+public class YunWeiXunChaFragment extends BaseCommonFragment {
 
 
-    public ShangbaoFragment() {
+    public YunWeiXunChaFragment() {
         // Required empty public constructor
     }
 
+
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shangbao;
+        return R.layout.fragment_yun_wei;
     }
 
     @Override
@@ -37,11 +35,12 @@ public class ShangbaoFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View view) {
-        setCenterTitle(getString(R.string.main_shangbao));
+      setCenterTitle(getString(R.string.main_yunwei));
     }
 
     @Override
     protected void initRequestData() {
 
     }
+
 }
