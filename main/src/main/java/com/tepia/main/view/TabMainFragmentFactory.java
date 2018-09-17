@@ -175,6 +175,10 @@ public class TabMainFragmentFactory {
             shangbaoFragment = null;
         }
 
+        if (tabMianfragments != null) {
+            tabMianfragments.clear();
+        }
+
     }
 
     ArrayList<String> titles = new ArrayList();

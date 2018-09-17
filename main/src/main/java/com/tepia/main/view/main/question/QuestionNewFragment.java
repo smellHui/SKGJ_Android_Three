@@ -295,7 +295,7 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+        if (resultCode == RESULT_OK && (requestCode == PhotoPicker.REQUEST_CODE)) {
             List<String> photos = null;
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);

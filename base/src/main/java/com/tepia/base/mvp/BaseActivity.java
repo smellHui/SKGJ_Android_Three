@@ -58,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         initListener();
         //初始化沉浸式
-        initImmersionBar();
+//        initImmersionBar();
         ARouter.getInstance().inject(this);
 
         if (SPUtils.getInstance().getBoolean("ISSHOWFLOATVIEW", false)) {

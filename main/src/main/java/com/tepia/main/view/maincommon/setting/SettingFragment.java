@@ -21,8 +21,8 @@ import com.tepia.main.R;
 import com.tepia.main.common.MySettingView;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.TabMainFragmentFactory;
 import com.tepia.main.view.login.LoginActivity;
-import com.tepia.main.view.main.TabMainFragmentFactory;
 import com.tepia.main.view.maincommon.setting.voiceassistant.VoiceAssistantSettingActivity;
 
 

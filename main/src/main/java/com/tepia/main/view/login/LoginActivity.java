@@ -102,10 +102,10 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 return ;
             }
 
-            if(TextUtils.isEmpty(usernameEt.getText())){
+           /* if(TextUtils.isEmpty(usernameEt.getText())){
                 ToastUtils.shortToast(R.string.hintstr);
                 return ;
-            }
+            }*/
 
             /*if(TextUtils.isEmpty(psEt.getText())){
                 ToastUtils.shortToast(R.string.hintps);

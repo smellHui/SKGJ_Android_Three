@@ -11,7 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.utils.AppManager;
 import com.tepia.main.model.user.UserManager;
-import com.tepia.main.view.main.TabMainFragmentFactory;
+import com.tepia.main.view.TabMainFragmentFactory;
 
 @Route(path = AppRoutePath.token)
 public class TokenActivity extends Activity {

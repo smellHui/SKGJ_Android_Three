@@ -97,6 +97,7 @@ public abstract class BaseCommonFragment extends Fragment {
     private void initToolBar(View view) {
         loToolbarCommon = view.findViewById(R.id.lo_toolbar_common);
         tvCenterText = view.findViewById(R.id.tv_center_text);
+
         tvLeftText = view.findViewById(R.id.tv_left_text);
         tvRightText = view.findViewById(R.id.tv_right_text);
         tv_right_tianqi = view.findViewById(R.id.tv_right_tianqi);
@@ -106,9 +107,9 @@ public abstract class BaseCommonFragment extends Fragment {
                 ARouter.getInstance().build(AppRoutePath.app_weather_forecast).navigation();
             }
         });
-        if (loToolbarCommon != null) {
+       /* if (loToolbarCommon != null) {
             ImmersionBar.setTitleBar(getBaseActivity(), loToolbarCommon);
-        }
+        }*/
     }
 
     public boolean isFastClick() {
