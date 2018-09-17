@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tepia.main.view.mainworker.homepage.HomeXunChaFragment">
+    android:orientation="vertical"
+    android:background="@color/background_common"
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <include layout="@layout/toolbar"/>
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/resviorRec"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

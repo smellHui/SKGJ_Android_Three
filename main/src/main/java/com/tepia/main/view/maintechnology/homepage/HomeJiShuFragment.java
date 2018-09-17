@@ -40,6 +40,8 @@ public class HomeJiShuFragment extends BaseCommonFragment {
     @Override
     protected void initView(View view) {
         setCenterTitle(getString(R.string.main_home));
+        getRightTianqi().setVisibility(View.VISIBLE);
+
 
     }
 

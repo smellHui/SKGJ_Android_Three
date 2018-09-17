@@ -23,4 +23,6 @@
     <dimen name="detailmaringbottom">10dp</dimen>
     <dimen name="maringin_detailofly">10dp</dimen>
     <dimen name="drawablepadding">8dp</dimen>
+    <dimen name="textviewtop">20dp</dimen>
+    <dimen name="textviewpadding">15dp</dimen>
 </resources>

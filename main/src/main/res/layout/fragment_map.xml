@@ -349,7 +349,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
-                    android:src="@drawable/come_back"
+                    android:src="@drawable/come_back_blue"
                     android:visibility="visible" />
 
                 <TextView

@@ -51,6 +51,8 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     protected void initView(View view) {
         mBinding = DataBindingUtil.bind(view);
         setCenterTitle(getString(R.string.main_home));
+        getRightTianqi().setVisibility(View.VISIBLE);
+
     }
 
     @Override
