@@ -150,6 +150,7 @@ dependencies {
 //    implementation rootProject.ext.dependencies.GaodeLiabrary
 
 
+
     implementation rootProject.ext.dependencies.Arouter
     annotationProcessor rootProject.ext.dependencies.Arouter_compiler
     implementation project(':photopicker')

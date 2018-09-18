@@ -78,7 +78,7 @@ public class WeatherManager {
     public Observable<WeatherResponse> getWeather(String city) {
         String token = UserManager.getInstance().getToken();
         String appcode = APPCostant.API_SERVER_URL_WEATHER_APP_CODE;
-        return mRetrofitService.getWeather(appcode, city)
+        return mRetrofitService.getWeather(appcode,city)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
