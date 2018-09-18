@@ -1,26 +1,25 @@
-package com.tepia.main.view.maincommon.reservoirs;
+package com.tepia.main.view.maincommon.reservoirs.detailadapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.R;
-import com.tepia.main.model.detai.WaterlevelBean;
+import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
 
 import java.util.List;
 
 /**
- * 主页--水库适配器
+ * 主页--水库--设施适配器
  *
  * @author ly
- * @date 2018/9/17
+ * @date 2018/9/18
  */
 
-public class AdapterMainReservoirs extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
+public class AdapterSupportingReservoirs extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
 
-    public AdapterMainReservoirs(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
+    public AdapterSupportingReservoirs(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
         super(layoutResId, data);
         this.mContext = context;
     }
@@ -30,7 +29,6 @@ public class AdapterMainReservoirs extends BaseQuickAdapter<MyReservoirsItemBean
 
         view.setText(R.id.titleResnameTv,item.getTitle());
         view.setText(R.id.middletitleResnameTv, item.getMiddle_title());
-        view.setBackgroundRes(R.id.imageViewLeft,item.getResourceImg());
 
     }
 }

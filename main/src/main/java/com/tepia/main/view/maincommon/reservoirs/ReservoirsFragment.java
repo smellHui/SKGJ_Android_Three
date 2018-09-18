@@ -2,21 +2,23 @@ package com.tepia.main.view.maincommon.reservoirs;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
+import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.JianjieOfReservoirsActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.SafeManagerPlanActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.SafeRunningActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.SupportingActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +54,14 @@ public class ReservoirsFragment extends BaseCommonFragment {
         getRightTianqi().setVisibility(View.VISIBLE);
 
         resviorRec = findView(R.id.resviorRec);
-        setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.a_all);
-        setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.a_weihu);
-        setResviorRec("水库库容曲线", "CAPACITY CURVE", R.drawable.a_all);
-        setResviorRec("水库配套设置", "RESERVOIRS SUPPORTING", R.drawable.a_weihu);
-        setResviorRec("防汛物资", "FLOOD-FIGHTING MATERIALS", R.drawable.a_all);
-        setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.a_weihu);
-        setResviorRec("水库安全管理应急预案", "CONTINGENCY PLAN", R.drawable.a_all);
-        setResviorRec("水库安全运行管理情况", "ADMINISTRATIVE SITUATION", R.drawable.a_weihu);
+        setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
+        setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
+        setResviorRec("水库库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
+        setResviorRec("水库配套设置", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
+        setResviorRec("防汛物资", "FLOOD-FIGHTING MATERIALS", R.drawable.jianjie5);
+        setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);
+        setResviorRec("水库安全管理应急预案", "CONTINGENCY PLAN", R.drawable.jianjie7);
+        setResviorRec("水库安全运行管理情况", "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
         resviorRec.setLayoutManager(new LinearLayoutManager(getContext()));
         adapterMainReservoirs = new AdapterMainReservoirs(getBaseActivity(), R.layout.fragment_reservoirs_item, myReservoirsItemBeanList);
         resviorRec.setAdapter(adapterMainReservoirs);
@@ -69,8 +71,30 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 Intent intent = new Intent();
                 if (position == 0) {
                     intent.setClass(getBaseActivity(), JianjieOfReservoirsActivity.class);
+                    startActivity(intent);
+                }else if (position == 1) {
+                    intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);
+                    startActivity(intent);
+                }else if(position == 2){
+                    intent.setClass(getBaseActivity(), CapacityActivity.class);
+                    startActivity(intent);
+                } else if(position == 3){
+                    intent.setClass(getBaseActivity(), SupportingActivity.class);
+                    startActivity(intent);
+                }else if(position == 4){
+                    intent.setClass(getBaseActivity(), FloodActivity.class);
+                    startActivity(intent);
+                }else if(position == 5){
+                    intent.setClass(getBaseActivity(), OperationPlanActivity.class);
+                    startActivity(intent);
                 }
-                startActivity(intent);
+                else if(position == 6){
+                    intent.setClass(getBaseActivity(), SafeManagerPlanActivity.class);
+                    startActivity(intent);
+                }else if(position == 7){
+                    intent.setClass(getBaseActivity(), SafeRunningActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

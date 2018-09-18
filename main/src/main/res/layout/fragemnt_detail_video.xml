@@ -6,6 +6,9 @@
     android:background="@color/background_common"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar"
+        android:visibility="gone"
+        />
     <LinearLayout
         android:id="@+id/baseinfoLyChild"
 

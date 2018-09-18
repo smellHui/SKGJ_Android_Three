@@ -212,7 +212,28 @@
             android:screenOrientation="portrait" />
         <!-- 天气预报 -->
         <activity android:name=".view.weatherforecast.WeatherForecastActivity" />
-        <activity android:name=".view.maincommon.reservoirs.detail.JianjieOfReservoirsActivity"
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.JianjieOfReservoirsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.VedioOfReservoirActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.CapacityActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.maincommon.reservoirs.detail.SupportingActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.maincommon.reservoirs.detail.FloodActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.maincommon.reservoirs.detail.OperationPlanActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.maincommon.reservoirs.detail.SafeManagerPlanActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.maincommon.reservoirs.detail.SafeRunningActivity"
             android:screenOrientation="portrait"
             />
     </application>

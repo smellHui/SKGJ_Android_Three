@@ -23,6 +23,11 @@
     <dimen name="detailmaringbottom">10dp</dimen>
     <dimen name="maringin_detailofly">10dp</dimen>
     <dimen name="drawablepadding">8dp</dimen>
-    <dimen name="textviewtop">20dp</dimen>
+    <dimen name="textviewtop">15dp</dimen>
     <dimen name="textviewpadding">15dp</dimen>
+    <dimen name="basetextsize">15sp</dimen>
+    <dimen name="jianjiemarginbottom">5dp</dimen>
+    <dimen name="jianjiemarginleft">15dp</dimen>
+    <dimen name="jianjietextsize">14sp</dimen>
+    <dimen name="lymargin">12dp</dimen>
 </resources>

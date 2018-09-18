@@ -26,7 +26,7 @@
         <TextView
             android:textSize="18dp"
             android:id="@+id/titleResnameTv"
-            android:text="水库简介"
+            android:text="--"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -34,7 +34,7 @@
         <TextView
             android:textSize="12dp"
             android:id="@+id/middletitleResnameTv"
-            android:text="RESERVOIRS DESCRIPTION"
+            android:text="--"
             android:textColor="@color/text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
