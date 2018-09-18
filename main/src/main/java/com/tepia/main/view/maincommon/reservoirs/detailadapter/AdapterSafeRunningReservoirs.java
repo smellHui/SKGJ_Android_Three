@@ -29,6 +29,7 @@ public class AdapterSafeRunningReservoirs extends BaseQuickAdapter<MyReservoirsI
 
         view.setText(R.id.titleResnameTv,item.getTitle());
         view.setText(R.id.middletitleResnameTv, item.getMiddle_title());
+        view.setImageResource(R.id.leftIv,item.getResourceImg());
 
     }
 }

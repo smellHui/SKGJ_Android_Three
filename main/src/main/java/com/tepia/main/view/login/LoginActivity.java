@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -53,6 +55,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
     @Override
     public void initView() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initLayout();
     }
 
@@ -122,6 +125,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             finish();
 
         });
+        Intent intent = new Intent();
+        intent.setClass(this, MainActivity.class);
+        intent.putExtra("key",usernameEt.getText().toString());
+        startActivity(intent);
+        finish();
     }
 
 

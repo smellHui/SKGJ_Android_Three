@@ -2,18 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#f4f5f7"
+    android:background="@color/background_common"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
     <com.tepia.base.view.MyEditUserInfoView
+
         android:id="@+id/headMv"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"/>
 
     <com.tepia.base.view.MyEditUserInfoView
+        android:layout_marginTop="5dp"
         android:id="@+id/nameMv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"/>

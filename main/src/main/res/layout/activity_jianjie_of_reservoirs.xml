@@ -24,7 +24,10 @@
 
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/lymargin"
-                android:background="@color/white">
+                android:background="@drawable/jianjie_bigbase"
+                android:paddingLeft="@dimen/padding_5"
+
+                >
 
 
                 <LinearLayout
@@ -162,17 +165,20 @@
                 </LinearLayout>
 
                 <FrameLayout
+
                     android:id="@+id/moreorlessFy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/baseLy"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp">
 
                     <ImageView
+
                         android:id="@+id/shengluehaoIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left"
+                        android:layout_gravity="left|center"
                         android:layout_marginLeft="15dp"
                         android:src="@drawable/jianjieshengluehao" />
 
@@ -180,7 +186,7 @@
                         android:id="@+id/moreorlessTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="right|center"
                         android:layout_marginRight="16dp"
                         android:text="查看更多"
                         android:textSize="11sp" />
@@ -192,7 +198,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/lymargin"
-                android:background="@color/white"
+                android:background="@drawable/jianjie_bigbase"
+                android:paddingLeft="@dimen/padding_5"
                 android:orientation="vertical">
 
                 <TextView
@@ -230,7 +237,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/lymargin"
-                android:background="@color/white"
+                android:background="@drawable/jianjie_bigbase"
+                android:paddingLeft="@dimen/padding_5"
                 android:orientation="vertical">
 
                 <TextView

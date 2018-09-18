@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#4c000000</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#59abf1</color>
     <!--百度加载view颜色-->
     <color name="color_load_red">#fa007a</color>
     <color name="color_load_purple">#935fe7</color>

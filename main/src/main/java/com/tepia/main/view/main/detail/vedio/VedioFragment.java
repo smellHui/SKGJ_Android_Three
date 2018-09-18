@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -88,6 +89,12 @@ public class VedioFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View mview) {
+        for (int i = 0; i < 6; i++) {
+            VideoInfo videoshuiwus = new VideoInfo(channel, "水库大坝"+i, "ok");
+            data_video.add(videoshuiwus);
+        }
+
+
         if (getArguments() != null && getArguments().containsKey(typekey_detail)) {
             VideoResponse.DataBean dataBean = (VideoResponse.DataBean) getArguments().getSerializable(typekey_detail);
             Ip = dataBean.getIp();
@@ -103,7 +110,7 @@ public class VedioFragment extends BaseCommonFragment {
             return;
         }
         video_list_view = findView(R.id.video_list_view);
-        video_list_view.setLayoutManager(new GridLayoutManager(getBaseActivity(), 2));
+        video_list_view.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
         adapter = new SurvelVideoAdapter(getBaseActivity(), R.layout.adapter_video_items, data_video);
         video_list_view.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter, view, position) -> {
@@ -127,9 +134,9 @@ public class VedioFragment extends BaseCommonFragment {
             simpleLoadDialog = new SimpleLoadDialog(getBaseActivity(), getString(R.string.data_loading), true);
             simpleLoadDialog.show();
             new LoadDataTask().execute(Constant.Video.LOAD_SUCCESS);
-        }else{
+        }/*else{
             adapter.setEmptyView(EmptyLayoutUtil.show("视频正在接入中"));
-        }
+        }*/
     }
 
 

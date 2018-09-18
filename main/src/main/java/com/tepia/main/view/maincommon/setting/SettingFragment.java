@@ -35,11 +35,13 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
     private ImageView headIv;
     private TextView userTv;
-    private MySettingView daibanMv;
+    private MySettingView personinfoMv;
     private MySettingView msgMv;
     private MySettingView setMv;
     private MySettingView mvVoiceAssistant;
-    private TextView loginoutBtn;
+    private MySettingView peixunMv;
+    private MySettingView zhizeMvMv;
+    private MySettingView loginOutMv;
     private EditText changeipEv;
 
     private Context mContext;
@@ -57,7 +59,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
     @Override
     protected void initView(View view) {
-//        setCenterTitle(getString(R.string.setting_title));
+        setCenterTitle(getString(R.string.setting_title));
+        getRightTianqi().setVisibility(View.VISIBLE);
         initView();
     }
 
@@ -77,7 +80,13 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         }else if(view.getId() == R.id.userTv){
             ToastUtils.shortToast("待开发功能");
 
-        }else if(view.getId() == R.id.daibanMv){
+        }else if(view.getId() == R.id.personinfoMv){
+            ToastUtils.shortToast("待开发功能");
+
+        }else if(view.getId() == R.id.zhizeMvMv){
+            intent = new Intent(getBaseActivity(), ZhizeActivity.class);
+            startActivity(intent);
+        }else if(view.getId() == R.id.peixunMv){
             ToastUtils.shortToast("待开发功能");
 
         }else if(view.getId() == R.id.msgMv){
@@ -90,10 +99,10 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             intent = new Intent(getBaseActivity(),VoiceAssistantSettingActivity.class);
             startActivity(intent);
 
-        }else if(view.getId() == R.id.loginoutBtn){
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        }else if(view.getId() == R.id.loginOutMv){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getBaseActivity());
             builder.setMessage(R.string.exit_message);
-            builder.setCancelable(false);
+            builder.setCancelable(true);
             builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -125,56 +134,51 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         headIv = findView(R.id.headIv);
         userTv = findView(R.id.userTv);
 
-        daibanMv = findView(R.id.daibanMv);
+        personinfoMv = findView(R.id.personinfoMv);
 
         msgMv = findView(R.id.msgMv);
         setMv = findView(R.id.setMv);
         mvVoiceAssistant =findView(R.id.mv_voice_assistant);
-        loginoutBtn = findView(R.id.loginoutBtn);
+        peixunMv =findView(R.id.peixunMv);
+        zhizeMvMv =findView(R.id.zhizeMvMv);
+        loginOutMv =findView(R.id.loginOutMv);
 
 
         headIv.setOnClickListener(SettingFragment.this);
         userTv.setOnClickListener(SettingFragment.this);
-        daibanMv.setOnClickListener(SettingFragment.this);
+        personinfoMv.setOnClickListener(SettingFragment.this);
         msgMv.setOnClickListener(SettingFragment.this);
         setMv.setOnClickListener(SettingFragment.this);
         mvVoiceAssistant.setOnClickListener(SettingFragment.this);
-        loginoutBtn.setOnClickListener(SettingFragment.this);
+        peixunMv.setOnClickListener(SettingFragment.this);
+        zhizeMvMv.setOnClickListener(SettingFragment.this);
+        loginOutMv.setOnClickListener(SettingFragment.this);
         setItem();
 
         // TODO: 2018/8/20 打包发布时记得屏蔽
         changeipEv = findView(R.id.changeipEv);
-        /*changeipEv.setVisibility(View.VISIBLE);
-        changeipEv.setText(APPCostant.API_SERVER_URL);
-        changeipEv.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                APPCostant.API_SERVER_URL = charSequence.toString();
-                LogUtil.e("ip地址："+APPCostant.API_SERVER_URL);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });*/
 
     }
 
     private void setItem(){
-        daibanMv.setTitle(getString(R.string.daibanstr));
-        daibanMv.setIvLeft(R.drawable.s_daiban);
-        msgMv.setTitle(getString(R.string.msgstr));
+        personinfoMv.setTitle(getString(R.string.personinfostr));
+        personinfoMv.setIvLeft(R.drawable.s_personinfo);
+        peixunMv.setTitle(getString(R.string.peixunstr));
+        peixunMv.setIvLeft(R.drawable.s_peixun);
+        zhizeMvMv.setTitle(getString(R.string.zhizestr));
+        zhizeMvMv.setIvLeft(R.drawable.s_zhize);
+
+
+        msgMv.setTitle(getString(R.string.phonestr));
         msgMv.setIvLeft(R.drawable.s_msg);
         setMv.setTitle(getString(R.string.setstr));
         setMv.setIvLeft(R.drawable.s_set);
         mvVoiceAssistant.setTitle(getString(R.string.text_voice_assistant));
         mvVoiceAssistant.setIvLeft(R.drawable.s_yuyin);
+        loginOutMv.setTitle(getString(R.string.loginout));
+        loginOutMv.setIvLeft(R.drawable.s_loginout);
+
 
     }
 

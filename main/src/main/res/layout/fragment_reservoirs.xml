@@ -8,7 +8,15 @@
 
     <!-- TODO: Update blank fragment layout -->
     <include layout="@layout/toolbar"/>
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:layout_margin="10dp"
+        ></com.youth.banner.Banner>
     <android.support.v7.widget.RecyclerView
+        android:layout_marginBottom="10dp"
         android:id="@+id/resviorRec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -1,12 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="76dp"
-    android:background="#e9f1fc"
+    android:background="@drawable/jianjie_juxing"
     android:layout_margin="10dp"
     >
 
 
     <View
+        android:visibility="gone"
         android:background="@color/text_color"
         android:layout_centerVertical="true"
         android:layout_width="5dp"

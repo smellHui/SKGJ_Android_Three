@@ -29,6 +29,7 @@ public class VedioOfReservoirActivity extends BaseActivity {
         setCenterTitle("视频列表");
         showBack();
         VideoResponse.DataBean dataBean = new VideoResponse.DataBean();
+        dataBean.setAccessType("1");
         initVedioDetailFragment(dataBean);
     }
 
@@ -52,7 +53,7 @@ public class VedioOfReservoirActivity extends BaseActivity {
         VedioFragment detailFragment = VedioFragment.newInstance(dataBean);
         transaction.replace(R.id.fl_container, detailFragment);
         transaction.show(detailFragment);
-        transaction.addToBackStack(null);
+//        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

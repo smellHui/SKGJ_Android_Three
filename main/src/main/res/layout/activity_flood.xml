@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_common"
-    tools:context=".view.maincommon.reservoirs.detail.FloodActivity">
+    >
 
     <include layout="@layout/toolbar" />
     <include layout="@layout/reserviros_title_layout"/>
@@ -15,7 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/lymargin"
-        android:background="@color/white"
+        android:background="@drawable/jianjie_bigbase"
+        android:paddingRight="@dimen/padding_5"
+        android:paddingLeft="@dimen/padding_5"
+
+        android:paddingBottom="10dp"
+        android:paddingTop="0dp"
         android:orientation="vertical">
 
         <TextView

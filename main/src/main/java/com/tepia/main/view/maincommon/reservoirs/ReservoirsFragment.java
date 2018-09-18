@@ -1,15 +1,19 @@
 package com.tepia.main.view.maincommon.reservoirs;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.main.APPCostant;
 import com.tepia.main.R;
 import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
@@ -19,6 +23,9 @@ import com.tepia.main.view.maincommon.reservoirs.detail.SafeManagerPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SafeRunningActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SupportingActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +41,9 @@ public class ReservoirsFragment extends BaseCommonFragment {
     private RecyclerView resviorRec;
     private AdapterMainReservoirs adapterMainReservoirs;
     private List<MyReservoirsItemBean> myReservoirsItemBeanList = new ArrayList<>();
+    private Banner banner;
+    private List<Integer> images = new ArrayList<Integer>();
+    private List<String> titles = new ArrayList<>();
 
     public ReservoirsFragment() {
     }
@@ -52,7 +62,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
     protected void initView(View view) {
         setCenterTitle(getString(R.string.main_reservoirs));
         getRightTianqi().setVisibility(View.VISIBLE);
-
+        initBanner();
         resviorRec = findView(R.id.resviorRec);
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
@@ -72,31 +82,68 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 if (position == 0) {
                     intent.setClass(getBaseActivity(), JianjieOfReservoirsActivity.class);
                     startActivity(intent);
-                }else if (position == 1) {
+                } else if (position == 1) {
                     intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);
                     startActivity(intent);
-                }else if(position == 2){
+                } else if (position == 2) {
                     intent.setClass(getBaseActivity(), CapacityActivity.class);
                     startActivity(intent);
-                } else if(position == 3){
+                } else if (position == 3) {
                     intent.setClass(getBaseActivity(), SupportingActivity.class);
                     startActivity(intent);
-                }else if(position == 4){
+                } else if (position == 4) {
                     intent.setClass(getBaseActivity(), FloodActivity.class);
                     startActivity(intent);
-                }else if(position == 5){
+                } else if (position == 5) {
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
                     startActivity(intent);
-                }
-                else if(position == 6){
+                } else if (position == 6) {
                     intent.setClass(getBaseActivity(), SafeManagerPlanActivity.class);
                     startActivity(intent);
-                }else if(position == 7){
+                } else if (position == 7) {
                     intent.setClass(getBaseActivity(), SafeRunningActivity.class);
                     startActivity(intent);
                 }
             }
         });
+
+    }
+
+    private void initBanner() {
+        banner = findView(R.id.banner);
+        for (int i = 0; i < 4; i++) {
+
+        }
+        images.add(R.drawable.jianjie_banner0);
+        images.add(R.drawable.jianjie_banner1);
+        images.add(R.drawable.jianjie_banner2);
+        images.add(R.drawable.jianjie_banner3);
+        titles.add("2018-02-09");
+        titles.add("");
+        titles.add("2017-02-09");
+        titles.add("");
+
+        //设置圆形指示器与标题
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        //设置指示器位置
+        banner.setIndicatorGravity(BannerConfig.CENTER);
+        //设置轮播时间
+        banner.setDelayTime(2000);
+        //设置图片源
+        banner.setImages(images);
+        //设置标题源
+//        banner.setBannerTitles(titles);
+        banner.setImageLoader(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                Glide.with(context)
+                        .load(path)
+                        .apply(APPCostant.options)
+                        .thumbnail(0.5f)
+                        .into(imageView);
+            }
+        });
+        banner.start();
 
     }
 

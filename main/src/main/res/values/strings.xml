@@ -51,8 +51,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="setting_title">我的</string>
     <string name="loginout">退出登录</string>
-    <string name="daibanstr">待办事项</string>
-    <string name="msgstr">消息通知</string>
+    <string name="personinfostr">个人信息</string>
+    <string name="phonestr">通讯录</string>
     <string name="setstr">设置</string>
     <string name="text_voice_assistant">语音助手</string>
 
@@ -230,7 +230,9 @@
     <string name="main_reservoirs">水库</string>
     <string name="main_shangbao">上报</string>
     <string name="main_xuncha">巡查</string>
-    <string name="gongchenggaikuangstr" >(一)工程概况\n1.1 水库流域情况\n2016年3月，经专家实地考察确证：杭州良渚古城外围发现的水利系统，是迄今所知中国最早的大型水利工程，也是世界最早的水坝，距今已经有4700至5100年，比传说中的“大禹治水”还要早1000年。专家建议，尽快把水利系统列入良渚遗址保护范围，并纳入良渚古城申遗价值研究范围。</string>
+    <string name="gongchenggaikuangstr">(一)工程概况\n1.1 水库流域情况\n2016年3月，经专家实地考察确证：杭州良渚古城外围发现的水利系统，是迄今所知中国最早的大型水利工程，也是世界最早的水坝，距今已经有4700至5100年，比传说中的“大禹治水”还要早1000年。专家建议，尽快把水利系统列入良渚遗址保护范围，并纳入良渚古城申遗价值研究范围。</string>
+    <string name="peixunstr">工作培训</string>
+    <string name="zhizestr">工作职责</string>
 
     <!--LHotelEntityAdapter中item setTag的key-->
     <item name="tag_groupItemIndex" type="id">groupItemIndex</item>

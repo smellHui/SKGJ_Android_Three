@@ -15,7 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/lymargin"
-        android:background="@color/white"
+        android:background="@drawable/jianjie_bigbase"
+        android:paddingLeft="@dimen/padding_5"
+        android:paddingRight="@dimen/padding_5"
         android:orientation="vertical">
 
         <TextView

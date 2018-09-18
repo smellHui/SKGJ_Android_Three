@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     android:layout_margin="0dp"
     android:background="@drawable/selector_bg_citychange_rip"
-    android:paddingBottom="10dp"
+    android:paddingBottom="20dp"
     android:paddingLeft="@dimen/autodimen_setting"
     android:paddingRight="@dimen/autodimen_setting"
-    android:paddingTop="10dp">
+    android:paddingTop="20dp">
 
     <ImageView
         android:id="@+id/leftIv"

@@ -38,10 +38,10 @@ public class SafeRunningActivity extends BaseActivity {
         setCenterTitle("安全鉴定记录");
         showBack();
         saferunningRec = findViewById(R.id.saferunningRec);
-        setResviorRec("安全鉴定", "RESERVOIRS DESCRIPTION", R.drawable.a_all);
-        setResviorRec("除险加固", "RESERVOIRS DESCRIPTION", R.drawable.a_all);
-        setResviorRec("蓄水验收", "RESERVOIRS DESCRIPTION", R.drawable.a_all);
-        setResviorRec("竣工验收", "RESERVOIRS DESCRIPTION", R.drawable.a_all);
+        setResviorRec("安全鉴定", "RESERVOIRS DESCRIPTION", R.drawable.jianjie_anquan);
+        setResviorRec("除险加固", "RESERVOIRS DESCRIPTION", R.drawable.jianjie_jiagu);
+        setResviorRec("蓄水验收", "RESERVOIRS DESCRIPTION", R.drawable.jianjie_xushui);
+        setResviorRec("竣工验收", "RESERVOIRS DESCRIPTION", R.drawable.jianjie_yanshou);
 
         saferunningRec.setLayoutManager(new LinearLayoutManager(this));
         adapterSafeRunningReservoirs = new AdapterSafeRunningReservoirs(this,R.layout.fragment_reservoirs_saferunning_item,myReservoirsItemBeanList);

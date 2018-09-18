@@ -4,8 +4,7 @@
     android:id="@+id/lo_toolbar_common"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="?attr/colorPrimary"
-    android:minHeight="?attr/actionBarSize"
+    android:background="@color/colorPrimary"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
     app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -25,9 +24,10 @@
             android:textSize="20sp" />
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/tv_left_text"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/come_back_blue"
              />
