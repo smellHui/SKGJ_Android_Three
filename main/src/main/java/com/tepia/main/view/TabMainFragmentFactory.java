@@ -86,7 +86,6 @@ public class TabMainFragmentFactory {
     }
 
 
-
     /**
      * 运维
      */
@@ -220,22 +219,34 @@ public class TabMainFragmentFactory {
             BaseCommonFragment fragment = getRouteFragment(menuData.get(i));
             if ("110".equals(menuData.get(i).getMenuCode())) {
                 List<MenuItemBean> items = menuData.get(i).getChildren();
-                if (items!= null && items.size() == 1){
+                if (items != null && items.size() == 1) {
                     BaseCommonFragment fragment1 = getRouteFragment(items.get(0));
                     if (fragment1 != null) {
                         tabMianfragments.add(fragment1);
                         titles.add(items.get(0).getMenuName());
-                        imageIds.add(R.drawable.selector_tabbar_bus);
+                        if (TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()) == null) {
+                            imageIds.add(R.drawable.selector_tabbar_bus);
+                        } else {
+                            imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
+                        }
                     }
-                }else {
+                } else {
                     tabMianfragments.add(fragment);
                     titles.add(menuData.get(i).getMenuName());
-                    imageIds.add(R.drawable.selector_tabbar_bus);
+                    if (TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()) == null) {
+                        imageIds.add(R.drawable.selector_tabbar_bus);
+                    } else {
+                        imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
+                    }
                 }
             } else if (fragment != null) {
                 tabMianfragments.add(fragment);
                 titles.add(menuData.get(i).getMenuName());
-                imageIds.add(R.drawable.selector_tabbar_bus);
+                if (TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()) == null) {
+                    imageIds.add(R.drawable.selector_tabbar_bus);
+                } else {
+                    imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
+                }
             }
 
         }
