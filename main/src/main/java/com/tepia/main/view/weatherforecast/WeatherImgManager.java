@@ -35,6 +35,16 @@ public class WeatherImgManager {
         imgsRes.put("7",R.mipmap.weather_7);
         imgsRes.put("8",R.mipmap.weather_8);
         imgsRes.put("9",R.mipmap.weather_9);
+        imgsRes.put("00",R.mipmap.weather_0);
+        imgsRes.put("01",R.mipmap.weather_1);
+        imgsRes.put("02",R.mipmap.weather_2);
+        imgsRes.put("03",R.mipmap.weather_3);
+        imgsRes.put("04",R.mipmap.weather_4);
+        imgsRes.put("05",R.mipmap.weather_5);
+        imgsRes.put("06",R.mipmap.weather_6);
+        imgsRes.put("07",R.mipmap.weather_7);
+        imgsRes.put("08",R.mipmap.weather_8);
+        imgsRes.put("09",R.mipmap.weather_9);
         imgsRes.put("10",R.mipmap.weather_10);
         imgsRes.put("11",R.mipmap.weather_11);
         imgsRes.put("12",R.mipmap.weather_12);

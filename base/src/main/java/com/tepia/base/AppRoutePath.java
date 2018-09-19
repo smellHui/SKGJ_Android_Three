@@ -139,4 +139,8 @@ public class AppRoutePath {
      * 天气预报
      */
     public final static String app_weather_forecast = "/app/weather/forecast";
+    /**
+     * 通信录
+     */
+    public final static String app_contacts = "/app/contacts";
 }

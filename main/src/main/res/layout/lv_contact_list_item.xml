@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.tepia.photo_picker.widget.CircleImageView
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="5dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="12dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="fdjasjsd"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:background="@drawable/bg_contacts_positoin"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="2dp"
+                            android:text="县级负责人"
+                            android:textColor="#2ba5ff"
+                            android:textSize="10dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="fkajsdfjkas"
+                        android:textColor="#747a86"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="#edeff1"
+                android:layout_height="0.5dp"/>
+        </LinearLayout>
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

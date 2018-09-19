@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.databinding.LvItemTempDailyBinding;
 import com.tepia.main.model.weather.DailyBean;
 import com.tepia.main.model.weather.HourlyBean;
+import com.tepia.main.model.weather.Weather2Bean;
 
 import java.util.List;
 
@@ -21,16 +22,16 @@ import java.util.List;
  * Version         :       1.0
  * 功能描述        :
  **/
-public class AdapterTempDaily extends BaseQuickAdapter<DailyBean, BaseViewHolder> {
-    public AdapterTempDaily(int layoutResId, @Nullable List<DailyBean> data) {
+public class AdapterTempDaily extends BaseQuickAdapter<Weather2Bean.FBean, BaseViewHolder> {
+    public AdapterTempDaily(int layoutResId, @Nullable List<Weather2Bean.FBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DailyBean item) {
+    protected void convert(BaseViewHolder helper, Weather2Bean.FBean item) {
         LvItemTempDailyBinding mBinding = DataBindingUtil.bind(helper.itemView);
-        mBinding.tvTime.setText(item.getDate() + item.getWeek());
-        mBinding.tvTemp.setText(item.getDay().getTemphigh()+"/"+item.getNight().getTemplow());
-        mBinding.ivTempStatus.setImageResource(WeatherImgManager.getInstance().getImgRes(item.getDay().getImg()));
+        mBinding.tvTime.setText(item.getDay());
+        mBinding.tvTemp.setText(item.getDay_air_temperature()+"/"+item.getNight_air_temperature());
+        mBinding.ivTempStatus.setImageResource(WeatherImgManager.getInstance().getImgRes(item.getDay_weather_code()));
     }
 }

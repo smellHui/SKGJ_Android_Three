@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
@@ -90,8 +91,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             ToastUtils.shortToast("待开发功能");
 
         }else if(view.getId() == R.id.msgMv){
-            ToastUtils.shortToast("待开发功能");
-
+//            ToastUtils.shortToast("待开发功能");
+            ARouter.getInstance().build(AppRoutePath.app_contacts).navigation();
         }else if(view.getId() == R.id.setMv){
             intent = new Intent(getBaseActivity(),VersionActivity.class);
             startActivity(intent);

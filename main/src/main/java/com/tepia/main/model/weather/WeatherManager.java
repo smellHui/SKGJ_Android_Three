@@ -108,4 +108,22 @@ public class WeatherManager {
         }
         return weatherBean;
     }
+
+    public Observable<Weather2Response> getWeatherbyArea(String area) {
+        String token = UserManager.getInstance().getToken();
+        String appcode = "APPCODE ba471f686c564c98854da1c88443d07e";
+        String url = "http://102b631ae1094e33a77c45312226184e-cn-qingdao.alicloudapi.com/area-to-weather";
+        String needMoreDay = "1";
+        return mRetrofitService.getWeatherbyArea(url,appcode,area,needMoreDay)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<WeatherHour24Response> getWeatherbyHour24(String area) {
+        String appcode = "APPCODE ba471f686c564c98854da1c88443d07e";
+        String url = "http://102b631ae1094e33a77c45312226184e-cn-qingdao.alicloudapi.com/hour24";
+        return mRetrofitService.getWeatherbyHour24(url,appcode,area)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

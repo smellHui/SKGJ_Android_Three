@@ -53,7 +53,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         lcReservoirCapacity = (LineChart) view.findViewWithTag("lc_reservoir_capacity");
         mBinding = DataBindingUtil.bind(view);
         setCenterTitle(getString(R.string.main_home));
-
+        getRightTianqi().setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mBinding.rvWorker.setLayoutManager(layoutManager);

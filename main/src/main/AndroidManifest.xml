@@ -236,7 +236,9 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.SafeRunningActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.setting.ZhizeActivity" />
+        <activity android:name=".view.maincommon.setting.ZhizeActivity"></activity>
+        <!--通信录页面-->
+        <activity android:name=".view.maincommon.setting.contacts.ContactsActivity" />
         <activity android:name=".view.maincommon.setting.PeiXunActivity" />
         <activity android:name=".view.maincommon.reservoirs.detail.ItemSafeJiandingActivity"></activity>
     </application>
