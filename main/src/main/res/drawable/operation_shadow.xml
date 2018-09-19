@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--图层1 显示在下方-->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:endColor="#00000000"
+                android:startColor="#eaedef"
+                android:type="linear" />
+            <size android:height="12dp" />
+        </shape>
+    </item>
+    <!--图层2 显示在上方-->
+    <!--bottom: 从bottom向上缩进12dp, 留给下面的层显示-->
+    <item android:bottom="12dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#fff" />
+        </shape>
+    </item>
+</layer-list>
