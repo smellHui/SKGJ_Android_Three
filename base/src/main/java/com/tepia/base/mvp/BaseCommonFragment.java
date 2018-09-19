@@ -107,9 +107,9 @@ public abstract class BaseCommonFragment extends Fragment {
                 ARouter.getInstance().build(AppRoutePath.app_weather_forecast).navigation();
             }
         });
-       /* if (loToolbarCommon != null) {
+        if (loToolbarCommon != null) {
             ImmersionBar.setTitleBar(getBaseActivity(), loToolbarCommon);
-        }*/
+        }
     }
 
     public boolean isFastClick() {

@@ -24,412 +24,472 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="75dp"
-                        android:background="#1284ec"
-                        android:elevation="10dp">
-
-                    </RelativeLayout>
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
+                        android:background="@drawable/bg_res_home_page"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="25dp" />
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@mipmap/ic_launcher" />
 
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:lineSpacingExtra="0dp"
-                                android:text="水库人员"
-                                android:textColor="@color/black"
-                                android:textSize="14dp" />
-                        </LinearLayout>
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_worker"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginTop="12dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@mipmap/ic_launcher" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:lineSpacingExtra="0dp"
-                                android:text="巡检频率"
-                                android:textColor="#2e3748"
-                                android:textSize="14dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="20dp">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:src="@mipmap/ic_launcher" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="7dp"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="fdasd"
-                                        android:textColor="#232a39"
-                                        android:textSize="14dp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="fdasd"
-                                        android:textColor="#979eab"
-                                        android:textSize="12dp" />
-                                </LinearLayout>
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="34dp"
-                                    android:layout_height="34dp"
-                                    android:src="@mipmap/ic_launcher" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="7dp"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="fdasd"
-                                        android:textColor="#232a39"
-                                        android:textSize="14dp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="fdasd"
-                                        android:textColor="#979eab"
-                                        android:textSize="12dp" />
-                                </LinearLayout>
-
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="#26a1adbb" />
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@mipmap/ic_launcher" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="巡检统计"
-                                android:textColor="#2e3748"
-                                android:textSize="14dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="20dp">
-
-                            <LinearLayout
-
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_72"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:layout_height="wrap_content"
+                                android:text="fkajskfdjk"
+                                android:textColor="@color/white"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
 
-                                <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PRESSURE RESERVOIR"
+                                android:textColor="#4dffffff"
+                                android:textSize="10dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_change_re"
+                            android:paddingBottom="6dp"
+                            android:paddingLeft="14dp"
+                            android:paddingRight="14dp"
+                            android:paddingTop="6dp"
+                            android:text="切换水库"
+                            android:textColor="#ccffffff"
+                            android:textSize="12dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:paddingBottom="15dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/icon_home_page_worker" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:lineSpacingExtra="0dp"
+                                    android:text="水库人员"
+                                    android:textColor="#2e3748"
+                                    android:textSize="14dp" />
+                            </LinearLayout>
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_worker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="12dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/icon_home_page_pinglv" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:lineSpacingExtra="0dp"
+                                    android:text="巡检频率"
+                                    android:textColor="#2e3748"
+                                    android:textSize="14dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="20dp">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="34dp"
+                                        android:layout_height="34dp"
+                                        android:src="@drawable/icon_home_page_daily" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="7dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="fdasd"
+                                            android:textColor="#232a39"
+                                            android:textSize="14dp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="日常频率(次)"
+                                            android:textColor="#979eab"
+                                            android:textSize="12dp" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="31dp"
+                                        android:layout_height="34dp"
+                                        android:src="@drawable/icon_home_page_xq" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="7dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="fdasd"
+                                            android:textColor="#232a39"
+                                            android:textSize="14dp" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="汛期频率(次)  "
+                                            android:textColor="#979eab"
+                                            android:textSize="12dp" />
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#26a1adbb" />
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/icon_home_page__tongji" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:text="巡检统计"
+                                    android:textColor="#2e3748"
+                                    android:textSize="14dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="20dp">
+
+                                <LinearLayout
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/dp_72"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
+                                        android:id="@+id/rtcp_xuncha_count"
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:text="本月巡查次数"
+                                        android:textColor="#2c3443"
+                                        android:textSize="10dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="0.5dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:background="#ececec" />
+
+                                <LinearLayout
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/dp_72"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
+                                        android:id="@+id/rtcp_question_count"
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:text="发现问题"
+                                        android:textColor="#455067"
+                                        android:textSize="10dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/dp_72"
+                                    android:layout_marginLeft="20dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
+                                        android:id="@+id/rtcp_dealed_count"
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:text="已处理"
+                                        android:textColor="#455067"
+                                        android:textSize="10dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/dp_72"
+                                    android:layout_marginLeft="20dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
+                                        android:id="@+id/rtcp_not_deal_count"
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:text="未处理"
+                                        android:textColor="#455067"
+                                        android:textSize="10dp" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#26a1adbb" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/icon_home_page_fxwz" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="本月巡查次数"
-                                    android:textColor="#2c3443"
-                                    android:textSize="10dp"
-                                    android:textStyle="bold" />
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_weight="1"
+                                    android:text="防汛物资"
+                                    android:textColor="#2e3748"
+                                    android:textSize="14dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right"
+                                    android:text="查看更多"
+                                    android:textColor="#bec5d2"
+                                    android:textSize="12dp" />
+
+
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="0.5dp"
-                                android:layout_height="match_parent"
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_flood_control_material_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
-                                android:background="#ececec" />
+                                android:layout_marginTop="15dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
 
                             <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
 
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_72"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp" />
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/icon_home_page_ssswkr" />
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="发现问题"
-                                    android:textColor="#455067"
-                                    android:textSize="10dp" />
+                                    android:layout_marginLeft="8dp"
+                                    android:text="实时水位库容"
+                                    android:textColor="@color/black"
+                                    android:textSize="14dp" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_72"
-                                android:layout_marginLeft="20dp"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:layout_width="match_parent"
+                                android:layout_height="228dp"
+                                android:orientation="vertical"
+                                android:padding="20dp">
 
-                                <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="已处理"
-                                    android:textColor="#455067"
-                                    android:textSize="10dp" />
+                                <WebView
+                                    android:id="@+id/wv_real_time_water_level_storage_capacity"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/bg_real_time_water_level_storage_capacity" />
                             </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dp_72"
-                                android:layout_marginLeft="20dp"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical">
 
-                                <com.tepia.base.view.CircularProgressBar.RateTextCircularProgressBar
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp" />
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/icon_home_page_swkrqx" />
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:text="未处理"
-                                    android:textColor="#455067"
-                                    android:textSize="10dp" />
+                                    android:layout_marginLeft="8dp"
+                                    android:text="水位库容曲线"
+                                    android:textColor="@color/black"
+                                    android:textSize="14dp" />
                             </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="#26a1adbb" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@mipmap/ic_launcher" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:layout_weight="1"
-                                android:text="防汛物资"
-                                android:textColor="#2e3748"
-                                android:textSize="14dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="right"
-                                android:text="查看更多"
-                                android:textColor="#bec5d2"
-                                android:textSize="12dp" />
-
-
-                        </LinearLayout>
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_flood_control_material_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="15dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@mipmap/ic_launcher" />
-
-                            <TextView
+                            <com.github.mikephil.charting.charts.LineChart
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="实时水位库容"
-                                android:textColor="@color/black"
-                                android:textSize="14dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="228dp"
-                            android:orientation="vertical"
-                            android:padding="20dp">
-
-                            <WebView
-                                android:id="@+id/wv_real_time_water_level_storage_capacity"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/bg_real_time_water_level_storage_capacity" />
+                                android:layout_height="180dp"
+                                android:tag="lc_reservoir_capacity" />
                         </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
-                                android:src="@mipmap/ic_launcher" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
-                                android:text="水位库容曲线"
-                                android:textColor="@color/black"
-                                android:textSize="14dp" />
-                        </LinearLayout>
-
-                        <com.github.mikephil.charting.charts.LineChart
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:tag="lc_reservoir_capacity" />
-                    </LinearLayout>
 
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>

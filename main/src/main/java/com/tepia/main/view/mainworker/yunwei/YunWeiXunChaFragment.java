@@ -25,7 +25,7 @@ public class YunWeiXunChaFragment extends BaseCommonFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_yun_wei;
+        return R.layout.fragment_yun_wei_xuncha;
     }
 
     @Override

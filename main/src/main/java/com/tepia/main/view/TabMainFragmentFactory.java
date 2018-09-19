@@ -272,6 +272,22 @@ public class TabMainFragmentFactory {
                     child.setMenuIcon("111");
                     childs.add(child);
                 }
+                {
+                    MenuItemBean child = new MenuItemBean();
+                    child.setMenuHref(AppRoutePath.app_main_fragment_yunwei_xunjian);
+                    child.setMenuName("保洁");
+                    child.setMenuCode("112");
+                    child.setMenuIcon("112");
+                    childs.add(child);
+                }
+                {
+                    MenuItemBean child = new MenuItemBean();
+                    child.setMenuHref(AppRoutePath.app_main_fragment_yunwei_xunjian);
+                    child.setMenuName("维护");
+                    child.setMenuCode("113");
+                    child.setMenuIcon("113");
+                    childs.add(child);
+                }
                 bean.setChildren(childs);
                 menuData.add(bean);
             }

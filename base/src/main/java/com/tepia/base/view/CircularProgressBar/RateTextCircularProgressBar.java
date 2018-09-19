@@ -48,6 +48,12 @@ public class RateTextCircularProgressBar extends FrameLayout implements Circular
         mCircularProgressBar.setOnProgressChangeListener(this);
     }
 
+
+
+    public void setmCircularProgressBar(CircularProgressBar mCircularProgressBar) {
+        this.mCircularProgressBar = mCircularProgressBar;
+    }
+
     /**
      * 设置最大值
      */
@@ -103,7 +109,7 @@ public class RateTextCircularProgressBar extends FrameLayout implements Circular
 
     @Override
     public void onChange(int duration, int progress, float rate) {
-        mRateText.setText(String.valueOf((int) (rate * 100) + "%"));
+//        mRateText.setText(String.valueOf((int) (rate * 100) + "%"));
     }
 
 }
