@@ -1,6 +1,7 @@
 package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,6 +51,20 @@ public class SafeRunningActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+                Intent intent = new Intent();
+                if (position == 0) {
+                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    startActivity(intent);
+                } else if (position == 1) {
+                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    startActivity(intent);
+                } else if (position == 2) {
+                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    startActivity(intent);
+                } else if (position == 3) {
+                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:drawableLeft="@drawable/left_reseviors"
+        android:drawableLeft="@drawable/jianjie_logo"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:padding="15dp"

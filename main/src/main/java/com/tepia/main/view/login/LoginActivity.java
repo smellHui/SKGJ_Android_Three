@@ -125,11 +125,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             finish();
 
         });
-        Intent intent = new Intent();
-        intent.setClass(this, MainActivity.class);
-        intent.putExtra("key",usernameEt.getText().toString());
-        startActivity(intent);
-        finish();
+
     }
 
 

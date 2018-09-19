@@ -24,12 +24,14 @@
             android:textSize="20sp" />
 
         <TextView
+            android:padding="8dp"
             android:layout_centerVertical="true"
             android:id="@+id/tv_left_text"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/come_back_blue"
+            android:drawableLeft="@drawable/come_back_blue"
+            android:drawablePadding="15dp"
              />
 
         <TextView

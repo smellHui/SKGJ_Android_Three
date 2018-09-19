@@ -10,7 +10,7 @@
     <include layout="@layout/toolbar" />
 
     <com.tepia.base.view.MyEditUserInfoView
-
+        android:layout_marginTop="5dp"
         android:id="@+id/edit_change_keyword"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height" />
