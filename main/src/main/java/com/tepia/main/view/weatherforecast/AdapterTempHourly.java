@@ -30,7 +30,7 @@ public class AdapterTempHourly extends BaseQuickAdapter<Hour24Bean.HourListBean,
     @Override
     protected void convert(BaseViewHolder helper, Hour24Bean.HourListBean item) {
         LvItemTempHourlyBinding mBinding = DataBindingUtil.bind(helper.itemView);
-        mBinding.tvHour.setText(item.getTime().substring(item.getTime().length()-4));
+        mBinding.tvHour.setText(item.getTime().substring(item.getTime().length()-4,item.getTime().length()-2)+":"+item.getTime().substring(item.getTime().length()-2));
         mBinding.tvTempHour.setText(item.getTemperature()+"℃");
         mBinding.ivTempStatus.setImageResource(WeatherImgManager.getInstance().getImgRes(item.getWeather_code()));
     }

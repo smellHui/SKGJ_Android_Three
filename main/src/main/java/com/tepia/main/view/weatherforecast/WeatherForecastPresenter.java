@@ -56,8 +56,7 @@ public class WeatherForecastPresenter extends BasePresenterImpl<WeatherForecastC
         }
     }
 
-    public void getWeatherbyArea() {
-        String area = "武汉";
+    public void getWeatherbyArea(String area) {
         WeatherManager.getInstance().getWeatherbyArea(area).safeSubscribe(new Observer<Weather2Response>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -74,7 +73,7 @@ public class WeatherForecastPresenter extends BasePresenterImpl<WeatherForecastC
 
             @Override
             public void onError(Throwable e) {
-
+                mView.getWeatherfail();
             }
 
             @Override
@@ -101,7 +100,7 @@ public class WeatherForecastPresenter extends BasePresenterImpl<WeatherForecastC
 
             @Override
             public void onError(Throwable e) {
-
+                mView.getWeatherfail();
             }
 
             @Override

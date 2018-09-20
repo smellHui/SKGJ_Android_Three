@@ -22,6 +22,8 @@ public class WeatherForecastContract {
         void getWeatherHour24Success(Hour24Bean showapi_res_body);
 
         void getWeather2Success(Weather2Bean showapi_res_body);
+
+        void getWeatherfail();
     }
 
     interface  Presenter extends BasePresenter<View> {

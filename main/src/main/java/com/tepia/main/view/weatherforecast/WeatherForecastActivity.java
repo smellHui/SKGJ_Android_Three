@@ -7,9 +7,14 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.amap.api.location.AMapLocation;
+import com.example.gaodelibrary.GaodeEntity;
+import com.example.gaodelibrary.OnGaodeLibraryListen;
 import com.gyf.barlibrary.ImmersionBar;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.AppManager;
+import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWeatherForecastBinding;
 import com.tepia.main.model.weather.Hour24Bean;
@@ -32,6 +37,7 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
     private ActivityWeatherForecastBinding mBinding;
     private AdapterTempHourly adapterTempHourly;
     private AdapterTempDaily adapterTempDaily;
+    private SimpleLoadDialog simpleLoadDialog;
 
     @Override
     public int getLayoutId() {
@@ -58,7 +64,24 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
 
     @Override
     public void initData() {
-
+        simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), "请稍等", true);
+        if (simpleLoadDialog != null) {
+            simpleLoadDialog.show();
+        }
+        GaodeEntity gaodeEntity = new GaodeEntity(getContext());
+        gaodeEntity.initLocation();
+        gaodeEntity.startLocation();
+        gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
+            @Override
+            public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
+                if (mPresenter != null) {
+                    if (aMapLocation.getCity() != null) {
+                        mPresenter.getWeatherbyArea(aMapLocation.getCity());
+                        gaodeEntity.closeLocation();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -68,7 +91,7 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
 
     @Override
     protected void initRequestData() {
-        mPresenter.getWeatherbyArea();
+
     }
 
     @Override
@@ -78,6 +101,9 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
 
     @Override
     public void getWeatherHour24Success(Hour24Bean hour24Bean) {
+        if (simpleLoadDialog != null) {
+            simpleLoadDialog.dismiss();
+        }
         adapterTempHourly.setNewData(hour24Bean.getHourList());
     }
 
@@ -86,6 +112,10 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
      */
     @Override
     public void getWeather2Success(Weather2Bean weather2Bean) {
+        if (simpleLoadDialog != null) {
+            simpleLoadDialog.dismiss();
+        }
+        mBinding.weatherPlace.setText(weather2Bean.getCityInfo().getC5());
         refreshView_now(weather2Bean.getNow());
         ArrayList<Weather2Bean.FBean> dailyList = new ArrayList<>();
         dailyList.add(weather2Bean.getF1());
@@ -97,8 +127,15 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
         dailyList.add(weather2Bean.getF7());
         refreshView_week(dailyList);
         if (weather2Bean.getF1() != null) {
-            mBinding.tvTempMax.setText(weather2Bean.getF1().getDay_air_temperature());
-            mBinding.tvTempMin.setText(weather2Bean.getF1().getNight_air_temperature());
+            mBinding.tvTempMax.setText(weather2Bean.getF1().getDay_air_temperature()+"℃");
+            mBinding.tvTempMin.setText(weather2Bean.getF1().getNight_air_temperature()+"℃");
+        }
+    }
+
+    @Override
+    public void getWeatherfail() {
+        if (simpleLoadDialog != null) {
+            simpleLoadDialog.dismiss();
         }
     }
 
@@ -109,7 +146,7 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
     private void refreshView_now(Weather2Bean.NowBean now) {
         mBinding.tvTempCur.setText(now.getTemperature());
         mBinding.tvTempStatus.setText(now.getWeather());
-        mBinding.tvQuality.setText("空气质量："+now.getAqiDetail().getQuality());
+        mBinding.tvQuality.setText("空气质量：" + now.getAqiDetail().getQuality());
     }
 
     private void refreshView(WeahterBean weahterBean) {

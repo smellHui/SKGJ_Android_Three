@@ -30,8 +30,11 @@ public class AdapterTempDaily extends BaseQuickAdapter<Weather2Bean.FBean, BaseV
     @Override
     protected void convert(BaseViewHolder helper, Weather2Bean.FBean item) {
         LvItemTempDailyBinding mBinding = DataBindingUtil.bind(helper.itemView);
-        mBinding.tvTime.setText(item.getDay());
-        mBinding.tvTemp.setText(item.getDay_air_temperature()+"/"+item.getNight_air_temperature());
+        String week[] = {"星期一","星期二","星期三","星期四","星期五","星期六","星期天",};
+
+        mBinding.tvTime.setText(item.getDay().substring(item.getDay().length() - 4, item.getDay().length() - 2) + "月"
+                + item.getDay().substring(item.getDay().length() - 2) + "日  "+week[item.getWeekday()-1]);
+        mBinding.tvTemp.setText(item.getDay_air_temperature() + "℃/" + item.getNight_air_temperature() + "℃");
         mBinding.ivTempStatus.setImageResource(WeatherImgManager.getInstance().getImgRes(item.getDay_weather_code()));
     }
 }
