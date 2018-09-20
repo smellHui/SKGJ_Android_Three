@@ -3,8 +3,10 @@ package com.tepia.main.view.maintechnology.yunwei;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -13,6 +15,7 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 import com.tepia.main.view.maintechnology.yunwei.adapter.OperationTabPageAdapter;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_yun_wei;
+        return R.layout.fragment_jishu_yun_wei;
     }
 
     @Override
@@ -55,41 +58,8 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
     }
 
     private void initListener() {
-        //将TabLayout和ViewPager关联
-//        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                viewPager.setCurrentItem(position);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                tabLayout.setScrollPosition(position,positionOffset,true);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                tabLayout.getTabAt(position).select();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
     }
 
     private void initViewPager() {
@@ -97,7 +67,7 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
             OperationListFragment fragment = new OperationListFragment();
             mFragments.add(fragment);
         }
-        OperationTabPageAdapter tabPageAdapter = new OperationTabPageAdapter(getFragmentManager(),mFragments);
+        OperationTabPageAdapter tabPageAdapter = new OperationTabPageAdapter(getFragmentManager(), mFragments);
         viewPager.setAdapter(tabPageAdapter);
     }
 
@@ -106,6 +76,42 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
         tabLayout.addTab(tabLayout.newTab().setCustomView(getTabCustomView(tabNames[1], R.drawable.bg_operation_tab_01)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getTabCustomView(tabNames[2], R.drawable.bg_operation_tab_02)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getTabCustomView(tabNames[3], R.drawable.bg_operation_tab_03)));
+        tabLayout.post(() -> {
+            try {
+                //拿到tabLayout的mTabStrip属性
+                Field mTabStripField = tabLayout.getClass().getDeclaredField("mTabStrip");
+                mTabStripField.setAccessible(true);
+
+                LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(tabLayout);
+                for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                    View tabView = mTabStrip.getChildAt(i);
+                    //拿到tabView的mCustomView属性
+                    Field mCustomViewField = tabView.getClass().getDeclaredField("mCustomView");
+                    mCustomViewField.setAccessible(true);
+                    View mCustomView = (View) mCustomViewField.get(tabView);
+                    tabView.setPadding(0, 0, 0, 0);
+                    int width = 0;
+                    width = mCustomView.getWidth();
+                    if (width == 0) {
+                        mCustomView.measure(0, 0);
+                        width = mCustomView.getMeasuredWidth();
+                    }
+                    if (i==2){
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.weight = (float) 1.5;
+                        tabView.setLayoutParams(params);
+                        tabView.invalidate();
+                    }else {
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.weight = 1;
+                        tabView.setLayoutParams(params);
+                        tabView.invalidate();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private View getTabCustomView(String name, int id) {
@@ -113,7 +119,7 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
         TextView tab_tv = (TextView) view.findViewById(R.id.tab_tv);
         tab_tv.setText(name);
         ImageView tab_iv = view.findViewById(R.id.tab_iv);
-        tab_iv.setBackgroundResource(id);
+        tab_iv.setImageResource(id);
         return view;
     }
 

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <include layout="@layout/toolbar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#eaedef" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="培训主题:"
+                android:textColor="#5f6166"
+                android:textSize="16sp" />
+            <!--android:background="@drawable/bg_search_edittext"-->
+            <EditText
+                android:id="@+id/et_plan_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="3"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:hint="请输入培训主题"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#eaedef" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="培训时间:"
+                android:textColor="#5f6166"
+                android:textSize="16sp" />
+            <!--android:background="@drawable/bg_search_edittext"-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="3"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:hint="请输入培训主题"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="请选择培训时间"
+                android:textColor="@android:color/darker_gray"
+                android:drawableRight="@drawable/s_right"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#eaedef" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="培训地点:"
+                android:textColor="#5f6166"
+                android:textSize="16sp" />
+            <!--android:background="@drawable/bg_search_edittext"-->
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="3"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:hint="请输入培训地点"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#eaedef" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="培训组织:"
+                android:textColor="#5f6166"
+                android:textSize="16sp" />
+            <!--android:background="@drawable/bg_search_edittext"-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="3"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:hint="请输入培训主题"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:text="橘子洲水务局"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#eaedef" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="培训主题:"
+                android:textColor="#5f6166"
+                android:textSize="16sp" />
+            <!--android:background="@drawable/bg_search_edittext"-->
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="3"
+                android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:hint="请输入培训主题"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#eaedef" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="培训内容:"
+                android:textColor="#5f6166"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp" />
+            <!--android:background="@drawable/bg_search_edittext"-->
+            <EditText
+                android:id="@+id/et_remarks"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="3"
+                android:background="@color/color_white"
+                android:gravity="top"
+                android:paddingLeft="5dp"
+                android:hint="请输入培训内容"
+                android:textSize="16sp"
+                android:textColor="@android:color/darker_gray"
+                android:text="" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="#eaedef" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="培训现场图片"
+            android:textColor="#5f6166"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="7dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="培训附件"
+            android:textColor="#5f6166"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="7dp"
+            />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/left_15"
+            android:layout_marginRight="@dimen/left_15"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/jianjie_fujian_bg"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/jianjie_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="2"
+                android:layout_marginLeft="5dp"
+                android:text="水库安全管理...课件.doc"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_weight="0.5"
+
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/jianjie_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="@dimen/left_15"
+            android:layout_marginRight="@dimen/left_15"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/jianjie_fujian_bg"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/peixun_fujian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="2"
+                android:layout_marginLeft="5dp"
+                android:text="点击上传附件"
+                android:textColor="#b2b9c7"
+                android:textSize="15sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

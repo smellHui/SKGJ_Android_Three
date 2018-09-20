@@ -54,6 +54,6 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="14dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/operation_enter" />
+            android:src="@drawable/s_right" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
