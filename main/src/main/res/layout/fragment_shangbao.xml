@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_common"
-    tools:context="com.tepia.main.view.mainworker.homepage.HomeXunChaFragment">
+    >
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar"/>5
 
     <android.support.design.widget.TabLayout
 
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:background="@android:color/white"/>
+        />
 
 
 

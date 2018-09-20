@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:drawablePadding="@dimen/drawablepadding"
+                    android:gravity="center"
+                    android:layout_gravity="left"
+                    android:drawableLeft="@drawable/type_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titlestr"
+                    android:textSize="@dimen/textquesdm"
+                    android:textColor="@color/black"
+                    />
+                <EditText
+                    android:freezesText="true"
+                    android:gravity="right"
+                    android:id="@+id/titleEv"
+                    android:hint="@string/hinttitle"
+                    android:background="@null"
+                    android:textSize="@dimen/textquesdm"
+                    android:maxLength="100"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View style="@style/LineH" />
+            <View style="@style/LineH" />
+            <View style="@style/LineH" />
+
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/typeRecyclerV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <View style="@style/LineH" />
+            <View style="@style/LineH" />
+            <View style="@style/LineH" />
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:drawablePadding="@dimen/drawablepadding"
+
+                        android:drawableLeft="@drawable/type_revisor"
+                        android:padding="10dp"
+                        android:layout_gravity="left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/resviorstr"
+                        android:textSize="@dimen/textquesdm"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:id="@+id/resviorTv"
+                        android:layout_gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:drawableRight="@drawable/s_right"
+                        android:text="@string/selectresviorstr"
+                        android:textSize="@dimen/textquesdm"
+                        android:textColor="@color/text_color"
+
+                        />
+                </FrameLayout>
+
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_margin="5dp"
+                        android:text="常用水库标签："
+                        android:textColor="@color/text_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycleChangyong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+
+                <TextView
+                    android:drawablePadding="@dimen/drawablepadding"
+
+                    android:drawableLeft="@drawable/type_des"
+                    android:padding="10dp"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contentstr"
+                    android:textSize="@dimen/textquesdm"
+                    android:textColor="@color/black"
+                    />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <View style="@style/LineH" />
+                <EditText
+                    android:freezesText="true"
+                    android:inputType="text"
+                    android:id="@+id/contentEv"
+                    android:gravity="top"
+                    android:hint="@string/hintcotent"
+                    android:padding="10dp"
+                    android:background="@color/white"
+                    android:maxLength="255"
+                    android:textSize="@dimen/smalltextquesdm"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+            </LinearLayout>
+            <View style="@style/LineH" />
+            <View style="@style/LineH" />
+            <View style="@style/LineH" />
+            <TextView
+                android:freezesText="true"
+
+                android:drawablePadding="@dimen/drawablepadding"
+
+                android:drawableLeft="@drawable/type_pic"
+                android:id="@+id/photoTitleTv"
+                android:background="@color/bgcolor"
+                android:padding="10dp"
+                android:gravity="left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="上传图片"
+                android:textSize="@dimen/textquesdm"
+                android:textColor="@color/black"
+
+                />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/addphotoIv"
+                android:src="@drawable/icon_add_photo"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                >
+
+                <android.support.v7.widget.RecyclerView
+
+                    android:id="@+id/rvImagePick"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:id="@+id/sendBtn"
+                    android:layout_gravity="center"
+                    android:text="@string/sendbtnstr"
+                    android:textColor="@color/white"
+                    android:background="@drawable/selector_loginout_btn"
+                    android:layout_width="211dp"
+                    android:layout_height="32dp" />
+            </FrameLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -32,4 +32,5 @@
     <dimen name="lymargin">12dp</dimen>
     <dimen name="padding_5">5dp</dimen>
     <dimen name="left_15">15dp</dimen>
+    <dimen name="main_marginleft">10dp</dimen>
 </resources>

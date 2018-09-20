@@ -158,9 +158,6 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         loginOutMv.setOnClickListener(SettingFragment.this);
         setItem();
 
-        // TODO: 2018/8/20 打包发布时记得屏蔽
-        changeipEv = findView(R.id.changeipEv);
-
 
     }
 

@@ -1,17 +1,24 @@
 package com.tepia.main.view.mainworker.shangbao;
 
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -30,13 +37,14 @@ import java.util.List;
  * 功能描述        :       主页三 上报页 巡查责任人
  **/
 @Route(path = AppRoutePath.app_main_fragment_shangbao_xuncha)
-public class ShangbaoFragment extends BaseCommonFragment {
+public class ShangbaoFragment extends BaseCommonFragment{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ArrayList<Fragment> fragments   ;
+    private ArrayList<Fragment> fragments ;
     private ArrayList<String> titles ;
 
+    private LinearLayout root_dialog_shangbao;
     public ShangbaoFragment() {
         // Required empty public constructor
     }
@@ -57,6 +65,7 @@ public class ShangbaoFragment extends BaseCommonFragment {
         getRightTianqi().setVisibility(View.VISIBLE);
         tabLayout = findView(R.id.tab);
         viewPager =findView(R.id.viewpager);
+        root_dialog_shangbao =findView(R.id.root_dialog_shangbao);
 
         fragments = new ArrayList<Fragment>();
         titles = new ArrayList<String>();
@@ -70,10 +79,8 @@ public class ShangbaoFragment extends BaseCommonFragment {
 
     private void initViewpager(){
         fragments.add(new ShuiweiFragment());
-        fragments.add(new ShuiweiFragment());
-        fragments.add(new ShuiweiFragment());
+        fragments.add(new YingjiFragment());
         titles.add("水位");
-        titles.add("应急情况");
         titles.add("应急情况");
         MyPagerAdapter adpter = new MyPagerAdapter(getBaseActivity().getSupportFragmentManager(),getBaseActivity(),fragments,titles);
         viewPager.setAdapter(adpter);
@@ -83,7 +90,6 @@ public class ShangbaoFragment extends BaseCommonFragment {
 
     private void new_tab(){
         tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("水位",R.drawable.bg_operation_tab)));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("应急情况",R.drawable.bg_operation_tab_01)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("应急情况",R.drawable.bg_operation_tab_01)));
 
         //Tablayout自定义view绑定ViewPager 自定义view时使用 tabLayout.setupWithViewPager(viewPager);方法关联无效，通过以下方法进行viewpager和tablayout的关联
@@ -100,6 +106,8 @@ public class ShangbaoFragment extends BaseCommonFragment {
         im.setImageResource(iconID);
         return newtab;
     }
+
+
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
         private Context context;
@@ -134,6 +142,9 @@ public class ShangbaoFragment extends BaseCommonFragment {
             return list_Title.get(position);
         }
     }
+
+
+
 
 
 }

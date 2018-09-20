@@ -2,23 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background_common"
-    >
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+    <include layout="@layout/common_qiehuan_reserviors_layout" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="133.3dp"
-        android:layout_margin="10dp"
-        ></com.youth.banner.Banner>
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginBottom="10dp"
-        android:id="@+id/resviorRec"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="133.3dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/resviorRec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

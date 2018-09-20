@@ -27,6 +27,7 @@ public class MyApplication extends BaseApplication {
     }
 
     private void appInit() {
+        // TODO: 2018/9/20 正式发布apk时请关闭
         /**
          * 正式发布apk时请关闭，避免某些地方 java.lang.NullPointerException: println needs a message
          * at com.tepia.base.utils.LogUtil.i(LogUtil.java:43)

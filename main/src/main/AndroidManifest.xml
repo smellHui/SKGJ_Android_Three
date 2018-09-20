@@ -236,11 +236,15 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.SafeRunningActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.setting.ZhizeActivity"></activity>
-        <!--通信录页面-->
+        <activity android:name=".view.maincommon.setting.ZhizeActivity" />
+        <!-- 通信录页面 -->
         <activity android:name=".view.maincommon.setting.contacts.ContactsActivity" />
         <activity android:name=".view.maincommon.setting.PeiXunActivity" />
-        <activity android:name=".view.maincommon.reservoirs.detail.ItemSafeJiandingActivity"></activity>
+        <activity android:name=".view.maincommon.reservoirs.detail.ItemSafeJiandingActivity" />
+        <activity
+            android:name=".view.mainworker.shangbao.YingjiShangbaoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.maincommon.reservoirs.detail.DaoFangRizhiActivity"></activity>
     </application>
 
 </manifest>

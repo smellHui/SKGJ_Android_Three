@@ -15,7 +15,9 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.APPCostant;
 import com.tepia.main.R;
+import com.tepia.main.common.CustomLinearLayoutManager;
 import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.DaoFangRizhiActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.JianjieOfReservoirsActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
@@ -67,12 +69,16 @@ public class ReservoirsFragment extends BaseCommonFragment {
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
         setResviorRec("水库库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
-        setResviorRec("水库配套设置", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
+        setResviorRec("水库配套设施", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
         setResviorRec("防汛物资", "FLOOD-FIGHTING MATERIALS", R.drawable.jianjie5);
         setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);
         setResviorRec("水库安全管理应急预案", "CONTINGENCY PLAN", R.drawable.jianjie7);
         setResviorRec("水库安全运行管理情况", "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
-        resviorRec.setLayoutManager(new LinearLayoutManager(getContext()));
+        setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie8);
+        CustomLinearLayoutManager customLinearLayoutManager = new CustomLinearLayoutManager(getContext());
+        customLinearLayoutManager.setScrollEnabled(false);
+//        resviorRec.setLayoutManager(new LinearLayoutManager(getContext()));
+        resviorRec.setLayoutManager(customLinearLayoutManager);
         adapterMainReservoirs = new AdapterMainReservoirs(getBaseActivity(), R.layout.fragment_reservoirs_item, myReservoirsItemBeanList);
         resviorRec.setAdapter(adapterMainReservoirs);
         adapterMainReservoirs.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -102,6 +108,10 @@ public class ReservoirsFragment extends BaseCommonFragment {
                     startActivity(intent);
                 } else if (position == 7) {
                     intent.setClass(getBaseActivity(), SafeRunningActivity.class);
+                    startActivity(intent);
+                } else if (position == 8) {
+                    // TODO: 2018/9/20 待更换图标 
+                    intent.setClass(getBaseActivity(), DaoFangRizhiActivity.class);
                     startActivity(intent);
                 }
             }

@@ -9,9 +9,10 @@
         android:layout_gravity="center"
         android:id="@+id/tabicon"
         android:src="@mipmap/ic_launcher"
-        android:layout_width="15dp"
-        android:layout_height="17dp" />
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
     <TextView
+        android:layout_marginLeft="5dp"
         android:id="@+id/tabtext"
         android:gravity="center"
         android:textSize="14sp"

@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <!--<LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_res_home_page"
@@ -79,7 +79,11 @@
                             android:textColor="#ccffffff"
                             android:textSize="12dp" />
 
-                    </LinearLayout>
+                    </LinearLayout>-->
+
+                    <!--复用布局-->
+                    <include layout="@layout/common_qiehuan_reserviors_layout"/>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
