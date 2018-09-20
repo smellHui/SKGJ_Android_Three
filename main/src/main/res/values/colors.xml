@@ -34,4 +34,5 @@
     <color name="uncheck">#ffffff</color>
     <color name="map_bg">#204f7e</color>
     <color name="white_detail">#ffffff</color>
+    <color name="commmon_blue">#1785F8</color>
 </resources>
