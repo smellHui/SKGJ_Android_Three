@@ -33,7 +33,7 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
     @Override
     public void initView() {
         mBinding = DataBindingUtil.bind(mRootView);
-        setCenterTitle("通信录");
+        setCenterTitle("通讯录");
         showBack();
         mBinding.rvContact.setLayoutManager(new LinearLayoutManager(getContext()));
         AdapterContactsList adapterContactsList = new AdapterContactsList(R.layout.lv_contact_list_item,null);
