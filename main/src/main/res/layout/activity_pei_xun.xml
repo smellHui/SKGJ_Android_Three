@@ -4,8 +4,161 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_common"
     tools:context=".view.maincommon.setting.PeiXunActivity">
 
     <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:layout_margin="@dimen/jianjiemarginleft"
+        android:text="水库安全管理技能培训"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginRight="@dimen/jianjiemarginleft"
+        android:text="水库安全管理技能培训"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/peixunRec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:drawableLeft="@drawable/peixun_time"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="培训时间：2018"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/jianjietextsize" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:drawableLeft="@drawable/peixun_didian"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="培训地点：2018"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/jianjietextsize" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:drawableLeft="@drawable/peixun_zuzhi"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="培训组织：2018"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/jianjietextsize" />
+
+    <View
+        android:layout_margin="@dimen/jianjiemarginleft"
+
+        android:background="@color/text_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:gravity="center"
+        android:text="培训内容"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginRight="@dimen/jianjiemarginleft"
+        android:text="培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容"
+        android:textColor="@color/text_color"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_margin="@dimen/jianjiemarginleft"
+        android:background="@color/text_color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:gravity="center"
+        android:text="培训附件"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/left_15"
+        android:layout_marginRight="@dimen/left_15"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/jianjie_fujian_bg"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/jianjie_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_weight="2"
+            android:layout_marginLeft="5dp"
+            android:text="水库安全管理...课件.doc"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_weight="0.5"
+
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/jianjie_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

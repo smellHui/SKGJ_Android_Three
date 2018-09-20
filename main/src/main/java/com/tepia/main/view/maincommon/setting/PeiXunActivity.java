@@ -2,9 +2,16 @@ package com.tepia.main.view.maincommon.setting;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.example.gaodelibrary.GaodeEntity;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
+import com.tepia.main.view.maincommon.setting.adapter.AdapterPeixunDetail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
   * Created by      Android studio
@@ -16,6 +23,10 @@ import com.tepia.main.R;
  **/
 public class PeiXunActivity extends BaseActivity {
 
+    private List<Integer> images = new ArrayList<>();
+
+    private AdapterPeixunDetail adapterPeixunDetail;
+    private RecyclerView peixunRec;
     @Override
     public int getLayoutId() {
         return R.layout.activity_pei_xun;
@@ -23,8 +34,34 @@ public class PeiXunActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setCenterTitle("工作培训");
+        setCenterTitle("工作培训详情");
         showBack();
+        peixunRec = findViewById(R.id.peixunRec);
+        images.add(R.drawable.jianjie_banner0);
+        images.add(R.drawable.jianjie_banner1);
+        images.add(R.drawable.jianjie_banner2);
+        images.add(R.drawable.jianjie_banner3);
+        images.add(R.drawable.jianjie_banner0);
+        images.add(R.drawable.jianjie_banner1);
+        images.add(R.drawable.jianjie_banner2);
+        images.add(R.drawable.jianjie_banner3);
+        images.add(R.drawable.jianjie_banner0);
+        images.add(R.drawable.jianjie_banner1);
+        images.add(R.drawable.jianjie_banner2);
+        images.add(R.drawable.jianjie_banner3);
+        images.add(R.drawable.jianjie_banner0);
+        images.add(R.drawable.jianjie_banner1);
+        images.add(R.drawable.jianjie_banner2);
+        images.add(R.drawable.jianjie_banner3);
+
+        //创建LinearLayoutManager
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        //设置为横向滑动
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        //设置
+        peixunRec.setLayoutManager(manager);
+        adapterPeixunDetail = new AdapterPeixunDetail(this,R.layout.activity_pei_xun_item,images);
+        peixunRec.setAdapter(adapterPeixunDetail);
 
     }
 

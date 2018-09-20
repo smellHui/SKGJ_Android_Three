@@ -79,7 +79,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             startActivity(intent);
 
         }else if(view.getId() == R.id.userTv){
-            ToastUtils.shortToast("待开发功能");
+            intent = new Intent(getBaseActivity(), EditUserInfoActivity.class);
+            startActivity(intent);
 
         }else if(view.getId() == R.id.personinfoMv){
             ToastUtils.shortToast("待开发功能");
@@ -88,7 +89,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             intent = new Intent(getBaseActivity(), ZhizeActivity.class);
             startActivity(intent);
         }else if(view.getId() == R.id.peixunMv){
-            ToastUtils.shortToast("待开发功能");
+            intent = new Intent(getBaseActivity(), PeiXunActivity.class);
+            startActivity(intent);
 
         }else if(view.getId() == R.id.msgMv){
 //            ToastUtils.shortToast("待开发功能");
