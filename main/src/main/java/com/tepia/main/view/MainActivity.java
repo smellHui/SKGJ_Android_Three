@@ -14,6 +14,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.gaodelibrary.UtilsContextOfGaode;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.inpor.fastmeetingcloud.base.BaseFragment;
 import com.inpor.fastmeetingcloud.receiver.HstApplication;
 import com.pgyersdk.javabean.AppBean;
@@ -37,6 +40,7 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
@@ -105,11 +109,24 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
         mTabHost = findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-        TabMainFragmentFactory.getInstance().setMenuData(valuestr);
+
+        String temp = SPUtils.getInstance().getString("MENULIST", "");
+        if (!TextUtils.isEmpty(temp)) {
+            ArrayList<MenuItemBean> menuItemBeans = new Gson().fromJson(temp, new TypeToken<ArrayList<MenuItemBean>>() {
+            }.getType());
+            if (menuItemBeans == null) {
+                TabMainFragmentFactory.getInstance().setMenuData("1");
+            } else {
+                TabMainFragmentFactory.getInstance().setMenuData(menuItemBeans);
+            }
+        } else {
+            TabMainFragmentFactory.getInstance().setMenuData("1");
+        }
+
         ArrayList<String> titles = TabMainFragmentFactory.getInstance().getTitles();
         ArrayList<Integer> imageIds = TabMainFragmentFactory.getInstance().getImageIds();
         ArrayList<? extends BaseCommonFragment> fragments = TabMainFragmentFactory.getInstance().getMainFragments();
-        for (int i = 0; i <fragments.size() ; i++) {
+        for (int i = 0; i < fragments.size(); i++) {
             mTabHost.addTab(mTabHost.newTabSpec(titles.get(i)).setIndicator(createIndicator(imageIds.get(i), titles.get(i))),
                     fragments.get(i).getClass(), null);
         }
@@ -217,8 +234,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 //        setStatusBarTextDark();
 
     }
-
-
 
 
     //注册锁屏监听广播

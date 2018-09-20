@@ -5,17 +5,22 @@ import android.content.SharedPreferences;
 import android.util.Base64;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
+import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.model.user.MenuBean;
 import com.tepia.main.model.user.MenuData;
+import com.tepia.main.model.user.MenuListResponse;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserLoginResponse;
 import com.tepia.main.model.user.UserManager;
@@ -44,28 +49,40 @@ import static com.wbtech.ums.util.GetInfoFromFile.context;
 public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implements LoginContract.Presenter {
     public static String prefence_menu = "prefence_menu";
     public static String key_menu = "key_menu";
+    private SimpleLoadDialog simpleLoadDialog;
+
     /**
      * 登录
+     *
      * @param username
      * @param password
      */
     @Override
-    public void login(String username, String password,String registId) {
-        Boolean isShow = true;
+    public void login(String username, String password, String registId) {
+        Boolean isShow = false;
         String msg = "正在登陆中";
-        UserManager.getInstance().login(username, password,registId).subscribe(new LoadingSubject<UserLoginResponse>(isShow,msg) {
+        simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), msg, true);
+        if (simpleLoadDialog != null) {
+            simpleLoadDialog.show();
+        }
+        UserManager.getInstance().login(username, password, registId).subscribe(new LoadingSubject<UserLoginResponse>(isShow, msg) {
             @Override
             protected void _onNext(UserLoginResponse userLoginResponse) {
-                if(userLoginResponse.getCode() == 0) {
+                if (userLoginResponse.getCode() == 0) {
                     // TODO: 2018/8/28 动态菜单跟换后需要调整
-                    mView.loginSuccess();
+//                    mView.loginSuccess();
+
                     UserManager.getInstance().saveToken(userLoginResponse);
+                    getByTokenMenu2();
                     DictMapManager.getInstance().getDictMapEntity();
                     saveUserInfoBean();
 //                    getByTokenMenu();
 
-                }else{
+                } else {
                     ToastUtils.shortToast(R.string.errro_login);
+                    if (simpleLoadDialog != null) {
+                        simpleLoadDialog.dismiss();
+                    }
                 }
 
             }
@@ -77,7 +94,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
         });
     }
 
-    private void saveUserInfo(UserLoginResponse userLoginResponse){
+    private void saveUserInfo(UserLoginResponse userLoginResponse) {
         UserInfoBean userInfoBean = new UserInfoBean();
         userInfoBean.getData().setUserName(userLoginResponse.getUserName());
         userInfoBean.getData().setEmail(userLoginResponse.getEmail());
@@ -85,22 +102,23 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
         UserManager.getInstance().setUserBean(userInfoBean);
 
     }
+
     /**
      * 获取用户信息并保存
      */
-    private void saveUserInfoBean(){
+    private void saveUserInfoBean() {
         if (!NetUtil.isNetworkConnected(Utils.getContext())) {
             ToastUtils.shortToast(R.string.no_network);
             return;
         }
-        UserManager.getInstance_ADMIN().getLoginUser().subscribe(new LoadingSubject<UserInfoBean>(false,"") {
+        UserManager.getInstance_ADMIN().getLoginUser().subscribe(new LoadingSubject<UserInfoBean>(false, "") {
             @Override
             protected void _onNext(UserInfoBean userInfoBean) {
-                if(userInfoBean != null){
+                if (userInfoBean != null) {
                     if (userInfoBean.getCode() == 0) {
-                        LogUtil.e("getLoginUser","getLoginUser:成功获取用户信息------");
+                        LogUtil.e("getLoginUser", "getLoginUser:成功获取用户信息------");
                         UserManager.getInstance().setUserBean(userInfoBean);
-                    }else{
+                    } else {
                         ToastUtils.longToast(userInfoBean.getMsg());
 
                     }
@@ -110,7 +128,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             @Override
             protected void _onError(String message) {
                 UserInfoBean userInfoBean = UserManager.getInstance().getUserBean();
-                if(userInfoBean != null){
+                if (userInfoBean != null) {
                 }
                 LogUtil.e("getLoginUser:获取用户信息失败-----");
 
@@ -119,37 +137,70 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
         });
     }
 
+    private void getByTokenMenu2() {
+        UserManager.getInstance_ADMIN().getByTokenMenu2().safeSubscribe(new LoadingSubject<MenuListResponse>() {
+            @Override
+            protected void _onNext(MenuListResponse menuListResponse) {
+                if (menuListResponse.getCode() == 0){
+                    SPUtils.getInstance().putString("MENULIST",new Gson().toJson(menuListResponse.getData()));
+                    mView.loginSuccess();
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
+
     /**
      * 获取动态菜单
+     *
      * @return
      */
-    private void getByTokenMenu(){
+    private void getByTokenMenu() {
         if (!NetUtil.isNetworkConnected(Utils.getContext())) {
             ToastUtils.shortToast(R.string.no_network);
+            if (simpleLoadDialog != null) {
+                simpleLoadDialog.dismiss();
+            }
             return;
         }
-        UserManager.getInstance_ADMIN().getByTokenMenu().subscribe(new LoadingSubject<MenuBean>(false,"") {
+        UserManager.getInstance_ADMIN().getByTokenMenu().subscribe(new LoadingSubject<MenuBean>(false, "") {
             @Override
             protected void _onNext(MenuBean menuBean) {
-                if(menuBean != null){
+                if (menuBean != null) {
                     if (menuBean.getCode() == 0) {
-                        LogUtil.e("getByTokenMenu","getByTokenMenu:成功获取动态菜单------");
+                        LogUtil.e("getByTokenMenu", "getByTokenMenu:成功获取动态菜单------");
                         try {
-                            saveUser(Utils.getContext(),prefence_menu,key_menu,menuBean);
-                            MenuBean menuBean_get = getMenu(Utils.getContext(),prefence_menu,key_menu);
-                            if(menuBean_get != null && menuBean_get.getData().get(0).getChildren() != null
-                                    && menuBean_get.getData().get(0).getChildren().size() > 0){
+                            saveUser(Utils.getContext(), prefence_menu, key_menu, menuBean);
+                            MenuBean menuBean_get = getMenu(Utils.getContext(), prefence_menu, key_menu);
+                            if (menuBean_get != null && menuBean_get.getData().get(0).getChildren() != null
+                                    && menuBean_get.getData().get(0).getChildren().size() > 0) {
+                                if (simpleLoadDialog != null) {
+                                    simpleLoadDialog.dismiss();
+                                }
                                 mView.loginSuccess();
-                            }else{
+                            } else {
                                 ToastUtils.shortToast("未能获取到菜单");
+                                if (simpleLoadDialog != null) {
+                                    simpleLoadDialog.dismiss();
+                                }
                             }
                         } catch (Exception e) {
+                            if (simpleLoadDialog != null) {
+                                simpleLoadDialog.dismiss();
+                            }
                             e.printStackTrace();
                             ToastUtils.shortToast("未能获取到菜单");
                         }
 
 
-                    }else{
+                    } else {
+                        if (simpleLoadDialog != null) {
+                            simpleLoadDialog.dismiss();
+                        }
                         ToastUtils.longToast(menuBean.getMsg());
 
 
@@ -159,6 +210,9 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
 
             @Override
             protected void _onError(String message) {
+                if (simpleLoadDialog != null) {
+                    simpleLoadDialog.dismiss();
+                }
                 LogUtil.e("getByTokenMenu:获取动态菜单失败-----");
                 ToastUtils.shortToast("未能获取到菜单");
 
@@ -169,10 +223,11 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
     /**
      * by lying
      * 保存菜单实体
+     *
      * @param menuBean
      */
     public static void saveUser(Context context, String preferenceName, String key, MenuBean menuBean) throws Exception {
-        if(menuBean instanceof Serializable) {
+        if (menuBean instanceof Serializable) {
             SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -186,22 +241,22 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             throw new Exception("User must implements Serializable");
         }
     }
 
 
-    public static MenuBean getMenu(Context context, String preferenceName,String key) {
-        SharedPreferences sharedPreferences=context.getSharedPreferences(preferenceName,Context.MODE_PRIVATE);
+    public static MenuBean getMenu(Context context, String preferenceName, String key) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         String temp = sharedPreferences.getString(key, "");
-        ByteArrayInputStream bais =  new ByteArrayInputStream(Base64.decode(temp.getBytes(), Base64.DEFAULT));
+        ByteArrayInputStream bais = new ByteArrayInputStream(Base64.decode(temp.getBytes(), Base64.DEFAULT));
         MenuBean menuBean = null;
         try {
             ObjectInputStream ois = new ObjectInputStream(bais);
             menuBean = (MenuBean) ois.readObject();
         } catch (IOException e) {
-        }catch(ClassNotFoundException e1) {
+        } catch (ClassNotFoundException e1) {
 
         }
         return menuBean;

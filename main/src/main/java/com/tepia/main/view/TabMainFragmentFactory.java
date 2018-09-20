@@ -209,12 +209,16 @@ public class TabMainFragmentFactory {
         if (tabMianfragments == null) {
             tabMianfragments = new ArrayList();
         }
+
         if (titles == null) {
             titles = new ArrayList<>();
         }
         if (imageIds == null) {
             imageIds = new ArrayList<>();
         }
+        tabMianfragments.clear();
+        titles.clear();
+        imageIds.clear();
         for (int i = 0; i < menuData.size(); i++) {
             BaseCommonFragment fragment = getRouteFragment(menuData.get(i));
             if ("110".equals(menuData.get(i).getMenuCode())) {

@@ -93,6 +93,13 @@ public class UserManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<MenuListResponse> getByTokenMenu2() {
+        String token = getToken();
+        return mRetrofitService.getByTokenMenu2(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 
     /**
@@ -169,4 +176,6 @@ public class UserManager {
 
 
     }
+
+
 }

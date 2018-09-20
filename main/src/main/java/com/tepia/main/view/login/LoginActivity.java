@@ -105,24 +105,24 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
                 return ;
             }
 
-           /* if(TextUtils.isEmpty(usernameEt.getText())){
+            if (TextUtils.isEmpty(usernameEt.getText())) {
                 ToastUtils.shortToast(R.string.hintstr);
-                return ;
-            }*/
+                return;
+            }
 
-            /*if(TextUtils.isEmpty(psEt.getText())){
+            if(TextUtils.isEmpty(psEt.getText())){
                 ToastUtils.shortToast(R.string.hintps);
                 return ;
-            }*/
+            }
 
             String registId = JPushInterface.getRegistrationID(Utils.getContext());
             LogUtil.e("LoginActivity","获取极光推送注册："+registId);
-//            mPresenter.login(usernameEt.getText().toString(),psEt.getText().toString(),registId);
-            Intent intent = new Intent();
-            intent.setClass(this, MainActivity.class);
-            intent.putExtra("key",usernameEt.getText().toString());
-            startActivity(intent);
-            finish();
+            mPresenter.login(usernameEt.getText().toString(),psEt.getText().toString(),registId);
+//            Intent intent = new Intent();
+//            intent.setClass(this, MainActivity.class);
+//            intent.putExtra("key",usernameEt.getText().toString());
+//            startActivity(intent);
+//            finish();
 
         });
 //        Intent intent = new Intent();

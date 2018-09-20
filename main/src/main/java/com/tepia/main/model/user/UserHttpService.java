@@ -48,8 +48,14 @@ interface UserHttpService {
      * @return
      */
     @GET("app/sysMenu/getByToken")
-    Observable<MenuBean> getByTokenMenu(@Header("Authorization") String token
-    );
+    Observable<MenuBean> getByTokenMenu(@Header("Authorization") String token);
+    /**
+     * 获取动态菜单 2
+     * @param token
+     * @return
+     */
+    @GET("app/sysMenu/getByToken")
+    Observable<MenuListResponse> getByTokenMenu2(@Header("Authorization") String token);
 
     /**
      * 编辑用户信息

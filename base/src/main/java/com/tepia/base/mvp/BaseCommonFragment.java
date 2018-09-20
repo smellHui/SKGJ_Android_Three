@@ -42,8 +42,6 @@ import com.tepia.base.utils.ToastUtils;
 import java.util.List;
 
 
-
-
 /*************************************************************
  * Created by OCN.YAN                                        *
  * 主要功能:Fragment基类                                      *
@@ -67,7 +65,7 @@ public abstract class BaseCommonFragment extends Fragment {
 
     private BaseActivity mActivity;
     /**
-     *  标识fragment视图已经初始化完毕
+     * 标识fragment视图已经初始化完毕
      */
     private boolean isViewPrepared;
     /**
@@ -101,12 +99,14 @@ public abstract class BaseCommonFragment extends Fragment {
         tvLeftText = view.findViewById(R.id.tv_left_text);
         tvRightText = view.findViewById(R.id.tv_right_text);
         tv_right_tianqi = view.findViewById(R.id.tv_right_tianqi);
-        tv_right_tianqi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(AppRoutePath.app_weather_forecast).navigation();
-            }
-        });
+        if (tv_right_tianqi != null) {
+            tv_right_tianqi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ARouter.getInstance().build(AppRoutePath.app_weather_forecast).navigation();
+                }
+            });
+        }
         if (loToolbarCommon != null) {
             ImmersionBar.setTitleBar(getBaseActivity(), loToolbarCommon);
         }
@@ -135,8 +135,6 @@ public abstract class BaseCommonFragment extends Fragment {
         });
 
     }
-
-
 
 
     /***
@@ -178,9 +176,10 @@ public abstract class BaseCommonFragment extends Fragment {
 
     /**
      * 天气按钮
+     *
      * @return
      */
-    public TextView getRightTianqi(){
+    public TextView getRightTianqi() {
         return tv_right_tianqi;
     }
 
@@ -247,7 +246,6 @@ public abstract class BaseCommonFragment extends Fragment {
     protected abstract void initView(View view);
 
 
-
     /**
      * 联网请求数据(由子类实现)
      */
@@ -259,6 +257,7 @@ public abstract class BaseCommonFragment extends Fragment {
 
     /**
      * fragment中动态权限获取回调
+     *
      * @param requestCode
      * @param permissions
      * @param grantResults
@@ -270,7 +269,7 @@ public abstract class BaseCommonFragment extends Fragment {
         if (fragments != null) {
             for (Fragment fragment : fragments) {
                 if (fragment != null) {
-                    fragment.onRequestPermissionsResult(requestCode,permissions,grantResults);
+                    fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 }
             }
         }
