@@ -22,15 +22,18 @@ public class AppRoutePath {
     /**
      * 巡查责任人首页 （第一页）（包含 巡检 保洁 维修责任人）
      */
-    public final static String app_main_fragment_home_xuncha = "/app/main/fragment/home/xuncha";
+//    public final static String app_main_fragment_home_xuncha = "/app/main/fragment/home/xuncha";
+    public final static String app_main_fragment_home_xuncha = "/app/main/fragment/home";
     /**
      * 技术责任人首页 （第一页）
      */
-    public final static String app_main_fragment_home_jishu = "/app/main/fragment/home/jishu";
+//    public final static String app_main_fragment_home_jishu = "/app/main/fragment/home/jishu";
+    public final static String app_main_fragment_home_jishu = "/app/main/fragment/home";
     /**
      * 行政责任人首页 （第一页）
      */
-    public final static String app_main_fragment_home_admin = "/app/main/fragment/home/xingzheng";
+//    public final static String app_main_fragment_home_admin = "/app/main/fragment/home/xingzheng";
+    public final static String app_main_fragment_home_admin = "/app/main/fragment/home";
 
     /**
      * 巡检责任人 运维页（第二页）
@@ -64,12 +67,14 @@ public class AppRoutePath {
     /**
      * 技术责任人 三个重点页（第三页）
      */
-    public final static String app_main_fragment_threekey_jishu = "/app/main/fragment/threekey/jishu";
+//    public final static String app_main_fragment_threekey_jishu = "/app/main/fragment/threekey/jishu";
+    public final static String app_main_fragment_threekey_jishu = "/app/main/fragment/threekey";
 
     /**
      * 行政责任人 三个重点页（第三页）
      */
-    public final static String app_main_fragment_threekey_xingzheng = "/app/main/fragment/threekey/xingzheng";
+//    public final static String app_main_fragment_threekey_xingzheng = "/app/main/fragment/threekey/xingzheng";
+    public final static String app_main_fragment_threekey_xingzheng = "/app/main/fragment/threekey";
 
     /**
      * 水库页（第四页）

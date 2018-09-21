@@ -26,7 +26,9 @@
                 app:tabBackground="@color/color_white"
                 app:tabGravity="fill"
                 app:tabIndicatorColor="#1785f8"
-                app:tabIndicatorHeight="3dp"
+                app:tabIndicatorHeight="2dp"
+                app:tabPaddingStart="30dp"
+                app:tabPaddingEnd="30dp"
                 app:tabMode="fixed" />
 
             <android.support.v4.view.ViewPager

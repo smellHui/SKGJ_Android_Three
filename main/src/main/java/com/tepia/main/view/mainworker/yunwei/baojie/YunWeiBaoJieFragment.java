@@ -1,7 +1,6 @@
-package com.tepia.main.view.mainadminister.threekeypoint;
+package com.tepia.main.view.mainworker.yunwei.baojie;
 
 
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -12,21 +11,20 @@ import com.tepia.main.R;
 /**
  * @author         :      zhang xinhua
  * Version         :       1.0
- * 功能描述        :      主页三   三个重点  行政责任人
+ * 功能描述        :        主页二 运维页 巡查责任人
  **/
-//@Route(path = AppRoutePath.app_main_fragment_threekey_xingzheng)
-public class ThreePointXingZhengFragment extends BaseCommonFragment {
+@Route(path = AppRoutePath.app_main_fragment_yunwei_baojie)
+public class YunWeiBaoJieFragment extends BaseCommonFragment {
 
 
-    public ThreePointXingZhengFragment() {
+    public YunWeiBaoJieFragment() {
         // Required empty public constructor
     }
 
 
-
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_three_point;
+        return R.layout.fragment_yun_wei;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class ThreePointXingZhengFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View view) {
-       setCenterTitle(getString(R.string.main_threepoint));
+      setCenterTitle(getString(R.string.main_yunwei));
     }
 
     @Override

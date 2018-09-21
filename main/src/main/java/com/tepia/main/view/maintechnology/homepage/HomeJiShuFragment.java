@@ -19,7 +19,7 @@ import com.tepia.main.R;
  *         Company :       北京太比雅科技(武汉研发中心)
  **/
 
-@Route(path = AppRoutePath.app_main_fragment_home_jishu)
+//@Route(path = AppRoutePath.app_main_fragment_home_jishu)
 public class HomeJiShuFragment extends BaseCommonFragment {
 
 

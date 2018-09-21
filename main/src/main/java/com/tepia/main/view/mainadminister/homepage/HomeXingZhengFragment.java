@@ -21,7 +21,7 @@ import com.tepia.main.R;
  *         主页一 首页 行政责任人
  **/
 
-@Route(path = AppRoutePath.app_main_fragment_home_admin)
+//@Route(path = AppRoutePath.app_main_fragment_home_admin)
 public class HomeXingZhengFragment extends BaseCommonFragment {
 
 

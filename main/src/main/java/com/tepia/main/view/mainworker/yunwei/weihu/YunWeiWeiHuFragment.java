@@ -1,9 +1,8 @@
-package com.tepia.main.view.mainworker.yunwei;
+package com.tepia.main.view.mainworker.yunwei.weihu;
 
 
 import android.databinding.DataBindingUtil;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +13,6 @@ import com.tepia.base.common.CommonFragmentPagerAdapter;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 import com.tepia.main.databinding.FragmentYunWeiXunchaBinding;
-import com.tepia.main.view.maintechnology.yunwei.OperationListFragment;
-import com.tepia.main.view.maintechnology.yunwei.adapter.OperationTabPageAdapter;
 import com.tepia.main.view.mainworker.yunwei.startyunwei.StartYunWeiFragment;
 
 import java.util.List;
@@ -25,8 +22,8 @@ import java.util.List;
  * Version         :       1.0
  * 功能描述        :        主页二 运维页 巡查责任人
  **/
-@Route(path = AppRoutePath.app_main_fragment_yunwei)
-public class YunWeiXunChaFragment extends BaseCommonFragment {
+@Route(path = AppRoutePath.app_main_fragment_yunwei_weihu)
+public class YunWeiWeiHuFragment extends BaseCommonFragment {
 
 
     private TabLayout tlTitle;
@@ -36,7 +33,7 @@ public class YunWeiXunChaFragment extends BaseCommonFragment {
     private FragmentYunWeiXunchaBinding mBinding;
     private List<BaseCommonFragment> mFragments;
 
-    public YunWeiXunChaFragment() {
+    public YunWeiWeiHuFragment() {
         // Required empty public constructor
     }
 
@@ -59,8 +56,7 @@ public class YunWeiXunChaFragment extends BaseCommonFragment {
         mBinding = DataBindingUtil.bind(view);
         initRLTitle();
         initViewPager();
-        mBinding.vpContainer.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlTitle));
-        tlTitle.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mBinding.vpContainer));
+        tlTitle.setupWithViewPager(mBinding.vpContainer);
     }
 
     private void initViewPager() {

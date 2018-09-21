@@ -1,6 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-</android.support.constraint.ConstraintLayout>
+    <data></data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_select_res_et"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_weight="1"
+                        android:text="请选择查询运维类型" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/s_right" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/bg_bt_start_yunwei"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp"
+                    android:text="开始巡查"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/bg_select_res_et"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_weight="1"
+                        android:text="请选择查询水库" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/s_right" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/bg_bt_start_yunwei"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="10dp"
+                    android:text="开始巡查"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#eff1f3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_operation_task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:drawableLeft="@drawable/operation_solid"
+                        android:text="巡检任务:20次"
+                        android:layout_marginLeft="15dp"
+                        android:drawablePadding="3dp"
+                        android:textColor="#373737" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:drawableLeft="@drawable/operation_solid"
+                        android:text="完成检查:18次"
+                        android:layout_marginLeft="10dp"
+                        android:drawablePadding="3dp"
+                        android:textColor="#373737" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:drawableLeft="@drawable/operation_solid"
+                        android:text="完成率:90%"
+                        android:layout_marginLeft="10dp"
+                        android:drawablePadding="3dp"
+                        android:textColor="#373737" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
