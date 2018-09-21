@@ -19,6 +19,11 @@ import android.widget.TextView;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.main.R;
+import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
+import com.tepia.main.view.mainworker.shangbao.adapter.AdapterShuiweiReservoirs;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by      Android studio
@@ -31,6 +36,9 @@ import com.tepia.main.R;
 public class ShuiweiFragment extends MVPBaseFragment<ShangbaoContract.View, ShangbaoPresenter> implements View.OnClickListener {
 
     private RecyclerView shuiweiRec;
+    private AdapterShuiweiReservoirs adapterShuiweiReservoirs;
+    private List<MyReservoirsItemBean> myReservoirsItemBeanList = new ArrayList<>();
+
 
     public ShuiweiFragment() {
         // Required empty public constructor
@@ -50,8 +58,20 @@ public class ShuiweiFragment extends MVPBaseFragment<ShangbaoContract.View, Shan
     protected void initView(View view) {
 
         shuiweiRec = findView(R.id.shuiweiRec);
+
+        setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
+        setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
+        setResviorRec("水库库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
+        setResviorRec("水库配套设施", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
+        setResviorRec("防汛物资", "FLOOD-FIGHTING MATERIALS", R.drawable.jianjie5);
+        setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);
+        setResviorRec("水库安全管理应急预案", "CONTINGENCY PLAN", R.drawable.jianjie7);
+        setResviorRec("水库安全运行管理情况", "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
+        setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie8);
+
         shuiweiRec.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
-//        shuiweiRec.setAdapter();
+        adapterShuiweiReservoirs = new AdapterShuiweiReservoirs(getBaseActivity(),R.layout.fragment_shuiwei_head_layout,myReservoirsItemBeanList);
+        shuiweiRec.setAdapter(adapterShuiweiReservoirs);
 
         TextView sureSearchTv = findView(R.id.sureSearchTv);
         TextView shangbaoTv = findView(R.id.shangbaoTv);
@@ -116,6 +136,14 @@ public class ShuiweiFragment extends MVPBaseFragment<ShangbaoContract.View, Shan
                 dialog_show.dismiss();
             }
         });
+    }
+
+    private void setResviorRec(String title, String middle_title, int resourceImg) {
+        MyReservoirsItemBean myReservoirsItemBean = new MyReservoirsItemBean();
+        myReservoirsItemBean.setTitle(title);
+        myReservoirsItemBean.setMiddle_title(middle_title);
+        myReservoirsItemBean.setResourceImg(resourceImg);
+        myReservoirsItemBeanList.add(myReservoirsItemBean);
     }
 
 

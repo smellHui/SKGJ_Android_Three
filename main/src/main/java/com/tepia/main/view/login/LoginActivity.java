@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -40,17 +41,19 @@ import static com.pgyersdk.update.UpdateManagerListener.startDownloadTask;
  * 邮箱 784787081@qq.com
  */
 @Route(path = AppRoutePath.applogin)
-public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPresenter> implements LoginContract.View {
+public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPresenter> implements LoginContract.View ,View.OnClickListener{
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
     private AppBean appBean;
 
     private EditText usernameEt;
     private EditText psEt;
     private TextView bt_login;
+    private TextView helpTv;
+    private TextView foggetTv;
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_login_new;
+        return R.layout.activity_login;
     }
 
     @Override
@@ -99,6 +102,10 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         usernameEt = findViewById(R.id.usernameEt);
         psEt = findViewById(R.id.psEt);
         bt_login = findViewById(R.id.bt_login);
+        foggetTv = findViewById(R.id.foggetTv);
+        helpTv = findViewById(R.id.helpTv);
+        foggetTv.setOnClickListener(this);
+        helpTv.setOnClickListener(this);
 
         bt_login.setOnClickListener(view -> {
             if (DoubleClickUtil.isFastDoubleClick()) {
@@ -180,5 +187,15 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             return;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.helpTv) {
+           ToastUtils.shortToast("在线帮助");
+        }else if(v.getId() == R.id.foggetTv){
+            ToastUtils.shortToast("忘记密码");
+
+        }
     }
 }

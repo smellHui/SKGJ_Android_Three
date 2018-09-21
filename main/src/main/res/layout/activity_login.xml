@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@color/commmon_blue"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -14,29 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:background="@drawable/login_top"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/logo" />
+            android:src="@mipmap/logo"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/main_name"
             android:textColor="@color/white"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            android:visibility="gone" />
+
         <TextView
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="水库安全管理三个责任人的好帮手"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
 
     </LinearLayout>
@@ -49,21 +56,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_btn_green"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="账号："
+            android:textColor="#273440"
+            android:textSize="@dimen/textsizeloginuser" />
 
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="@dimen/margintop"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_marginTop="@dimen/margintop"
-            android:background="@drawable/login_edit_bg"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_operation_tv"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -72,27 +90,20 @@
                 android:layout_height="16dp"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/login_user_new" />
-            <TextView
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:text="账号："
-                android:textSize="@dimen/textsizeloginuser"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+
 
             <EditText
-                android:gravity="center_vertical"
                 android:id="@+id/usernameEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text=""
                 android:background="@null"
+                android:gravity="center_vertical"
                 android:hint="@string/hintstr"
+                android:text=""
 
-                android:textColor="@color/white"
+                android:textColor="@color/commmon_blue"
                 android:textColorHint="@color/text_color"
 
 
@@ -100,15 +111,42 @@
             <!--ZYSYWZXGCXJ1-->
         </LinearLayout>
 
+        <FrameLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="密码："
+                android:textColor="#273440"
+                android:textSize="@dimen/textsizeloginuser" />
+
+            <TextView
+                android:id="@+id/foggetTv"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="忘记密码?"
+                android:textColor="#259afd"
+                android:textSize="@dimen/textsizeloginuser" />
+
+        </FrameLayout>
+
+
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="@dimen/margintop"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_marginTop="@dimen/margintop"
-            android:background="@drawable/login_edit_bg"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_operation_tv"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -117,27 +155,20 @@
                 android:layout_height="16dp"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/login_ps_new" />
-            <TextView
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:text="密码："
-                android:textSize="@dimen/textsizeloginuser"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+
 
             <EditText
-                android:gravity="center_vertical"
                 android:id="@+id/psEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@null"
+                android:gravity="center_vertical"
                 android:hint="@string/hintps"
                 android:inputType="textPassword"
                 android:text=""
-                android:textColor="@color/white"
+                android:textColor="@color/commmon_blue"
                 android:textColorHint="@color/text_color"
                 android:textSize="@dimen/textsizeloginuser" />
             <!--123456-->
@@ -146,35 +177,60 @@
         <TextView
             android:id="@+id/bt_login"
 
-            android:background="@color/blue_user"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="@dimen/margintop"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_bt_start_yunwei"
             android:gravity="center"
             android:letterSpacing="0.5"
             android:text="@string/text_login_bt_tip"
-            android:textSize="18sp"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            />
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/helpTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="10dp"
+                android:text="在 线 帮 助"
+                android:textColor="@color/commmon_blue"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:text="技术支持：400-800666666"
+                android:textColor="#687b9b"
+                android:textSize="13sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.2">
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
+            android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:text="@string/design_company_name"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textColor="#b3ffffff"
+            android:textSize="14sp" />
     </FrameLayout>
 
 

@@ -24,9 +24,9 @@
         android:layout_height="match_parent">
 
 
-        <include layout="@layout/fragment_shuiwei_head_layout"/>
+        <include layout="@layout/fragment_shuiwei_yingji_head_layout"/>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/shuiweiRec"
+            android:id="@+id/yingjiRec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

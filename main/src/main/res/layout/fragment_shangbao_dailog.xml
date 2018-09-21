@@ -3,22 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
-
+    android:background="@drawable/bg_shangbao_dialogbg_selector"
     >
 
     <TextView
-        android:background="@color/commmon_blue"
+        android:background="@drawable/bg_shangbao_bg_selector"
         android:gravity="center"
-        android:text="上报"
+        android:text="上  报"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_width="match_parent"
-        android:layout_height="45dp" />
+        android:layout_height="50dp" />
 
     <LinearLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -59,8 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <LinearLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -70,7 +69,7 @@
         <TextView
             android:gravity="center"
             android:layout_weight="2"
-            android:text="水库名称"
+            android:text="水位数值"
             android:textColor="#5f6166"
             android:textSize="16sp"
             android:layout_width="0dp"
@@ -96,6 +95,7 @@
         android:layout_height="1dp"/>
 
     <LinearLayout
+        android:background="@drawable/bg_shangbao_dialogbottom_selector"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:gravity="center_vertical"
@@ -117,7 +117,7 @@
         <Button
             android:id="@+id/suerBtn"
             android:layout_margin="15dp"
-            android:background="@color/commmon_blue"
+            android:background="@drawable/bg_bt_start_yunwei"
             android:text="确 定"
             android:textColor="@color/white"
             android:textSize="16sp"

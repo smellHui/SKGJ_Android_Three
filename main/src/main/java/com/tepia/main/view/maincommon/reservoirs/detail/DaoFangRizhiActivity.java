@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.main.R;
+import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.DaoFangContract;
+import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.DaoFangPresenter;
 
 /**
   * Created by      Android studio
@@ -14,7 +17,7 @@ import com.tepia.main.R;
   * Version :1.0
   * 功能描述 : 到访日志
  **/
-public class DaoFangRizhiActivity extends BaseActivity {
+public class DaoFangRizhiActivity extends MVPBaseActivity<DaoFangContract.View,DaoFangPresenter> {
 
     @Override
     public int getLayoutId() {
@@ -42,4 +45,6 @@ public class DaoFangRizhiActivity extends BaseActivity {
     protected void initRequestData() {
 
     }
+
+
 }

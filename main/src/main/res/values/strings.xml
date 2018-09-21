@@ -1,7 +1,7 @@
 <resources>
     <string name="main_name">水库管家</string>
     <!-- 登录页面 -->
-    <string name="text_login_bt_tip">登录</string>
+    <string name="text_login_bt_tip">登 录</string>
     <!--任务列表页-->
     <string name="text_et_search_hint">搜索</string>
     <string name="text_task_status_dzx">待执行</string>
