@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.R;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.MapCommonResponse;
 import com.tepia.main.model.map.PictureResponse;
 import com.tepia.main.model.map.RainfallResponse;
@@ -409,7 +410,7 @@ public class MapSearchFragment extends MVPBaseFragment<MainMapContract.View, Mai
         mPresenter.getStStbprpBByType(s, "wq", "");
     }
 
-    private List<ReservoirListResponse.DataBean> reservoirDatas;
+    private List<ReservoirBean> reservoirDatas;
 
     /**
      * 根据名称搜索水库

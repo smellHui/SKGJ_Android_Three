@@ -1,7 +1,9 @@
 package com.tepia.main.model.map;
 
 import com.tepia.base.http.BaseResponse;
+import com.tepia.main.model.detai.ReservoirBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,59 +18,14 @@ public class ReservoirListResponse extends BaseResponse {
      * data : []
      * */
 
-    private List<DataBean> data;
+    private ArrayList<ReservoirBean> data;
 
-    public List<DataBean> getData() {
+    public ArrayList<ReservoirBean> getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(ArrayList<ReservoirBean> data) {
         this.data = data;
     }
 
-    public static class DataBean {
-        /**
-         * reservoirId : 09e903f9767f4be19512c6106a48dcc7
-         * reservoir : "枫青水库"
-         * reservoirLongitude : "106.5275"
-         * reservoirLatitude : "27.621389"
-         */
-
-        private String reservoirId;
-        private String reservoir;
-        private String reservoirLongitude;
-        private String reservoirLatitude;
-
-        public String getReservoirId() {
-            return reservoirId;
-        }
-
-        public void setReservoirId(String reservoirId) {
-            this.reservoirId = reservoirId;
-        }
-
-        public String getReservoir() {
-            return reservoir;
-        }
-
-        public void setReservoir(String reservoir) {
-            this.reservoir = reservoir;
-        }
-
-        public String getReservoirLongitude() {
-            return reservoirLongitude;
-        }
-
-        public void setReservoirLongitude(String reservoirLongitude) {
-            this.reservoirLongitude = reservoirLongitude;
-        }
-
-        public String getReservoirLatitude() {
-            return reservoirLatitude;
-        }
-
-        public void setReservoirLatitude(String reservoirLatitude) {
-            this.reservoirLatitude = reservoirLatitude;
-        }
-    }
 }

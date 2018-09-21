@@ -14,6 +14,7 @@ import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.DetailManager;
 import com.tepia.main.model.detai.ImageBean;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.detai.ReservoirDetailBean;
 import com.tepia.main.model.map.ReservoirResponse;
 import com.tepia.main.utils.EmptyLayoutUtil;
@@ -37,7 +38,7 @@ public class ReserviorFragment extends BaseCommonFragment {
     private RecyclerView baseinfoRecV;
     private AdapterStationDetailList adapterStationDetailList;
     private List<StationDetailResponse> baseinfo_list = new ArrayList<>();
-    private ReservoirDetailBean.DataBean reservoirbean;
+    private ReservoirBean reservoirbean;
     private String stcd;
     public ReserviorFragment() {
         // Required empty public constructor

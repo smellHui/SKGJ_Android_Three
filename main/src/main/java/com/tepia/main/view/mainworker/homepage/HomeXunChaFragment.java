@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.github.mikephil.charting.charts.LineChart;
@@ -14,11 +15,10 @@ import com.github.mikephil.charting.data.Entry;
 import com.just.library.AgentWeb;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
-import com.tepia.base.utils.ResUtils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.FragmentHomeXunjianBinding;
-import com.tepia.main.model.user.UserInfoBean;
-import com.tepia.main.model.weather.AqiBean;
+import com.tepia.main.model.user.UserManager;
+import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +31,12 @@ import java.util.List;
 
 @Route(path = AppRoutePath.app_main_fragment_home_xuncha)
 public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View, HomeXunChaPresenter> implements HomeXunChaContract.View {
-    public com.github.mikephil.charting.charts.LineChart lcReservoirCapacity;
+    private TextView tvReservoirName;
+    private com.github.mikephil.charting.charts.LineChart lcReservoirCapacity;
     FragmentHomeXunjianBinding mBinding;
+    private AdapterWorker adapterWorker;
+    private AdapterFloodControlMaterialList adapterFloodControlMaterialList;
+
 
     public HomeXunChaFragment() {
         // Required empty public constructor
@@ -51,34 +55,33 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     @Override
     protected void initView(View view) {
         lcReservoirCapacity = (LineChart) view.findViewWithTag("lc_reservoir_capacity");
+        tvReservoirName = view.findViewById(R.id.tv_reservoir_name);
         mBinding = DataBindingUtil.bind(view);
         setCenterTitle(getString(R.string.main_home));
         getRightTianqi().setVisibility(View.VISIBLE);
+
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mBinding.rvWorker.setLayoutManager(layoutManager);
-        AdapterWorker adapterWorker = new AdapterWorker(R.layout.lv_tab_main_worker_item, null);
+        adapterWorker = new AdapterWorker(R.layout.lv_tab_main_worker_item, null);
         mBinding.rvWorker.setAdapter(adapterWorker);
         mBinding.rvWorker.setNestedScrollingEnabled(false);
 
-        ArrayList<UserInfoBean> userInfoBeans = new ArrayList<>();
-        userInfoBeans.add(new UserInfoBean());
-        userInfoBeans.add(new UserInfoBean());
-        userInfoBeans.add(new UserInfoBean());
-        adapterWorker.setNewData(userInfoBeans);
 
         mBinding.rvFloodControlMaterialList.setNestedScrollingEnabled(false);
         mBinding.rvFloodControlMaterialList.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterFloodControlMaterialList adapterFloodControlMaterialList = new AdapterFloodControlMaterialList(R.layout.lv_flood_control_material_item, null);
+        adapterFloodControlMaterialList = new AdapterFloodControlMaterialList(R.layout.lv_flood_control_material_item, null);
         mBinding.rvFloodControlMaterialList.setAdapter(adapterFloodControlMaterialList);
-        ArrayList<AqiBean> aqiBeans = new ArrayList<>();
-        aqiBeans.add(new AqiBean());
-        aqiBeans.add(new AqiBean());
-        aqiBeans.add(new AqiBean());
-        adapterFloodControlMaterialList.setNewData(aqiBeans);
+
+
+        initFrequencyStatistics();
         initLineChart();
 
-        initXunCha();
+
+        if (UserManager.getInstance().getDefaultReservoir() != null) {
+            tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
+        }
 
         AgentWeb.with(this)
                 .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
@@ -92,61 +95,207 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     /**
      * 初始化 巡查频率 巡查统计
      */
-    private void initXunCha() {
+    private void initFrequencyStatistics() {
+        mBinding.loXunjianFrequency.tvTitle.setText("巡查频率");
 
-        mBinding.rtcpXunchaCount.setTextColor(Color.parseColor("#596470"));
-        mBinding.rtcpXunchaCount.setTextSize(18);
-        mBinding.rtcpXunchaCount.setMax(100);
-        mBinding.rtcpXunchaCount.setProgress(100);
-        mBinding.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
-        mBinding.rtcpXunchaCount.setText("25");
+        mBinding.loXunjianStatisticsy.tvTitle.setText("巡检统计");
+        mBinding.loXunjianStatisticsy.tvTjName.setText("本月巡查统计");
+        mBinding.loXunjianStatisticsy.rtcpXunchaCount.setTextColor(Color.parseColor("#596470"));
+        mBinding.loXunjianStatisticsy.rtcpXunchaCount.setTextSize(18);
+        mBinding.loXunjianStatisticsy.rtcpXunchaCount.setMax(100);
+        mBinding.loXunjianStatisticsy.rtcpXunchaCount.setProgress(100);
+        mBinding.loXunjianStatisticsy.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
+        mBinding.loXunjianStatisticsy.rtcpXunchaCount.setText("25");
 
-        mBinding.rtcpQuestionCount.setTextColor(Color.parseColor("#809dd2"));
-        mBinding.rtcpQuestionCount.setTextSize(14);
-        mBinding.rtcpQuestionCount.setMax(100);
-        mBinding.rtcpQuestionCount.setProgress(75);
-        mBinding.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
-        mBinding.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
-        mBinding.rtcpQuestionCount.setText("12");
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.setTextColor(Color.parseColor("#809dd2"));
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.setTextSize(14);
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.setMax(100);
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.setProgress(100);
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.setText("12");
 
-        mBinding.rtcpDealedCount.setTextColor(Color.parseColor("#4acaa0"));
-        mBinding.rtcpDealedCount.setTextSize(14);
-        mBinding.rtcpDealedCount.setMax(100);
-        mBinding.rtcpDealedCount.setProgress(75);
-        mBinding.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
-        mBinding.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
-        mBinding.rtcpDealedCount.setText("9");
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.setTextColor(Color.parseColor("#4acaa0"));
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.setTextSize(14);
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.setMax(100);
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.setProgress(75);
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.setText("9");
 
-        mBinding.rtcpNotDealCount.setTextColor(Color.parseColor("#ff8773"));
-        mBinding.rtcpNotDealCount.setTextSize(14);
-        mBinding.rtcpNotDealCount.setMax(100);
-        mBinding.rtcpNotDealCount.setProgress(75);
-        mBinding.rtcpNotDealCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#ff8773"));
-        mBinding.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
-        mBinding.rtcpNotDealCount.setText("3");
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.setTextColor(Color.parseColor("#ff8773"));
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.setTextSize(14);
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.setMax(100);
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.setProgress(75);
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#ff8773"));
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.setText("3");
+
+
+        mBinding.loBaojieFrequency.tvTitle.setText("保洁频率");
+
+        mBinding.loBaojieStatisticsy.tvTitle.setText("保洁统计");
+        mBinding.loBaojieStatisticsy.tvTjName.setText("本月保洁统计");
+        mBinding.loBaojieStatisticsy.rtcpXunchaCount.setTextColor(Color.parseColor("#596470"));
+        mBinding.loBaojieStatisticsy.rtcpXunchaCount.setTextSize(18);
+        mBinding.loBaojieStatisticsy.rtcpXunchaCount.setMax(100);
+        mBinding.loBaojieStatisticsy.rtcpXunchaCount.setProgress(100);
+        mBinding.loBaojieStatisticsy.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
+        mBinding.loBaojieStatisticsy.rtcpXunchaCount.setText("25");
+
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.setTextColor(Color.parseColor("#809dd2"));
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.setTextSize(14);
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.setMax(100);
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.setProgress(100);
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.setText("12");
+
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.setTextColor(Color.parseColor("#4acaa0"));
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.setTextSize(14);
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.setMax(100);
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.setProgress(75);
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.setText("9");
+
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.setTextColor(Color.parseColor("#ff8773"));
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.setTextSize(14);
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.setMax(100);
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.setProgress(75);
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#ff8773"));
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.setText("3");
+
+        mBinding.loWeihuFrequency.tvTitle.setText("维修养护频率");
+
+        mBinding.loWeihuStatistics.tvTitle.setText("维修养护统计");
+        mBinding.loWeihuStatistics.tvTjName.setText("本月维护统计");
+        mBinding.loWeihuStatistics.rtcpXunchaCount.setTextColor(Color.parseColor("#596470"));
+        mBinding.loWeihuStatistics.rtcpXunchaCount.setTextSize(18);
+        mBinding.loWeihuStatistics.rtcpXunchaCount.setMax(100);
+        mBinding.loWeihuStatistics.rtcpXunchaCount.setProgress(100);
+        mBinding.loWeihuStatistics.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
+        mBinding.loWeihuStatistics.rtcpXunchaCount.setText("25");
+
+        mBinding.loWeihuStatistics.rtcpQuestionCount.setTextColor(Color.parseColor("#809dd2"));
+        mBinding.loWeihuStatistics.rtcpQuestionCount.setTextSize(14);
+        mBinding.loWeihuStatistics.rtcpQuestionCount.setMax(100);
+        mBinding.loWeihuStatistics.rtcpQuestionCount.setProgress(100);
+        mBinding.loWeihuStatistics.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
+        mBinding.loWeihuStatistics.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
+        mBinding.loWeihuStatistics.rtcpQuestionCount.setText("12");
+
+        mBinding.loWeihuStatistics.rtcpDealedCount.setTextColor(Color.parseColor("#4acaa0"));
+        mBinding.loWeihuStatistics.rtcpDealedCount.setTextSize(14);
+        mBinding.loWeihuStatistics.rtcpDealedCount.setMax(100);
+        mBinding.loWeihuStatistics.rtcpDealedCount.setProgress(75);
+        mBinding.loWeihuStatistics.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
+        mBinding.loWeihuStatistics.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
+        mBinding.loWeihuStatistics.rtcpDealedCount.setText("9");
+
+        mBinding.loWeihuStatistics.rtcpNotDealCount.setTextColor(Color.parseColor("#ff8773"));
+        mBinding.loWeihuStatistics.rtcpNotDealCount.setTextSize(14);
+        mBinding.loWeihuStatistics.rtcpNotDealCount.setMax(100);
+        mBinding.loWeihuStatistics.rtcpNotDealCount.setProgress(75);
+        mBinding.loWeihuStatistics.rtcpNotDealCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#ff8773"));
+        mBinding.loWeihuStatistics.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
+        mBinding.loWeihuStatistics.rtcpNotDealCount.setText("3");
+
     }
+
 
     private void initLineChart() {
 
         ChartUtils.initChart(lcReservoirCapacity);
-        ChartUtils.notifyDataSetChanged(lcReservoirCapacity, getData(), ChartUtils.dayValue);
+
     }
 
     @Override
     protected void initRequestData() {
+        mPresenter.getAppHomeGetReservoirInfo();
 
     }
 
-    private List<Entry> getData() {
+    private List<Entry> getData(List<HomeGetReservoirInfoBean.StorageCapacityBean> storageCapacity) {
         List<Entry> values = new ArrayList<>();
-        values.add(new Entry(0, 200));
-        values.add(new Entry(1, 400));
-        values.add(new Entry(2, 600));
-        values.add(new Entry(3, 800));
-        values.add(new Entry(4, 1000));
-        values.add(new Entry(5, 750));
-        values.add(new Entry(6, 50));
+        for (HomeGetReservoirInfoBean.StorageCapacityBean bean : storageCapacity) {
+            values.add(new Entry(bean.getWaterLevel(), bean.getStorageCapacity()));
+        }
         return values;
     }
+
+    @Override
+    public void getHommeInfoSuccess(HomeGetReservoirInfoBean data) {
+        adapterWorker.setNewData(data.getPersonDuty());
+        adapterFloodControlMaterialList.setNewData(data.getMaterial());
+        if (data.getExecuteFrequency() != null) {
+            if (data.getExecuteFrequency().getInspection() != null) {
+                mBinding.loXunjianFrequency.loFrequency.setVisibility(View.VISIBLE);
+                mBinding.loXunjianFrequency.tvDaily.setText(data.getExecuteFrequency().getInspection().getNoFlood() + "天/次");
+                mBinding.loXunjianFrequency.tvFlood.setText(data.getExecuteFrequency().getInspection().getFlood() + "天/次");
+            } else {
+                mBinding.loXunjianFrequency.loFrequency.setVisibility(View.GONE);
+            }
+            if (data.getExecuteFrequency().getClean() != null) {
+                mBinding.loBaojieFrequency.loFrequency.setVisibility(View.VISIBLE);
+                mBinding.loBaojieFrequency.tvDaily.setText(data.getExecuteFrequency().getClean().getNoFlood() + "天/次");
+                mBinding.loBaojieFrequency.tvFlood.setText(data.getExecuteFrequency().getClean().getFlood() + "天/次");
+            } else {
+                mBinding.loBaojieFrequency.loFrequency.setVisibility(View.GONE);
+            }
+            if (data.getExecuteFrequency().getMaintain() != null) {
+                mBinding.loWeihuFrequency.loFrequency.setVisibility(View.VISIBLE);
+                mBinding.loWeihuFrequency.tvDaily.setText(data.getExecuteFrequency().getMaintain().getNoFlood() + "天/次");
+                mBinding.loWeihuFrequency.tvFlood.setText(data.getExecuteFrequency().getMaintain().getFlood() + "天/次");
+            } else {
+                mBinding.loWeihuFrequency.loFrequency.setVisibility(View.GONE);
+            }
+        }
+
+        if (data.getOAMStatistics() != null) {
+            if (data.getOAMStatistics().getInspection() != null) {
+                mBinding.loXunjianStatisticsy.rtcpDealedCount.setMax(data.getOAMStatistics().getInspection().getProblemCount());
+                mBinding.loXunjianStatisticsy.rtcpNotDealCount.setMax(data.getOAMStatistics().getInspection().getProblemCount());
+                mBinding.loXunjianStatisticsy.rtcpDealedCount.setProgress(data.getOAMStatistics().getInspection().getProcessedProblem());
+                mBinding.loXunjianStatisticsy.rtcpNotDealCount.setProgress(data.getOAMStatistics().getInspection().getNotProcessedProblem());
+                mBinding.loXunjianStatisticsy.rtcpXunchaCount.setText(data.getOAMStatistics().getInspection().getWorkOrderCount() + "");
+                mBinding.loXunjianStatisticsy.rtcpDealedCount.setText(data.getOAMStatistics().getInspection().getProcessedProblem() + "");
+                mBinding.loXunjianStatisticsy.rtcpNotDealCount.setText(data.getOAMStatistics().getInspection().getNotProcessedProblem() + "");
+                mBinding.loXunjianStatisticsy.rtcpQuestionCount.setText(data.getOAMStatistics().getInspection().getProblemCount() + "");
+            } else {
+                mBinding.loXunjianStatisticsy.loStatisticsy.setVisibility(View.GONE);
+            }
+            if (data.getOAMStatistics().getClean() != null) {
+                mBinding.loBaojieStatisticsy.rtcpDealedCount.setMax(data.getOAMStatistics().getClean().getProblemCount());
+                mBinding.loBaojieStatisticsy.rtcpNotDealCount.setMax(data.getOAMStatistics().getClean().getProblemCount());
+                mBinding.loBaojieStatisticsy.rtcpDealedCount.setProgress(data.getOAMStatistics().getClean().getProcessedProblem());
+                mBinding.loBaojieStatisticsy.rtcpNotDealCount.setProgress(data.getOAMStatistics().getClean().getNotProcessedProblem());
+                mBinding.loBaojieStatisticsy.rtcpXunchaCount.setText(data.getOAMStatistics().getClean().getWorkOrderCount() + "");
+                mBinding.loBaojieStatisticsy.rtcpDealedCount.setText(data.getOAMStatistics().getClean().getProcessedProblem() + "");
+                mBinding.loBaojieStatisticsy.rtcpNotDealCount.setText(data.getOAMStatistics().getClean().getNotProcessedProblem() + "");
+                mBinding.loBaojieStatisticsy.rtcpQuestionCount.setText(data.getOAMStatistics().getClean().getProblemCount() + "");
+            } else {
+                mBinding.loBaojieStatisticsy.loStatisticsy.setVisibility(View.GONE);
+            }
+            if (data.getOAMStatistics().getMaintain() != null) {
+                mBinding.loWeihuStatistics.rtcpDealedCount.setMax(data.getOAMStatistics().getMaintain().getProblemCount());
+                mBinding.loWeihuStatistics.rtcpNotDealCount.setMax(data.getOAMStatistics().getMaintain().getProblemCount());
+                mBinding.loWeihuStatistics.rtcpDealedCount.setProgress(data.getOAMStatistics().getMaintain().getProcessedProblem());
+                mBinding.loWeihuStatistics.rtcpNotDealCount.setProgress(data.getOAMStatistics().getMaintain().getNotProcessedProblem());
+                mBinding.loWeihuStatistics.rtcpXunchaCount.setText(data.getOAMStatistics().getMaintain().getWorkOrderCount() + "");
+                mBinding.loWeihuStatistics.rtcpDealedCount.setText(data.getOAMStatistics().getMaintain().getProcessedProblem() + "");
+                mBinding.loWeihuStatistics.rtcpNotDealCount.setText(data.getOAMStatistics().getMaintain().getNotProcessedProblem() + "");
+                mBinding.loWeihuStatistics.rtcpQuestionCount.setText(data.getOAMStatistics().getMaintain().getProblemCount() + "");
+            } else {
+                mBinding.loWeihuStatistics.loStatisticsy.setVisibility(View.GONE);
+            }
+        }
+
+        if (data.getStorageCapacity() != null) {
+            ChartUtils.notifyDataSetChanged(lcReservoirCapacity, getData(data.getStorageCapacity()), ChartUtils.dayValue);
+        }
+    }
+
 
 }

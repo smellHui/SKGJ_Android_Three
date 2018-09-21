@@ -25,6 +25,7 @@
                 android:textColor="#8993a9" />
 
             <TextView
+                android:id="@+id/tv_jobname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
@@ -47,6 +48,7 @@
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -55,6 +57,7 @@
                 android:textSize="12dp" />
 
             <TextView
+                android:id="@+id/tv_tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"

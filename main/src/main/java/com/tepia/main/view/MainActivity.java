@@ -48,6 +48,7 @@ import com.tepia.main.TabFragmentHost;
 import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
 import com.tepia.main.model.user.MenuData;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
 
@@ -110,15 +111,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         mTabHost = findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
-        String temp = SPUtils.getInstance().getString("MENULIST", "");
-        if (!TextUtils.isEmpty(temp)) {
-            ArrayList<MenuItemBean> menuItemBeans = new Gson().fromJson(temp, new TypeToken<ArrayList<MenuItemBean>>() {
-            }.getType());
-            if (menuItemBeans == null) {
-                TabMainFragmentFactory.getInstance().setMenuData("1");
-            } else {
-                TabMainFragmentFactory.getInstance().setMenuData(menuItemBeans);
-            }
+        if (UserManager.getInstance().getMenuList() != null) {
+            TabMainFragmentFactory.getInstance().setMenuData(UserManager.getInstance().getMenuList());
         } else {
             TabMainFragmentFactory.getInstance().setMenuData("1");
         }

@@ -17,6 +17,7 @@ import com.tepia.main.databinding.FragmentYunWeiXunchaBinding;
 import com.tepia.main.view.maintechnology.yunwei.OperationListFragment;
 import com.tepia.main.view.maintechnology.yunwei.adapter.OperationTabPageAdapter;
 import com.tepia.main.view.mainworker.yunwei.startyunwei.StartYunWeiFragment;
+import com.tepia.main.view.mainworker.yunwei.yunweilist.YunWeiListFragment;
 
 import java.util.List;
 
@@ -65,15 +66,15 @@ public class YunWeiXunChaFragment extends BaseCommonFragment {
 
     private void initViewPager() {
         CommonFragmentPagerAdapter adapter = new CommonFragmentPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new StartYunWeiFragment());
+        adapter.addFragment(new YunWeiListFragment());
         adapter.addFragment(new StartYunWeiFragment());
         mBinding.vpContainer.setAdapter(adapter);
 
     }
 
     private void initRLTitle() {
-        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始运维", R.drawable.bg_operation_tab)));
         tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("运维记录", R.drawable.bg_operation_tab)));
+        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始运维", R.drawable.bg_operation_tab)));
     }
     private View getTabCustomView(String name, int id) {
         View view = getLayoutInflater().inflate(R.layout.operation_tab_custom_view2, null);

@@ -18,6 +18,7 @@ import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.model.dictmap.DictMapManager;
+import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.user.MenuBean;
 import com.tepia.main.model.user.MenuData;
 import com.tepia.main.model.user.MenuListResponse;
@@ -89,6 +90,9 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
 
             @Override
             protected void _onError(String message) {
+                if (simpleLoadDialog != null) {
+                    simpleLoadDialog.dismiss();
+                }
                 ToastUtils.shortToast(message);
             }
         });
@@ -137,21 +141,65 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
         });
     }
 
+    /**
+     * 获取动态菜单2
+     *
+     * @return
+     */
     private void getByTokenMenu2() {
         UserManager.getInstance_ADMIN().getByTokenMenu2().safeSubscribe(new LoadingSubject<MenuListResponse>() {
             @Override
             protected void _onNext(MenuListResponse menuListResponse) {
-                if (menuListResponse.getCode() == 0){
-                    SPUtils.getInstance().putString("MENULIST",new Gson().toJson(menuListResponse.getData()));
+                if (menuListResponse.getCode() == 0) {
+                    UserManager.getInstance().saveMenuList(menuListResponse.getData());
+                    getReservoirList();
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                if (simpleLoadDialog != null) {
+                    simpleLoadDialog.dismiss();
+                }
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
+
+    /**
+     * 获取负责的水库列表
+     *
+     * @return
+     */
+    private void getReservoirList() {
+        UserManager.getInstance_ADMIN().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>() {
+            @Override
+            protected void _onNext(ReservoirListResponse response) {
+                if (response.getCode() == 0) {
+                    UserManager.getInstance().saveReservoirList(response.getData());
+                    if (response.getData() != null && response.getData().size() > 0) {
+                        UserManager.getInstance().saveDefaultReservoir(response.getData().get(0));
+                    }
                     mView.loginSuccess();
+                    if (simpleLoadDialog != null) {
+                        simpleLoadDialog.dismiss();
+                    }
+                } else {
+                    if (simpleLoadDialog != null) {
+                        simpleLoadDialog.dismiss();
+                    }
                 }
             }
 
             @Override
             protected void _onError(String message) {
                 ToastUtils.shortToast(message);
+                if (simpleLoadDialog != null) {
+                    simpleLoadDialog.dismiss();
+                }
             }
         });
+
     }
 
     /**

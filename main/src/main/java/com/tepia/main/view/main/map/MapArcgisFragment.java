@@ -75,6 +75,7 @@ import com.tepia.base.view.ScrollLayout.ContentScrollView;
 import com.tepia.base.view.ScrollLayout.ScrollLayout;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.main.R;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.MapCommonResponse;
 import com.tepia.main.model.map.PictureResponse;
 import com.tepia.main.model.map.RainfallResponse;
@@ -1393,7 +1394,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         transaction.commit();
     }
 
-    private List<ReservoirListResponse.DataBean> reservoirDatas;
+    private List<ReservoirBean> reservoirDatas;
     ArrayList<CommonModel> reservoirCommonModel = new ArrayList<>();
 
     /**
@@ -2313,7 +2314,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //                        LogUtil.i("id:" + position + "groupId:" + groupId);
                         if (groupId == 0) {
 //                          点击的是水库
-                            ReservoirListResponse.DataBean dataBean = reservoirDatas.get(position);
+                            ReservoirBean dataBean = reservoirDatas.get(position);
                             String reservoirLongitude = dataBean.getReservoirLongitude();
                             String reservoirLatitude = dataBean.getReservoirLatitude();
                             if (null != reservoirLongitude && null != reservoirLatitude && reservoirLongitude.length() > 0 && reservoirLatitude.length() > 0) {

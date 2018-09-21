@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.view.dialog.permissiondialog.PromptDialog;
 import com.tepia.main.R;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.login.LoginActivity;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
@@ -33,6 +34,7 @@ import java.util.List;
 public class SplashActivity extends Activity {
 
     private boolean isFirst;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,16 +51,20 @@ public class SplashActivity extends Activity {
                     .start();
 
 
-        }else {
+        } else {
             goNext();
         }
     }
 
-    private void goNext(){
+    private void goNext() {
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!TextUtils.isEmpty(com.tepia.main.model.user.UserManager.getInstance().getToken())) {
+                if (!TextUtils.isEmpty(com.tepia.main.model.user.UserManager.getInstance().getToken())
+                        && UserManager.getInstance().getDefaultReservoir() != null
+                        && UserManager.getInstance().getMenuList() != null
+                        && UserManager.getInstance().getLocalReservoirList() != null
+                        ) {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
                     SplashActivity.this.finish();
@@ -77,7 +83,7 @@ public class SplashActivity extends Activity {
 
     }
 
-    private String[] permassion = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION ,Manifest.permission.RECORD_AUDIO};
+    private String[] permassion = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECORD_AUDIO};
 
     private Rationale ration;
 
@@ -98,7 +104,7 @@ public class SplashActivity extends Activity {
         @Override
         public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
             if (requestCode == SPLASH_PERMISSION_CODE) {
-                if (AndPermission.hasPermission(SplashActivity.this,permassion)) {
+                if (AndPermission.hasPermission(SplashActivity.this, permassion)) {
                     LogUtil.e("onSucceed -->", "HavePermission");
                     goNext();
 
@@ -145,7 +151,7 @@ public class SplashActivity extends Activity {
                                 });
 
                             }
-                        },800);
+                        }, 800);
 
                     } else {
 
@@ -215,7 +221,7 @@ public class SplashActivity extends Activity {
                     });
 
                 }
-            },800);
+            }, 800);
 //            AndPermission.rationaleDialog(Splash.this, rationale).show();
 
             // 此对话框可以自定义，调用rationale.resume()就可以继续申请。
@@ -225,10 +231,10 @@ public class SplashActivity extends Activity {
     /**
      * 再一次提示的Dialog
      */
-    private void showRational(){
+    private void showRational() {
         String message = shouldHavePermission(true);
 //        final Rationale rationale1 = rationale;
-        promptDialog =   new PromptDialog(SplashActivity.this)
+        promptDialog = new PromptDialog(SplashActivity.this)
                 .setDialogType(PromptDialog.DIALOG_TYPE_INFO)
                 .setAnimationEnable(true)
                 .setSingle(true)
@@ -247,7 +253,7 @@ public class SplashActivity extends Activity {
                     }
                 });
 
-        promptDialog .show();
+        promptDialog.show();
     }
 
     /**
@@ -258,7 +264,7 @@ public class SplashActivity extends Activity {
     private String shouldHavePermission(boolean isSHowRationale) {
         StringBuilder meaasge = new StringBuilder();
 //        boolean havePhone = AndPermission.hasPermission(getApplicationContext(), Manifest.permission.READ_PHONE_STATE);
-        boolean haveSD = AndPermission.hasPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO,Manifest.permission.ACCESS_FINE_LOCATION );
+        boolean haveSD = AndPermission.hasPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION);
 //        boolean haveLoc = AndPermission.hasPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION);
         if (isSHowRationale) {
            /* if (!havePhone) {
@@ -291,7 +297,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(promptDialog != null && promptDialog.isShowing()){
+        if (promptDialog != null && promptDialog.isShowing()) {
             promptDialog.dismiss();
         }
     }
