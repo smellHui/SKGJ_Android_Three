@@ -1,7 +1,6 @@
 package com.tepia.main.view.maincommon.reservoirs.mvpreservoir;
 
 import com.tepia.base.mvp.BasePresenterImpl;
-import com.tepia.main.view.mainworker.shangbao.ShangbaoContract;
 
 /**
  * Created by      android studio

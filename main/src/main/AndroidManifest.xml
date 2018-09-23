@@ -242,7 +242,7 @@
         <activity android:name=".view.maincommon.setting.PeiXunActivity" />
         <activity android:name=".view.maincommon.reservoirs.detail.ItemSafeJiandingActivity" />
         <activity
-            android:name=".view.mainworker.shangbao.YingjiShangbaoActivity"
+            android:name=".view.mainworker.report.EmergencyDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".view.maincommon.reservoirs.detail.DaoFangRizhiActivity"></activity>
     </application>

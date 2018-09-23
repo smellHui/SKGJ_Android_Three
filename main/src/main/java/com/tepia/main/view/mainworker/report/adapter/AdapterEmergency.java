@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.shangbao.adapter;
+package com.tepia.main.view.mainworker.report.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -18,9 +18,9 @@ import java.util.List;
  * @date 2018/9/17
  */
 
-public class AdapterYingji extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
+public class AdapterEmergency extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
 
-    public AdapterYingji(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
+    public AdapterEmergency(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
         super(layoutResId, data);
         this.mContext = context;
     }
@@ -35,7 +35,7 @@ public class AdapterYingji extends BaseQuickAdapter<MyReservoirsItemBean, BaseVi
         if( position%2 == 0 ) {
             view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.white));
         }else {
-            view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.shangbaoitem));
+            view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.reportitem));
         }
 
     }

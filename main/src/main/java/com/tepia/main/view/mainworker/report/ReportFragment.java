@@ -1,22 +1,14 @@
-package com.tepia.main.view.mainworker.shangbao;
+package com.tepia.main.view.mainworker.report;
 
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,8 +17,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
-import com.tepia.main.view.main.detail.reservior.ReserviorFragment;
-import com.tepia.main.view.maincommon.setting.SettingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +27,7 @@ import java.util.List;
  * 功能描述        :       主页三 上报页 巡查责任人
  **/
 @Route(path = AppRoutePath.app_main_fragment_shangbao_xuncha)
-public class ShangbaoFragment extends BaseCommonFragment{
+public class ReportFragment extends BaseCommonFragment{
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -45,13 +35,13 @@ public class ShangbaoFragment extends BaseCommonFragment{
     private ArrayList<String> titles ;
 
     private LinearLayout root_dialog_shangbao;
-    public ShangbaoFragment() {
+    public ReportFragment() {
         // Required empty public constructor
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shangbao;
+        return R.layout.fragment_report;
     }
 
     @Override
@@ -78,8 +68,8 @@ public class ShangbaoFragment extends BaseCommonFragment{
     }
 
     private void initViewpager(){
-        fragments.add(new ShuiweiFragment());
-        fragments.add(new YingjiFragment());
+        fragments.add(new WaterLevelFragment());
+        fragments.add(new EmergencyFragment());
         titles.add("水位");
         titles.add("应急情况");
         MyPagerAdapter adpter = new MyPagerAdapter(getBaseActivity().getSupportFragmentManager(),getBaseActivity(),fragments,titles);

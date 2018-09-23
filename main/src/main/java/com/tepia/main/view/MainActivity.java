@@ -12,25 +12,19 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.gaodelibrary.UtilsContextOfGaode;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.inpor.fastmeetingcloud.base.BaseFragment;
 import com.inpor.fastmeetingcloud.receiver.HstApplication;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -45,19 +39,11 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
-import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
-import com.tepia.main.model.user.MenuData;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
 
 import com.tepia.main.view.main.map.MapArcgisFragment;
-import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
-import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
-import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
-import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
-import com.tepia.main.view.maincommon.setting.SettingFragment;
-import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
 
 
 import org.greenrobot.eventbus.EventBus;

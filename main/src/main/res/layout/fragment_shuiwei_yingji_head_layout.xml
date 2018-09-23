@@ -6,7 +6,7 @@
     android:layout_height="40dp"
     android:layout_marginLeft="7dp"
     android:layout_marginRight="7dp"
-    android:background="@color/shangbaoitem"
+    android:background="@color/reportitem"
     android:orientation="horizontal">
 
     <TextView

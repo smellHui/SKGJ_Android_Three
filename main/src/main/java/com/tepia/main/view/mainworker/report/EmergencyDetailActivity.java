@@ -1,8 +1,6 @@
-package com.tepia.main.view.mainworker.shangbao;
+package com.tepia.main.view.mainworker.report;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -13,7 +11,6 @@ import com.tepia.main.R;
 import com.tepia.main.common.pickview.OnItemClickListener;
 import com.tepia.main.common.pickview.PhotoRecycleViewAdapter;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
-import com.tepia.main.view.main.question.QuestionNewFragment;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
 
@@ -28,7 +25,7 @@ import java.util.List;
   * Version :1.0
   * 功能描述 : 应急上报页面
  **/
-public class YingjiShangbaoActivity extends MVPBaseActivity<ShangbaoContract.View,ShangbaoPresenter> {
+public class EmergencyDetailActivity extends MVPBaseActivity<ReportContract.View,ReportPresenter> {
 
     private ArrayList<String> selectedPhotos = new ArrayList<>();
     private PhotoRecycleViewAdapter photoAdapter;
@@ -37,7 +34,7 @@ public class YingjiShangbaoActivity extends MVPBaseActivity<ShangbaoContract.Vie
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_yingji_shangbao;
+        return R.layout.activity_emergency_detail;
     }
 
     @Override
@@ -58,12 +55,12 @@ public class YingjiShangbaoActivity extends MVPBaseActivity<ShangbaoContract.Vie
                             .setShowCamera(true)
                             .setPreviewEnabled(true)
                             .setSelected(selectedPhotos)
-                            .start(YingjiShangbaoActivity.this);
+                            .start(EmergencyDetailActivity.this);
                 } else {
                     PhotoPreview.builder()
                             .setPhotos(selectedPhotos)
                             .setCurrentItem(position)
-                            .start(YingjiShangbaoActivity.this);
+                            .start(EmergencyDetailActivity.this);
                 }
 
             }

@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.shangbao;
+package com.tepia.main.view.mainworker.report;
 
 
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.main.R;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
-import com.tepia.main.view.mainworker.shangbao.adapter.AdapterYingji;
+import com.tepia.main.view.mainworker.report.adapter.AdapterEmergency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +23,19 @@ import java.util.List;
  * Version :1.0
  * 功能描述 :应急
  **/
-public class YingjiFragment extends MVPBaseFragment<ShangbaoContract.View, ShangbaoPresenter> implements View.OnClickListener {
+public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, ReportPresenter> implements View.OnClickListener {
 
     private RecyclerView yingjiRec;
-    private AdapterYingji adapterYingji;
+    private AdapterEmergency adapterYingji;
     private List<MyReservoirsItemBean> myReservoirsItemBeanList = new ArrayList<>();
 
-    public YingjiFragment() {
+    public EmergencyFragment() {
         // Required empty public constructor
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shuiwei_yingji;
+        return R.layout.fragment_report_emergency;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class YingjiFragment extends MVPBaseFragment<ShangbaoContract.View, Shang
         setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie8);
 
         yingjiRec.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
-        adapterYingji = new AdapterYingji(getBaseActivity(),R.layout.fragment_shuiwei_yingji_head_layout,myReservoirsItemBeanList);
+        adapterYingji = new AdapterEmergency(getBaseActivity(),R.layout.fragment_shuiwei_yingji_head_layout,myReservoirsItemBeanList);
         yingjiRec.setAdapter(adapterYingji);
 
         TextView sureSearchTv = findView(R.id.sureSearchTv);
@@ -89,7 +89,7 @@ public class YingjiFragment extends MVPBaseFragment<ShangbaoContract.View, Shang
     public void onClick(View v) {
         if (v.getId() == R.id.shangbaoTv) {
            Intent intent = new Intent();
-           intent.setClass(getBaseActivity(),YingjiShangbaoActivity.class);
+           intent.setClass(getBaseActivity(),EmergencyDetailActivity.class);
            startActivity(intent);
         } else if (v.getId() == R.id.sureSearchTv) {
 
