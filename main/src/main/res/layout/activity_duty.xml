@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".view.maincommon.setting.ZhizeActivity">
+    tools:context=".view.maincommon.setting.DutyActivity">
     <include layout="@layout/toolbar"/>
     <View
         android:background="@color/background_common"

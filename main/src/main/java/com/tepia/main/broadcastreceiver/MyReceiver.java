@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.VedioBean;
 import com.tepia.main.model.user.UserInfoBean;
@@ -43,7 +44,7 @@ public class MyReceiver extends BroadcastReceiver {
 			if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 				String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
 				LogUtil.e(TAG, "[MyReceiver] 接收Registration Id : " + regId);
-				SPUtils.getInstance().putString(APPCostant.regisid_jiguang,"");
+				SPUtils.getInstance().putString(ConfigConsts.regisid_jiguang,"");
 				//send the Registration Id to your server...
 
 			} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {

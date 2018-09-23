@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.CustomLinearLayoutManager;
 import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
@@ -148,7 +149,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
             public void displayImage(Context context, Object path, ImageView imageView) {
                 Glide.with(context)
                         .load(path)
-                        .apply(APPCostant.options)
+                        .apply(ConfigConsts.options)
                         .thumbnail(0.5f)
                         .into(imageView);
             }

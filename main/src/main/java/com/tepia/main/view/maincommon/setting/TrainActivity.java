@@ -1,14 +1,11 @@
 package com.tepia.main.view.maincommon.setting;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.gaodelibrary.GaodeEntity;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
-import com.tepia.main.view.maincommon.setting.adapter.AdapterPeixunDetail;
+import com.tepia.main.view.maincommon.setting.adapter.AdapterTrainDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +18,15 @@ import java.util.List;
   * Version :1.0
   * 功能描述 :工作培训
  **/
-public class PeiXunActivity extends BaseActivity {
+public class TrainActivity extends BaseActivity {
 
     private List<Integer> images = new ArrayList<>();
 
-    private AdapterPeixunDetail adapterPeixunDetail;
+    private AdapterTrainDetail adapterPeixunDetail;
     private RecyclerView peixunRec;
     @Override
     public int getLayoutId() {
-        return R.layout.activity_pei_xun;
+        return R.layout.activity_train;
     }
 
     @Override
@@ -60,7 +57,7 @@ public class PeiXunActivity extends BaseActivity {
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         //设置
         peixunRec.setLayoutManager(manager);
-        adapterPeixunDetail = new AdapterPeixunDetail(this,R.layout.activity_pei_xun_item,images);
+        adapterPeixunDetail = new AdapterTrainDetail(this,R.layout.activity_pei_xun_item,images);
         peixunRec.setAdapter(adapterPeixunDetail);
 
     }

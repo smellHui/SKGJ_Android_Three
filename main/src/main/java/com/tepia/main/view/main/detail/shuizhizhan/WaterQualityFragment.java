@@ -40,7 +40,8 @@ import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
-import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.DetailManager;
 import com.tepia.main.model.detai.WaterPhBean;
@@ -286,11 +287,11 @@ public class WaterQualityFragment extends MVPBaseFragment<DetailContract.View,De
         endTime = TimeFormatUtils.getStringDate();
         last_millseconds_end = TimeFormatUtils.strToLong(endTime);
         //往前一个月
-        startTime = TimeFormatUtils.getNextDay(endTime,APPCostant.timeseriod);
+        startTime = TimeFormatUtils.getNextDay(endTime,ConfigConsts.timeseriod);
         last_millseconds_start = TimeFormatUtils.strToLong(startTime);
         mstarttimeTv.setText(startTime);
         mendtimeTv.setText(endTime);
-        timeType = APPCostant.TimeTypeInt[0];
+        timeType = ConfigConsts.TimeTypeInt[0];
     }
 
     /**
@@ -364,30 +365,30 @@ public class WaterQualityFragment extends MVPBaseFragment<DetailContract.View,De
                 timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
 
             } else if(i == R.id.timeBtn){
-                timeType = APPCostant.TimeTypeInt[0];
+                timeType = ConfigConsts.TimeTypeInt[0];
                 changeBtn(0);
                 setDataOfLineChart(timeType,dataBeanArrayListll,10.0f);
 
             } else if(i == R.id.dayBtn){
-                timeType = APPCostant.TimeTypeInt[1];
+                timeType = ConfigConsts.TimeTypeInt[1];
 
                 changeBtn(1);
                 setDataOfLineChart(timeType,dataBeanArrayListll,10.0f);
 
             } else if(i == R.id.monthBtn){
-                timeType = APPCostant.TimeTypeInt[2];
+                timeType = ConfigConsts.TimeTypeInt[2];
 
                 changeBtn(2);
                 setDataOfLineChart(timeType,dataBeanArrayListll,10.0f);
 
             } else if(i == R.id.yearBtn){
-                timeType = APPCostant.TimeTypeInt[3];
+                timeType = ConfigConsts.TimeTypeInt[3];
 
                 changeBtn(3);
                 setDataOfLineChart(timeType,dataBeanArrayListll,10.0f);
 
             }else if(i == R.id.yuluBtn){
-                timeType = APPCostant.TimeTypeInt[4];
+                timeType = ConfigConsts.TimeTypeInt[4];
 
                 changeBtn(4);
                 setDataOfLineChart(timeType,dataBeanArrayListll,10.0f);
@@ -505,7 +506,7 @@ public class WaterQualityFragment extends MVPBaseFragment<DetailContract.View,De
 
 //        xAxis.setLabelCount(listCount);//设置标签个数
         xAxis.setAxisLineColor(Color.BLACK);
-        xAxis.setTextColor(APPCostant.colortext);
+        xAxis.setTextColor(ConfigConsts.colortext);
         xAxis.setDrawGridLines(true);//
 //        xAxis.setDrawGridLines(false);
 //        xAxis.setDrawAxisLine(false);
@@ -530,7 +531,7 @@ public class WaterQualityFragment extends MVPBaseFragment<DetailContract.View,De
 
         YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setAxisLineColor(Color.BLACK);
-        leftAxis.setTextColor(APPCostant.colortext);
+        leftAxis.setTextColor(ConfigConsts.colortext);
 //        leftAxis.setDrawGridLines(true);//
         leftAxis.setGranularityEnabled(false);
 //        leftAxis.enableGridDashedLine(10f, 10f, 0f);
