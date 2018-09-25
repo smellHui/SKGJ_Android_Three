@@ -16,6 +16,7 @@ import com.tepia.main.model.reserviros.FloodBean;
 import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.view.maincommon.reservoirs.AdapterMainReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
+import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterFloodReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
@@ -62,7 +63,7 @@ public class FloodActivity extends MVPBaseActivity<ReserviorContract.View,Reserv
                 startActivity(intent);
             }
         });
-        String reservoirId = getIntent().getStringExtra("reservoirId");
+        String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
         mPresenter.getMaterialByReservoir(reservoirId);
     }
 

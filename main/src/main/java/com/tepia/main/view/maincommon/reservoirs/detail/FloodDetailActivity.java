@@ -38,7 +38,7 @@ public class FloodDetailActivity extends BaseActivity {
         showBack();
         activityFloodDetailBinding = DataBindingUtil.bind(mRootView);
         Bundle bundle = getIntent().getExtras();
-        FloodBean.DataBean dataBean = (FloodBean.DataBean) bundle.getSerializable("supportingid");
+        FloodBean.DataBean dataBean = (FloodBean.DataBean) bundle.getSerializable("floodid");
         activityFloodDetailBinding.meNameTv.setText("名称："+dataBean.getMeName());
         activityFloodDetailBinding.meTotalsTv.setText("数量："+dataBean.getMeTotals());
         activityFloodDetailBinding.positionTv.setText("位置："+dataBean.getPosition());

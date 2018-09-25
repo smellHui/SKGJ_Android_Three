@@ -40,6 +40,7 @@ import java.util.List;
 @Route(path = AppRoutePath.app_main_fragment_reservoirs)
 public class ReservoirsFragment extends BaseCommonFragment {
 
+    public static final String RESERVOIRId = "RESERVOIRId";
     private RecyclerView resviorRec;
     private AdapterMainReservoirs adapterMainReservoirs;
     private List<MyReservoirsItemBean> myReservoirsItemBeanList = new ArrayList<>();
@@ -88,7 +89,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 String reservoirId =  reservoirBean.getReservoirId();
 
                 Intent intent = new Intent();
-                intent.putExtra("reservoirId",reservoirId);
+                intent.putExtra(ReservoirsFragment.RESERVOIRId,reservoirId);
                 if (position == 0) {
                     intent.setClass(getBaseActivity(), IntroduceOfReservoirsActivity.class);
                     startActivity(intent);

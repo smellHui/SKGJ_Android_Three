@@ -70,6 +70,20 @@ public class ReservirosManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+
+
+    /**
+     * 水库安全运行报告
+     * @param reservoirId
+     * @return
+     */
+    public Observable<SafeRunningBean> getSafetyReportByReservoir(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getSafetyReportByReservoir(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     /**
      * 查询防汛物资
      * @param reservoirId
@@ -83,13 +97,13 @@ public class ReservirosManager {
     }
 
     /**
-     * 水库安全运行报告
+     * 查询水库简介
      * @param reservoirId
      * @return
      */
-    public Observable<SafeRunningBean> getSafetyReportByReservoir(String reservoirId) {
+    public Observable<IntroduceOfReservoirsBean> getBaseInfo(String reservoirId) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getSafetyReportByReservoir(token,reservoirId)
+        return mRetrofitService.getBaseInfo(token,reservoirId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

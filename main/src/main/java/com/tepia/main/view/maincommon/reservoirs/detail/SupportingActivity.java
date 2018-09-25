@@ -17,6 +17,7 @@ import com.tepia.main.R;
 import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
+import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterFloodReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterSupportingReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
@@ -39,7 +40,6 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
     private RecyclerView supportingRec;
     private AdapterSupportingReservoirs adapterSupportingReservoirs;
     private List<SupportingBean.DataBean> myReservoirsItemBeanList = new ArrayList<>();
-    private String reservoirId;
     @Override
     public int getLayoutId() {
         return R.layout.activity_supporting;
@@ -50,7 +50,6 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
         super.onCreate(savedInstanceState);
         setCenterTitle("水库配套设施");
         showBack();
-        reservoirId = getIntent().getStringExtra("reservoirId");
         supportingRec = findViewById(R.id.supportingRec);
         supportingRec.setLayoutManager(new GridLayoutManager(this,2));
         adapterSupportingReservoirs = new AdapterSupportingReservoirs(this,R.layout.fragment_reservoirs_supporting_item,myReservoirsItemBeanList);
@@ -66,6 +65,7 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
                 startActivity(intent);
             }
         });
+        String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
         mPresenter.getDeviceByReservoir(reservoirId);
     }
 

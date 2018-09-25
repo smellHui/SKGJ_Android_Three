@@ -5,6 +5,7 @@ import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.model.reserviros.FloodBean;
+import com.tepia.main.model.reserviros.IntroduceOfReservoirsBean;
 import com.tepia.main.model.reserviros.ReservirosManager;
 import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.model.reserviros.SupportingBean;
@@ -119,9 +120,33 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     }
 
+    /**
+     * 查询水库简介
+     * @param reservoirId
+     * @return
+     */
     @Override
     public void getBaseInfo(String reservoirId) {
+        ReservirosManager.getInstance().getBaseInfo(reservoirId)
+                .subscribe(new LoadingSubject<IntroduceOfReservoirsBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(IntroduceOfReservoirsBean introduceOfReservoirsBean) {
+                        if (introduceOfReservoirsBean != null) {
+                            if (introduceOfReservoirsBean.getCode() == 0) {
+                                mView.success(introduceOfReservoirsBean);
 
+                            }else{
+                                mView.failure(introduceOfReservoirsBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
     }
 
     @Override

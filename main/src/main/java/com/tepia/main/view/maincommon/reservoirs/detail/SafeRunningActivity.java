@@ -16,6 +16,7 @@ import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
+import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterFloodReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterSafeRunningReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
@@ -72,7 +73,7 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
                 }
             }
         });
-        String reservoirId = getIntent().getStringExtra("reservoirId");
+        String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
         mPresenter.getSafetyReportByReservoir(reservoirId);
     }
 
