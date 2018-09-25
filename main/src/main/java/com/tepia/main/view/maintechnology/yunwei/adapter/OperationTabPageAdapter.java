@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.view.maintechnology.yunwei.OperationListFragment;
 
 import java.util.List;
@@ -19,8 +20,8 @@ import java.util.List;
  * Company :       北京太比雅科技(武汉研发中心)
  **/
 public class OperationTabPageAdapter extends FragmentPagerAdapter {
-    private List<OperationListFragment> mFragments;
-    public OperationTabPageAdapter(FragmentManager fm, List<OperationListFragment> fragments) {
+    private List<BaseCommonFragment> mFragments;
+    public OperationTabPageAdapter(FragmentManager fm, List<BaseCommonFragment> fragments) {
         super(fm);
         mFragments = fragments;
     }

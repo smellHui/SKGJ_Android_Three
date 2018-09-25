@@ -1,6 +1,7 @@
 package com.tepia.main.view.maintechnology.yunwei;
 
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -27,7 +28,7 @@ import java.util.List;
 @Route(path = AppRoutePath.app_main_fragment_yunwei_jishu)
 public class YunWeiJiShuFragment extends BaseCommonFragment {
     private String[] tabNames = {"巡检", "保洁", "维修养护", "上报"};
-    private List<OperationListFragment> mFragments = new ArrayList<>();
+    private List<BaseCommonFragment> mFragments = new ArrayList<>();
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -63,10 +64,15 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
     }
 
     private void initViewPager() {
-        for (int i = 0; i < tabNames.length; i++) {
+        for (int i = 0; i < tabNames.length-1; i++) {
             OperationListFragment fragment = new OperationListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("type",tabNames[i]);
+            fragment.setArguments(bundle);
             mFragments.add(fragment);
         }
+        OperationReportFragment operationReportFragment = new OperationReportFragment();
+        mFragments.add(operationReportFragment);
         OperationTabPageAdapter tabPageAdapter = new OperationTabPageAdapter(getFragmentManager(), mFragments);
         viewPager.setAdapter(tabPageAdapter);
     }
