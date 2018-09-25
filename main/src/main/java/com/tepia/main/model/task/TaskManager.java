@@ -8,6 +8,7 @@ import com.tepia.main.model.task.response.AllItemListResponse;
 import com.tepia.main.model.task.response.CandidateResponse;
 import com.tepia.main.model.task.response.TaskDetailResponse;
 import com.tepia.main.model.task.response.TaskItemDetailResponse;
+import com.tepia.main.model.task.response.TaskItemListResponse;
 import com.tepia.main.model.task.response.TaskListResponse;
 import com.tepia.main.model.task.response.TaskNumResponse;
 import com.tepia.main.model.user.UserManager;
@@ -62,7 +63,7 @@ public class TaskManager {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread());
         } else {
-            return mRetrofitService.listAppWorkOrder(token, workOrderName, executeStatus, operationType,startTime, endTime, currentPage, pageSize)
+            return mRetrofitService.listAppWorkOrder(token, workOrderName, executeStatus, operationType, startTime, endTime, currentPage, pageSize)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread());
         }
@@ -85,11 +86,11 @@ public class TaskManager {
         String token = UserManager.getInstance().getToken();
         String planPeriod = null;
         if (executeStatus == Integer.MAX_VALUE) {
-            return mRetrofitService.listPageWorks2(token, workOrderName, operationType,operationType, planPeriod,startTime, endTime, currentPage, pageSize)
+            return mRetrofitService.listPageWorks2(token, workOrderName, operationType, operationType, planPeriod, startTime, endTime, currentPage, pageSize)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread());
         } else {
-            return mRetrofitService.listPageWorks(token, workOrderName, executeStatus, operationType,operationType,planPeriod ,startTime, endTime, currentPage, pageSize)
+            return mRetrofitService.listPageWorks(token, workOrderName, executeStatus, operationType, operationType, planPeriod, startTime, endTime, currentPage, pageSize)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread());
         }
@@ -270,14 +271,13 @@ public class TaskManager {
      */
     public Observable<BaseResponse> sendOrder(String workOrderId, String userCode) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.sendOrder(token, workOrderId,userCode)
+        return mRetrofitService.sendOrder(token, workOrderId, userCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
      * 修改工单信息以及工单配置项
-     *
      *
      * @param workOrderId
      * @param workOrderName
@@ -289,15 +289,53 @@ public class TaskManager {
      */
     public Observable<BaseResponse> updateWork(String workOrderId, String workOrderName, String planStartTime, String planEndTime, String remarks, String workOrderItemIds) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.updateWork(token, workOrderId,workOrderName,null,null,remarks,workOrderItemIds)
+        return mRetrofitService.updateWork(token, workOrderId, workOrderName, null, null, remarks, workOrderItemIds)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
 
-    public Observable<AllItemListResponse>  getAllItemList(String workOrderId) {
+    public Observable<AllItemListResponse> getAllItemList(String workOrderId) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getAllItemList(token,workOrderId)
+        return mRetrofitService.getAllItemList(token, workOrderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 分页查询巡查工单列表
+     *
+     * @param operationType
+     * @param reservoirId
+     * @param startDate
+     * @param endDate
+     * @param currentPage
+     * @param pageSize
+     */
+    public Observable<TaskListResponse> getPatrolWorkOrderList(String operationType, String reservoirId, String startDate, String endDate, String currentPage, String pageSize) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getPatrolWorkOrderList(token, operationType, reservoirId, startDate, endDate, currentPage, pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<TaskDetailResponse> newStartExecute(String reservoirId, String reservoirName, String operationType) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.newStartExecute(token, reservoirId, reservoirName, operationType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<WorkOrderNumResponse> getWorkOrderNumByReservoirId(String reservoirId, String operationType) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getWorkOrderNumByReservoirId(token, reservoirId, operationType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<TaskItemListResponse> getItemListByReservoirId(String reservoirId, String operationType) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getItemListByReservoirId(token, reservoirId, operationType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

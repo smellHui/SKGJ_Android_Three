@@ -4,6 +4,10 @@ import android.content.Context;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
+import com.tepia.main.model.task.bean.TaskBean;
+import com.tepia.main.model.task.response.TaskListResponse;
+
+import java.util.List;
 
 /**
  * MVPPlugin
@@ -12,7 +16,8 @@ import com.tepia.base.mvp.BaseView;
 
 public class YunWeiListContract {
     interface View extends BaseView {
-        
+
+        void getPatrolWorkOrderListSuccess(List<TaskBean> list);
     }
 
     interface  Presenter extends BasePresenter<View> {

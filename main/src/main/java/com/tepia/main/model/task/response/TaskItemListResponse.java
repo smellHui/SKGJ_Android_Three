@@ -1,5 +1,6 @@
 package com.tepia.main.model.task.response;
 
+import com.tepia.base.http.BaseResponse;
 import com.tepia.main.model.task.bean.TaskItemBean;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by Joeshould on 2018/5/23.
  */
 
-public class TaskItemListResponse {
+public class TaskItemListResponse extends BaseResponse {
 
     /**
      * data : [{"id":"27664fe7-3c50-442f-b6db-91f1f15167b3","orderNum":1,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"坝顶","itemName":"有无裂缝、异常变形、积水或杂草丛生等现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝顶"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"a6385abb-faed-456d-b615-35052458afb3","orderNum":2,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"背水坡","itemName":"近坝水面有无冒泡、变浑、漩涡等异常现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝坡"},{"title":"背水坡"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"2d070ec4-1eaf-43a6-846d-a7b2668bcc48","orderNum":3,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"迎水坡","itemName":"近坝水面有无冒泡、变浑、漩涡等异常现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝坡"},{"title":"迎水坡"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"aa3b8d48-d993-430e-b990-34e82abc222d","orderNum":4,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"背水坡","itemName":"混凝土面板有无破损、裂缝、溶蚀破损现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝坡"},{"title":"背水坡"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"ec8611f8-81e3-4f54-a224-00a22a2ed20f","orderNum":5,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"迎水坡","itemName":"有无裂缝、剥落、滑动、隆起、塌坑、冲刷或植物滋生等现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝坡"},{"title":"迎水坡"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"74fcb659-9515-4951-99ea-287d5a02f408","orderNum":6,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"防浪墙二","itemName":"防浪墙结构有无开裂、松动、架空、变形和倾斜等情况","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"防浪墙二"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"e4b5cc20-7641-4292-b6e4-be798bd07773","orderNum":7,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"迎水坡","itemName":"砌石护坡有无块石松动、塌陷、垫层流失、架空或风化变质等损坏现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝坡"},{"title":"迎水坡"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"ea6b5da4-c0c8-4b2d-881d-27b28e995e17","orderNum":8,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"背水坡","itemName":"有无裂缝、剥落、滑动、隆起、塌坑、冲刷或植物滋生等现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝坡"},{"title":"背水坡"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"de0b4d7c-1968-47e5-983d-d48e830165fa","orderNum":9,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"防浪墙一","itemName":"防浪墙结构有无开裂、松动、架空、变形和倾斜等情况","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"防浪墙一"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]},{"id":"1c9055ba-c9ba-4019-8733-1fe599ecbbb7","orderNum":10,"executeSituation":0,"executeName":"","isOver":"hide","positionName":"背水坡","itemName":"砌石护坡有无块石松动、塌陷、垫层流失、架空或风化变质等损坏现象","content":"","time":"","routingItemResult":1,"showType":[{"name":"无","value":"1","checked":true},{"name":"有","value":"0","checked":false}],"resultType":"1,2,3","positionNames":[{"title":"清底河水库"},{"title":"坝体"},{"title":"坝坡"},{"title":"背水坡"}],"resultTypes":[{"title":"选"},{"title":"文"},{"title":"图"}]}]
@@ -21,7 +22,7 @@ public class TaskItemListResponse {
     private TaskBean task;
     private boolean isSubmit;
     private boolean status;
-    private String msg;
+
     private List<TaskItemBean> data;
 
     public TaskBean getTask() {
@@ -46,14 +47,6 @@ public class TaskItemListResponse {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     public List<TaskItemBean> getData() {

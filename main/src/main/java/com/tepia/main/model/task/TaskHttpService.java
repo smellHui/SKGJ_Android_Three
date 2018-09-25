@@ -5,6 +5,7 @@ import com.tepia.main.model.task.response.AllItemListResponse;
 import com.tepia.main.model.task.response.CandidateResponse;
 import com.tepia.main.model.task.response.TaskDetailResponse;
 import com.tepia.main.model.task.response.TaskItemDetailResponse;
+import com.tepia.main.model.task.response.TaskItemListResponse;
 import com.tepia.main.model.task.response.TaskListResponse;
 import com.tepia.main.model.task.response.TaskNumResponse;
 
@@ -248,4 +249,42 @@ interface TaskHttpService {
     @GET("app/appReservoirWorkOrderItem/getAllItemList")
     Observable<AllItemListResponse> getAllItemList(@Header("Authorization") String token,
                                                    @Query("workOrderId") String workOrderId);
+
+    /**
+     * 分页查询巡查工单列表
+     *
+     * @param token
+     * @param operationType
+     * @param reservoirId
+     * @param startDate
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/workOrderTrp/getPatrolWorkOrderList")
+    Observable<TaskListResponse> getPatrolWorkOrderList(@Header("Authorization") String token,
+                                                        @Query("operationType") String operationType,
+                                                        @Query("reservoirId") String reservoirId,
+                                                        @Query("startDate") String startDate,
+                                                        @Query("endDate") String endDate,
+                                                        @Query("currentPage") String currentPage,
+                                                        @Query("pageSize") String pageSize);
+
+    @FormUrlEncoded
+    @POST("app/workOrderTrp/startExecute")
+    Observable<TaskDetailResponse> newStartExecute(@Header("Authorization") String token,
+                                                   @Field("reservoirId") String reservoirId,
+                                                   @Field("reservoirName") String reservoirName,
+                                                   @Field("operationType") String operationType);
+
+
+    @GET("app/workOrderTrp/getWorkOrderNumByXc")
+    Observable<WorkOrderNumResponse> getWorkOrderNumByReservoirId(@Header("Authorization") String token,
+                                                                  @Query("reservoirId") String reservoirId,
+                                                                  @Query("operationType") String operationType);
+
+    @GET("app/workOrderTrp/getItemListByReservoirId")
+    Observable<TaskItemListResponse> getItemListByReservoirId(@Header("Authorization") String token,
+                                                              @Query("reservoirId") String reservoirId,
+                                                              @Query("operationType") String operationType);
 }

@@ -174,6 +174,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 if (point == null) {
                     return;
                 }
+                if (taskBean == null) {
+                    return;
+                }
                 if (!"2".equals(taskBean.getExecuteStatus())) {
                     currentPoint = point;
                 }
@@ -436,16 +439,17 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             }
         }
 
-        if (taskBean.getPlanStartTime().length() == 19) {
+
+        if (taskBean.getPlanStartTime() != null && taskBean.getPlanStartTime().length() == 19) {
             taskBean.setPlanStartTime(taskBean.getPlanStartTime().substring(0, 16));
         }
-        if (taskBean.getPlanEndTime().length() == 19) {
+        if (taskBean.getPlanEndTime() != null && taskBean.getPlanEndTime().length() == 19) {
             taskBean.setPlanEndTime(taskBean.getPlanEndTime().substring(0, 16));
         }
         mBinding.tvTaskTime.setText("" + taskBean.getPlanStartTime() + "~" + taskBean.getPlanEndTime());
         if (!TextUtils.isEmpty(taskBean.getRemarks())) {
             mBinding.tvTaskDesc.setText("" + taskBean.getRemarks());
-        } else if (!TextUtils.isEmpty(taskBean.getBizPlanInfo().getPlanName())) {
+        } else if (taskBean.getBizPlanInfo() != null && !TextUtils.isEmpty(taskBean.getBizPlanInfo().getPlanName())) {
             mBinding.tvTaskDesc.setText("" + taskBean.getBizPlanInfo().getPlanName());
         }
         if (taskBean.getBizReservoirWorkOrderItems() != null) {

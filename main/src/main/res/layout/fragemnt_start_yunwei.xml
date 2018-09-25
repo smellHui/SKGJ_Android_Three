@@ -21,6 +21,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/lo_select_yunwei_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -29,13 +30,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_yunwei_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="12dp"
                         android:layout_weight="1"
-                        android:text="请选择查询运维类型" />
+                        android:text="请选择运维类型" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -46,6 +48,7 @@
                 </LinearLayout>
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -69,6 +72,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/lo_select_reservoir"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -77,13 +81,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_reservoir"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginTop="12dp"
                         android:layout_weight="1"
-                        android:text="请选择查询水库" />
+                        android:text="请选择水库" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -94,6 +99,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_start_yunwei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -123,40 +129,48 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="15dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:paddingBottom="15dp">
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp">
 
                     <TextView
-                        android:id="@+id/tv_operation_task"
+                        android:id="@+id/tv_operation_task_num"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:drawableLeft="@drawable/operation_solid"
-                        android:text="巡检任务:20次"
                         android:layout_marginLeft="15dp"
+                        android:drawableLeft="@drawable/operation_solid"
                         android:drawablePadding="3dp"
+                        android:text="巡检任务:20次"
                         android:textColor="#373737" />
 
                     <TextView
+                        android:id="@+id/tv_dealed_operation_task_num"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
                         android:drawableLeft="@drawable/operation_solid"
+                        android:drawablePadding="3dp"
                         android:text="完成检查:18次"
-                        android:layout_marginLeft="10dp"
-                        android:drawablePadding="3dp"
                         android:textColor="#373737" />
 
                     <TextView
+                        android:id="@+id/tv_dealed_present"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:drawableLeft="@drawable/operation_solid"
-                        android:text="完成率:90%"
                         android:layout_marginLeft="10dp"
+                        android:drawableLeft="@drawable/operation_solid"
                         android:drawablePadding="3dp"
+                        android:text="完成率:90%"
                         android:textColor="#373737" />
                 </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:background="@color/bg_main_color"
+                    android:id="@+id/rv_task_item_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 

@@ -213,7 +213,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     @Override
     protected void initRequestData() {
-        mPresenter.getAppHomeGetReservoirInfo();
+        mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
 
     }
 

@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:text="·"
+                android:textStyle="bold"
                 android:textColor="#8993a9" />
 
             <TextView

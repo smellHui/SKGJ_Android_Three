@@ -27,6 +27,9 @@ public  class TaskBean  implements Serializable{
     private String workOrderCode;
     private String workOrderName;
     private String planStartTime;
+    private String startTime;
+    private String executorName;
+    private String problemNum;
     private String planEndTime;
     private String executeStatus;
     private String remarks;
@@ -37,6 +40,30 @@ public  class TaskBean  implements Serializable{
     private BizPlanInfoBean bizPlanInfo;
     private String reservoirName;
     private List<TaskItemBean> bizReservoirWorkOrderItems;
+
+    public String getProblemNum() {
+        return problemNum;
+    }
+
+    public void setProblemNum(String problemNum) {
+        this.problemNum = problemNum;
+    }
+
+    public String getExecutorName() {
+        return executorName;
+    }
+
+    public void setExecutorName(String executorName) {
+        this.executorName = executorName;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 
     public String getWorkOrderRoute() {
         return workOrderRoute;

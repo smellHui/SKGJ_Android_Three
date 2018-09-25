@@ -517,22 +517,22 @@ public class HomeGetReservoirInfoBean {
          * storageCapacity : 0
          */
 
-        private int waterLevel;
-        private int storageCapacity;
+        private float waterLevel;
+        private float storageCapacity;
 
-        public int getWaterLevel() {
+        public float getWaterLevel() {
             return waterLevel;
         }
 
-        public void setWaterLevel(int waterLevel) {
+        public void setWaterLevel(float waterLevel) {
             this.waterLevel = waterLevel;
         }
 
-        public int getStorageCapacity() {
+        public float getStorageCapacity() {
             return storageCapacity;
         }
 
-        public void setStorageCapacity(int storageCapacity) {
+        public void setStorageCapacity(float storageCapacity) {
             this.storageCapacity = storageCapacity;
         }
     }

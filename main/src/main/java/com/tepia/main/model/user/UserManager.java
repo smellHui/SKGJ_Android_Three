@@ -267,10 +267,27 @@ public class UserManager {
         return reservoirBean;
     }
 
-    public Observable<HomeGetReservoirInfoResponse> getAppHomeGetReservoirInfo() {
+    public Observable<HomeGetReservoirInfoResponse> getAppHomeGetReservoirInfo(String reservoirId) {
         String token = getToken();
-
-        return mRetrofitService.getAppHomeGetReservoirInfo(token, getDefaultReservoir().getReservoirId(), "")
+        String types = "";
+        if (UserManager.getInstance().getMenuList().get(1).getMenuIcon().equals("110")){
+            MenuItemBean bean = UserManager.getInstance().getMenuList().get(1);
+            if (bean.getChildren()!= null &&(bean.getChildren().size() ==2 || bean.getChildren().size() ==1)){
+                for (MenuItemBean bean1 :bean.getChildren()){
+                    if (bean1.getMenuIcon().equals("111") ){
+                        types +="1,";
+                    }
+                    if (bean1.getMenuIcon().equals("112") ){
+                        types +="2,";
+                    }
+                    if (bean1.getMenuIcon().equals("113") ){
+                        types +="3,";
+                    }
+                }
+                types = types.substring(0,types.length()-1);
+            }
+        }
+        return mRetrofitService.getAppHomeGetReservoirInfo(token, reservoirId, types)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
