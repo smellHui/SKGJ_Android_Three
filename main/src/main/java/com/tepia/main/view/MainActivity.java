@@ -40,25 +40,16 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
-import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
-import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
-import com.tepia.main.model.user.MenuData;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
 
 import com.tepia.main.view.main.map.MapArcgisFragment;
-import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
-import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
-import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
-import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
-import com.tepia.main.view.maincommon.setting.SettingFragment;
-import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
 
 
 import org.greenrobot.eventbus.EventBus;

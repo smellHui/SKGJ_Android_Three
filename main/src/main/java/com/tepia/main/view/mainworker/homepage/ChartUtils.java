@@ -145,6 +145,7 @@ public class ChartUtils {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 //                return xValuesProcess(valueType)[(int) value];
+
                 return "";
             }
         });
