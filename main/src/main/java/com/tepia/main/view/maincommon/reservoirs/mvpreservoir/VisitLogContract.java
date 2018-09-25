@@ -13,12 +13,15 @@ import com.tepia.base.mvp.BaseView;
  * location        :       武汉研发中心
  * 功能描述         :
  **/
-public class DaoFangContract {
+public class VisitLogContract {
     public interface View<T> extends BaseView {
         void success(T data);
         void failure(String msg);
     }
 
-    interface  Presenter extends BasePresenter<DaoFangContract.View> {
+    interface  Presenter extends BasePresenter<View> {
+        void getPageList(String reservoirId,String currentPage, String pageSize,boolean isshowloading);
+        void detail(String id);
+
     }
 }

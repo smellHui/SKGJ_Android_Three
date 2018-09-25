@@ -44,7 +44,7 @@
 
             <TextView
                 android:maxLines="1"
-                android:id="@+id/nameOfreservoirTb"
+                android:id="@+id/nameOfreservoirTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"

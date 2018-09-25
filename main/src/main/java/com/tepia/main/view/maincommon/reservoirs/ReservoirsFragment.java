@@ -3,7 +3,6 @@ package com.tepia.main.view.maincommon.reservoirs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,12 +12,11 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
-import com.tepia.main.APPCostant;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.CustomLinearLayoutManager;
 import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
-import com.tepia.main.view.maincommon.reservoirs.detail.DaoFangRizhiActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.VisitLogActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.JianjieOfReservoirsActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
@@ -112,7 +110,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
                     startActivity(intent);
                 } else if (position == 8) {
                     // TODO: 2018/9/20 待更换图标 
-                    intent.setClass(getBaseActivity(), DaoFangRizhiActivity.class);
+                    intent.setClass(getBaseActivity(), VisitLogActivity.class);
                     startActivity(intent);
                 }
             }

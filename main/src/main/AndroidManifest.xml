@@ -244,7 +244,12 @@
         <activity
             android:name=".view.mainworker.report.EmergencyDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.reservoirs.detail.DaoFangRizhiActivity"></activity>
+        <activity android:name=".view.maincommon.reservoirs.detail.VisitLogActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.maincommon.reservoirs.detail.VisitLogDetailActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>
