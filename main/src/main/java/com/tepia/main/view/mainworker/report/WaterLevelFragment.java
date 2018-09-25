@@ -1,10 +1,8 @@
-package com.tepia.main.view.mainworker.shangbao;
+package com.tepia.main.view.mainworker.report;
 
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -13,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.main.R;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
-import com.tepia.main.view.mainworker.shangbao.adapter.AdapterShuiweiReservoirs;
+import com.tepia.main.view.mainworker.report.adapter.AdapterWaterLevelReservoirs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,22 +27,22 @@ import java.util.List;
  * @author :ly (from Center Of Wuhan)
  * Date    : 2018-9-20
  * Version :1.0
- * 功能描述 :水位
+ * 功能描述 :上报页面--水位fragment
  **/
-public class ShuiweiFragment extends MVPBaseFragment<ShangbaoContract.View, ShangbaoPresenter> implements View.OnClickListener {
+public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, ReportPresenter> implements View.OnClickListener {
 
     private RecyclerView shuiweiRec;
-    private AdapterShuiweiReservoirs adapterShuiweiReservoirs;
+    private AdapterWaterLevelReservoirs adapterShuiweiReservoirs;
     private List<MyReservoirsItemBean> myReservoirsItemBeanList = new ArrayList<>();
 
 
-    public ShuiweiFragment() {
+    public WaterLevelFragment() {
         // Required empty public constructor
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shuiwei;
+        return R.layout.fragment_waterlevel;
     }
 
     @Override
@@ -70,7 +66,7 @@ public class ShuiweiFragment extends MVPBaseFragment<ShangbaoContract.View, Shan
         setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie8);
 
         shuiweiRec.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
-        adapterShuiweiReservoirs = new AdapterShuiweiReservoirs(getBaseActivity(),R.layout.fragment_shuiwei_head_layout,myReservoirsItemBeanList);
+        adapterShuiweiReservoirs = new AdapterWaterLevelReservoirs(getBaseActivity(),R.layout.fragment_shuiwei_head_layout,myReservoirsItemBeanList);
         shuiweiRec.setAdapter(adapterShuiweiReservoirs);
 
         TextView sureSearchTv = findView(R.id.sureSearchTv);

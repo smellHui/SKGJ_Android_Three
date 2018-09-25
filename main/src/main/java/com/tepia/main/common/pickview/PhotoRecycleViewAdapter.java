@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 
 import com.bumptech.glide.Glide;
@@ -74,7 +75,7 @@ public class PhotoRecycleViewAdapter extends RecyclerView.Adapter<PhotoRecycleVi
                     if (canLoadImage) {
                         Glide.with(mContext)
                                 .load(photopathstr)
-                                .apply(APPCostant.options)
+                                .apply(ConfigConsts.options)
                                 .into(holder.ivPhoto);
                     }
                 }else{

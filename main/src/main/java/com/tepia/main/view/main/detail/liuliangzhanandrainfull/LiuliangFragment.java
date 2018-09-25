@@ -36,7 +36,7 @@ import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
-import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.DetailManager;
 import com.tepia.main.model.detai.LiuliangDetailBean;
@@ -359,12 +359,12 @@ public class LiuliangFragment extends MVPBaseFragment<DetailContract.View,Detail
         endTime = TimeFormatUtils.getStringDate();
         last_millseconds_end = TimeFormatUtils.strToLong(endTime);
         //往前一个月
-        startTime = TimeFormatUtils.getNextDay(endTime,APPCostant.timeseriod);
+        startTime = TimeFormatUtils.getNextDay(endTime,ConfigConsts.timeseriod);
         last_millseconds_start = TimeFormatUtils.strToLong(startTime);
         mstarttimeTv.setText(startTime);
         mendtimeTv.setText(endTime);
 
-        timeType = APPCostant.TimeType[1];
+        timeType = ConfigConsts.TimeType[1];
         changeBtn(1);
     }
 
@@ -399,20 +399,20 @@ public class LiuliangFragment extends MVPBaseFragment<DetailContract.View,Detail
                 timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
 
             } else if(i == R.id.timeBtn){
-                timeType = APPCostant.TimeType[0];
+                timeType = ConfigConsts.TimeType[0];
                 changeBtn(0);
             } else if(i == R.id.dayBtn){
-                timeType = APPCostant.TimeType[1];
+                timeType = ConfigConsts.TimeType[1];
 
                 changeBtn(1);
 
             } else if(i == R.id.monthBtn){
-                timeType = APPCostant.TimeType[2];
+                timeType = ConfigConsts.TimeType[2];
 
                 changeBtn(2);
 
             } else if(i == R.id.yearBtn){
-                timeType = APPCostant.TimeType[3];
+                timeType = ConfigConsts.TimeType[3];
 
                 changeBtn(3);
 
@@ -537,15 +537,15 @@ public class LiuliangFragment extends MVPBaseFragment<DetailContract.View,Detail
         /**
          * 时 标签间隔设置
          */
-        /*if (timeType.equals(APPCostant.TimeType[0]) ||
-                timeType.equals(APPCostant.TimeType[1])) {
+        /*if (timeType.equals(ConfigConsts.TimeType[0]) ||
+                timeType.equals(ConfigConsts.TimeType[1])) {
 
             granularity = 1.0f;
-        }else if(timeType.equals(APPCostant.TimeType[2])){
+        }else if(timeType.equals(ConfigConsts.TimeType[2])){
 
             granularity = 2.0f;
 
-        } else if(timeType.equals(APPCostant.TimeType[3])){
+        } else if(timeType.equals(ConfigConsts.TimeType[3])){
             granularity = 1.0f;
         }*/
         granularity = 1.0f;

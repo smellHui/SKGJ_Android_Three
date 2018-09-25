@@ -86,10 +86,10 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             ToastUtils.shortToast("待开发功能");
 
         }else if(view.getId() == R.id.zhizeMvMv){
-            intent = new Intent(getBaseActivity(), ZhizeActivity.class);
+            intent = new Intent(getBaseActivity(), DutyActivity.class);
             startActivity(intent);
         }else if(view.getId() == R.id.peixunMv){
-            intent = new Intent(getBaseActivity(), PeiXunActivity.class);
+            intent = new Intent(getBaseActivity(), TrainActivity.class);
             startActivity(intent);
 
         }else if(view.getId() == R.id.msgMv){

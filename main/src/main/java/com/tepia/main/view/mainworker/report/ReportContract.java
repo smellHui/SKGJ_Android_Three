@@ -1,8 +1,7 @@
-package com.tepia.main.view.mainworker.shangbao;
+package com.tepia.main.view.mainworker.report;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
-import com.tepia.main.view.main.detail.DetailContract;
 
 /**
  * Created by      android studio
@@ -14,12 +13,12 @@ import com.tepia.main.view.main.detail.DetailContract;
  * location        :       武汉研发中心
  * 功能描述         :
  **/
-public class ShangbaoContract {
+public class ReportContract {
     public interface View<T> extends BaseView {
         void success(T data);
         void failure(String msg);
     }
 
-    interface  Presenter extends BasePresenter<ShangbaoContract.View> {
+    interface  Presenter extends BasePresenter<ReportContract.View> {
     }
 }

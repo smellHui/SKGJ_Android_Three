@@ -1,17 +1,21 @@
 package com.tepia.main.view.maincommon.setting;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
-
-public class ZhizeActivity extends BaseActivity {
+/**
+  * Created by      Android studio
+  *
+  * @author :ly (from Center Of Wuhan)
+  * Date    :2018-9
+  * Version :1.0
+  * 功能描述 :工作职责
+ **/
+public class DutyActivity extends BaseActivity {
 
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_zhize;
+        return R.layout.activity_duty;
     }
 
     @Override

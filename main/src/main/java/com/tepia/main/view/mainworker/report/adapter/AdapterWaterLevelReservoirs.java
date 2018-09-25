@@ -1,4 +1,4 @@
-package com.tepia.main.view.mainworker.shangbao.adapter;
+package com.tepia.main.view.mainworker.report.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -18,9 +18,9 @@ import java.util.List;
  * @date 2018/9/17
  */
 
-public class AdapterShuiweiReservoirs extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
+public class AdapterWaterLevelReservoirs extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
 
-    public AdapterShuiweiReservoirs(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
+    public AdapterWaterLevelReservoirs(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
         super(layoutResId, data);
         this.mContext = context;
     }
@@ -30,14 +30,14 @@ public class AdapterShuiweiReservoirs extends BaseQuickAdapter<MyReservoirsItemB
 
         view.setText(R.id.yearTv,"2018-08-09");
         view.setText(R.id.hourTv, "10:11");
-        view.setText(R.id.shuiweiTv, "1000");
-        view.setText(R.id.kurongTv, "1000");
+        view.setText(R.id.waterLevelTv, "1000");
+        view.setText(R.id.capacityTv, "1000");
         view.setText(R.id.stateTv, "已处理");
         int position = view.getAdapterPosition();
         if( position%2 == 0 ) {
             view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.white));
         }else {
-            view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.shangbaoitem));
+            view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.reportitem));
         }
 
     }

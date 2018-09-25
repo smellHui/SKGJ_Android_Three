@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.view.main.detail.imageshow.ImageFragment;
 import com.tepia.photo_picker.PhotoPreview;
@@ -54,7 +55,7 @@ public class AdapterStationDetailList extends BaseQuickAdapter<StationDetailResp
             showIconIv.setVisibility(View.VISIBLE);
             Glide.with(mContext).
                     load(imgPath)
-                    .apply(APPCostant.options)
+                    .apply(ConfigConsts.options)
                     .thumbnail(0.5f)
                     .into(showIconIv);
             showIconIv.setOnClickListener(new View.OnClickListener() {

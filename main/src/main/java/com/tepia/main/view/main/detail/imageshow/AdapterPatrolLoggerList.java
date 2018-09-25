@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ImageBean;
 
@@ -53,7 +54,7 @@ public class AdapterPatrolLoggerList extends BaseQuickAdapter<ImageBean.DataBean
         Glide.with(mContext).
                 load(fileServerUrl  + path).
                 thumbnail(0.5f)
-                .apply(APPCostant.options)
+                .apply(ConfigConsts.options)
                 .into(imageView);
 
     }

@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.RoundImageView;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
@@ -21,9 +22,9 @@ import java.util.List;
  * @date 2018/9/20
  */
 
-public class AdapterPeixunDetail extends BaseQuickAdapter<Integer, BaseViewHolder> {
+public class AdapterTrainDetail extends BaseQuickAdapter<Integer, BaseViewHolder> {
 
-    public AdapterPeixunDetail(Context context, int layoutResId, @Nullable List<Integer> data) {
+    public AdapterTrainDetail(Context context, int layoutResId, @Nullable List<Integer> data) {
         super(layoutResId, data);
         this.mContext = context;
     }
@@ -40,7 +41,7 @@ public class AdapterPeixunDetail extends BaseQuickAdapter<Integer, BaseViewHolde
         }*/
         Glide.with(mContext)
                 .load(item)
-                .apply(APPCostant.options)
+                .apply(ConfigConsts.options)
                 .into(imageView);
     }
 }

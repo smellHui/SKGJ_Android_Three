@@ -21,7 +21,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.Utils;
-import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.RainfullBean;
 import com.tepia.main.model.detai.StRiverRBean;
@@ -86,7 +87,7 @@ public class LineChartEntity {
 //        mLineChart.getResources().getColor(R.color.top_background);
         //设置无数据时显示
         mLineChart.setNoDataText(Utils.getContext().getString(R.string.empty_tv));
-        mLineChart.setNoDataTextColor(APPCostant.colortext);
+        mLineChart.setNoDataTextColor(ConfigConsts.colortext);
         mLineChart.getXAxis().setLabelRotationAngle(-60);
        /* MyMarkerView mv = new MyMarkerView(getActivity(), R.layout.custom_marker_view,data3);
         mv.setChartView(mLineChart); // For bounds control
@@ -94,7 +95,7 @@ public class LineChartEntity {
         // 数据描述
         Description description = new Description();
         description.setText(Utils.getContext().getString(R.string.time_unit));
-        description.setTextColor(APPCostant.colortext);
+        description.setTextColor(ConfigConsts.colortext);
 
         mLineChart.setDescription(description);
 
@@ -152,7 +153,7 @@ public class LineChartEntity {
 
 //        xAxis.setLabelCount(listCount);//设置标签个数
         xAxis.setAxisLineColor(Color.BLACK);
-        xAxis.setTextColor(APPCostant.colortext);
+        xAxis.setTextColor(ConfigConsts.colortext);
         xAxis.setDrawGridLines(true);//
 //        xAxis.setDrawGridLines(false);
 //        xAxis.setDrawAxisLine(false);
@@ -176,7 +177,7 @@ public class LineChartEntity {
 
         YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setAxisLineColor(Color.BLACK);
-        leftAxis.setTextColor(APPCostant.colortext);
+        leftAxis.setTextColor(ConfigConsts.colortext);
 //        leftAxis.setDrawGridLines(true);//
         leftAxis.setGranularityEnabled(false);
 //        leftAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -191,16 +192,16 @@ public class LineChartEntity {
     private String getTm(String tm,String timeType) {
         if (tm != null && tm.length() > 16) {
             xVals.add(tm);
-            if (timeType.equals(APPCostant.TimeType[0])) {
+            if (timeType.equals(ConfigConsts.TimeType[0])) {
                 //时 time
                 tm = tm.substring(10, 16);
-            } else if(APPCostant.TimeType[1].equals(timeType)){
+            } else if(ConfigConsts.TimeType[1].equals(timeType)){
                 //日 day
                 tm = tm.substring(5, 10);
-            }else if(APPCostant.TimeType[2].equals(timeType)){
+            }else if(ConfigConsts.TimeType[2].equals(timeType)){
                 //月 month
                 tm = tm.substring(0, 10);
-            }else if(APPCostant.TimeType[3].equals(timeType)){
+            }else if(ConfigConsts.TimeType[3].equals(timeType)){
                 //年
                 tm = tm.substring(0, 10);
             }

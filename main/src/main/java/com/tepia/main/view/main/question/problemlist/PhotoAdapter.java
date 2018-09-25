@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.pickview.AndroidLifecycleUtils;
 import com.tepia.main.view.main.detail.vedio.VideoInfo;
@@ -36,7 +37,7 @@ public class PhotoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         if (photopathstr.contains("http://") || photopathstr.contains("https://")) {
             Glide.with(mContext)
                     .load(photopathstr)
-                    .apply(APPCostant.options)
+                    .apply(ConfigConsts.options)
                     .into(imageView);
 
         }

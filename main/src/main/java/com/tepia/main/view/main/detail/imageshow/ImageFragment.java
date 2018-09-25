@@ -25,6 +25,7 @@ import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.DetailManager;
 import com.tepia.main.model.detai.ImageBean;
@@ -218,7 +219,7 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
         endTime = TimeFormatUtils.getStringDate();
         last_millseconds_end = TimeFormatUtils.strToLong(endTime);
         //往前一个月
-        startTime = TimeFormatUtils.getNextDay(endTime, APPCostant.timeseriod);
+        startTime = TimeFormatUtils.getNextDay(endTime, ConfigConsts.timeseriod);
         last_millseconds_start = TimeFormatUtils.strToLong(startTime);
         mstarttimeTv.setText(startTime);
         mendtimeTv.setText(endTime);

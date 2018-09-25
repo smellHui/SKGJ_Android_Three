@@ -11,7 +11,7 @@ import com.tepia.main.view.maincommon.setting.SettingFragment;
 import com.tepia.main.view.maintechnology.threekeypoint.ThreePointJiShuFragment;
 import com.tepia.main.view.maintechnology.yunwei.YunWeiJiShuFragment;
 import com.tepia.main.view.mainworker.homepage.HomeXunChaFragment;
-import com.tepia.main.view.mainworker.shangbao.ShangbaoFragment;
+import com.tepia.main.view.mainworker.report.ReportFragment;
 
 
 import java.util.ArrayList;
@@ -72,13 +72,13 @@ public class TabMainFragmentFactory {
     /**
      * 上报
      */
-    public ShangbaoFragment shangbaoFragment;
+    public ReportFragment shangbaoFragment;
 
-    public ShangbaoFragment getShangbaoFragment() {
+    public ReportFragment getShangbaoFragment() {
         if (shangbaoFragment == null) {
-            synchronized (ShangbaoFragment.class) {
+            synchronized (ReportFragment.class) {
                 if (shangbaoFragment == null) {
-                    shangbaoFragment = new ShangbaoFragment();
+                    shangbaoFragment = new ReportFragment();
                 }
             }
         }
