@@ -1,5 +1,6 @@
 package com.tepia.main.view.maincommon.reservoirs.detail;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -22,9 +23,15 @@ public class CapacityActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setCenterTitle("水库库容曲线");
         showBack();
+    }
+
+    @Override
+    public void initView() {
+
 
     }
 

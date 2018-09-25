@@ -15,10 +15,11 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.CustomLinearLayoutManager;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VisitLogActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
-import com.tepia.main.view.maincommon.reservoirs.detail.JianjieOfReservoirsActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.IntroduceOfReservoirsActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SafeManagerPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SafeRunningActivity;
@@ -83,9 +84,13 @@ public class ReservoirsFragment extends BaseCommonFragment {
         adapterMainReservoirs.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+                String reservoirId =  reservoirBean.getReservoirId();
+
                 Intent intent = new Intent();
+                intent.putExtra("reservoirId",reservoirId);
                 if (position == 0) {
-                    intent.setClass(getBaseActivity(), JianjieOfReservoirsActivity.class);
+                    intent.setClass(getBaseActivity(), IntroduceOfReservoirsActivity.class);
                     startActivity(intent);
                 } else if (position == 1) {
                     intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);

@@ -29,7 +29,7 @@ public class SafeRunningBean extends BaseResponse {
     public static class DataBean {
         /**
          * id : bd23f34c66bf43e5b4dd6cd1d67f447c
-         * reportName : 安全
+         * reportName : 安全鉴定报告
          * reportType : 1
          */
 
@@ -38,6 +38,9 @@ public class SafeRunningBean extends BaseResponse {
          * 报告名
          */
         private String reportName;
+        /**
+         * 报告类型
+         */
         private String reportType;
 
         public String getId() {

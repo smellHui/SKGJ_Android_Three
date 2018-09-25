@@ -1,6 +1,14 @@
 package com.tepia.main.view.maincommon.reservoirs.mvpreservoir;
 
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.Utils;
+import com.tepia.main.R;
+import com.tepia.main.model.reserviros.FloodBean;
+import com.tepia.main.model.reserviros.ReservirosManager;
+import com.tepia.main.model.reserviros.SafeRunningBean;
+import com.tepia.main.model.reserviros.SupportingBean;
+import com.tepia.main.model.reserviros.VisitLogBean;
 
 /**
  * Created by      android studio
@@ -14,19 +22,91 @@ import com.tepia.base.mvp.BasePresenterImpl;
  **/
 public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> implements ReserviorContract.Presenter {
 
+    /**
+     * 获取配套设施
+     * @param reservoirId
+     * @return
+     */
     @Override
     public void getDeviceByReservoir(String reservoirId) {
+        ReservirosManager.getInstance().getDeviceByReservoir(reservoirId)
+                .subscribe(new LoadingSubject<SupportingBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(SupportingBean supportingBean) {
+                        if (supportingBean != null) {
+                            if (supportingBean.getCode() == 0) {
+                                mView.success(supportingBean);
 
+                            }else{
+                                mView.failure(supportingBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
     }
 
+    /**
+     * 水库安全运行报告
+     * @param reservoirId
+     * @return
+     */
     @Override
     public void getSafetyReportByReservoir(String reservoirId) {
+        ReservirosManager.getInstance().getSafetyReportByReservoir(reservoirId)
+                .subscribe(new LoadingSubject<SafeRunningBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(SafeRunningBean supportingBean) {
+                        if (supportingBean != null) {
+                            if (supportingBean.getCode() == 0) {
+                                mView.success(supportingBean);
+
+                            }else{
+                                mView.failure(supportingBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
 
     }
 
+    /**
+     * 查询防汛物资
+     * @param reservoirId
+     */
     @Override
     public void getMaterialByReservoir(String reservoirId) {
+        ReservirosManager.getInstance().getMaterialByReservoir(reservoirId)
+                .subscribe(new LoadingSubject<FloodBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(FloodBean floodBean) {
+                        if (floodBean != null) {
+                            if (floodBean.getCode() == 0) {
+                                mView.success(floodBean);
 
+                            }else{
+                                mView.failure(floodBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
     }
 
     @Override

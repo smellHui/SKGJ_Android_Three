@@ -2,6 +2,7 @@ package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
@@ -21,9 +22,15 @@ public class SafeManagerPlanActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setCenterTitle("水库安全管理应急预案");
         showBack();
+    }
+
+    @Override
+    public void initView() {
+
 
     }
 

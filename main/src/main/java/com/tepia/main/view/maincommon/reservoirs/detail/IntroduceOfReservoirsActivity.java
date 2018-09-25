@@ -1,11 +1,8 @@
 package com.tepia.main.view.maincommon.reservoirs.detail;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,7 +20,7 @@ import com.tepia.main.R;
   * Version         :       1.0
   * 功能描述         :       水库简介
  **/
-public class JianjieOfReservoirsActivity extends BaseActivity {
+public class IntroduceOfReservoirsActivity extends BaseActivity {
 
     private LinearLayout baseLy;
     private FrameLayout moreorlessFy;
@@ -32,11 +29,12 @@ public class JianjieOfReservoirsActivity extends BaseActivity {
     private boolean isopen;
     @Override
     public int getLayoutId() {
-        return R.layout.activity_jianjie_of_reservoirs;
+        return R.layout.activity_introduce_of_reservoirs;
     }
 
     @Override
-    public void initView() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setCenterTitle("水库简介");
         showBack();
         baseLy = findViewById(R.id.baseLy);
@@ -60,6 +58,11 @@ public class JianjieOfReservoirsActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void initView() {
+
 
     }
 

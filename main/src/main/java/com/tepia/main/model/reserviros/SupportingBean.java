@@ -2,6 +2,7 @@ package com.tepia.main.model.reserviros;
 
 import com.tepia.base.http.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class SupportingBean extends BaseResponse{
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * deName : aa
          * deFunction : da
@@ -70,7 +71,7 @@ public class SupportingBean extends BaseResponse{
             this.fileInfo = fileInfo;
         }
 
-        public static class FileInfoBean {
+        public static class FileInfoBean implements Serializable{
             /**
              * fileName : xhr35_19201.jpg
              * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/reservoirDevice/2018-09/18/xhr35_19201.jpg

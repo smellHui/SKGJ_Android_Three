@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.R;
+import com.tepia.main.model.reserviros.FloodBean;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
 
 import java.util.List;
@@ -17,19 +18,19 @@ import java.util.List;
  * @date 2018/9/18
  */
 
-public class AdapterFloodReservoirs extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
+public class AdapterFloodReservoirs extends BaseQuickAdapter<FloodBean.DataBean, BaseViewHolder> {
 
-    public AdapterFloodReservoirs(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
+    public AdapterFloodReservoirs(Context context, int layoutResId, @Nullable List<FloodBean.DataBean> data) {
         super(layoutResId, data);
         this.mContext = context;
     }
 
     @Override
-    protected void convert(BaseViewHolder view, MyReservoirsItemBean item) {
+    protected void convert(BaseViewHolder view, FloodBean.DataBean item) {
 
-        view.setText(R.id.titleResnameTv,item.getTitle());
-        view.setText(R.id.middletitleResnameTv, item.getMiddle_title());
-        view.setText(R.id.numTv, "200吨");
+        view.setText(R.id.titleResnameTv,item.getMeName());
+        view.setText(R.id.middletitleResnameTv, item.getPosition());
+        view.setText(R.id.numTv, item.getMeTotals());
         int postition = view.getAdapterPosition();
         if (postition < 10) {
             view.setText(R.id.serrialTv, "0"+postition);

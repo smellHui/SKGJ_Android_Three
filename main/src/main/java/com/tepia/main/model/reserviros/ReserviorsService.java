@@ -60,4 +60,77 @@ public interface ReserviorsService {
                                           @Query("reservoirId") String reservoirId
 
     );
+
+
+    /**
+     * 水库安全运行报告
+     * @param token
+     * @param reservoirId
+     * @return
+     */
+    @GET("app/reservoir/getSafetyReportByReservoir")
+    Observable<SafeRunningBean> getSafetyReportByReservoir(@Header("Authorization") String token,
+                                                    @Query("reservoirId") String reservoirId
+
+    );
+
+    /**
+     * 查询防汛物资
+     * @param token
+     * @param reservoirId
+     * @return
+     */
+    @GET("app/reservoir/getMaterialByReservoir")
+    Observable<FloodBean> getMaterialByReservoir(@Header("Authorization") String token,
+                                                           @Query("reservoirId") String reservoirId
+
+    );
+
+    /**
+     * 查询水库安全管理应急预案
+     * @param token
+     * @param reservoirId
+     * @return
+     */
+    @GET("app/reservoir/getEmergencyByReservoir")
+    Observable<SafeManagerPlanBean> getEmergencyByReservoir(@Header("Authorization") String token,
+                                                 @Query("reservoirId") String reservoirId
+
+    );
+
+    /**
+     * 查询调度运行方案
+     * @param token
+     * @param reservoirId
+     * @return
+     */
+    @GET("app/reservoir/getFloodControlByReservoir")
+    Observable<OperationPlanBean> getFloodControlByReservoir(@Header("Authorization") String token,
+                                                            @Query("reservoirId") String reservoirId
+
+    );
+
+    /**
+     * 查询水库简介
+     * @param token
+     * @param reservoirId
+     * @return
+     */
+    @GET("app/reservoir/getBaseInfo")
+    Observable<IntroduceOfReservoirsBean> getBaseInfo(@Header("Authorization") String token,
+                                                              @Query("reservoirId") String reservoirId
+
+    );
+
+    /**
+     * 查询水库库容曲线
+     * @param token
+     * @param reservoirId
+     * @return
+     */
+    @GET("app/reservoir/getStorageCurveByReservoir")
+    Observable<CapacityBean> getStorageCurveByReservoir(@Header("Authorization") String token,
+                                                       @Query("reservoirId") String reservoirId
+
+    );
 }

@@ -69,4 +69,28 @@ public class ReservirosManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    /**
+     * 查询防汛物资
+     * @param reservoirId
+     * @return
+     */
+    public Observable<FloodBean> getMaterialByReservoir(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getMaterialByReservoir(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 水库安全运行报告
+     * @param reservoirId
+     * @return
+     */
+    public Observable<SafeRunningBean> getSafetyReportByReservoir(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getSafetyReportByReservoir(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

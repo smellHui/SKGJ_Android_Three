@@ -2,6 +2,7 @@ package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 
 import com.tepia.base.mvp.BaseActivity;
@@ -25,12 +26,18 @@ public class VedioOfReservoirActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setCenterTitle("视频列表");
         showBack();
         VideoResponse.DataBean dataBean = new VideoResponse.DataBean();
         dataBean.setAccessType("1");
         initVedioDetailFragment(dataBean);
+    }
+
+    @Override
+    public void initView() {
+
     }
 
     @Override

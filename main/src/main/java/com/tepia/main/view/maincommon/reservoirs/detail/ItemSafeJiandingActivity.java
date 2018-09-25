@@ -2,6 +2,7 @@ package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
@@ -14,9 +15,17 @@ public class ItemSafeJiandingActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setCenterTitle("安全鉴定详情");
         showBack();
+        String id = getIntent().getStringExtra("saferunningId");
+
+    }
+
+    @Override
+    public void initView() {
+
     }
 
     @Override
