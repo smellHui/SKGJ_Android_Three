@@ -2,6 +2,7 @@ package com.tepia.main.view.mainworker.homepage;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -31,7 +32,11 @@ public class AdapterWorker extends BaseQuickAdapter<PersonDutyBean, BaseViewHold
         LvTabMainWorkerItemBinding mBinding = DataBindingUtil.bind(helper.itemView);
         mBinding.tvJobname.setText(item.getJobName());
         mBinding.tvName.setText(item.getUserName());
-        mBinding.tvTel.setText(item.getMobile());
+        if (TextUtils.isEmpty(item.getMobile())) {
+            mBinding.tvTel.setText("暂无手机号码");
+        } else {
+            mBinding.tvTel.setText(item.getMobile());
+        }
     }
 
 }

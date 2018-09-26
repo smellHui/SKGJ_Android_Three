@@ -1,59 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data></data>
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_res_home_page"
-    android:orientation="horizontal">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    <ImageView
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="25dp" />
-
-    <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:background="@drawable/bg_res_home_page"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="25dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_reservoir_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="绿竹水库"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESERVOIR NAME"
+                android:textColor="#4dffffff"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_reservoir_name"
+            android:id="@+id/switchTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="绿竹水库"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RESERVOIR NAME"
-            android:textColor="#4dffffff"
-            android:textSize="10dp"
-            android:textStyle="bold" />
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_change_re"
+            android:paddingBottom="6dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:paddingTop="6dp"
+            android:text="切换水库"
+            android:textColor="#ccffffff"
+            android:textSize="12dp" />
 
     </LinearLayout>
+</layout>
 
-    <TextView
-        android:id="@+id/switchTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_change_re"
-        android:paddingBottom="6dp"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp"
-        android:paddingTop="6dp"
-        android:text="切换水库"
-        android:textColor="#ccffffff"
-        android:textSize="12dp" />
-
-</LinearLayout>

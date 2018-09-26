@@ -96,6 +96,16 @@ interface UserHttpService {
      */
     @GET("app/reservoirBase/appHomeGetReservoirInfo")
     Observable<HomeGetReservoirInfoResponse> getAppHomeGetReservoirInfo(@Header("Authorization") String token,
-                                                  @Query("reservoirId") String reservoirId,
-                                                  @Query("types") String types);
+                                                                        @Query("reservoirId") String reservoirId,
+                                                                        @Query("types") String types);
+
+    /**
+     * 查询通讯录
+     * @param token
+     * @param searchKey
+     * @return
+     */
+    @GET("app/reservoirBase/appHomeGetReservoirInfo")
+    Observable<AddressBookResponse> getAddressBook(@Header("Authorization")String token,
+                                                   @Query("searchKey")String searchKey);
 }

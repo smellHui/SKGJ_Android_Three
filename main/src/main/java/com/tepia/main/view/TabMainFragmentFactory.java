@@ -221,7 +221,7 @@ public class TabMainFragmentFactory {
         imageIds.clear();
         for (int i = 0; i < menuData.size(); i++) {
             BaseCommonFragment fragment = getRouteFragment(menuData.get(i));
-            if ("110".equals(menuData.get(i).getMenuCode())) {
+            if ("110".equals(menuData.get(i).getMenuIcon())) {
                 List<MenuItemBean> items = menuData.get(i).getChildren();
                 if (items != null && items.size() == 1) {
                     BaseCommonFragment fragment1 = getRouteFragment(items.get(0));

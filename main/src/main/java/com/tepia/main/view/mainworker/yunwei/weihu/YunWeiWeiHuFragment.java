@@ -14,6 +14,7 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
 import com.tepia.main.databinding.FragmentYunWeiXunchaBinding;
 import com.tepia.main.view.mainworker.yunwei.startyunwei.StartYunWeiFragment;
+import com.tepia.main.view.mainworker.yunwei.yunweilist.YunWeiListFragment;
 
 import java.util.List;
 
@@ -25,7 +26,6 @@ import java.util.List;
 @Route(path = AppRoutePath.app_main_fragment_yunwei_weihu)
 public class YunWeiWeiHuFragment extends BaseCommonFragment {
 
-
     private TabLayout tlTitle;
     /**
      *
@@ -33,9 +33,6 @@ public class YunWeiWeiHuFragment extends BaseCommonFragment {
     private FragmentYunWeiXunchaBinding mBinding;
     private List<BaseCommonFragment> mFragments;
 
-    public YunWeiWeiHuFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
@@ -50,26 +47,32 @@ public class YunWeiWeiHuFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View view) {
-        setCenterTitle(getString(R.string.main_yunwei));
+        setCenterTitle("维修养护");
         getRightTianqi().setVisibility(View.VISIBLE);
         tlTitle = (TabLayout) view.findViewWithTag("tl_title");
         mBinding = DataBindingUtil.bind(view);
         initRLTitle();
         initViewPager();
-        tlTitle.setupWithViewPager(mBinding.vpContainer);
+        mBinding.vpContainer.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tlTitle));
+        tlTitle.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mBinding.vpContainer));
     }
 
     private void initViewPager() {
         CommonFragmentPagerAdapter adapter = new CommonFragmentPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new StartYunWeiFragment());
-        adapter.addFragment(new StartYunWeiFragment());
+        String defaultYunweiType = "2";
+        YunWeiListFragment yunWeiListFragment = new YunWeiListFragment();
+        yunWeiListFragment.defaultYunweiType= defaultYunweiType;
+        StartYunWeiFragment startYunWeiFragment = new StartYunWeiFragment();
+        startYunWeiFragment.defaultYunweiType= defaultYunweiType;
+        adapter.addFragment(yunWeiListFragment);
+        adapter.addFragment(startYunWeiFragment);
         mBinding.vpContainer.setAdapter(adapter);
 
     }
 
     private void initRLTitle() {
-        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始运维", R.drawable.bg_operation_tab)));
-        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("运维记录", R.drawable.bg_operation_tab)));
+        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("维修养护记录", R.drawable.bg_operation_tab)));
+        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始维修养护", R.drawable.bg_operation_tab)));
     }
     private View getTabCustomView(String name, int id) {
         View view = getLayoutInflater().inflate(R.layout.operation_tab_custom_view2, null);
