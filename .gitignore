@@ -40,11 +40,6 @@ proguard/
 
 
 /.idea
-/app/*.iml
-/base/base.iml
-/main/main.iml
-/pratrol/pratrol.iml
+
 /SKGJ_Android.iml
-/voice/voice.iml
-/.idea
 /.idea/libraries
