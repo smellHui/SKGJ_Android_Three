@@ -23,7 +23,7 @@ import java.net.URL;
  **/
 public class ShowPDFUtils {
     /**
-     * 请在子线程中使用
+     * -----------------------------请在子线程中使用
      */
 
     /**
@@ -34,7 +34,7 @@ public class ShowPDFUtils {
      */
     public static void showPDF(PDFView pdfView, SimpleLoadDialog simpleLoadDialog, String pdfUrl) {
         /**
-         * 请在子线程中使用
+         * -------------------------请在子线程中使用
          */
         try {
             URL url = new URL(pdfUrl);

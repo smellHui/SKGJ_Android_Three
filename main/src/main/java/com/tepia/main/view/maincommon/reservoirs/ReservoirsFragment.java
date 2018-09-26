@@ -41,6 +41,7 @@ import java.util.List;
 public class ReservoirsFragment extends BaseCommonFragment {
 
     public static final String RESERVOIRId = "RESERVOIRId";
+    public static final String RESERVOIRNAME = "RESERVOIRNAME";
     private RecyclerView resviorRec;
     private AdapterMainReservoirs adapterMainReservoirs;
     private List<MyReservoirsItemBean> myReservoirsItemBeanList = new ArrayList<>();
@@ -87,9 +88,10 @@ public class ReservoirsFragment extends BaseCommonFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
                 String reservoirId =  reservoirBean.getReservoirId();
-
+                String reservoirName = reservoirBean.getReservoir();
                 Intent intent = new Intent();
                 intent.putExtra(ReservoirsFragment.RESERVOIRId,reservoirId);
+                intent.putExtra(ReservoirsFragment.RESERVOIRNAME,reservoirName);
                 if (position == 0) {
                     intent.setClass(getBaseActivity(), IntroduceOfReservoirsActivity.class);
                     startActivity(intent);

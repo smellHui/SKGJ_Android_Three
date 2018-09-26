@@ -25,6 +25,8 @@ import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -44,6 +46,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     private LinearLayout rootEmptyLy;
     private PDFView pdfView;
     private TextView tv_empty_view_text;
+    private TextView nameTv;
     private static final String value_one = "1";
 
     @Override
@@ -62,11 +65,14 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
         }
         showBack();
 
+        nameTv = findViewById(R.id.nameTv);
         webview = findViewById(R.id.webview);
         rootEmptyLy = findViewById(R.id.rootEmptyLy);
         pdfView = findViewById(R.id.pdfview);
         tv_empty_view_text = findViewById(R.id.tv_empty_view_text);
         String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        nameTv.setText(reservoirName);
         if(value_one.equals(selectstr)) {
             mPresenter.getFloodControlByReservoir(reservoirId);
         }else{
@@ -100,7 +106,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     @Override
     public void success(OperationPlanBean data) {
         String downloadUrl = data.getData().getFilePath();
-//        downloadUrl = "http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/safeReport/2018-09/18/04200170041121440060 (1).pdf";
+        downloadUrl = "http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/safeReport/2018-09/18/04200170041121440060 (1).pdf";
          if (downloadUrl.endsWith(".pdf")) {
             SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), "正在加载pdf文件", true);
             simpleLoadDialog.show();
