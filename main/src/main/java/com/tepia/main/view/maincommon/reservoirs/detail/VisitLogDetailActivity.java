@@ -71,7 +71,7 @@ public class VisitLogDetailActivity extends MVPBaseActivity<VisitLogContract.Vie
         if (bundle != null) {
             id = bundle.getString(VisitLogActivity.key_visit_log);
         }
-        id = "ae4b532e8ab946a19e7436c5ea7c447b";
+        //id = "ae4b532e8ab946a19e7436c5ea7c447b";
         mPresenter.detail(id);
     }
 

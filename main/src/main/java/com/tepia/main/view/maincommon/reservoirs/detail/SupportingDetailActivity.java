@@ -40,13 +40,15 @@ public class SupportingDetailActivity extends BaseActivity {
         SupportingBean.DataBean dataBean = (SupportingBean.DataBean) bundle.getSerializable("supportingid");
         activitySupportingDetailBinding.nameTv.setText("名称："+dataBean.getDeName());
         activitySupportingDetailBinding.functionTv.setText("用途："+dataBean.getDeFunction());
-        for (SupportingBean.DataBean.FileInfoBean fileInfoBean: dataBean.getFileInfo()){
-            if(fileInfoBean != null) {
-                selectedPhotos.add(fileInfoBean.getFilePath());
+        if (dataBean.getFileInfo() != null) {
+            for (SupportingBean.DataBean.FileInfoBean fileInfoBean: dataBean.getFileInfo()){
+                if(fileInfoBean != null) {
+                    selectedPhotos.add(fileInfoBean.getFilePath());
+                }
             }
         }
-        initRec();
 
+        initRec();
     }
 
     @Override

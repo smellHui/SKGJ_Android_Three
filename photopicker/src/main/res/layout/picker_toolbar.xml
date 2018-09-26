@@ -5,8 +5,6 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="?attr/colorPrimary"
-    android:minHeight="?attr/actionBarSize"
+    android:background="#59abf1"
     android:theme="@style/picker_toolbar_theme"
-    app:navigationIcon="@drawable/come_back"
-    app:popupTheme="?attr/actionBarPopupTheme"/>
+    />

@@ -148,4 +148,8 @@ public class AppRoutePath {
      * 通信录
      */
     public final static String app_contacts = "/app/contacts";
+    /**
+     * 防汛物资
+     */
+    public final static String app_flood_detail = "/app/flood/detail";
 }

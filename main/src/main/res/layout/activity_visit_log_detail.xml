@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.maincommon.reservoirs.detail.VisitLogActivity">
+        android:background="@color/background_common"
+        >
 
         <include layout="@layout/toolbar" />
 

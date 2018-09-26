@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="picker_toolbar_theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar" tools:ignore="ResourceName">
-        <item name="android:homeAsUpIndicator">@drawable/come_back</item>
+        <item name="android:homeAsUpIndicator">@drawable/come_back_blue</item>
 
     </style>
 </resources>

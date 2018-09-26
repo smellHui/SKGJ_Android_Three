@@ -5,6 +5,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
   * Version :1.0
   * 功能描述 :防汛物资详情
  **/
+@Route(path = AppRoutePath.app_flood_detail)
 public class FloodDetailActivity extends BaseActivity {
     ActivityFloodDetailBinding activityFloodDetailBinding;
     private PhotoAdapter photoAdapter;
@@ -38,15 +41,19 @@ public class FloodDetailActivity extends BaseActivity {
         showBack();
         activityFloodDetailBinding = DataBindingUtil.bind(mRootView);
         Bundle bundle = getIntent().getExtras();
-        FloodBean.DataBean dataBean = (FloodBean.DataBean) bundle.getSerializable("floodid");
-        activityFloodDetailBinding.meNameTv.setText("名称："+dataBean.getMeName());
-        activityFloodDetailBinding.meTotalsTv.setText("数量："+dataBean.getMeTotals());
-        activityFloodDetailBinding.positionTv.setText("位置："+dataBean.getPosition());
-        activityFloodDetailBinding.manageNameTv.setText("管理人员："+dataBean.getManageName());
-        activityFloodDetailBinding.phoneNumTv.setText("联系方式："+dataBean.getPhoneNum());
-        for (FloodBean.DataBean.FileInfoBean fileInfoBean: dataBean.getFileInfo()){
-            if(fileInfoBean != null) {
-                selectedPhotos.add(fileInfoBean.getFilePath());
+        if(bundle != null && bundle.containsKey("floodid")) {
+            FloodBean.DataBean dataBean = (FloodBean.DataBean) bundle.getSerializable("floodid");
+            activityFloodDetailBinding.meNameTv.setText("名称：" + dataBean.getMeName());
+            activityFloodDetailBinding.meTotalsTv.setText("数量：" + dataBean.getMeTotals());
+            activityFloodDetailBinding.positionTv.setText("位置：" + dataBean.getPosition());
+            activityFloodDetailBinding.manageNameTv.setText("管理人员：" + dataBean.getManageName()+"");
+            activityFloodDetailBinding.phoneNumTv.setText("联系方式：" + dataBean.getPhoneNum()+"");
+            if(dataBean.getFileInfo() != null) {
+                for (FloodBean.DataBean.FileInfoBean fileInfoBean : dataBean.getFileInfo()) {
+                    if (fileInfoBean != null) {
+                        selectedPhotos.add(fileInfoBean.getFilePath());
+                    }
+                }
             }
         }
         initRec();
