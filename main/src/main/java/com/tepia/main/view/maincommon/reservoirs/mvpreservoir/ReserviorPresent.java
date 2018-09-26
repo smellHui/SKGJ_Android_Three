@@ -4,9 +4,12 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
+import com.tepia.main.model.reserviros.CapacityBean;
 import com.tepia.main.model.reserviros.FloodBean;
 import com.tepia.main.model.reserviros.IntroduceOfReservoirsBean;
+import com.tepia.main.model.reserviros.OperationPlanBean;
 import com.tepia.main.model.reserviros.ReservirosManager;
+import com.tepia.main.model.reserviros.SafeManagerPlanBean;
 import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.model.reserviros.VisitLogBean;
@@ -110,14 +113,61 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                 });
     }
 
+    /**
+     * 查询水库安全管理应急预案
+     * @param reservoirId
+     */
     @Override
     public void getEmergencyByReservoir(String reservoirId) {
+        ReservirosManager.getInstance().getEmergencyByReservoir(reservoirId)
+                .subscribe(new LoadingSubject<OperationPlanBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(OperationPlanBean safeManagerPlanBean) {
+                        if (safeManagerPlanBean != null) {
+                            if (safeManagerPlanBean.getCode() == 0) {
+                                mView.success(safeManagerPlanBean);
+
+                            }else{
+                                mView.failure(safeManagerPlanBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
 
     }
 
+    /**
+     * 查询调度运行方案
+     * @param reservoirId
+     */
     @Override
     public void getFloodControlByReservoir(String reservoirId) {
+        ReservirosManager.getInstance().getFloodControlByReservoir(reservoirId)
+                .subscribe(new LoadingSubject<OperationPlanBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(OperationPlanBean operationPlanBean) {
+                        if (operationPlanBean != null) {
+                            if (operationPlanBean.getCode() == 0) {
+                                mView.success(operationPlanBean);
 
+                            }else{
+                                mView.failure(operationPlanBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
     }
 
     /**
@@ -149,8 +199,31 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                 });
     }
 
+    /**
+     * 查询水库库容曲线
+     * @param reservoirId
+     */
     @Override
     public void getStorageCurveByReservoir(String reservoirId) {
+        ReservirosManager.getInstance().getStorageCurveByReservoir(reservoirId)
+                .subscribe(new LoadingSubject<CapacityBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(CapacityBean capacityBean) {
+                        if (capacityBean != null) {
+                            if (capacityBean.getCode() == 0) {
+                                mView.success(capacityBean);
 
+                            }else{
+                                mView.failure(capacityBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
     }
 }

@@ -97,6 +97,30 @@ public class ReservirosManager {
     }
 
     /**
+     * 查询水库安全管理应急预案
+     * @param reservoirId
+     * @return
+     */
+    public Observable<OperationPlanBean> getEmergencyByReservoir(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getEmergencyByReservoir(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 查询调度运行方案
+     * @param reservoirId
+     * @return
+     */
+    public Observable<OperationPlanBean> getFloodControlByReservoir(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getFloodControlByReservoir(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
      * 查询水库简介
      * @param reservoirId
      * @return
@@ -107,4 +131,18 @@ public class ReservirosManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    /**
+     * 查询水库库容曲线
+     * @param reservoirId
+     * @return
+     */
+    public Observable<CapacityBean> getStorageCurveByReservoir(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getStorageCurveByReservoir(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
 }

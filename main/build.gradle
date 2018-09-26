@@ -155,6 +155,7 @@ dependencies {
     implementation project(':photopicker')
     implementation project(':base')
     implementation project(':voice')
+//    implementation project(':android-pdf-viewer')
 //    implementation project(':gaodelibrary')
 //    implementation(name: 'gaodelibrary-release', ext: 'aar')
     implementation(name: 'gaodelibrary-release-new', ext: 'aar')
@@ -169,6 +170,7 @@ dependencies {
 
     implementation rootProject.ext.dependencies.jpush
     implementation rootProject.ext.dependencies.jcore
+    implementation rootProject.ext.dependencies.pdfview
 
 
 }

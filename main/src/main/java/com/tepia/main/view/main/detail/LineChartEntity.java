@@ -1,6 +1,8 @@
 package com.tepia.main.view.main.detail;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,6 +22,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.ConfigConsts;
@@ -28,6 +31,8 @@ import com.tepia.main.model.detai.RainfullBean;
 import com.tepia.main.model.detai.StRiverRBean;
 import com.tepia.main.model.detai.WaterlevelBean;
 import com.tepia.main.model.map.RainfallResponse;
+import com.tepia.main.model.reserviros.CapacityBean;
+import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +54,17 @@ public class LineChartEntity {
     private int listCount;
     public LineChartEntity(LineChart lineChart){
         this.mLineChart = lineChart;
-        initLineChart();
+        initLineChart(Utils.getContext().getString(R.string.time_unit));
+    }
+
+    public LineChartEntity(LineChart lineChart,String xUnitStr){
+        this.mLineChart = lineChart;
+        initLineChart(xUnitStr);
     }
 
 
 
-    private void initLineChart() {
+    private void initLineChart(String xUnitStr) {
 
         mLineChart.setDrawGridBackground(false);
         mLineChart.setBackgroundColor(Color.WHITE);
@@ -66,9 +76,9 @@ public class LineChartEntity {
         mLineChart.setTouchEnabled(true);
         // 阻尼系数
         mLineChart.setDragDecelerationFrictionCoef(0.9f);
-        // 缩放和拖拽
+        // 拖拽
         mLineChart.setDragEnabled(true);
-        // 不可以缩放
+        // 缩放
 //        mLineChart.setScaleEnabled(true);
         mLineChart.setScaleXEnabled(true);//启用X轴上的缩放
         mLineChart.setScaleYEnabled(true);//禁用Y轴上的缩放
@@ -94,7 +104,7 @@ public class LineChartEntity {
         mLineChart.setMarker(mv); // Set the marker to the chart*/
         // 数据描述
         Description description = new Description();
-        description.setText(Utils.getContext().getString(R.string.time_unit));
+        description.setText(xUnitStr);
         description.setTextColor(ConfigConsts.colortext);
 
         mLineChart.setDescription(description);
@@ -140,6 +150,16 @@ public class LineChartEntity {
 
     }
 
+    /**
+     * 水位库容曲线
+     * @param granularity
+     */
+    public void setDataOfCapacity(String type,List<HomeGetReservoirInfoBean.StorageCapacityBean> dataBeans, float granularity){
+        setCapacityBeanDate(dataBeans,"");
+        setLineChartData(granularity,dataBeans.size());
+
+    }
+
     private void setLineChartData(float granularity,int lablecount){
         // 立即执行的动画,x轴
         mLineChart.animateX(1500);
@@ -154,7 +174,7 @@ public class LineChartEntity {
 //        xAxis.setLabelCount(listCount);//设置标签个数
         xAxis.setAxisLineColor(Color.BLACK);
         xAxis.setTextColor(ConfigConsts.colortext);
-        xAxis.setDrawGridLines(true);//
+        xAxis.setDrawGridLines(false);//
 //        xAxis.setDrawGridLines(false);
 //        xAxis.setDrawAxisLine(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -311,31 +331,45 @@ public class LineChartEntity {
 
     }
 
+    /**
+     * 水位库容曲线
+     * @param databean
+     * @param timeType
+     * creat on 2018-9-26
+     */
+    private void setCapacityBeanDate(List<HomeGetReservoirInfoBean.StorageCapacityBean> databean, String timeType){
+        xVals.clear();
 
-    private void setData() {
-//        xVals.clear();
-        /*if (databean == null || databean.size() == 0) {
+        if (databean == null || databean.size() == 0) {
             return;
         }
         listCount = databean.size();
         data1 = new float[listCount];
 
-        data3 = new String[listCount];*/
-//        MyMarkerView mv = new MyMarkerView(Utils.getContext(), R.layout.custom_marker_view, xVals);
-//        mv.setChartView(mLineChart);
-//        mLineChart.setMarker(mv);
-       /* for (int i = 0; i < listCount; i++) {
+        data3 = new String[listCount];
+        MyMarkerView mv = new MyMarkerView(Utils.getContext(), R.layout.custom_marker_view, xVals);
+        mv.setChartView(mLineChart);
+        mLineChart.setMarker(mv);
 
-            double qstr = databean.get(i).getQ();
+        for (int i = 0; i < listCount; i++) {
+
+            double qstr = databean.get(i).getStorageCapacity();
 
             data1[i] = (float) qstr;
-            String tm = databean.get(i).getTm();
-
-            tm = getTm(tm,timeType);
+            String tm = String.valueOf(databean.get(i).getWaterLevel());
             data3[i] = tm;
 
 
-        }*/
+        }
+        setDataNew();
+
+    }
+
+
+
+
+    private void setData() {
+//
         YAxis leftAxis = mLineChart.getAxisLeft();
         LimitLine ll1 = null;
         LimitLine ll2 = null;
@@ -406,6 +440,66 @@ public class LineChartEntity {
                 LineDataSet set = (LineDataSet) iSet;
                 set.setDrawCircles(false);
             }*/
+        }
+    }
+
+    private void setDataNew() {
+//
+        YAxis leftAxis = mLineChart.getAxisLeft();
+        LimitLine ll1 = null;
+        LimitLine ll2 = null;
+//        leftAxis.setAxisMaximum(14f);//y轴最大值
+//        leftAxis.setAxisMinimum(0f);//y轴最小值
+
+        if (ll1 != null) {
+            leftAxis.addLimitLine(ll1);
+        }
+        if (ll2 != null) {
+            leftAxis.addLimitLine(ll2);
+        }
+        int groupCount = listCount;
+        ArrayList<Entry> yVals1 = new ArrayList<>();
+        ArrayList<Entry> yVals2 = new ArrayList<>();
+
+        for (int j = 0; j < groupCount; j++) {
+            float val = data1[j];
+            yVals1.add(new Entry(j, val));
+
+        }
+        LineDataSet lineDataSet, set2;
+        if (mLineChart.getData() != null &&
+                mLineChart.getData().getDataSetCount() > 0) {
+            lineDataSet = (LineDataSet) mLineChart.getData().getDataSetByIndex(0);
+            lineDataSet.setValues(yVals1);
+            mLineChart.getData().notifyDataChanged();
+            mLineChart.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            lineDataSet = new LineDataSet(yVals1, "");
+
+            // 设置曲线颜色
+            lineDataSet.setColor(Color.parseColor("#35bcf3"));
+            // 设置平滑曲线
+            lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            // 显示坐标点的小圆点
+            lineDataSet.setDrawCircles(true);
+            // 不显示坐标点的数据
+            lineDataSet.setDrawValues(false);
+            // 不显示定位线
+            lineDataSet.setHighlightEnabled(false);
+            // 填充渐变色
+            lineDataSet.setDrawFilled(true);
+            Drawable drawable = ContextCompat.getDrawable(Utils.getContext(),R.drawable.fade_blue);
+            lineDataSet.setFillDrawable(drawable);
+            //点上文字的颜色
+            LineData data = new LineData(lineDataSet,lineDataSet);
+            data.setValueTextColor(Color.RED);
+            data.setValueTextSize(9f);
+            data.setDrawValues(false);
+
+            // set data
+            mLineChart.setData(data);
+
         }
     }
 

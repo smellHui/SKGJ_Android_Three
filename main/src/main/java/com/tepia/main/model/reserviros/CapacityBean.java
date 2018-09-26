@@ -1,6 +1,7 @@
 package com.tepia.main.model.reserviros;
 
 import com.tepia.base.http.BaseResponse;
+import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
 
 import java.util.List;
 
@@ -31,40 +32,16 @@ public class CapacityBean extends BaseResponse {
     }
 
     public static class DataBeanX {
-        private List<DataBean> data;
+        private List<HomeGetReservoirInfoBean.StorageCapacityBean> data;
 
-        public List<DataBean> getData() {
+        public List<HomeGetReservoirInfoBean.StorageCapacityBean> getData() {
             return data;
         }
 
-        public void setData(List<DataBean> data) {
+        public void setData(List<HomeGetReservoirInfoBean.StorageCapacityBean> data) {
             this.data = data;
         }
 
-        public static class DataBean {
-            /**
-             * waterLevel : 10086.24
-             * storageCapacity : 112.12
-             */
 
-            private double waterLevel;
-            private double storageCapacity;
-
-            public double getWaterLevel() {
-                return waterLevel;
-            }
-
-            public void setWaterLevel(double waterLevel) {
-                this.waterLevel = waterLevel;
-            }
-
-            public double getStorageCapacity() {
-                return storageCapacity;
-            }
-
-            public void setStorageCapacity(double storageCapacity) {
-                this.storageCapacity = storageCapacity;
-            }
-        }
     }
 }

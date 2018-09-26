@@ -62,6 +62,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setTitle(R.string.picker_title);
+
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -114,6 +115,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (imagePagerFragment != null && imagePagerFragment.isVisible()) {
             imagePagerFragment.runExitAnimation(new Runnable() {
+                @Override
                 public void run() {
                     if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                         getSupportFragmentManager().popBackStack();

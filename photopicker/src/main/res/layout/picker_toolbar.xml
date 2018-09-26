@@ -5,6 +5,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="#59abf1"
+    android:background="#ffffff"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     android:theme="@style/picker_toolbar_theme"
     />

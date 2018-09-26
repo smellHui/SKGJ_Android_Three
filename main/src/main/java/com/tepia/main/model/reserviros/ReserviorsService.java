@@ -93,7 +93,7 @@ public interface ReserviorsService {
      * @return
      */
     @GET("app/reservoir/getEmergencyByReservoir")
-    Observable<SafeManagerPlanBean> getEmergencyByReservoir(@Header("Authorization") String token,
+    Observable<OperationPlanBean> getEmergencyByReservoir(@Header("Authorization") String token,
                                                  @Query("reservoirId") String reservoirId
 
     );

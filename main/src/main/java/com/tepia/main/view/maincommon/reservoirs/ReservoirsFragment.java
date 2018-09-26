@@ -106,10 +106,14 @@ public class ReservoirsFragment extends BaseCommonFragment {
                     intent.setClass(getBaseActivity(), FloodActivity.class);
                     startActivity(intent);
                 } else if (position == 5) {
+                    //调度运行方案
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
+                    intent.putExtra("select","1");
                     startActivity(intent);
                 } else if (position == 6) {
-                    intent.setClass(getBaseActivity(), SafeManagerPlanActivity.class);
+                    //水库安全管理应急预案
+                    intent.setClass(getBaseActivity(), OperationPlanActivity.class);
+                    intent.putExtra("select","2");
                     startActivity(intent);
                 } else if (position == 7) {
                     intent.setClass(getBaseActivity(), SafeRunningActivity.class);

@@ -104,6 +104,8 @@ ext {
 
             //极光推送相关
             jpush                        : 'cn.jiguang.sdk:jpush:3.1.1',
-            jcore                        : 'cn.jiguang.sdk:jcore:1.1.9'
+            jcore                        : 'cn.jiguang.sdk:jcore:1.1.9',
+            //pdf在线加载
+            pdfview                      : 'com.github.barteksc:android-pdf-viewer:2.8.2'
     ]
 }

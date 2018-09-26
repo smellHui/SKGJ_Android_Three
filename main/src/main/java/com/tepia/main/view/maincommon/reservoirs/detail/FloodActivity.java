@@ -14,6 +14,7 @@ import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.main.R;
 import com.tepia.main.model.reserviros.FloodBean;
 import com.tepia.main.model.reserviros.SafeRunningBean;
+import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.maincommon.reservoirs.AdapterMainReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
@@ -88,6 +89,13 @@ public class FloodActivity extends MVPBaseActivity<ReserviorContract.View,Reserv
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myReservoirsItemBeanList != null) {
+            myReservoirsItemBeanList.clear();
+        }
+    }
 
     @Override
     public void success(FloodBean data) {
@@ -98,6 +106,6 @@ public class FloodActivity extends MVPBaseActivity<ReserviorContract.View,Reserv
 
     @Override
     public void failure(String msg) {
-
+        adapterFloodReservoirs.setEmptyView(EmptyLayoutUtil.show(msg));
     }
 }

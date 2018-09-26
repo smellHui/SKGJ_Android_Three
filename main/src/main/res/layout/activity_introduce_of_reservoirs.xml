@@ -154,7 +154,7 @@
                             android:layout_marginLeft="@dimen/jianjiemarginleft"
                             android:drawableLeft="@drawable/jianjie_circle"
                             android:drawablePadding="5dp"
-                            android:text="正常蓄水位"
+                            android:text="正常蓄水位：--"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/jianjietextsize" />
 
@@ -167,7 +167,7 @@
                             android:drawableLeft="@drawable/jianjie_circle"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="大坝类型"
+                            android:text="大坝类型：--"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/jianjietextsize" />
 
@@ -180,7 +180,7 @@
                             android:drawableLeft="@drawable/jianjie_circle"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="坝顶高程"
+                            android:text="坝顶高程：--"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/jianjietextsize" />
 
@@ -193,7 +193,7 @@
                             android:drawableLeft="@drawable/jianjie_circle"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="坝底最大宽度"
+                            android:text="坝底最大宽度：--"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/jianjietextsize" />
                         <TextView
@@ -205,7 +205,7 @@
                             android:drawableLeft="@drawable/jianjie_circle"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="库容系数"
+                            android:text="库容系数：--"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/jianjietextsize" />
 
