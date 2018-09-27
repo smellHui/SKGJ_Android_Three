@@ -18,6 +18,7 @@ import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.reserviros.OperationPlanBean;
 import com.tepia.main.utils.ShowOfficeFileUtils;
 import com.tepia.main.utils.ShowPDFUtils;
@@ -38,7 +39,7 @@ import java.net.URL;
  * @author :ly (from Center Of Wuhan)
  * Date    :2018-9-18
  * Version :1.0
- * 功能描述 :调度运行方案页面
+ * 功能描述 :调度运行方案页面/水库安全管理应急预案/预览页面
  **/
 public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.View, ReserviorPresent> implements ReserviorContract.View<OperationPlanBean> {
 
@@ -48,6 +49,9 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     private TextView tv_empty_view_text;
     private TextView nameTv;
     private static final String value_one = "1";
+    private static final String value_two = "2";
+    public static final String value_preview = "100";
+    public static final String PREVIEW_PATH = "PREVIEW_PATH";
 
     @Override
     public int getLayoutId() {
@@ -60,8 +64,10 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
         String  selectstr = getIntent().getStringExtra("select");
         if(value_one.equals(selectstr)) {
             setCenterTitle("调度运行方案");
-        }else{
+        }else if(value_two.equals(selectstr)) {
             setCenterTitle("水库安全管理应急预案");
+        }else if(value_preview.equals(selectstr)){
+            setCenterTitle("文件预览");
         }
         showBack();
 
@@ -70,13 +76,18 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
         rootEmptyLy = findViewById(R.id.rootEmptyLy);
         pdfView = findViewById(R.id.pdfview);
         tv_empty_view_text = findViewById(R.id.tv_empty_view_text);
-        String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
-        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+        String reservoirName = reservoirBean.getReservoir();
         nameTv.setText(reservoirName);
         if(value_one.equals(selectstr)) {
+            String reservoirId = reservoirBean.getReservoirId();
             mPresenter.getFloodControlByReservoir(reservoirId);
-        }else{
+        }else if(value_two.equals(selectstr)){
+            String reservoirId = reservoirBean.getReservoirId();
             mPresenter.getEmergencyByReservoir(reservoirId);
+        }else if(value_preview.equals(selectstr)){
+            String  filepathstr = getIntent().getStringExtra(PREVIEW_PATH);
+            showFile(filepathstr);
         }
     }
 
@@ -106,27 +117,29 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     @Override
     public void success(OperationPlanBean data) {
         String downloadUrl = data.getData().getFilePath();
-        downloadUrl = "http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/safeReport/2018-09/18/04200170041121440060 (1).pdf";
-         if (downloadUrl.endsWith(".pdf")) {
+        showFile(downloadUrl);
+
+
+    }
+
+    private void showFile(String downloadUrl){
+        if (downloadUrl.endsWith(".pdf")) {
             SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), "正在加载pdf文件", true);
             simpleLoadDialog.show();
             pdfView.setVisibility(View.VISIBLE);
             webview.setVisibility(View.GONE);
             String finalDownloadUrl = downloadUrl;
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                     ShowPDFUtils.showPDF(pdfView,simpleLoadDialog,finalDownloadUrl);
+                    ShowPDFUtils.showPDF(pdfView,simpleLoadDialog,finalDownloadUrl);
 
                 }
             }).start();
 
-        } else {
+        }else {
             ShowOfficeFileUtils.showOffice(webview,downloadUrl);
         }
-
-
     }
 
     @Override

@@ -1,15 +1,20 @@
 package com.tepia.main.utils;
 
+import android.os.Message;
+
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 /**
  * Created by      android studio
@@ -61,7 +66,7 @@ public class ShowPDFUtils {
                 LogUtil.e("pdf文件加载失败");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LogUtil.e("pdf文件加载失败");
             if (simpleLoadDialog != null) {
                 simpleLoadDialog.dismiss();
             }
@@ -105,4 +110,8 @@ public class ShowPDFUtils {
                 .load();
 
     }
+
+
+
+
 }

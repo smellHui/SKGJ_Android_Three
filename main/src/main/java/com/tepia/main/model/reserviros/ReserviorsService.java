@@ -133,4 +133,12 @@ public interface ReserviorsService {
                                                        @Query("reservoirId") String reservoirId
 
     );
+
+    //app/fileManage/getFileByBizKey
+
+    @GET("app/fileManage/getFileByBizKey")
+    Observable<BizkeyBean> getFileByBizKey(@Header("Authorization") String token,
+                                                        @Query("bizKey") String bizKey
+
+    );
 }

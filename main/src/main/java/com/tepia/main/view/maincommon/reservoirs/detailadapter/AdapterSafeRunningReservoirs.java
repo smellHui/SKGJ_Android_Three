@@ -28,9 +28,43 @@ public class AdapterSafeRunningReservoirs extends BaseQuickAdapter<SafeRunningBe
     @Override
     protected void convert(BaseViewHolder view, SafeRunningBean.DataBean item) {
 
-        view.setText(R.id.titleResnameTv,item.getReportName());
-        view.setText(R.id.middletitleResnameTv, item.getReportType());
-//        view.setImageResource(R.id.leftIv,item.getResourceImg());
+        view.setText(R.id.middletitleResnameTv, item.getReportName());
+        String valueId = item.getReportType();
+        /*"report_type": [
+        -{
+                "name": "安全鉴定报告",
+                "value": "1"
+          },
+        -{
+                "name": "除险加固报告",
+                "value": "2"
+         },
+        -{
+                "name": "蓄水验收报告",
+                "value": "3"
+         },
+        -{
+                "name": "竣工验收报告",
+                "value": "4"
+         }
+         ],*/
+         if("1".equals(valueId)){
+             view.setImageResource(R.id.leftIv,R.drawable.jianjie_anquan);
+             view.setText(R.id.titleResnameTv, "安全鉴定报告");
+
+         }else if("2".equals(valueId)){
+             view.setImageResource(R.id.leftIv,R.drawable.jianjie_jiagu);
+             view.setText(R.id.titleResnameTv, "除险加固报告");
+
+         }else if("3".equals(valueId)){
+            view.setImageResource(R.id.leftIv,R.drawable.jianjie_xushui);
+             view.setText(R.id.titleResnameTv, "蓄水验收报告");
+
+         }else if("4".equals(valueId)){
+             view.setImageResource(R.id.leftIv,R.drawable.jianjie_yanshou);
+             view.setText(R.id.middletitleResnameTv, "竣工验收报告");
+
+         }
 
     }
 }

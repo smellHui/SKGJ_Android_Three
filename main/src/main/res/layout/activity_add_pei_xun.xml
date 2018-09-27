@@ -302,38 +302,8 @@
             android:gravity="center_vertical"
             android:paddingLeft="7dp"
             />
-        <LinearLayout
-            android:layout_marginLeft="@dimen/left_15"
-            android:layout_marginRight="@dimen/left_15"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/jianjie_fujian_bg"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_marginLeft="12dp"
-                android:src="@drawable/jianjie_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="2"
-                android:layout_marginLeft="5dp"
-                android:text="水库安全管理...课件.doc"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
 
-            <ImageView
-                android:layout_weight="0.5"
-
-                android:layout_marginLeft="12dp"
-                android:src="@drawable/jianjie_download"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+        <include layout="@layout/common_office_layout"/>
         <LinearLayout
             android:layout_marginLeft="@dimen/left_15"
             android:layout_marginRight="@dimen/left_15"

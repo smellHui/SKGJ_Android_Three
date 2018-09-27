@@ -1,6 +1,5 @@
 package com.tepia.main.view.maincommon.reservoirs.detail;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,15 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.main.R;
 import com.tepia.main.model.reserviros.SafeRunningBean;
-import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
-import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
-import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterFloodReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterSafeRunningReservoirs;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
@@ -45,7 +40,7 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setCenterTitle("安全鉴定记录");
+        setCenterTitle("安全运行记录");
         showBack();
         saferunningRec = findViewById(R.id.saferunningRec);
 
@@ -57,18 +52,21 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
                 Intent intent = new Intent();
-                intent.putExtra("saferunningId",myReservoirsItemBeanList.get(position).getId());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("saferunning",myReservoirsItemBeanList.get(position));
+                intent.putExtras(bundle);
+                //intent.putExtra("saferunningId",myReservoirsItemBeanList.get(position).getId());
                 if (position == 0) {
-                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    intent.setClass(SafeRunningActivity.this, SafeRunningDetailActivity.class);
                     startActivity(intent);
                 } else if (position == 1) {
-                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    intent.setClass(SafeRunningActivity.this, SafeRunningDetailActivity.class);
                     startActivity(intent);
                 } else if (position == 2) {
-                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    intent.setClass(SafeRunningActivity.this, SafeRunningDetailActivity.class);
                     startActivity(intent);
                 } else if (position == 3) {
-                    intent.setClass(SafeRunningActivity.this, ItemSafeJiandingActivity.class);
+                    intent.setClass(SafeRunningActivity.this, SafeRunningDetailActivity.class);
                     startActivity(intent);
                 }
             }

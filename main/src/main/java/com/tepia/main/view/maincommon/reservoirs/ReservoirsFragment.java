@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
@@ -68,6 +69,9 @@ public class ReservoirsFragment extends BaseCommonFragment {
         getRightTianqi().setVisibility(View.VISIBLE);
         initBanner();
         resviorRec = findView(R.id.resviorRec);
+        ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+        TextView tv_reservoir_name = findView(R.id.tv_reservoir_name);
+        tv_reservoir_name.setText(reservoirBean.getReservoir());
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
         setResviorRec("水库库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
@@ -75,7 +79,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         setResviorRec("防汛物资", "FLOOD-FIGHTING MATERIALS", R.drawable.jianjie5);
         setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);
         setResviorRec("水库安全管理应急预案", "CONTINGENCY PLAN", R.drawable.jianjie7);
-        setResviorRec("水库安全运行管理情况", "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
+        setResviorRec("水库安全运行管理", "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
         setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie8);
         CustomLinearLayoutManager customLinearLayoutManager = new CustomLinearLayoutManager(getContext());
         customLinearLayoutManager.setScrollEnabled(false);

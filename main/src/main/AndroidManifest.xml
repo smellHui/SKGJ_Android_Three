@@ -240,7 +240,7 @@
         <!-- 通信录页面 -->
         <activity android:name=".view.maincommon.setting.contacts.ContactsActivity" />
         <activity android:name=".view.maincommon.setting.TrainActivity" />
-        <activity android:name=".view.maincommon.reservoirs.detail.ItemSafeJiandingActivity" />
+        <activity android:name=".view.maincommon.reservoirs.detail.SafeRunningDetailActivity" />
         <activity
             android:name=".view.mainworker.report.EmergencyDetailActivity"
             android:screenOrientation="portrait" />
@@ -251,7 +251,7 @@
             android:name=".view.maincommon.reservoirs.detail.VisitLogDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".view.maincommon.reservoirs.detail.SupportingDetailActivity" />
-        <activity android:name=".view.maincommon.reservoirs.detail.FloodDetailActivity"></activity>
+        <activity android:name=".view.maincommon.reservoirs.detail.FloodDetailActivity" />
     </application>
 
 </manifest>

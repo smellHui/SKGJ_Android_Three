@@ -2,6 +2,7 @@ package com.tepia.main.model.reserviros;
 
 import com.tepia.base.http.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * location        :       武汉研发中心
  * 功能描述         :
  **/
-public class SafeRunningBean extends BaseResponse {
+public class SafeRunningBean extends BaseResponse implements Serializable{
 
     private List<DataBean> data;
 
@@ -26,7 +27,7 @@ public class SafeRunningBean extends BaseResponse {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : bd23f34c66bf43e5b4dd6cd1d67f447c
          * reportName : 安全鉴定报告
@@ -42,6 +43,21 @@ public class SafeRunningBean extends BaseResponse {
          * 报告类型
          */
         private String reportType;
+
+        /**
+         * 报告时间
+         */
+        private String reportDate;
+        /**
+         * 添加时间
+         */
+        private String createTime;
+        /**
+         * 管理员
+         */
+        private String userName;
+
+
 
         public String getId() {
             return id;
@@ -65,6 +81,30 @@ public class SafeRunningBean extends BaseResponse {
 
         public void setReportType(String reportType) {
             this.reportType = reportType;
+        }
+
+        public String getReportDate() {
+            return reportDate;
+        }
+
+        public void setReportDate(String reportDate) {
+            this.reportDate = reportDate;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
         }
     }
 }

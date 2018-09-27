@@ -4,6 +4,7 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
+import com.tepia.main.model.reserviros.BizkeyBean;
 import com.tepia.main.model.reserviros.CapacityBean;
 import com.tepia.main.model.reserviros.FloodBean;
 import com.tepia.main.model.reserviros.IntroduceOfReservoirsBean;
@@ -122,13 +123,13 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
         ReservirosManager.getInstance().getEmergencyByReservoir(reservoirId)
                 .subscribe(new LoadingSubject<OperationPlanBean>(true, Utils.getContext().getString(R.string.data_loading)) {
                     @Override
-                    protected void _onNext(OperationPlanBean safeManagerPlanBean) {
-                        if (safeManagerPlanBean != null) {
-                            if (safeManagerPlanBean.getCode() == 0) {
-                                mView.success(safeManagerPlanBean);
+                    protected void _onNext(OperationPlanBean operationPlanBean) {
+                        if (operationPlanBean != null) {
+                            if (operationPlanBean.getCode() == 0) {
+                                mView.success(operationPlanBean);
 
                             }else{
-                                mView.failure(safeManagerPlanBean.getMsg());
+                                mView.failure(operationPlanBean.getMsg());
                             }
                         }
                     }
@@ -215,6 +216,30 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                             }else{
                                 mView.failure(capacityBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
+    }
+
+    @Override
+    public void getFileByBizKey(String bizKey) {
+        ReservirosManager.getInstance().getFileByBizKey(bizKey)
+                .subscribe(new LoadingSubject<BizkeyBean>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(BizkeyBean bizkeyBean) {
+                        if (bizkeyBean != null) {
+                            if (bizkeyBean.getCode() == 0) {
+                                mView.success(bizkeyBean);
+
+                            }else{
+                                mView.failure(bizkeyBean.getMsg());
                             }
                         }
                     }

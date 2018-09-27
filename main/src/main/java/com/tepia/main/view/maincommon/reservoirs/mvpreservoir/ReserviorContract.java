@@ -63,5 +63,11 @@ public class ReserviorContract {
          */
         void getStorageCurveByReservoir(String reservoirId);
 
+        /**
+         * 根据业务主键查询文件
+         * @param bizKey
+         */
+        void getFileByBizKey(String bizKey);
+
     }
 }

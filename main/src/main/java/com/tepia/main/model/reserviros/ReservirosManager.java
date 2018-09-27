@@ -144,5 +144,17 @@ public class ReservirosManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 根据业务主键查询文件
+     * @param bizKey
+     * @return
+     */
+    public Observable<BizkeyBean> getFileByBizKey(String bizKey) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getFileByBizKey(token,bizKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 }
