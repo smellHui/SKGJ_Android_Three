@@ -36,6 +36,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
     private ImageView headIv;
     private TextView userTv;
+    private TextView zhizeTv;
     private MySettingView personinfoMv;
     private MySettingView msgMv;
     private MySettingView setMv;
@@ -83,7 +84,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             startActivity(intent);
 
         }else if(view.getId() == R.id.personinfoMv){
-            ToastUtils.shortToast("待开发功能");
+            intent = new Intent(getBaseActivity(), EditUserInfoActivity.class);
+            startActivity(intent);
 
         }else if(view.getId() == R.id.zhizeMvMv){
             intent = new Intent(getBaseActivity(), DutyActivity.class);
@@ -136,6 +138,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
         headIv = findView(R.id.headIv);
         userTv = findView(R.id.userTv);
+        zhizeTv = findView(R.id.zhizeTv);
 
         personinfoMv = findView(R.id.personinfoMv);
 
@@ -164,6 +167,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     private void setItem(){
         personinfoMv.setTitle(getString(R.string.personinfostr));
         personinfoMv.setIvLeft(R.drawable.s_personinfo);
+        personinfoMv.setVisibility(View.GONE);
         peixunMv.setTitle(getString(R.string.peixunstr));
         peixunMv.setIvLeft(R.drawable.s_peixun);
         zhizeMvMv.setTitle(getString(R.string.zhizestr));
@@ -194,6 +198,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
                         LogUtil.e("getLoginUser","getLoginUser:成功获取用户信息------");
                         UserManager.getInstance().setUserBean(userInfoBean);
                         userTv.setText(userInfoBean.getData().getUserName());
+                        zhizeTv.setText(userInfoBean.getData().getOfficeName());
                     }else{
                         ToastUtils.longToast(userInfoBean.getMsg());
 
@@ -218,7 +223,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     public void onResume() {
         super.onResume();
         if(NetUtil.isNetworkConnected(getBaseActivity())) {
-//            saveUserInfoBean();
+            saveUserInfoBean();
         }
 
     }

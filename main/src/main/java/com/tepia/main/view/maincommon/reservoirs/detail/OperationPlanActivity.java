@@ -2,6 +2,7 @@ package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -87,6 +88,10 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
             mPresenter.getEmergencyByReservoir(reservoirId);
         }else if(value_preview.equals(selectstr)){
             String  filepathstr = getIntent().getStringExtra(PREVIEW_PATH);
+            if(TextUtils.isEmpty(filepathstr)){
+                showEmpty();
+                return;
+            }
             showFile(filepathstr);
         }
     }
@@ -116,8 +121,17 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
 
     @Override
     public void success(OperationPlanBean data) {
+        if(data.getData() == null){
+            showEmpty();
+            return;
+        }
         String downloadUrl = data.getData().getFilePath();
+        if(TextUtils.isEmpty(downloadUrl)){
+            showEmpty();
+            return;
+        }
         showFile(downloadUrl);
+
 
 
     }
@@ -144,6 +158,10 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
 
     @Override
     public void failure(String msg) {
+        showEmpty();
+    }
+
+    private void showEmpty(){
         rootEmptyLy.setVisibility(View.VISIBLE);
         webview.setVisibility(View.GONE);
         pdfView.setVisibility(View.GONE);

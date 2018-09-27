@@ -26,7 +26,6 @@ import com.tepia.main.view.maincommon.reservoirs.detail.VisitLogActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.IntroduceOfReservoirsActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
-import com.tepia.main.view.maincommon.reservoirs.detail.SafeManagerPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SafeRunningActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SupportingActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
@@ -84,7 +83,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);
         setResviorRec("水库安全管理应急预案", "CONTINGENCY PLAN", R.drawable.jianjie7);
         setResviorRec("水库安全运行管理", "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
-        setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie8);
+        setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie_visitlog);
         CustomLinearLayoutManager customLinearLayoutManager = new CustomLinearLayoutManager(getContext());
         customLinearLayoutManager.setScrollEnabled(false);
 //        resviorRec.setLayoutManager(new LinearLayoutManager(getContext()));

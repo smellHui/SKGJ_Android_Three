@@ -42,8 +42,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
-            android:text="aaaa"
-            android:textColor="#ffffff"
+            android:text="--"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:visibility="invisible" />
 
