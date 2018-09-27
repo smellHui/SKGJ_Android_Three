@@ -8,9 +8,10 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
@@ -18,10 +19,11 @@
                 android:orientation="horizontal">
 
                 <com.tepia.photo_picker.widget.CircleImageView
-                    android:src="@mipmap/ic_launcher"
+                    android:id="@+id/iv_header"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginLeft="5dp" />
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/icon_worker_head_default" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -36,6 +38,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="fdjasjsd"
@@ -43,6 +46,7 @@
                             android:textSize="18sp" />
 
                         <TextView
+                            android:id="@+id/tv_reservoir"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="12dp"
@@ -54,9 +58,25 @@
                             android:text="县级负责人"
                             android:textColor="#2ba5ff"
                             android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/tv_positoin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:background="@drawable/bg_contacts_positoin"
+                            android:paddingBottom="2dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="2dp"
+                            android:text="县级负责人"
+                            android:textColor="#2ba5ff"
+                            android:textSize="10dp" />
+
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_mobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -66,12 +86,12 @@
 
                 </LinearLayout>
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
-                android:background="#edeff1"
-                android:layout_height="0.5dp"/>
+                android:layout_height="0.5dp"
+                android:background="#edeff1" />
         </LinearLayout>
-
 
 
     </android.support.constraint.ConstraintLayout>

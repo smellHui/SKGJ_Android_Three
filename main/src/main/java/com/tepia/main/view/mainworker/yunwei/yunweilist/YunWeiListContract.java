@@ -1,7 +1,5 @@
 package com.tepia.main.view.mainworker.yunwei.yunweilist;
 
-import android.content.Context;
-
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
 import com.tepia.main.model.task.bean.TaskBean;
@@ -18,6 +16,8 @@ public class YunWeiListContract {
     interface View extends BaseView {
 
         void getPatrolWorkOrderListSuccess(List<TaskBean> list);
+
+        void getPatrolWorkOrderListMoreSuccess(TaskListResponse.DataBean list);
     }
 
     interface  Presenter extends BasePresenter<View> {

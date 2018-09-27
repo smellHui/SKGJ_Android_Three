@@ -1,6 +1,8 @@
 package com.tepia.main.view.mainworker.yunwei.startyunwei;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.databinding.FragemntStartYunweiBinding;
 import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.task.UnfinishedNumResponse;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
 import com.tepia.main.model.task.bean.WorkOrderNumBean;
@@ -67,21 +70,35 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         mBinding.loTaskNumPresent.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(defaultYunweiType)) {
             selectedYunWeiType = defaultYunweiType;
-            mBinding.loSelectYunweiTypeContainer.setVisibility(View.GONE);
+            mBinding.loSelectYunweiType.setVisibility(View.GONE);
             switch (defaultYunweiType) {
                 case "1":
                     mBinding.tvStartYunwei.setText("开始巡检");
+                    mBinding.tvOperationTaskNumTip.setText("巡检任务");
+                    mBinding.tvDealedOperationTaskNumTip.setText("完成巡检");
                     break;
                 case "2":
                     mBinding.tvStartYunwei.setText("开始维护");
+                    mBinding.tvOperationTaskNumTip.setText("维护任务");
+                    mBinding.tvDealedOperationTaskNumTip.setText("完成维护");
                     break;
                 case "3":
                     mBinding.tvStartYunwei.setText("开始保洁");
+                    mBinding.tvOperationTaskNumTip.setText("保洁任务");
+                    mBinding.tvDealedOperationTaskNumTip.setText("完成保洁");
                     break;
                 default:
                     mBinding.tvStartYunwei.setText("开始运维");
+                    mBinding.tvOperationTaskNumTip.setText("运维任务");
+                    mBinding.tvDealedOperationTaskNumTip.setText("完成运维");
                     break;
             }
+        } else {
+            mBinding.loSelectYunweiType.setVisibility(View.VISIBLE);
+            selectedYunWeiType = "1";
+            mBinding.tvYunweiType.setText("巡检");
+            mBinding.tvOperationTaskNumTip.setText("巡检任务");
+            mBinding.tvDealedOperationTaskNumTip.setText("完成巡检");
         }
 
     }
@@ -111,14 +128,15 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
                     ToastUtils.shortToast("请选择水库");
                     return;
                 }
-                mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType);
+                mPresenter.getUnfinishedNum(selectedResrvoir.getReservoirId(), selectedYunWeiType);
+//                mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType);
             }
         });
     }
 
     private void showSelectYunweiType() {
 
-        String[] stringItems = {"巡查", "维护", "保洁"};
+        String[] stringItems = {"巡检", "维护", "保洁"};
 
         final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
         dialog.title("请运维类型")
@@ -168,6 +186,28 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         if (selectedResrvoir == null) {
             return;
         }
+        switch (selectedYunWeiType) {
+            case "1":
+                mBinding.tvStartYunwei.setText("开始巡检");
+                mBinding.tvOperationTaskNumTip.setText("巡检任务");
+                mBinding.tvDealedOperationTaskNumTip.setText("完成巡检");
+                break;
+            case "2":
+                mBinding.tvStartYunwei.setText("开始维护");
+                mBinding.tvOperationTaskNumTip.setText("维护任务");
+                mBinding.tvDealedOperationTaskNumTip.setText("完成维护");
+                break;
+            case "3":
+                mBinding.tvStartYunwei.setText("开始保洁");
+                mBinding.tvOperationTaskNumTip.setText("保洁任务");
+                mBinding.tvDealedOperationTaskNumTip.setText("完成保洁");
+                break;
+            default:
+                mBinding.tvStartYunwei.setText("开始运维");
+                mBinding.tvOperationTaskNumTip.setText("运维任务");
+                mBinding.tvDealedOperationTaskNumTip.setText("完成运维");
+                break;
+        }
         mPresenter.getItemListByReservoirId(selectedResrvoir.getReservoirId(), selectedYunWeiType);
         mPresenter.getWorkOrderNumByReservoirId(selectedResrvoir.getReservoirId(), selectedYunWeiType);
     }
@@ -209,6 +249,51 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
             ARouter.getInstance().build(AppRoutePath.app_task_detail)
                     .withString("workOrderId", data.getWorkOrderId())
                     .navigation();
+        }
+    }
+
+    @Override
+    public void getUnfinishedNumSuccess(UnfinishedNumResponse.DataBean data) {
+        showNewWorkOrder(data);
+    }
+
+    private void showNewWorkOrder(UnfinishedNumResponse.DataBean data) {
+        if (data == null || data.getTotals() == 0) {
+            new AlertDialog.Builder(getContext()).setTitle("新建任务").setMessage("是否确定新建任务")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType);
+                        }
+                    })
+                    .show();
+        } else {
+            new AlertDialog.Builder(getContext()).setTitle("新建任务")
+                    .setMessage("存在当日未完成的任务")
+                    .setNegativeButton("继续执行", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            ARouter.getInstance().build(AppRoutePath.app_task_detail)
+                                    .withString("workOrderId", data.getWork_order_id())
+                                    .navigation();
+                        }
+                    })
+                    .setPositiveButton("新建工单", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType);
+                        }
+                    })
+                    .show();
         }
     }
 }

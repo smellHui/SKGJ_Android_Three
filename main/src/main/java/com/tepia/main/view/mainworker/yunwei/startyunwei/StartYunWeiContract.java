@@ -2,6 +2,7 @@ package com.tepia.main.view.mainworker.yunwei.startyunwei;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
+import com.tepia.main.model.task.UnfinishedNumResponse;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
 import com.tepia.main.model.task.bean.WorkOrderNumBean;
@@ -22,6 +23,8 @@ public class StartYunWeiContract {
         void getItemListByReservoirIdSuccess(List<TaskItemBean> data);
 
         void newStartExecuteSuccess(TaskBean data);
+
+        void getUnfinishedNumSuccess(UnfinishedNumResponse.DataBean data);
     }
 
     interface  Presenter extends BasePresenter<View> {

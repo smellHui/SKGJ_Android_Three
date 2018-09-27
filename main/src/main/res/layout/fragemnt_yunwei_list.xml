@@ -18,20 +18,19 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
                 <LinearLayout
-                    android:id="@+id/lo_select_yunwei_type_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_margin="15dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/lo_select_yunwei_type"
                         android:layout_width="0dp"
+                        android:layout_marginRight="15dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="1.5"
                         android:background="@drawable/bg_select_res_et"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -44,7 +43,9 @@
                             android:layout_marginLeft="12dp"
                             android:layout_marginTop="12dp"
                             android:layout_weight="1"
-                            android:text="请选择运维类型" />
+                            android:maxLines="1"
+                            android:text="运维类型"
+                            android:textSize="13sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -54,34 +55,11 @@
 
                     </LinearLayout>
 
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="12dp"
-                        android:background="@drawable/bg_bt_start_yunwei"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="10dp"
-                        android:text="开始巡查"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:visibility="invisible" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:orientation="horizontal">
-
                     <LinearLayout
                         android:id="@+id/lo_select_reservoir"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+
                         android:layout_weight="2"
                         android:background="@drawable/bg_select_res_et"
                         android:gravity="center_vertical"
@@ -95,7 +73,9 @@
                             android:layout_marginLeft="12dp"
                             android:layout_marginTop="12dp"
                             android:layout_weight="1"
-                            android:text="请选择水库" />
+                            android:maxLines="1"
+                            android:text="请选择水库"
+                            android:textSize="13sp" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -109,14 +89,15 @@
                         android:id="@+id/tv_sure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="12dp"
                         android:background="@drawable/bg_bt_start_yunwei"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="10dp"
-                        android:text="   确  定   "
+                        android:gravity="center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="确  定"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -131,10 +112,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
-                    android:background="@drawable/bg_worker_item"
+                    android:layout_marginRight="12dp"
                     android:layout_marginTop="12dp"
-                    android:orientation="vertical"
-                    android:layout_marginRight="12dp">
+                    android:background="@drawable/bg_worker_item"
+                    android:orientation="vertical">
 
                     <include
                         android:id="@+id/lo_patrol_workorder_list_header"
@@ -143,7 +124,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_work_order_list"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_margin="1dp" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -3,16 +3,20 @@ package com.tepia.main.view.maincommon.setting.contacts;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityContactsBinding;
+import com.tepia.main.model.user.ContactBean;
 import com.tepia.main.view.main.question.problemlist.AdapterBizProblem;
 import com.tepia.voice.xunfei.DemoBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,6 +28,7 @@ import java.util.ArrayList;
 public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, ContactsPresenter> implements ContactsContract.View {
 
     private ActivityContactsBinding mBinding;
+    private AdapterContactsList adapterContactsList;
 
     @Override
     public int getLayoutId() {
@@ -36,14 +41,14 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
         setCenterTitle("通讯录");
         showBack();
         mBinding.rvContact.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterContactsList adapterContactsList = new AdapterContactsList(R.layout.lv_contact_list_item,null);
+        adapterContactsList = new AdapterContactsList(R.layout.lv_contact_list_item,null);
         mBinding.rvContact.setAdapter(adapterContactsList);
-        ArrayList<DemoBean> contactlist = new ArrayList<>();
-        contactlist.add(new DemoBean());
-        contactlist.add(new DemoBean());
-        contactlist.add(new DemoBean());
-        contactlist.add(new DemoBean());
-        adapterContactsList.setNewData(contactlist);
+        adapterContactsList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
     }
 
     @Override
@@ -58,6 +63,13 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
 
     @Override
     protected void initRequestData() {
-        mPresenter.getAddressBook("");
+        String currentPage = "1";
+        String pageSize = "20";
+        mPresenter.getAddressBook("",currentPage,pageSize);
+    }
+
+    @Override
+    public void getAddressBookSuccess(List<ContactBean> list) {
+        adapterContactsList.setNewData(list);
     }
 }

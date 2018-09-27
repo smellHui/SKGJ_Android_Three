@@ -69,8 +69,8 @@ public class YunWeiXunJianFragment extends BaseCommonFragment {
     }
 
     private void initRLTitle() {
-        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("巡检记录", R.drawable.bg_operation_tab)));
-        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始巡检", R.drawable.bg_operation_tab)));
+        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("巡检记录", R.drawable.bg_yunwei_list_tab)));
+        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始巡检", R.drawable.bg_start_yunwei_tab)));
     }
     private View getTabCustomView(String name, int id) {
         View view = getLayoutInflater().inflate(R.layout.operation_tab_custom_view2, null);

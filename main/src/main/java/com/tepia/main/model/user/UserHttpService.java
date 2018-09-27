@@ -103,9 +103,13 @@ interface UserHttpService {
      * 查询通讯录
      * @param token
      * @param searchKey
+     * @param currentPage
+     * @param pageSize
      * @return
      */
-    @GET("app/reservoirBase/appHomeGetReservoirInfo")
-    Observable<AddressBookResponse> getAddressBook(@Header("Authorization")String token,
-                                                   @Query("searchKey")String searchKey);
+    @GET("app/appSysUser/getAddressBook")
+    Observable<AddressBookResponse> getAddressBook(@Header("Authorization") String token,
+                                                   @Query("searchParam") String searchKey,
+                                                   @Query("currentPage")String currentPage,
+                                                   @Query("pageSize") String pageSize);
 }

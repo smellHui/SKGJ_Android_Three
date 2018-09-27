@@ -287,4 +287,11 @@ interface TaskHttpService {
     Observable<TaskItemListResponse> getItemListByReservoirId(@Header("Authorization") String token,
                                                               @Query("reservoirId") String reservoirId,
                                                               @Query("operationType") String operationType);
+
+    @GET("app/workOrderTrp/getUnfinishedNum")
+    Observable<UnfinishedNumResponse> getUnfinishedNum(@Header("Authorization") String token,
+                                                              @Query("reservoirId") String reservoirId,
+                                                              @Query("operationType") String operationType);
+
+
 }

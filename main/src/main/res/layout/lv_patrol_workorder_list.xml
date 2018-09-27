@@ -4,30 +4,40 @@
     <data></data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rootLy"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/rootLy"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="7">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_item_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="01"
-            android:textColor="#434952"
-            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:gravity="left"
+            android:layout_weight="2"
+            android:gravity="center"
             android:text="2018-09-05 "
+            android:textColor="#434952"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_reservoir"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="绿竹坝水库"
+            android:textColor="#434952"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_yunwei_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="巡检"
             android:textColor="#434952"
             android:textSize="12dp" />
 
@@ -35,28 +45,32 @@
             android:id="@+id/tv_exec_worker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
+            android:layout_weight="1.5"
+            android:gravity="center"
             android:text="李小双"
             android:textColor="#434952"
             android:textSize="12dp" />
 
+
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text="10:00"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="执行中"
             android:textColor="#434952"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_status"
             android:layout_width="0dp"
-            android:layout_height="12dp"
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_height="15dp"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:layout_weight="1.5"
+            android:src="@drawable/operation_not_complete" />
 
         <TextView
             android:id="@+id/tv_qusetion"

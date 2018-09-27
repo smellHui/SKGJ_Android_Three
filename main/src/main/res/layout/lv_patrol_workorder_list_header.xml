@@ -8,23 +8,13 @@
         android:layout_height="45dp"
         android:background="@drawable/bg_worker_item_header"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="7">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
-            android:text="序号"
-            android:textColor="#434952"
-            android:textSize="12dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:gravity="left"
             android:text="日期"
             android:textColor="#434952"
             android:textSize="12dp" />
@@ -32,25 +22,36 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text="巡查人"
-            android:textColor="#434952"
-            android:textSize="12dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center"
-            android:text="时间"
+            android:text="水库"
             android:textColor="#434952"
             android:textSize="12dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="运维类型"
+            android:textColor="#434952"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="运维人员"
+            android:textColor="#434952"
+            android:textSize="12dp" />
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
             android:gravity="center"
             android:text="状态"
             android:textColor="#434952"

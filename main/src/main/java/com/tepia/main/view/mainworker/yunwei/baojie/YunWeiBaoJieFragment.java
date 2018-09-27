@@ -69,8 +69,8 @@ public class YunWeiBaoJieFragment extends BaseCommonFragment {
     }
 
     private void initRLTitle() {
-        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("保洁记录", R.drawable.bg_operation_tab)));
-        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始保洁", R.drawable.bg_operation_tab)));
+        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("保洁记录", R.drawable.bg_yunwei_list_tab)));
+        tlTitle.addTab(tlTitle.newTab().setCustomView(getTabCustomView("开始保洁", R.drawable.bg_start_yunwei_tab)));
     }
 
     private View getTabCustomView(String name, int id) {

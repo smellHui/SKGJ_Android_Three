@@ -29,6 +29,7 @@ public  class TaskBean  implements Serializable{
     private String planStartTime;
     private String startTime;
     private String executorName;
+    private String operationType;
     private String problemNum;
     private String planEndTime;
     private String executeStatus;
@@ -40,6 +41,14 @@ public  class TaskBean  implements Serializable{
     private BizPlanInfoBean bizPlanInfo;
     private String reservoirName;
     private List<TaskItemBean> bizReservoirWorkOrderItems;
+
+    public String getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
+    }
 
     public String getProblemNum() {
         return problemNum;

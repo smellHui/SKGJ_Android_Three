@@ -339,4 +339,11 @@ public class TaskManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<UnfinishedNumResponse> getUnfinishedNum(String reservoirId, String operationType) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getUnfinishedNum(token, reservoirId, operationType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

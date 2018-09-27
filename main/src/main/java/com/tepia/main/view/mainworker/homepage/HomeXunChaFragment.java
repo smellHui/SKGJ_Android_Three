@@ -94,13 +94,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
         initListener();
 
-        AgentWeb.with(this)
-                .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
-                .setIndicatorColorWithHeight(-1, 2)
-                .setSecurityType(AgentWeb.SecurityType.strict)
-                .createAgentWeb()
-                .ready()
-                .go("http://114.135.11.80:11008/XTZSK/HTML/3DInfo/reservoirTest.html");
+
     }
 
     private void initListener() {
@@ -117,8 +111,8 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                     if (adapterFloodControlMaterialList.getData().size() == 4) {
                         adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial());
                         mBinding.tvShowMore.setText("收起");
-                    }else {
-                        adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial().subList(0,3));
+                    } else {
+                        adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial().subList(0, 3));
                         mBinding.tvShowMore.setText("查看更多");
                     }
                 } else {
@@ -296,6 +290,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     @Override
     public void getHommeInfoSuccess(HomeGetReservoirInfoBean data) {
+        refreshViewWaterLevelStorageCapacity(data.getReservoirWaterLevel());
+
+
         homeGetReservoirInfoBean = data;
         adapterWorker.setNewData(data.getPersonDuty());
         if (data.getMaterial() != null && data.getMaterial().size() > 4) {
@@ -371,6 +368,29 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         if (data.getStorageCapacity() != null) {
             ChartUtils.notifyDataSetChanged(lcReservoirCapacity, getData(data.getStorageCapacity()), ChartUtils.dayValue);
         }
+    }
+
+    private void refreshViewWaterLevelStorageCapacity(HomeGetReservoirInfoBean.ReservoirWaterLevelBean reservoirWaterLevel) {
+        String host = "http://192.168.30.220:7000/#/appcanvas?";
+        String prarm = "";
+        prarm += "reservoirCode=" + reservoirWaterLevel.getReservoirId() + "&";
+        prarm += "reservoirHeight=" + reservoirWaterLevel.getDamCrestElevation() + "&";
+        prarm += "checkFloodWaterLevel=" + reservoirWaterLevel.getCheckFloodWaterLevel() + "&";
+        prarm += "designFloodWaterLevel=" + reservoirWaterLevel.getDesignFloodWaterLevel() + "&";
+        prarm += "normalImpoundedLevel=" + reservoirWaterLevel.getNormalImpoundedLevel() + "&";
+        prarm += "floodSeasonWaterLevel=" + reservoirWaterLevel.getFloodSeasonWaterLevel() + "&";
+        prarm += "floodSeasonStartDate=" + reservoirWaterLevel.getFloodSeasonStartDate() + "&";
+        prarm += "floodSeasonEndDate=" + reservoirWaterLevel.getFloodSeasonStartDate() + "&";
+        prarm += "realTimeLevel=" + reservoirWaterLevel.getRz() + "&";
+        prarm += "waterStorate=" + reservoirWaterLevel.getW() + "&";
+        prarm += "dataTime=" + reservoirWaterLevel.getTm();
+        AgentWeb.with(this)
+                .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
+                .setIndicatorColorWithHeight(-1, 2)
+                .setSecurityType(AgentWeb.SecurityType.strict)
+                .createAgentWeb()
+                .ready()
+                .go(host+prarm);
     }
 
 

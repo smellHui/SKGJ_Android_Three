@@ -292,9 +292,9 @@ public class UserManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<AddressBookResponse> getAddressBook(String searchKey) {
+    public Observable<AddressBookResponse> getAddressBook(String searchKey, String currentPage, String pageSize) {
         String token = getToken();
-        return mRetrofitService.getAddressBook(token,searchKey)
+        return mRetrofitService.getAddressBook(token,searchKey,currentPage,pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

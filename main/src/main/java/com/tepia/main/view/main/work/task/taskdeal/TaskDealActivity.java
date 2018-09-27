@@ -386,7 +386,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
         mBinding.scrollDownLayout.setIsSupportExit(true);
         mBinding.scrollDownLayout.setAllowHorizontalScroll(true);
         mBinding.scrollDownLayout.setOnScrollChangedListener(mOnScrollChangedListener);
-        mBinding.scrollDownLayout.setToOpen();
+        mBinding.scrollDownLayout.scrollToClose();
         mBinding.scrollDownLayout.getBackground().setAlpha(0);
 
         mBinding.scrollDownLayout.post(new Runnable() {
