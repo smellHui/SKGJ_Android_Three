@@ -1,23 +1,22 @@
-package com.tepia.main.model.jishu.yunwei;
+package com.tepia.main.model.train;
 
 import com.tepia.base.http.BaseResponse;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by      Intellij IDEA
- *
+ * 培训列表
  * @author :       wwj
- * Date    :       2018-09-25
- * Time    :       19:43
+ * Date    :       2018-09-27
+ * Time    :       15:21
  * Version :       1.0
  * Company :       北京太比雅科技(武汉研发中心)
  **/
-public class OperationReportListResponse extends BaseResponse{
+public class TrainListResponse extends BaseResponse{
 
     /**
-     * data : {"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"problemTitle":"测试应急上报-apizza","problemStatus":"4","createDate":"2018-09-25 19:38:34","reservoirName":"绿竹坝水库","isVerify":"0"}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
+     * data : {"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"id":"2e729e0243904a66864824a53ee31408","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府"}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
      */
 
     private DataBean data;
@@ -39,7 +38,7 @@ public class OperationReportListResponse extends BaseResponse{
          * endRow : 1
          * total : 1
          * pages : 1
-         * list : [{"problemTitle":"测试应急上报-apizza","problemStatus":"4","createDate":"2018-09-25 19:38:34","reservoirName":"绿竹坝水库","isVerify":"0"}]
+         * list : [{"id":"2e729e0243904a66864824a53ee31408","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府"}]
          * prePage : 0
          * nextPage : 0
          * isFirstPage : true
@@ -235,70 +234,69 @@ public class OperationReportListResponse extends BaseResponse{
             this.navigatepageNums = navigatepageNums;
         }
 
-        public static class ListBean implements Serializable{
-
+        public static class ListBean {
             /**
-             * problemId : 8a5dd549fd98446a91e674fc7b060120
-             * problemTitle : 测试应急上报-apizza
-             * problemStatus : 4
-             * createDate : 2018-09-25 19:38:34
-             * reservoirName : 绿竹坝水库
-             * isVerify : 0
+             * id : 2e729e0243904a66864824a53ee31408
+             * trainTitle : 人工智能
+             * position : 上海
+             * trainDate : 2018-09-19 10:00:00
+             * trainContent : 世界人工智能大会召开
+             * organizeCompany : 政府
              */
 
-            private String problemId;
-            private String problemTitle;
-            private String problemStatus;
-            private String createDate;
-            private String reservoirName;
-            private String isVerify;
+            private String id;
+            private String trainTitle;
+            private String position;
+            private String trainDate;
+            private String trainContent;
+            private String organizeCompany;
 
-            public String getProblemId() {
-                return problemId;
+            public String getId() {
+                return id;
             }
 
-            public void setProblemId(String problemId) {
-                this.problemId = problemId;
+            public void setId(String id) {
+                this.id = id;
             }
 
-            public String getProblemTitle() {
-                return problemTitle;
+            public String getTrainTitle() {
+                return trainTitle;
             }
 
-            public void setProblemTitle(String problemTitle) {
-                this.problemTitle = problemTitle;
+            public void setTrainTitle(String trainTitle) {
+                this.trainTitle = trainTitle;
             }
 
-            public String getProblemStatus() {
-                return problemStatus;
+            public String getPosition() {
+                return position;
             }
 
-            public void setProblemStatus(String problemStatus) {
-                this.problemStatus = problemStatus;
+            public void setPosition(String position) {
+                this.position = position;
             }
 
-            public String getCreateDate() {
-                return createDate;
+            public String getTrainDate() {
+                return trainDate;
             }
 
-            public void setCreateDate(String createDate) {
-                this.createDate = createDate;
+            public void setTrainDate(String trainDate) {
+                this.trainDate = trainDate;
             }
 
-            public String getReservoirName() {
-                return reservoirName;
+            public String getTrainContent() {
+                return trainContent;
             }
 
-            public void setReservoirName(String reservoirName) {
-                this.reservoirName = reservoirName;
+            public void setTrainContent(String trainContent) {
+                this.trainContent = trainContent;
             }
 
-            public String getIsVerify() {
-                return isVerify;
+            public String getOrganizeCompany() {
+                return organizeCompany;
             }
 
-            public void setIsVerify(String isVerify) {
-                this.isVerify = isVerify;
+            public void setOrganizeCompany(String organizeCompany) {
+                this.organizeCompany = organizeCompany;
             }
         }
     }

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_common"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_common"
+        android:orientation="vertical"
+        tools:context=".view.maincommon.setting.TrainActivity">
+
+        <include layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/jianjiemarginleft"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:drawableLeft="@drawable/peixun_didian"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="上报人："
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/jianjietextsize" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:drawableLeft="@drawable/peixun_time"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="上报时间："
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/jianjietextsize" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginRight="@dimen/jianjiemarginleft"
+            android:background="@color/text_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="应急情况描述"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginRight="@dimen/jianjiemarginleft"
+            android:text=""
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginRight="@dimen/jianjiemarginleft"
+            android:background="@color/text_color" />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="现场照片"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+       <android.support.v7.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+       </android.support.v7.widget.RecyclerView>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="现场视频"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/left_15"
+            android:layout_marginRight="@dimen/left_15"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/jianjie_fujian_bg"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/jianjie_word" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:text="水库安全管理...课件.doc"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/jianjie_download" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

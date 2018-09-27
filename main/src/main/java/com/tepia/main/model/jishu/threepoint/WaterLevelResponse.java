@@ -1,23 +1,22 @@
-package com.tepia.main.model.jishu.yunwei;
+package com.tepia.main.model.jishu.threepoint;
 
 import com.tepia.base.http.BaseResponse;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by      Intellij IDEA
- *
+ *  水情
  * @author :       wwj
- * Date    :       2018-09-25
- * Time    :       19:43
+ * Date    :       2018-09-26
+ * Time    :       15:01
  * Version :       1.0
  * Company :       北京太比雅科技(武汉研发中心)
  **/
-public class OperationReportListResponse extends BaseResponse{
+public class WaterLevelResponse extends BaseResponse{
 
     /**
-     * data : {"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"problemTitle":"测试应急上报-apizza","problemStatus":"4","createDate":"2018-09-25 19:38:34","reservoirName":"绿竹坝水库","isVerify":"0"}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
+     * data : {"pageNum":1,"pageSize":10,"size":10,"startRow":1,"endRow":10,"total":3650,"pages":365,"list":[{"stcd":"90001153","tm":"2018-04-17 13:30:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 13:15:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 13:00:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:45:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:30:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:15:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:00:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 11:45:00","rz":939.92,"w":159.067,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 11:30:00","rz":939.92,"w":159.067,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 11:15:00","rz":939.93,"w":159.433,"stnm":"东风水库"}],"prePage":0,"nextPage":2,"isFirstPage":true,"isLastPage":false,"hasPreviousPage":false,"hasNextPage":true,"navigatePages":8,"navigatepageNums":[1,2,3,4,5,6,7,8],"navigateFirstPage":1,"navigateLastPage":8,"lastPage":8,"firstPage":1}
      */
 
     private DataBean data;
@@ -34,24 +33,24 @@ public class OperationReportListResponse extends BaseResponse{
         /**
          * pageNum : 1
          * pageSize : 10
-         * size : 1
+         * size : 10
          * startRow : 1
-         * endRow : 1
-         * total : 1
-         * pages : 1
-         * list : [{"problemTitle":"测试应急上报-apizza","problemStatus":"4","createDate":"2018-09-25 19:38:34","reservoirName":"绿竹坝水库","isVerify":"0"}]
+         * endRow : 10
+         * total : 3650
+         * pages : 365
+         * list : [{"stcd":"90001153","tm":"2018-04-17 13:30:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 13:15:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 13:00:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:45:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:30:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:15:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 12:00:00","rz":939.91,"w":158.7,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 11:45:00","rz":939.92,"w":159.067,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 11:30:00","rz":939.92,"w":159.067,"stnm":"东风水库"},{"stcd":"90001153","tm":"2018-04-17 11:15:00","rz":939.93,"w":159.433,"stnm":"东风水库"}]
          * prePage : 0
-         * nextPage : 0
+         * nextPage : 2
          * isFirstPage : true
-         * isLastPage : true
+         * isLastPage : false
          * hasPreviousPage : false
-         * hasNextPage : false
+         * hasNextPage : true
          * navigatePages : 8
-         * navigatepageNums : [1]
+         * navigatepageNums : [1,2,3,4,5,6,7,8]
          * navigateFirstPage : 1
-         * navigateLastPage : 1
+         * navigateLastPage : 8
+         * lastPage : 8
          * firstPage : 1
-         * lastPage : 1
          */
 
         private int pageNum;
@@ -70,8 +69,8 @@ public class OperationReportListResponse extends BaseResponse{
         private int navigatePages;
         private int navigateFirstPage;
         private int navigateLastPage;
-        private int firstPage;
         private int lastPage;
+        private int firstPage;
         private List<ListBean> list;
         private List<Integer> navigatepageNums;
 
@@ -203,20 +202,20 @@ public class OperationReportListResponse extends BaseResponse{
             this.navigateLastPage = navigateLastPage;
         }
 
-        public int getFirstPage() {
-            return firstPage;
-        }
-
-        public void setFirstPage(int firstPage) {
-            this.firstPage = firstPage;
-        }
-
         public int getLastPage() {
             return lastPage;
         }
 
         public void setLastPage(int lastPage) {
             this.lastPage = lastPage;
+        }
+
+        public int getFirstPage() {
+            return firstPage;
+        }
+
+        public void setFirstPage(int firstPage) {
+            this.firstPage = firstPage;
         }
 
         public List<ListBean> getList() {
@@ -235,70 +234,59 @@ public class OperationReportListResponse extends BaseResponse{
             this.navigatepageNums = navigatepageNums;
         }
 
-        public static class ListBean implements Serializable{
-
+        public static class ListBean {
             /**
-             * problemId : 8a5dd549fd98446a91e674fc7b060120
-             * problemTitle : 测试应急上报-apizza
-             * problemStatus : 4
-             * createDate : 2018-09-25 19:38:34
-             * reservoirName : 绿竹坝水库
-             * isVerify : 0
+             * stcd : 90001153
+             * tm : 2018-04-17 13:30:00
+             * rz : 939.91
+             * w : 158.7
+             * stnm : 东风水库
              */
 
-            private String problemId;
-            private String problemTitle;
-            private String problemStatus;
-            private String createDate;
-            private String reservoirName;
-            private String isVerify;
+            private String stcd;
+            private String tm;
+            private double rz;
+            private double w;
+            private String stnm;
 
-            public String getProblemId() {
-                return problemId;
+            public String getStcd() {
+                return stcd;
             }
 
-            public void setProblemId(String problemId) {
-                this.problemId = problemId;
+            public void setStcd(String stcd) {
+                this.stcd = stcd;
             }
 
-            public String getProblemTitle() {
-                return problemTitle;
+            public String getTm() {
+                return tm;
             }
 
-            public void setProblemTitle(String problemTitle) {
-                this.problemTitle = problemTitle;
+            public void setTm(String tm) {
+                this.tm = tm;
             }
 
-            public String getProblemStatus() {
-                return problemStatus;
+            public double getRz() {
+                return rz;
             }
 
-            public void setProblemStatus(String problemStatus) {
-                this.problemStatus = problemStatus;
+            public void setRz(double rz) {
+                this.rz = rz;
             }
 
-            public String getCreateDate() {
-                return createDate;
+            public double getW() {
+                return w;
             }
 
-            public void setCreateDate(String createDate) {
-                this.createDate = createDate;
+            public void setW(double w) {
+                this.w = w;
             }
 
-            public String getReservoirName() {
-                return reservoirName;
+            public String getStnm() {
+                return stnm;
             }
 
-            public void setReservoirName(String reservoirName) {
-                this.reservoirName = reservoirName;
-            }
-
-            public String getIsVerify() {
-                return isVerify;
-            }
-
-            public void setIsVerify(String isVerify) {
-                this.isVerify = isVerify;
+            public void setStnm(String stnm) {
+                this.stnm = stnm;
             }
         }
     }

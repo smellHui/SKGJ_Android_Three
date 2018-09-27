@@ -288,15 +288,6 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 return null;
             }
         });
-        if (!isFirstLoad) {
-            rvAdapter.setEnableLoadMore(false);
-            currentPage = 1;
-            isloadmore = false;
-            first = true;
-            if (mPresenter != null) {
-                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
-            }
-        }
         yunWeiJiShuPresenter = new YunWeiJiShuPresenter();
         yunWeiJiShuPresenter.attachView(new YunWeiJiShuContract.View<WorkOrderNumResponse>() {
             @Override
@@ -316,7 +307,17 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 return null;
             }
         });
-        yunWeiJiShuPresenter.getWorkOrderNumByJs("",operationType,"");
+        if (!isFirstLoad) {
+            rvAdapter.setEnableLoadMore(false);
+            currentPage = 1;
+            isloadmore = false;
+            first = true;
+            if (mPresenter != null&&yunWeiJiShuPresenter!=null) {
+                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                yunWeiJiShuPresenter.getWorkOrderNumByJs("",operationType,"");
+            }
+        }
+
     }
 
     private void setSpanned(int doneNum,int totals){

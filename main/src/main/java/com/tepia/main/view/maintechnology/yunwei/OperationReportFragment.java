@@ -1,6 +1,8 @@
 package com.tepia.main.view.maintechnology.yunwei;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.TimeFormatUtils;
@@ -120,6 +123,11 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                 loadDataOrMore(false);
             },1000);
         },rv);
+        rvAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Intent bundle = new Intent(getActivity(),JiShuReportDetailActivity.class);
+            bundle.putExtra("item",dataList.get(position));
+            startActivity(bundle);
+        });
     }
 
     private void loadDataOrMore(boolean isShowLoading) {
@@ -250,6 +258,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                         rvAdapter.loadMoreFail();
                     }
                 } else {
+                    dataList.clear();
                     rvAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
                 }
             }

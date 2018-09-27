@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.view.maintechnology.threekeypoint.ThreePointListFragment;
 
 import java.util.List;
@@ -18,8 +19,8 @@ import java.util.List;
  * Company :       北京太比雅科技(武汉研发中心)
  **/
 public class ThreePointTabPageAdapter extends FragmentPagerAdapter {
-    private List<ThreePointListFragment> mFragments;
-    public ThreePointTabPageAdapter(FragmentManager fm, List<ThreePointListFragment> fragments) {
+    private List<BaseCommonFragment> mFragments;
+    public ThreePointTabPageAdapter(FragmentManager fm, List<BaseCommonFragment> fragments) {
         super(fm);
         mFragments = fragments;
     }

@@ -2,6 +2,9 @@ package com.tepia.main.view.maintechnology.yunwei.presenter;
 
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
+import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
+import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
+import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
 import com.tepia.main.model.jishu.yunwei.WorkOrderListResponse;
 import com.tepia.main.model.jishu.yunwei.WorkOrderNumResponse;
@@ -10,6 +13,8 @@ import com.tepia.main.model.user.UserManager;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.http.Header;
+import retrofit2.http.Query;
 
 /**
  * Created by      Intellij IDEA
@@ -29,24 +34,44 @@ public class YunWeiJiShuManager {
     }
 
     private YunWeiJiShuManager() {
-        this.mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL+ APPCostant.API_SERVER_TASK_AREA).create(YunWeiJIShuService.class);
+        this.mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL + APPCostant.API_SERVER_TASK_AREA).create(YunWeiJIShuService.class);
     }
 
     public Observable<WorkOrderListResponse> getNoProcessWorkOrderList(String reservoirId, String operationType, String startDate, String endDate, String currentPage, String pageSize) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getNoProcessWorkOrderList(token,reservoirId,operationType,startDate,endDate,currentPage,pageSize).subscribeOn(Schedulers.io())
+        return mRetrofitService.getNoProcessWorkOrderList(token, reservoirId, operationType, startDate, endDate, currentPage, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<WorkOrderNumResponse> getWorkOrderNumByJs(String reservoirId,String operationType,String startDate){
+    public Observable<WorkOrderNumResponse> getWorkOrderNumByJs(String reservoirId, String operationType, String startDate) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getWorkOrderNumByJs(token,reservoirId,operationType,startDate).subscribeOn(Schedulers.io())
+        return mRetrofitService.getWorkOrderNumByJs(token, reservoirId, operationType, startDate).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<OperationReportListResponse> getProblemList(String reservoirId, String workOrderId, String startDate, String endDate, String currentPage, String pageSize,String problemStatus){
+    public Observable<OperationReportListResponse> getProblemList(String reservoirId, String workOrderId, String startDate, String endDate, String currentPage, String pageSize, String problemStatus) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getProblemList(token,reservoirId,workOrderId,startDate,endDate,currentPage,pageSize,problemStatus).subscribeOn(Schedulers.io())
+        return mRetrofitService.getProblemList(token, reservoirId, workOrderId, startDate, endDate, currentPage, pageSize, problemStatus).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<JiShuRePortDetailResponse> getDetailedProblemInfoByProblemId(String problemId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getDetailedProblemInfoByProblemId(token, problemId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<RainConditionResponse> listStPpthRByReservoir(String reservoirId,String startDate,String endDate, String currentPage, String pageSize) {
+        String token = UserManager.getInstance().getToken();
+        YunWeiJIShuService yunWeiJIShuService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL + APPCostant.API_SERVER_MONITOR_AREA).create(YunWeiJIShuService.class);
+        return yunWeiJIShuService.listStPpthRByReservoir(token,reservoirId,startDate,endDate,currentPage,pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<WaterLevelResponse> listStRsvrRRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize) {
+        String token = UserManager.getInstance().getToken();
+        YunWeiJIShuService yunWeiJIShuService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL + APPCostant.API_SERVER_MONITOR_AREA).create(YunWeiJIShuService.class);
+        return yunWeiJIShuService.listStRsvrRRByReservoir(token,reservoirId,startDate,endDate,currentPage,pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

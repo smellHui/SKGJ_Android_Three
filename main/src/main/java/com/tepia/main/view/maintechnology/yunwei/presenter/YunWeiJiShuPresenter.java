@@ -2,6 +2,9 @@ package com.tepia.main.view.maintechnology.yunwei.presenter;
 
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
+import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
+import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
 import com.tepia.main.model.jishu.yunwei.WorkOrderListResponse;
 import com.tepia.main.model.jishu.yunwei.WorkOrderNumResponse;
@@ -70,6 +73,69 @@ public class YunWeiJiShuPresenter extends BasePresenterImpl<YunWeiJiShuContract.
                 }else {
                     if (operationReportListResponse.getMsg()!=null && operationReportListResponse.getMsg().length()>0){
                         mView.failure(operationReportListResponse.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.failure(message);
+            }
+        });
+    }
+
+    @Override
+    public void getDetailedProblemInfoByProblemId(String problemId) {
+        YunWeiJiShuManager.getInstance().getDetailedProblemInfoByProblemId(problemId).subscribe(new LoadingSubject<JiShuRePortDetailResponse>(false,"正在加载中...") {
+            @Override
+            protected void _onNext(JiShuRePortDetailResponse jiShuRePortDetailResponse) {
+                if (jiShuRePortDetailResponse.getCode()==0){
+                    mView.success(jiShuRePortDetailResponse);
+                }else {
+                    if (jiShuRePortDetailResponse.getMsg()!=null && jiShuRePortDetailResponse.getMsg().length()>0){
+                        mView.failure(jiShuRePortDetailResponse.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.failure(message);
+            }
+        });
+    }
+
+    @Override
+    public void listStPpthRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize) {
+           YunWeiJiShuManager.getInstance().listStPpthRByReservoir(reservoirId,startDate,endDate,currentPage,pageSize).subscribe(new LoadingSubject<RainConditionResponse>(false,"正在加载中...") {
+               @Override
+               protected void _onNext(RainConditionResponse rainConditionResponse) {
+                   if (rainConditionResponse.getCode()==0){
+                       mView.success(rainConditionResponse);
+                   }else {
+                       if (rainConditionResponse.getMsg()!=null && rainConditionResponse.getMsg().length()>0){
+                           mView.failure(rainConditionResponse.getMsg());
+                       }
+                   }
+               }
+
+               @Override
+               protected void _onError(String message) {
+                   mView.failure(message);
+               }
+           });
+    }
+
+    @Override
+    public void listStRsvrRRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize) {
+        YunWeiJiShuManager.getInstance().listStRsvrRRByReservoir(reservoirId, startDate, endDate, currentPage, pageSize).subscribe(new LoadingSubject<WaterLevelResponse>(false,"正在加载中...") {
+            @Override
+            protected void _onNext(WaterLevelResponse waterLevelResponse) {
+                if (waterLevelResponse.getCode()==0){
+                    mView.success(waterLevelResponse);
+                }else {
+                    if (waterLevelResponse.getMsg()!=null && waterLevelResponse.getMsg().length()>0){
+                        mView.failure(waterLevelResponse.getMsg());
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package com.tepia.main.view.maintechnology.threekeypoint;
 
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author         :      zhang xinhua
+ * @author :      zhang xinhua
  * Version         :       1.0
  * 功能描述        :       主页三  三个重点 技术责任人
  **/
@@ -27,11 +28,11 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private String[] tpTabNames = {"检测预报", "调度运用", "应急预案"};
-    private List<ThreePointListFragment> mFragments = new ArrayList<>();
+    private List<BaseCommonFragment> mFragments = new ArrayList<>();
+
     public ThreePointJiShuFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -63,11 +64,19 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
     }
 
     private void initViewPager() {
-        for (int i = 0; i < tpTabNames.length; i++) {
-            ThreePointListFragment fragment = new ThreePointListFragment();
-            mFragments.add(fragment);
-        }
-        ThreePointTabPageAdapter tabPageAdapter = new ThreePointTabPageAdapter(getFragmentManager(),mFragments);
+        ThreePointListFragment fragment = new ThreePointListFragment();
+        mFragments.add(fragment);
+        ThreePointTabFragment fragment2 = new ThreePointTabFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("position",1);
+        fragment2.setArguments(bundle);
+        mFragments.add(fragment2);
+        ThreePointTabFragment fragment3 = new ThreePointTabFragment();
+        Bundle bundle3 = new Bundle();
+        bundle3.putInt("position",2);
+        fragment3.setArguments(bundle);
+        mFragments.add(fragment3);
+        ThreePointTabPageAdapter tabPageAdapter = new ThreePointTabPageAdapter(getFragmentManager(), mFragments);
         viewPager.setAdapter(tabPageAdapter);
     }
 

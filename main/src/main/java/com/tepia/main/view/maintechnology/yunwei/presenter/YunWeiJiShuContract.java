@@ -25,5 +25,8 @@ public class YunWeiJiShuContract {
         void getNoProcessWorkOrderList(String reservoirId, String operationType, String startDate, String endDate, String currentPage, String pageSize,boolean isShowLoading);
         void getWorkOrderNumByJs(String reservoirId,String operationType,String startDate);
         void getProblemList(String reservoirId, String workOrderId, String startDate, String endDate, String currentPage, String pageSize,String problemStatus,boolean isShowLoading);
+        void getDetailedProblemInfoByProblemId(String problemId);
+        void listStPpthRByReservoir(String reservoirId,String startDate,String endDate,String currentPage,String pageSize);
+        void listStRsvrRRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize);
     }
 }
