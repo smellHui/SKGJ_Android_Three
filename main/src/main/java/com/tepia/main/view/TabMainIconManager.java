@@ -26,7 +26,7 @@ public class TabMainIconManager {
         imageIconMap = new HashMap<>();
         imageIconMap.put("100", R.drawable.selector_tabbar_home_page);
         imageIconMap.put("110", R.drawable.selector_tabbar_yunwei);
-        imageIconMap.put("120", R.drawable.selector_tabbar_threepoint);
+        imageIconMap.put("120", R.drawable.selector_tabbar_report);
         imageIconMap.put("030", R.drawable.selector_tabbar_shuiku);
         imageIconMap.put("040", R.drawable.selector_tabbar_mine);
         imageIconMap.put("111", R.drawable.selector_tabbar_yunwei);

@@ -6,17 +6,24 @@ import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.just.library.AgentWeb;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.databinding.FragmentHomeXunjianBinding;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
 
@@ -36,6 +43,8 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     FragmentHomeXunjianBinding mBinding;
     private AdapterWorker adapterWorker;
     private AdapterFloodControlMaterialList adapterFloodControlMaterialList;
+    private ReservoirBean selectedResrvoir;
+    private HomeGetReservoirInfoBean homeGetReservoirInfoBean;
 
 
     public HomeXunChaFragment() {
@@ -83,6 +92,8 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
         }
 
+        initListener();
+
         AgentWeb.with(this)
                 .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
                 .setIndicatorColorWithHeight(-1, 2)
@@ -90,6 +101,38 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 .createAgentWeb()
                 .ready()
                 .go("http://114.135.11.80:11008/XTZSK/HTML/3DInfo/reservoirTest.html");
+    }
+
+    private void initListener() {
+        mBinding.loHeader.switchTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSelectReservoir();
+            }
+        });
+        mBinding.tvShowMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (homeGetReservoirInfoBean.getMaterial() != null && homeGetReservoirInfoBean.getMaterial().size() > 4) {
+                    if (adapterFloodControlMaterialList.getData().size() == 4) {
+                        adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial());
+                        mBinding.tvShowMore.setText("收起");
+                    }else {
+                        adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial().subList(0,3));
+                        mBinding.tvShowMore.setText("查看更多");
+                    }
+                } else {
+                    ToastUtils.shortToast("没有更多");
+                }
+            }
+        });
+
+        adapterFloodControlMaterialList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                ARouter.getInstance().build(AppRoutePath.)
+            }
+        });
     }
 
     /**
@@ -211,6 +254,32 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     }
 
+    private void showSelectReservoir() {
+        ArrayList<ReservoirBean> reservoirBeans = UserManager.getInstance().getLocalReservoirList();
+        if (reservoirBeans != null) {
+            String[] stringItems = new String[reservoirBeans.size()];
+            for (int i = 0; i < reservoirBeans.size(); i++) {
+                stringItems[i] = reservoirBeans.get(i).getReservoir();
+            }
+            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
+            dialog.title("请选择水库")
+                    .titleTextSize_SP(14.5f)
+                    .widthScale(0.8f)
+                    .show();
+            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+                @Override
+                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    selectedResrvoir = reservoirBeans.get(position);
+//                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
+//                    selectFinish(selectedYunWeiType, selectedResrvoir);
+                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId());
+                    dialog.dismiss();
+                }
+            });
+        }
+    }
+
     @Override
     protected void initRequestData() {
         mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
@@ -227,8 +296,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     @Override
     public void getHommeInfoSuccess(HomeGetReservoirInfoBean data) {
+        homeGetReservoirInfoBean = data;
         adapterWorker.setNewData(data.getPersonDuty());
-        adapterFloodControlMaterialList.setNewData(data.getMaterial());
+        if (data.getMaterial() != null && data.getMaterial().size() > 4) {
+            adapterFloodControlMaterialList.setNewData(data.getMaterial().subList(0, 3));
+            mBinding.tvShowMore.setVisibility(View.VISIBLE);
+        } else {
+            adapterFloodControlMaterialList.setNewData(data.getMaterial());
+            mBinding.tvShowMore.setVisibility(View.GONE);
+        }
         if (data.getExecuteFrequency() != null) {
             if (data.getExecuteFrequency().getInspection() != null) {
                 mBinding.loXunjianFrequency.loFrequency.setVisibility(View.VISIBLE);

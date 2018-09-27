@@ -5,9 +5,9 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_height="wrap_content"
         android:background="@drawable/bg_worker_item"
         android:orientation="vertical">
 
@@ -17,19 +17,14 @@
             android:background="@drawable/bg_worker_item_header"
             android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:text="·"
-                android:textStyle="bold"
-                android:textColor="#8993a9" />
 
             <TextView
                 android:id="@+id/tv_jobname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="8dp"
+                android:drawableLeft="@drawable/icon_dian"
+                android:drawablePadding="8dp"
                 android:text="fjkasjfdkasjd"
                 android:textColor="#8993a9"
                 android:textSize="10dp" />
@@ -46,7 +41,7 @@
             <com.tepia.photo_picker.widget.CircleImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/icon_worker_head_default" />
 
             <TextView
                 android:id="@+id/tv_name"

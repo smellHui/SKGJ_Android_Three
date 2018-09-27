@@ -44,6 +44,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
      */
     private String selectedYunWeiType;
     private AdapterTaskItemList adapterTaskItemList;
+    public String defaultYunweiType;
 
     @Override
     protected int getLayoutId() {
@@ -60,9 +61,29 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         mBinding = DataBindingUtil.bind(view);
         initListener();
         mBinding.rvTaskItemList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterTaskItemList = new AdapterTaskItemList(getContext(), R.layout.lv_item_task_item_list, null);
+        adapterTaskItemList = new AdapterTaskItemList(getContext(), R.layout.lv_item_task_item_list2, null);
         mBinding.rvTaskItemList.setAdapter(adapterTaskItemList);
         mBinding.tvStartYunwei.setText("开始运维");
+        mBinding.loTaskNumPresent.setVisibility(View.GONE);
+        if (!TextUtils.isEmpty(defaultYunweiType)) {
+            selectedYunWeiType = defaultYunweiType;
+            mBinding.loSelectYunweiTypeContainer.setVisibility(View.GONE);
+            switch (defaultYunweiType) {
+                case "1":
+                    mBinding.tvStartYunwei.setText("开始巡检");
+                    break;
+                case "2":
+                    mBinding.tvStartYunwei.setText("开始维护");
+                    break;
+                case "3":
+                    mBinding.tvStartYunwei.setText("开始保洁");
+                    break;
+                default:
+                    mBinding.tvStartYunwei.setText("开始运维");
+                    break;
+            }
+        }
+
     }
 
     private void initListener() {
@@ -90,7 +111,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
                     ToastUtils.shortToast("请选择水库");
                     return;
                 }
-                mPresenter.newStartExecute(selectedResrvoir.getReservoirId(),selectedResrvoir.getReservoir(),selectedYunWeiType);
+                mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType);
             }
         });
     }
@@ -147,19 +168,34 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         if (selectedResrvoir == null) {
             return;
         }
-        mPresenter.getItemListByReservoirId(selectedResrvoir.getReservoirId(),selectedYunWeiType);
+        mPresenter.getItemListByReservoirId(selectedResrvoir.getReservoirId(), selectedYunWeiType);
         mPresenter.getWorkOrderNumByReservoirId(selectedResrvoir.getReservoirId(), selectedYunWeiType);
     }
 
     @Override
     protected void initRequestData() {
+        if (TextUtils.isEmpty(selectedYunWeiType)) {
+            return;
+        }
+        if (UserManager.getInstance().getDefaultReservoir() != null) {
+            selectedResrvoir = UserManager.getInstance().getDefaultReservoir();
+            mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
+            mPresenter.getItemListByReservoirId(selectedResrvoir.getReservoirId(), selectedYunWeiType);
+            mPresenter.getWorkOrderNumByReservoirId(selectedResrvoir.getReservoirId(), selectedYunWeiType);
+        }
 
     }
 
     @Override
     public void getWorkOrderNumByReservoirIdSuccess(WorkOrderNumBean data) {
-        mBinding.tvOperationTaskNum.setText(data.getTotals() + "");
-        mBinding.tvDealedOperationTaskNum.setText(data.getDoneNum() + "");
+        mBinding.loTaskNumPresent.setVisibility(View.VISIBLE);
+        mBinding.tvOperationTaskNum.setText(data.getTotals() + "次");
+        mBinding.tvDealedOperationTaskNum.setText(data.getDoneNum() + "次");
+        if (data.getTotals() == 0) {
+            mBinding.tvDealedPresent.setText("--");
+        } else {
+            mBinding.tvDealedPresent.setText(data.getDoneNum() * 100.0 / data.getTotals() + "%");
+        }
     }
 
     @Override
@@ -169,10 +205,9 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
 
     @Override
     public void newStartExecuteSuccess(TaskBean data) {
-        if (data != null ){
+        if (data != null) {
             ARouter.getInstance().build(AppRoutePath.app_task_detail)
                     .withString("workOrderId", data.getWorkOrderId())
-                    .withString("taskBean", new Gson().toJson(data))
                     .navigation();
         }
     }

@@ -40,6 +40,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
     private AdapterPatrolWorkOrderList adapterPatrolWorkOrderList;
     private ReservoirBean selectedResrvoir;
     private String selectedYunWeiType;
+    public String defaultYunweiType;
 
     @Override
     protected int getLayoutId() {
@@ -57,7 +58,15 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         mBinding.rvWorkOrderList.setLayoutManager(new LinearLayoutManager(getContext()));
         adapterPatrolWorkOrderList = new AdapterPatrolWorkOrderList(R.layout.lv_patrol_workorder_list, null);
         mBinding.rvWorkOrderList.setAdapter(adapterPatrolWorkOrderList);
+        if (!TextUtils.isEmpty(defaultYunweiType)) {
+            selectedYunWeiType = defaultYunweiType;
+            mBinding.loSelectYunweiTypeContainer.setVisibility(View.GONE);
+        }
+        initListener();
 
+    }
+
+    private void initListener() {
         mBinding.srflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -76,15 +85,12 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         mBinding.tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(selectedYunWeiType)) {
-                    ToastUtils.shortToast("请选择运维类型");
-                    return;
-                }
+
                 if (selectedResrvoir == null) {
-                    ToastUtils.shortToast("请选择水库");
-                    return;
+                    mPresenter.getPatrolWorkOrderList("", selectedYunWeiType);
+                } else {
+                    mPresenter.getPatrolWorkOrderList(selectedResrvoir.getReservoirId(), selectedYunWeiType);
                 }
-                mPresenter.getPatrolWorkOrderList(selectedResrvoir.getReservoirId(),selectedYunWeiType);
 
             }
         });
@@ -99,7 +105,6 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ARouter.getInstance().build(AppRoutePath.app_task_detail)
                         .withString("workOrderId", adapterPatrolWorkOrderList.getData().get(position).getWorkOrderId())
-                        .withString("taskBean", new Gson().toJson(adapterPatrolWorkOrderList.getData().get(position)))
                         .navigation();
             }
         });
@@ -107,6 +112,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
 
     @Override
     protected void initRequestData() {
+        mPresenter.getPatrolWorkOrderList("", selectedYunWeiType);
     }
 
     private void showSelectYunweiType() {

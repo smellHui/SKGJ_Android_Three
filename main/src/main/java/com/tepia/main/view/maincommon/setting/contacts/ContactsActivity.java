@@ -58,6 +58,6 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
 
     @Override
     protected void initRequestData() {
-
+        mPresenter.getAddressBook("");
     }
 }

@@ -82,7 +82,9 @@
                     </LinearLayout>-->
 
                     <!--复用布局-->
-                    <include layout="@layout/common_qiehuan_reserviors_layout" />
+                    <include
+                        android:id="@+id/lo_header"
+                        layout="@layout/common_qiehuan_reserviors_layout" />
 
 
                     <LinearLayout
@@ -136,15 +138,19 @@
                         <include
                             android:id="@+id/lo_baojie_frequency"
                             layout="@layout/layout_frequency" />
+
                         <include
                             android:id="@+id/lo_weihu_frequency"
                             layout="@layout/layout_frequency" />
+
                         <include
                             android:id="@+id/lo_xunjian_statisticsy"
                             layout="@layout/layout_statistics" />
+
                         <include
                             android:id="@+id/lo_baojie_statisticsy"
                             layout="@layout/layout_statistics" />
+
                         <include
                             android:id="@+id/lo_weihu_statistics"
                             layout="@layout/layout_statistics" />
@@ -176,6 +182,7 @@
                                     android:textSize="14dp" />
 
                                 <TextView
+                                    android:id="@+id/tv_show_more"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="right"
