@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
@@ -32,6 +38,7 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
     private RecyclerView saferunningRec;
     private AdapterSafeRunningReservoirs adapterSafeRunningReservoirs;
     private List<SafeRunningBean.DataBean> myReservoirsItemBeanList = new ArrayList<>();
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_safe_running;
@@ -43,7 +50,7 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
         setCenterTitle("安全运行记录");
         showBack();
         saferunningRec = findViewById(R.id.saferunningRec);
-
+        TextView nameTv = findViewById(R.id.nameTv);
         saferunningRec.setLayoutManager(new LinearLayoutManager(this));
         adapterSafeRunningReservoirs = new AdapterSafeRunningReservoirs(this,R.layout.fragment_reservoirs_saferunning_item,myReservoirsItemBeanList);
         saferunningRec.setAdapter( adapterSafeRunningReservoirs);
@@ -51,6 +58,13 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+                if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                    ToastUtils.shortToast(R.string.no_network);
+                    return;
+                }
+                if(DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("saferunning",myReservoirsItemBeanList.get(position));
@@ -72,6 +86,8 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
             }
         });
         String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        nameTv.setText(reservoirName);
         mPresenter.getSafetyReportByReservoir(reservoirId);
     }
 

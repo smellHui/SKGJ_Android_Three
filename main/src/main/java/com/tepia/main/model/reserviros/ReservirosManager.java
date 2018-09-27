@@ -3,6 +3,8 @@ package com.tepia.main.model.reserviros;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.detai.DetailManager;
+import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.question.AllproblemBean;
 import com.tepia.main.model.user.UserManager;
 
@@ -128,6 +130,18 @@ public class ReservirosManager {
     public Observable<IntroduceOfReservoirsBean> getBaseInfo(String reservoirId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getBaseInfo(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 查询视频
+     * @param reservoirId
+     * @return
+     */
+    public Observable<VideoResponse> getReservoirVideo(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getReservoirVideo(token,reservoirId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

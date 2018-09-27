@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.http.RetrofitManager;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.user.UserManager;
@@ -52,7 +53,7 @@ public class DictMapManager {
             protected void _onNext(DictMapResponse dictMapResponse) {
                 if (dictMapResponse.getCode() == 0) {
                     mDictMap = dictMapResponse.getData();
-                    SPUtils.getInstance().putString("dictMap",new Gson().toJson(mDictMap));
+                    setmDictMap(mDictMap);
                 } else {
                     _onError(dictMapResponse.getMsg());
                 }
@@ -60,7 +61,7 @@ public class DictMapManager {
 
             @Override
             protected void _onError(String message) {
-
+                LogUtil.e("getDictMapEntity---:"+message);
             }
         });
     }
@@ -68,7 +69,7 @@ public class DictMapManager {
     public DictMapEntity getmDictMap() {
         if (mDictMap == null){
             String temp = SPUtils.getInstance().getString("dictMap","");
-            if (TextUtils.isEmpty(temp)){
+            if (!TextUtils.isEmpty(temp)){
                 mDictMap = new Gson().fromJson(temp,DictMapEntity.class);
             }
         }

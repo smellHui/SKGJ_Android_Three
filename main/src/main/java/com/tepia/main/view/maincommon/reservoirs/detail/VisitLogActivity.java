@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.TextView;
 
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.main.R;
@@ -14,6 +15,7 @@ import com.tepia.main.model.reserviros.VisitLogBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.main.question.problemlist.ProblemDetailActivity;
 import com.tepia.main.view.main.question.problemlist.ProblemListActivity;
+import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterVisitLog;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.VisitLogContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.VisitLogPresenter;
@@ -57,7 +59,10 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
         setCenterTitle("到访日志");
         showBack();
         initRec();
-        reservoirId = "66fb3d579d084daf8a7d35d9d9612213";
+        reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        TextView nameTv = findViewById(R.id.nameTv);
+        nameTv.setText(reservoirName);
         search(true);
     }
 

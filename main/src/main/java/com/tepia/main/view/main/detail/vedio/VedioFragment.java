@@ -89,10 +89,10 @@ public class VedioFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View mview) {
-        for (int i = 0; i < 6; i++) {
+        /*for (int i = 0; i < 6; i++) {
             VideoInfo videoshuiwus = new VideoInfo(channel, "水库大坝"+i, "ok");
             data_video.add(videoshuiwus);
-        }
+        }*/
 
 
         if (getArguments() != null && getArguments().containsKey(typekey_detail)) {
@@ -134,9 +134,9 @@ public class VedioFragment extends BaseCommonFragment {
             simpleLoadDialog = new SimpleLoadDialog(getBaseActivity(), getString(R.string.data_loading), true);
             simpleLoadDialog.show();
             new LoadDataTask().execute(Constant.Video.LOAD_SUCCESS);
-        }/*else{
+        }else{
             adapter.setEmptyView(EmptyLayoutUtil.show("视频正在接入中"));
-        }*/
+        }
     }
 
 

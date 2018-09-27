@@ -3,21 +3,37 @@ package com.tepia.main.view.maincommon.reservoirs.detail;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
+import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
+import com.esri.arcgisruntime.location.LocationDataSource;
+import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.view.LocationDisplay;
+import com.esri.arcgisruntime.mapping.view.MapView;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.ScreenUtil;
+import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityIntroduceOfReservoirsBinding;
+import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.dictmap.DictMapEntity;
+import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.model.reserviros.IntroduceOfReservoirsBean;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
+
+import java.util.Map;
 
 /**
   * Created by      Android studio
@@ -34,6 +50,14 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
     private TextView moreorlessTv;
     ActivityIntroduceOfReservoirsBinding activityIntroduceOfReservoirsBinding;
     private boolean isopen;
+
+    private MapView mapView;
+    private ArcGISTiledLayer layer;
+    private ArcGISTiledLayer imgLayer;
+    private LocationDisplay mLocationDisplay;
+
+    ArcgisLayout arcgisLayout;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_introduce_of_reservoirs;
@@ -66,7 +90,11 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
 
             }
         });
+        initMap();
         String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        TextView nameTv = findViewById(R.id.nameTv);
+        nameTv.setText(reservoirName);
         mPresenter.getBaseInfo(reservoirId);
     }
 
@@ -105,23 +133,96 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
         moreorlessTv.setText("查看更多");
     }
 
+    private void initMap() {
+        /*mapView = mRootView.findViewWithTag("mapView");
+        mLocationDisplay = mapView.getLocationDisplay();
+        //去水印
+        ArcGISRuntimeEnvironment.setLicense("runtimelite,1000,rud4163659509,none,1JPJD4SZ8L4HC2EN0229");
+        mapView.setAttributionTextVisible(false);
+        OpenStreetMapLayer streetlayer = new OpenStreetMapLayer();
+        Basemap basemap = new Basemap(streetlayer);
+        ArcGISMap arcGISMap = new ArcGISMap(basemap);
+        mapView.setMap(arcGISMap);
+
+        mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.RECENTER);*/
+        arcgisLayout = mRootView.findViewWithTag("arcgisLayout");
+        mapView = arcgisLayout.getMapView();
+        mapView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                return;
+            }
+        });
+        mapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
+    }
+
+    private  void zoomToScale(Point point,double scale){
+        if (scale<= 60000){
+            imgLayer.setVisible(true);
+        }else {
+            imgLayer.setVisible(false);
+        }
+//        mapView.zoomToScale(point,scale);
+    }
+
     @Override
-    public void success(IntroduceOfReservoirsBean data) {
-        IntroduceOfReservoirsBean.DataBean dataBean = data.getData();
+    public void success(IntroduceOfReservoirsBean introduceOfReservoirsBean) {
+        IntroduceOfReservoirsBean.DataBean dataBean = introduceOfReservoirsBean.getData();
         activityIntroduceOfReservoirsBinding.reservoirNameTv.setText(dataBean.getReservoir());
-        activityIntroduceOfReservoirsBinding.belongTv.setText("所属乡镇："+"--");
+        activityIntroduceOfReservoirsBinding.scrollviewS.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                return false;
+            }
+        });
+
+        //解决滑动冲突
+        /*mapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    //允许ScrollView截断点击事件，ScrollView可滑动
+                    nestedsv.requestDisallowInterceptTouchEvent(false);
+                } else {
+                    //不允许ScrollView截断点击事件，点击事件由子View处理
+                    nestedsv.requestDisallowInterceptTouchEvent(true);
+                }
+                return false;
+            }
+        });*/
+        DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
+        Map<String, String> map_Reservoirtype = dictMapEntity.getObject().getReservoir_type();
+
+        if(map_Reservoirtype != null) {
+            activityIntroduceOfReservoirsBinding.reservoirTypeTv.setText("水库类型：" + map_Reservoirtype.get(dataBean.getReservoirType()));
+        }
+        activityIntroduceOfReservoirsBinding.belongTv.setText("所属乡镇："+dataBean.getAreaName());
         activityIntroduceOfReservoirsBinding.buildStartDateTv.setText("兴建时间："+dataBean.getBuildStartDate());
         activityIntroduceOfReservoirsBinding.buildEndDateTv.setText("竣工时间："+dataBean.getBuildEndDate());
         activityIntroduceOfReservoirsBinding.widthAndlengthTv.setText("坝高:"+dataBean.getDamHeight()+"m    |   坝长："+dataBean.getDamLength()+
                 "m    |   坝宽："+dataBean.getDamWidth()+"m");
         activityIntroduceOfReservoirsBinding.normalImpoundedLevelTv.setText("正常蓄水位："+dataBean.getNormalImpoundedLevel()+"");
-        activityIntroduceOfReservoirsBinding.damTypeTv.setText("大坝类型："+dataBean.getDamType()+"");
+
+
+        Map<String, String> map_Damtype = dictMapEntity.getObject().getDam_type();
+        activityIntroduceOfReservoirsBinding.damTypeTv.setText("大坝类型："+ map_Damtype.get(dataBean.getDamType())+"");
         activityIntroduceOfReservoirsBinding.damCrestElevationTv.setText("坝顶高程："+dataBean.getDamCrestElevation()+"");
         activityIntroduceOfReservoirsBinding.damBotmMaxWidthTv.setText("坝底最大宽度："+dataBean.getDamBotmMaxWidth()+"");
         activityIntroduceOfReservoirsBinding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient()+"");
         activityIntroduceOfReservoirsBinding.mainFunctionTv.setText(dataBean.getMainFunction()+"");
         activityIntroduceOfReservoirsBinding.reservoirAddressTv.setText(dataBean.getReservoirAddress()+"");
-
+        Point point = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
+                Double.parseDouble(dataBean.getReservoirLatitude())
+        );
+        arcgisLayout.addPic(R.drawable.map_ku,point);
+        arcgisLayout.setCenterPoint(point,arcgisLayout.groupScale);
     }
 
     @Override

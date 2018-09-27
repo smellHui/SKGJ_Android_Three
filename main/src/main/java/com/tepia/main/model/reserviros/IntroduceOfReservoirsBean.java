@@ -51,6 +51,8 @@ public class IntroduceOfReservoirsBean extends BaseResponse{
          * 水库名
          */
         private String reservoir;
+        private String reservoirType;
+        private String areaName;
         /**
          * 水库地址
          */
@@ -220,6 +222,22 @@ public class IntroduceOfReservoirsBean extends BaseResponse{
 
         public void setCapacityCoefficient(double capacityCoefficient) {
             this.capacityCoefficient = capacityCoefficient;
+        }
+
+        public String getReservoirType() {
+            return reservoirType;
+        }
+
+        public void setReservoirType(String reservoirType) {
+            this.reservoirType = reservoirType;
+        }
+
+        public String getAreaName() {
+            return areaName;
+        }
+
+        public void setAreaName(String areaName) {
+            this.areaName = areaName;
         }
     }
 }

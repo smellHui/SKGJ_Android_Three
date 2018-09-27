@@ -13,6 +13,10 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.CustomLinearLayoutManager;
@@ -90,6 +94,13 @@ public class ReservoirsFragment extends BaseCommonFragment {
         adapterMainReservoirs.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                    ToastUtils.shortToast(R.string.no_network);
+                    return;
+                }
+                if(DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
                 ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
                 String reservoirId =  reservoirBean.getReservoirId();
                 String reservoirName = reservoirBean.getReservoir();

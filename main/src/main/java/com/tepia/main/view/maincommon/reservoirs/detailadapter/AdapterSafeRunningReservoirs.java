@@ -62,7 +62,7 @@ public class AdapterSafeRunningReservoirs extends BaseQuickAdapter<SafeRunningBe
 
          }else if("4".equals(valueId)){
              view.setImageResource(R.id.leftIv,R.drawable.jianjie_yanshou);
-             view.setText(R.id.middletitleResnameTv, "竣工验收报告");
+             view.setText(R.id.titleResnameTv, "竣工验收报告");
 
          }
 

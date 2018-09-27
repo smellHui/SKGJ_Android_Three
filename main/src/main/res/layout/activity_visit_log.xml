@@ -13,6 +13,7 @@
         tools:context=".view.maincommon.reservoirs.detail.VisitLogActivity">
 
         <include layout="@layout/toolbar" />
+        <include layout="@layout/reserviros_title_layout" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/visitlogRec"

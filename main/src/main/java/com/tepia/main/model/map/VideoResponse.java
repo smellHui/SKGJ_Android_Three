@@ -69,6 +69,8 @@ public class VideoResponse extends BaseResponse{
         private String videoType;
         private String reservoir;
         private String areaName;
+        private String codeBase;
+        private String classId;
 
         public String getVscd() {
             return vscd;
@@ -220,6 +222,22 @@ public class VideoResponse extends BaseResponse{
 
         public void setAreaName(String areaName) {
             this.areaName = areaName;
+        }
+
+        public String getCodeBase() {
+            return codeBase;
+        }
+
+        public void setCodeBase(String codeBase) {
+            this.codeBase = codeBase;
+        }
+
+        public String getClassId() {
+            return classId;
+        }
+
+        public void setClassId(String classId) {
+            this.classId = classId;
         }
     }
 }

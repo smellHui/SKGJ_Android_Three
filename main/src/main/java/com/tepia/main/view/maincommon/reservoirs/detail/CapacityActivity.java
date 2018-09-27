@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -62,6 +63,9 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         }
 //        initLineChart();
         String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        TextView nameTv = findViewById(R.id.nameTv);
+        nameTv.setText(reservoirName);
         mPresenter.getStorageCurveByReservoir(reservoirId);
     }
 

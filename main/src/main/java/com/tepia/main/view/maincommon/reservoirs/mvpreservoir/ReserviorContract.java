@@ -69,5 +69,11 @@ public class ReserviorContract {
          */
         void getFileByBizKey(String bizKey);
 
+        /**
+         * 视频查询
+         * @param reservoirId
+         */
+        void getReservoirVideo(String reservoirId);
+
     }
 }

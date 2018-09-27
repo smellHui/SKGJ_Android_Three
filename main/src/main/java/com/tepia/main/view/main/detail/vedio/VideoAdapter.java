@@ -2,9 +2,12 @@ package com.tepia.main.view.main.detail.vedio;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tepia.main.R;
@@ -49,21 +52,27 @@ public class VideoAdapter extends android.widget.BaseAdapter {
 		}
 		ViewHolder holder = ViewHolder.getHolder(convertView);
         VideoInfo video = data.get(position);
-        holder.tvName.setText(video.getChaName().trim());
+		if(TextUtils.isEmpty(video.getChaName())){
+			holder.tvName.setText("--");
+		}else {
+			holder.tvName.setText(video.getChaName().trim());
+		}
         if(video.getChaStatus() != null && video.getChaStatus().equalsIgnoreCase("ok")) {
             holder.tvStatus.setText("连接状态:正常");
         }else {
             holder.tvStatus.setText("连接状态:不正常");
             holder.tvStatus.setTextColor(Color.RED);
         }
-		if (position == selectItem) {// 如果当前的行就是ListView中选中的一行，就更改显示样式
-			convertView.setBackgroundColor(Color.parseColor("#066FA5"));// 更改整行的背景色
-			holder.tvStatus.setTextColor(Color.parseColor("#F7AD0A"));// 更改字体颜色
-			holder.tvName.setTextColor(Color.parseColor("#F7AD0A"));// 更改字体颜色
+		if (position == selectItem) {
+        	// 如果当前的行就是ListView中选中的一行，就更改显示样式
+			holder.rootVedioLy.setBackgroundColor(Color.parseColor("#eff3f7"));
+			holder.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.color_load_blue));
+			holder.tvName.setTextColor(ContextCompat.getColor(context,R.color.color_load_blue));
 		}else {
-			convertView.setBackgroundColor(Color.parseColor("#E6E6E6"));// 更改整行的背景色
-			holder.tvStatus.setTextColor(Color.BLACK);// 更改字体颜色
-			holder.tvName.setTextColor(Color.BLACK);// 更改字体颜色
+			holder.rootVedioLy.setBackgroundColor(ContextCompat.getColor(context,R.color.white));
+			holder.tvStatus.setTextColor(ContextCompat.getColor(context,R.color.channelstatus));
+			holder.tvName.setTextColor(ContextCompat.getColor(context,R.color.black));
+
 		}
 
 		return convertView;
@@ -72,11 +81,13 @@ public class VideoAdapter extends android.widget.BaseAdapter {
 	static class ViewHolder {
         private ImageView ivVideoIcon;
         private TextView tvName, tvStatus;
+        private LinearLayout rootVedioLy;
 
         public ViewHolder(View convertView) {
             ivVideoIcon = convertView.findViewById(R.id.iv_video_icon);
             tvName = convertView.findViewById(R.id.tv_video_channelname);
             tvStatus = convertView.findViewById(R.id.tv_video_channelStatus);
+			rootVedioLy = convertView.findViewById(R.id.rootVedioLy);
         }
 
         public static ViewHolder getHolder(View convertView) {

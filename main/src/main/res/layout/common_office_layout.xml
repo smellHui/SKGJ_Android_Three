@@ -43,7 +43,7 @@
                 android:id="@+id/officePreviewTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/jianjie_download" />
+                android:src="@drawable/jianjie_preview" />
 
             <ImageView
                 android:layout_weight="1"

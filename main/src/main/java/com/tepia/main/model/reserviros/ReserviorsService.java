@@ -3,6 +3,8 @@ package com.tepia.main.model.reserviros;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.detai.DetailManager;
+import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.question.AllproblemBean;
 
 import io.reactivex.Observable;
@@ -118,7 +120,19 @@ public interface ReserviorsService {
      */
     @GET("app/reservoir/getBaseInfo")
     Observable<IntroduceOfReservoirsBean> getBaseInfo(@Header("Authorization") String token,
-                                                              @Query("reservoirId") String reservoirId
+                                          @Query("reservoirId") String reservoirId
+
+    );
+
+    /**
+     * 查询视频
+     * @param token
+     * @param reservoirId
+     * @return
+     */
+    @GET("app/reservoir/getReservoirVideo")
+    Observable<VideoResponse> getReservoirVideo(@Header("Authorization") String token,
+                                                @Query("reservoirId") String reservoirId
 
     );
 

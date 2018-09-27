@@ -42,6 +42,9 @@ public class SafeManagerPlanActivity extends MVPBaseActivity<ReserviorContract.V
         setCenterTitle("水库安全管理应急预案");
         showBack();
         String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        TextView nameTv = findViewById(R.id.nameTv);
+        nameTv.setText(reservoirName);
         mPresenter.getEmergencyByReservoir(reservoirId);
     }
 

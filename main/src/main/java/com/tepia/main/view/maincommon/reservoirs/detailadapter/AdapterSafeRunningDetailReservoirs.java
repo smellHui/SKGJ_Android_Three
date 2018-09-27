@@ -42,7 +42,7 @@ public class AdapterSafeRunningDetailReservoirs extends BaseQuickAdapter<BizkeyB
             }else if (filepath.endsWith(".ppt") || filepath.endsWith(".pptx")) {
                 view.setImageResource(R.id.officeIv,R.drawable.jianjie_ppt);
             }else if (filepath.endsWith(".pdf") ) {
-                view.setImageResource(R.id.officeIv,R.drawable.jianjie_ppt);
+                view.setImageResource(R.id.officeIv,R.drawable.jianjie_pdf);
             }
         }
         view.getView(R.id.officeDownloadTv).setOnClickListener(new View.OnClickListener() {

@@ -34,6 +34,7 @@
     <!--背景色-->
     <color name="bgWhiteColor">#FFFFFF</color>
     <color name="theme_trans_new">#3c000000</color>
+    <color name="theme_trans_vedio">#730083ff</color>
 
 
 

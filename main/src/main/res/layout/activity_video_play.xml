@@ -54,7 +54,7 @@
         android:id="@+id/selectionArea"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#292ed4"
+        android:background="@color/theme_trans_vedio"
         android:gravity="center"
         android:orientation="horizontal">
 

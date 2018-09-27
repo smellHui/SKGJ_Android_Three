@@ -1,5 +1,7 @@
 package com.tepia.main.model.detai;
 
+import com.tepia.base.http.BaseResponse;
+
 /**
  * Created by      android studio
  *
@@ -9,7 +11,7 @@ package com.tepia.main.model.detai;
  * Version         :       1.0
  * 功能描述        :
  **/
-public class ReservoirBean {
+public class ReservoirBean extends BaseResponse{
     /**
      * reservoirId : 66fb3d579d084daf8a7d35d9d9612213
      * reservoirCode : NTC520321019L

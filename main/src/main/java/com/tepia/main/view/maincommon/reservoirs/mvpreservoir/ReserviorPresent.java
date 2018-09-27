@@ -4,6 +4,8 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
+import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.reserviros.BizkeyBean;
 import com.tepia.main.model.reserviros.CapacityBean;
 import com.tepia.main.model.reserviros.FloodBean;
@@ -38,6 +40,35 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                 .subscribe(new LoadingSubject<SupportingBean>(true, Utils.getContext().getString(R.string.data_loading)) {
                     @Override
                     protected void _onNext(SupportingBean supportingBean) {
+                        if (supportingBean != null) {
+                            if (supportingBean.getCode() == 0) {
+                                mView.success(supportingBean);
+
+                            }else{
+                                mView.failure(supportingBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
+    }
+
+    /**
+     * 查询视频
+     * @param reservoirId
+     * @return
+     */
+    @Override
+    public void getReservoirVideo(String reservoirId) {
+        ReservirosManager.getInstance().getReservoirVideo(reservoirId)
+                .subscribe(new LoadingSubject<VideoResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(VideoResponse supportingBean) {
                         if (supportingBean != null) {
                             if (supportingBean.getCode() == 0) {
                                 mView.success(supportingBean);
@@ -181,13 +212,13 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
         ReservirosManager.getInstance().getBaseInfo(reservoirId)
                 .subscribe(new LoadingSubject<IntroduceOfReservoirsBean>(true, Utils.getContext().getString(R.string.data_loading)) {
                     @Override
-                    protected void _onNext(IntroduceOfReservoirsBean introduceOfReservoirsBean) {
-                        if (introduceOfReservoirsBean != null) {
-                            if (introduceOfReservoirsBean.getCode() == 0) {
-                                mView.success(introduceOfReservoirsBean);
+                    protected void _onNext(IntroduceOfReservoirsBean reservoirBean) {
+                        if (reservoirBean != null) {
+                            if (reservoirBean.getCode() == 0) {
+                                mView.success(reservoirBean);
 
                             }else{
-                                mView.failure(introduceOfReservoirsBean.getMsg());
+                                mView.failure(reservoirBean.getMsg());
                             }
                         }
                     }
@@ -251,4 +282,6 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                     }
                 });
     }
+
+
 }

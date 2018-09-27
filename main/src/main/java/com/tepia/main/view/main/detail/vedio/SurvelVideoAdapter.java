@@ -2,6 +2,7 @@ package com.tepia.main.view.main.detail.vedio;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,8 +44,15 @@ public class SurvelVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder view, VideoInfo item) {
-        ImageView imageView = view.getView(R.id.imageIv);
-        view.setText(R.id.tv_video_channelname, item.getChaName());
+        view.setImageResource(R.id.iv_finish,R.drawable.jianjie_vedio);
+        if(TextUtils.isEmpty(item.getChaName())){
+            view.setText(R.id.tv_video_channelname, "--");
+        }else {
+            view.setText(R.id.tv_video_channelname, item.getChaName());
+        }
+        int position = view.getAdapterPosition()+ 1;
+        view.setText(R.id.nameOfreservoirTv, "第"+ position +"组");
+
 
     }
 }

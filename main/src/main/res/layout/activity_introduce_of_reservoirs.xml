@@ -15,6 +15,7 @@
 
 
         <ScrollView
+            android:id="@+id/scrollviewS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scrollbars="vertical">
@@ -90,6 +91,18 @@
 
                         </LinearLayout>
 
+                        <TextView
+                            android:id="@+id/reservoirTypeTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+                            android:layout_marginLeft="@dimen/jianjiemarginleft"
+                            android:drawableLeft="@drawable/jianjie_circle"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="水库类型：--"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/jianjietextsize" />
 
                         <TextView
                             android:id="@+id/belongTv"
@@ -261,11 +274,22 @@
                         android:textStyle="bold" />
 
                     <com.esri.arcgisruntime.mapping.view.MapView
+                        android:tag="mapView"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginTop="8dp" />
+
+                    <com.tepia.base.view.arcgisLayout.ArcgisLayout
+                        android:tag="arcgisLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp">
+                    </com.tepia.base.view.arcgisLayout.ArcgisLayout>
 
                     <TextView
                         android:id="@+id/reservoirAddressTv"

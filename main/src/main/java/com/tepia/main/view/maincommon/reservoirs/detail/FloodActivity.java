@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.mvp.BaseActivity;
@@ -65,6 +66,9 @@ public class FloodActivity extends MVPBaseActivity<ReserviorContract.View,Reserv
             }
         });
         String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+        String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
+        TextView nameTv = findViewById(R.id.nameTv);
+        nameTv.setText(reservoirName);
         mPresenter.getMaterialByReservoir(reservoirId);
     }
 
