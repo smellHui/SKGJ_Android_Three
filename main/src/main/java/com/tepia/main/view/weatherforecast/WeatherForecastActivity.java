@@ -47,8 +47,8 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
     @Override
     public void initView() {
         mBinding = DataBindingUtil.bind(mRootView);
-        ImmersionBar.setTitleBar(this, mBinding.loTitle);
-
+        setCenterTitle("武汉");
+        showBack();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mBinding.rvTempHourly.setLayoutManager(layoutManager);
@@ -115,7 +115,6 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
         if (simpleLoadDialog != null) {
             simpleLoadDialog.dismiss();
         }
-        mBinding.weatherPlace.setText(weather2Bean.getCityInfo().getC5());
         refreshView_now(weather2Bean.getNow());
         ArrayList<Weather2Bean.FBean> dailyList = new ArrayList<>();
         dailyList.add(weather2Bean.getF1());
@@ -150,7 +149,9 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
     }
 
     private void refreshView(WeahterBean weahterBean) {
-        mBinding.weatherPlace.setText(weahterBean.getCity());
+
+        setCenterTitle(weahterBean.getCity());
+        showBack();
         mBinding.tvTempCur.setText(weahterBean.getTemp());
         mBinding.tvTempStatus.setText(weahterBean.getWeather());
         mBinding.tvTempMax.setText(weahterBean.getTemphigh());

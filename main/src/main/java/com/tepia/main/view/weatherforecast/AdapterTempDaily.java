@@ -36,5 +36,6 @@ public class AdapterTempDaily extends BaseQuickAdapter<Weather2Bean.FBean, BaseV
                 + item.getDay().substring(item.getDay().length() - 2) + "日  "+week[item.getWeekday()-1]);
         mBinding.tvTemp.setText(item.getDay_air_temperature() + "℃/" + item.getNight_air_temperature() + "℃");
         mBinding.ivTempStatus.setImageResource(WeatherImgManager.getInstance().getImgRes(item.getDay_weather_code()));
+
     }
 }

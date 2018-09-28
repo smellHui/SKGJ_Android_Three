@@ -17,7 +17,7 @@
                 android:id="@+id/tv_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:textColor="#8b949c" />
 
             <ImageView
                 android:layout_marginTop="5dp"
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:textColor="@color/white" />
+                android:textColor="#8b949c" />
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

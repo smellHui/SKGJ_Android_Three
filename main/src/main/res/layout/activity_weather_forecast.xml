@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data></data>
 
@@ -7,49 +7,168 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black">
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/lo_title"
-                android:layout_width="match_parent"
-                android:layout_height="1dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp" />
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/weather_place"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="武汉"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:background="@drawable/bg_weather"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/lo_toolbar_common"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:titleTextAppearance="@style/Toolbar">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_center_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text=""
+                            android:textColor="#ffffff"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/tv_left_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="8dp"
+                            android:drawableLeft="@drawable/come_back"
+                            android:drawablePadding="15dp"
+                            android:padding="8dp" />
+
+                        <TextView
+                            android:id="@+id/tv_right_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center_vertical"
+                            android:text="--"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/tv_right_tianqi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/tianqi"
+                            android:gravity="center_vertical"
+                            android:textColor="#ffffff"
+                            android:textSize="18sp"
+                            android:visibility="invisible" />
+
+                    </RelativeLayout>
+
+
+                </android.support.v7.widget.Toolbar>
+
+                <LinearLayout
+                    android:id="@+id/lo_temp_qu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="32dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|center_horizontal"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_temp_cur"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="0dp"
+                            android:text="17"
+                            android:textColor="@color/white"
+                            android:textSize="80dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:gravity="top"
+                            android:text="℃"
+                            android:textColor="@color/white"
+                            android:textSize="32dp" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_temp_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="多云"
+                        android:textColor="@color/white"
+                        android:textSize="24dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_temp_max"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="19℃"
+                            android:textColor="@color/white"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/"
+                            android:textColor="#dddddd"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/tv_temp_min"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14℃"
+                            android:textColor="#dddddd"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_quality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="空气优"
+                        android:textColor="#dddddd"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+            </LinearLayout>
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -60,96 +179,31 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingBottom="32dp"
-                        android:paddingTop="16dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="top|center_horizontal"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_temp_cur"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="17"
-                                android:lineSpacingExtra="0dp"
-                                android:textColor="@color/white"
-                                android:textSize="80dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="top"
-                                android:gravity="top"
-                                android:text="℃"
-                                android:textColor="@color/white"
-                                android:textSize="32dp" />
-                        </LinearLayout>
-
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_temp_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="多云"
-                            android:textColor="@color/white"
-                            android:textSize="24dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_horizontal"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tv_temp_max"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="19℃"
-                                android:textColor="@color/white"
-                                android:textSize="20dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="/"
-                                android:textColor="#dddddd"
-                                android:textSize="20dp" />
-
-                            <TextView
-                                android:id="@+id/tv_temp_min"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="14℃"
-                                android:textColor="#dddddd"
-                                android:textSize="18dp" />
-                        </LinearLayout>
-
-
-                        <TextView
-                            android:id="@+id/tv_quality"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="空气优"
-                            android:textColor="#dddddd"
-                            android:textSize="16dp" />
-
+                            android:text="24H天气"
+                            android:textColor="#008bff"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1px"
+                        android:layout_height="0.5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@color/white" />
+                        android:background="#e3e3e3" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_temp_hourly"
@@ -160,10 +214,33 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1px"
+                        android:layout_height="3dp"
+                        android:background="#e8ebed" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7天天气"
+                            android:textColor="#008bff"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@color/white" />
+                        android:background="#e3e3e3" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_temp_daily"
@@ -173,6 +250,8 @@
                 </LinearLayout>
 
             </android.support.v4.widget.NestedScrollView>
+
+
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>
