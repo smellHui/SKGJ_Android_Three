@@ -451,6 +451,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             mBinding.tvTaskDesc.setText("" + taskBean.getRemarks());
         } else if (taskBean.getBizPlanInfo() != null && !TextUtils.isEmpty(taskBean.getBizPlanInfo().getPlanName())) {
             mBinding.tvTaskDesc.setText("" + taskBean.getBizPlanInfo().getPlanName());
+        }else {
+            mBinding.loTaskDesc.setVisibility(View.GONE);
         }
         if (taskBean.getBizReservoirWorkOrderItems() != null) {
             adapterTaskItemList.setNewData(taskBean.getBizReservoirWorkOrderItems());

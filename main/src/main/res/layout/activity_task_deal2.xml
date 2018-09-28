@@ -95,6 +95,7 @@
                         android:background="@color/white"
                         android:clickable="true"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:text="点击或上滑打开" />
                 </com.tepia.base.view.ScrollLayout.ScrollLayout>
 

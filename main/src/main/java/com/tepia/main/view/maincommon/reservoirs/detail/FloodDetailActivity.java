@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
@@ -41,8 +43,9 @@ public class FloodDetailActivity extends BaseActivity {
         showBack();
         activityFloodDetailBinding = DataBindingUtil.bind(mRootView);
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null && bundle.containsKey("floodid")) {
-            FloodBean.DataBean dataBean = (FloodBean.DataBean) bundle.getSerializable("floodid");
+        String tempp =   getIntent().getStringExtra("floodid");
+        if(!TextUtils.isEmpty(tempp)) {
+            FloodBean.DataBean dataBean = (FloodBean.DataBean) new Gson().fromJson(tempp,FloodBean.DataBean.class);
             activityFloodDetailBinding.meNameTv.setText("名称：" + dataBean.getMeName());
             activityFloodDetailBinding.meTotalsTv.setText("数量：" + dataBean.getMeTotals());
             activityFloodDetailBinding.positionTv.setText("位置：" + dataBean.getPosition());
