@@ -2,6 +2,7 @@ package com.tepia.main.model.train;
 
 import com.tepia.base.http.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,8 +16,9 @@ import java.util.List;
  **/
 public class TrainListResponse extends BaseResponse{
 
+
     /**
-     * data : {"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"id":"2e729e0243904a66864824a53ee31408","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府"}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
+     * data : {"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"id":"cae29e276e59452fbf9b8a48d822af90","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府","files":[{"filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png"}]}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"lastPage":1,"firstPage":1}
      */
 
     private DataBean data;
@@ -38,7 +40,7 @@ public class TrainListResponse extends BaseResponse{
          * endRow : 1
          * total : 1
          * pages : 1
-         * list : [{"id":"2e729e0243904a66864824a53ee31408","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府"}]
+         * list : [{"id":"cae29e276e59452fbf9b8a48d822af90","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府","files":[{"filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png"}]}]
          * prePage : 0
          * nextPage : 0
          * isFirstPage : true
@@ -49,8 +51,8 @@ public class TrainListResponse extends BaseResponse{
          * navigatepageNums : [1]
          * navigateFirstPage : 1
          * navigateLastPage : 1
-         * firstPage : 1
          * lastPage : 1
+         * firstPage : 1
          */
 
         private int pageNum;
@@ -69,8 +71,8 @@ public class TrainListResponse extends BaseResponse{
         private int navigatePages;
         private int navigateFirstPage;
         private int navigateLastPage;
-        private int firstPage;
         private int lastPage;
+        private int firstPage;
         private List<ListBean> list;
         private List<Integer> navigatepageNums;
 
@@ -202,20 +204,20 @@ public class TrainListResponse extends BaseResponse{
             this.navigateLastPage = navigateLastPage;
         }
 
-        public int getFirstPage() {
-            return firstPage;
-        }
-
-        public void setFirstPage(int firstPage) {
-            this.firstPage = firstPage;
-        }
-
         public int getLastPage() {
             return lastPage;
         }
 
         public void setLastPage(int lastPage) {
             this.lastPage = lastPage;
+        }
+
+        public int getFirstPage() {
+            return firstPage;
+        }
+
+        public void setFirstPage(int firstPage) {
+            this.firstPage = firstPage;
         }
 
         public List<ListBean> getList() {
@@ -234,14 +236,15 @@ public class TrainListResponse extends BaseResponse{
             this.navigatepageNums = navigatepageNums;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable{
             /**
-             * id : 2e729e0243904a66864824a53ee31408
+             * id : cae29e276e59452fbf9b8a48d822af90
              * trainTitle : 人工智能
              * position : 上海
              * trainDate : 2018-09-19 10:00:00
              * trainContent : 世界人工智能大会召开
              * organizeCompany : 政府
+             * files : [{"filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png"}]
              */
 
             private String id;
@@ -250,6 +253,7 @@ public class TrainListResponse extends BaseResponse{
             private String trainDate;
             private String trainContent;
             private String organizeCompany;
+            private List<FilesBean> files;
 
             public String getId() {
                 return id;
@@ -297,6 +301,30 @@ public class TrainListResponse extends BaseResponse{
 
             public void setOrganizeCompany(String organizeCompany) {
                 this.organizeCompany = organizeCompany;
+            }
+
+            public List<FilesBean> getFiles() {
+                return files;
+            }
+
+            public void setFiles(List<FilesBean> files) {
+                this.files = files;
+            }
+
+            public static class FilesBean {
+                /**
+                 * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png
+                 */
+
+                private String filePath;
+
+                public String getFilePath() {
+                    return filePath;
+                }
+
+                public void setFilePath(String filePath) {
+                    this.filePath = filePath;
+                }
             }
         }
     }

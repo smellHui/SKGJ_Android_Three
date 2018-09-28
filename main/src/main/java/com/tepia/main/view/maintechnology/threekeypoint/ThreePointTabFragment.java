@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.reserviros.OperationPlanBean;
@@ -169,9 +170,10 @@ public class ThreePointTabFragment extends BaseCommonFragment{
     protected void initRequestData() {
         if (!isFirstLoad){
             if (localReservoirList != null && localReservoirList.size() > 0) {
-                reservoirId = localReservoirList.get(0).getReservoir();
+                reservoirId = localReservoirList.get(0).getReservoirId();
+                LogUtil.i(reservoirId);
                 srl.setRefreshing(true);
-                tvReservoirName.setText(reservoirId);
+                tvReservoirName.setText(localReservoirList.get(0).getReservoir());
                 commonRequestDataFun();
                 isFirstLoad = true;
             }

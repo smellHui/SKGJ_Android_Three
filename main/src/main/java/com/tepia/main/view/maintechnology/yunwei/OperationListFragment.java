@@ -12,11 +12,16 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jzxiang.pickerview.data.Type;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.yunwei.WorkOrderListResponse;
@@ -48,7 +53,7 @@ import java.util.Locale;
  * Company :       北京太比雅科技(武汉研发中心)
  **/
 public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
-    private String[] tabNames = {"巡检", "保洁", "维修养护", "上报"};
+    private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private ArrayAdapter spinnerAdapter;
     private TextView tvOperationTask;
     private Spinner spinner;
@@ -72,6 +77,8 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
     private TextView tvPercent;
     private ArrayList<ReservoirBean> localReservoirList;
     private YunWeiJiShuPresenter yunWeiJiShuPresenter;
+    private ReservoirBean selectedResrvoir;
+    private TextView tvReservoir;
 
     @Override
     protected int getLayoutId() {
@@ -80,7 +87,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
 
     @Override
     protected void initData() {
-
+        localReservoirList = UserManager.getInstance().getLocalReservoirList();
     }
 
     @Override
@@ -94,20 +101,21 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
             typeName = "巡检";
         } else if (tabNames[1].equals(typeStr)) {
             operationType = "2";
-            LogUtil.i("保洁");
-            typeName = "保洁";
+            typeName = "维护";
         } else if (tabNames[2].equals(typeStr)) {
             operationType = "3";
-            typeName = "养护";
+            typeName = "保洁";
         }
         tvOperationTask = findView(R.id.tv_operation_task);
         tvComplete = findView(R.id.tv_complete);
         tvPercent = findView(R.id.tv_percent);
-        spinner = findView(R.id.operation_spinner);
+//        spinner = findView(R.id.operation_spinner);
         rv = findView(R.id.rv_operation_list);
         tvStartDate = findView(R.id.tv_start_date);
+        tvReservoir = findView(R.id.tv_reservoir);
+        tvReservoir.setOnClickListener(v -> showSelectReservoir());
         initStartDate();
-        initSpinner();
+//        initSpinner();
         initRecyclerView();
         initSearch();
     }
@@ -191,6 +199,12 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 loadDataOrMore(false);
             },1000);
         },rv);
+        rvAdapter.setOnItemClickListener((adapter, view, position) -> {
+            LogUtil.i("position:"+position);
+            ARouter.getInstance().build(AppRoutePath.app_task_detail)
+                    .withString("workOrderId", dataList.get(position).getWorkOrderId())
+                    .navigation();
+        });
     }
 
     private void loadDataOrMore(boolean isShowLoading) {
@@ -201,7 +215,6 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
 
     //    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initSpinner() {
-        localReservoirList = UserManager.getInstance().getLocalReservoirList();
         if (localReservoirList != null && localReservoirList.size() > 0) {
             reservoirs = new String[localReservoirList.size() + 1];
             for (int i = 0; i < localReservoirList.size(); i++) {
@@ -243,6 +256,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 WorkOrderListResponse.DataBean dataBean = workOrderListResponse.getData();
                 List<WorkOrderListResponse.DataBean.ListBean> data = dataBean.getList();
                 int totalSize = dataBean.getTotal();
+                int pages = dataBean.getPages();
                 if (first) {
                     if (data == null || data.size() == 0) {
                         dataList.clear();
@@ -255,6 +269,11 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                         first = false;
                     }
                     rvAdapter.setEnableLoadMore(true);
+                    if (pages==1){
+                        //只有一页
+                        rvAdapter.loadMoreEnd();
+                        return;
+                    }
                 } else if (isloadmore) {
                     dataList.addAll(data);
                     rvAdapter.notifyDataSetChanged();
@@ -313,7 +332,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
             isloadmore = false;
             first = true;
             if (mPresenter != null&&yunWeiJiShuPresenter!=null) {
-                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, "", "", String.valueOf(currentPage), String.valueOf(pageSize), true);
                 yunWeiJiShuPresenter.getWorkOrderNumByJs("",operationType,"");
             }
         }
@@ -343,5 +362,31 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
         tvOperationTask.setText(result);
         tvComplete.setText(complete);
         tvPercent.setText(percentSd);
+    }
+
+    private void showSelectReservoir() {
+        if (localReservoirList != null) {
+            String[] stringItems = new String[localReservoirList.size()+1];
+            for (int i = 0; i < localReservoirList.size(); i++) {
+                stringItems[i+1] = localReservoirList.get(i).getReservoir();
+            }
+            stringItems[0] = "全部";
+            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
+            dialog.title("请选择水库")
+                    .titleTextSize_SP(14.5f)
+                    .widthScale(0.8f)
+                    .show();
+            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+                @Override
+                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    spinnerPosition = position;
+//                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
+//                    selectFinish(selectedYunWeiType, selectedResrvoir);
+//                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    tvReservoir.setText(stringItems[position]);
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 }

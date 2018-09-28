@@ -239,7 +239,7 @@
         <activity android:name=".view.maincommon.setting.DutyActivity" />
         <!-- 通信录页面 -->
         <activity android:name=".view.maincommon.setting.contacts.ContactsActivity" />
-        <activity android:name=".view.maincommon.setting.TrainActivity" />
+        <activity android:name=".view.maincommon.setting.train.TrainActivity" />
         <activity android:name=".view.maincommon.reservoirs.detail.SafeRunningDetailActivity" />
         <activity
             android:name=".view.mainworker.report.EmergencyDetailActivity"

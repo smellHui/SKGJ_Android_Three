@@ -16,8 +16,11 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
@@ -63,6 +66,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
     private int mCurrentCounter = 0;
     private String reservoirId;
     private String startDate;
+    private TextView tvReservoir;
 
     @Override
     protected int getLayoutId() {
@@ -71,18 +75,20 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 
     @Override
     protected void initData() {
-
+        localReservoirList = UserManager.getInstance().getLocalReservoirList();
     }
 
     @Override
     protected void initView(View view) {
         LinearLayout llListTitle = findView(R.id.ll_list_title);
         llListTitle.setVisibility(View.GONE);
-        spinner = findView(R.id.operation_spinner);
+//        spinner = findView(R.id.operation_spinner);
         rv = findView(R.id.rv_operation_list);
         tvStartDate = findView(R.id.tv_start_date);
         initStartDate();
-        initSpinner();
+//        initSpinner();
+        tvReservoir = findView(R.id.tv_reservoir);
+        tvReservoir.setOnClickListener(v -> showSelectReservoir());
         initRecyclerView();
         initSearch();
     }
@@ -171,7 +177,6 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
     }
 
     private void initSpinner() {
-        localReservoirList = UserManager.getInstance().getLocalReservoirList();
         if (localReservoirList != null && localReservoirList.size() > 0) {
             reservoirs = new String[localReservoirList.size() + 1];
             for (int i = 0; i < localReservoirList.size(); i++) {
@@ -276,6 +281,32 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
             if (mPresenter != null) {
                 mPresenter.getProblemList(reservoirId,"","","",String.valueOf(currentPage),String.valueOf(pageSize),"",false);
             }
+        }
+    }
+
+    private void showSelectReservoir() {
+        if (localReservoirList != null) {
+            String[] stringItems = new String[localReservoirList.size()+1];
+            for (int i = 0; i < localReservoirList.size(); i++) {
+                stringItems[i+1] = localReservoirList.get(i).getReservoir();
+            }
+            stringItems[0] = "全部";
+            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
+            dialog.title("请选择水库")
+                    .titleTextSize_SP(14.5f)
+                    .widthScale(0.8f)
+                    .show();
+            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+                @Override
+                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    spinnerPosition = position;
+//                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
+//                    selectFinish(selectedYunWeiType, selectedResrvoir);
+//                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    tvReservoir.setText(stringItems[position]);
+                    dialog.dismiss();
+                }
+            });
         }
     }
 }

@@ -1,9 +1,16 @@
 package com.tepia.main.view.maincommon.setting.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
+import com.tepia.main.R;
 import com.tepia.main.model.train.TrainListResponse;
 
 import java.util.List;
@@ -24,6 +31,17 @@ public class TrainListAdapter extends BaseQuickAdapter<TrainListResponse.DataBea
 
     @Override
     protected void convert(BaseViewHolder helper, TrainListResponse.DataBean.ListBean item) {
-
+        TextView tvTitle = helper.getView(R.id.tv_title);
+        TextView tvDate = helper.getView(R.id.tv_date);
+        ImageView ivTrain = helper.getView(R.id.iv_train);
+        tvTitle.setText(item.getTrainTitle());
+        tvDate.setText(item.getTrainDate());
+        List<TrainListResponse.DataBean.ListBean.FilesBean> files = item.getFiles();
+        if (files!=null&&files.size()>0){
+            Glide.with(mContext)
+                    .load(files.get(0).getFilePath())
+                    .apply(ConfigConsts.options)
+                    .into(ivTrain);
+        }
     }
 }
