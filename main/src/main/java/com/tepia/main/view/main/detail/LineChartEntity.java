@@ -69,7 +69,7 @@ public class LineChartEntity {
         mLineChart.setDrawGridBackground(false);
         mLineChart.setBackgroundColor(Color.WHITE);
 //        mLineChart.setOnChartValueSelectedListener(getActivity());
-        mLineChart.setPadding(0, 0, 0, 0);
+//        mLineChart.setPadding(0, 0, 0, 0);
         // 描述文字
         mLineChart.getDescription().setEnabled(false);
         // 触摸手势
@@ -79,9 +79,10 @@ public class LineChartEntity {
         // 拖拽
         mLineChart.setDragEnabled(true);
         // 缩放
-//        mLineChart.setScaleEnabled(true);
-        mLineChart.setScaleXEnabled(true);//启用X轴上的缩放
-        mLineChart.setScaleYEnabled(true);//禁用Y轴上的缩放
+//        mLineChart.setScaleEnabled(false);
+        //启用X轴上的缩放
+        mLineChart.setScaleXEnabled(true);
+        mLineChart.setScaleYEnabled(true);
         // 设置双击,两指拉伸等交互的开关
         mLineChart.setDoubleTapToZoomEnabled(true);
         // 是否显示表格颜色
@@ -98,7 +99,8 @@ public class LineChartEntity {
         //设置无数据时显示
         mLineChart.setNoDataText(Utils.getContext().getString(R.string.empty_tv));
         mLineChart.setNoDataTextColor(ConfigConsts.colortext);
-        mLineChart.getXAxis().setLabelRotationAngle(-60);
+        //x轴字旋转角度
+        //mLineChart.getXAxis().setLabelRotationAngle(-60);
        /* MyMarkerView mv = new MyMarkerView(getActivity(), R.layout.custom_marker_view,data3);
         mv.setChartView(mLineChart); // For bounds control
         mLineChart.setMarker(mv); // Set the marker to the chart*/

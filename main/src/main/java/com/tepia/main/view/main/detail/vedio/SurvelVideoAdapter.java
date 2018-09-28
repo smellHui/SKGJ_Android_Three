@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.main.APPCostant;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ImageBean;
@@ -45,10 +46,11 @@ public class SurvelVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHold
     @Override
     protected void convert(BaseViewHolder view, VideoInfo item) {
         view.setImageResource(R.id.iv_finish,R.drawable.jianjie_vedio);
-        if(TextUtils.isEmpty(item.getChaName())){
+        if(TextUtils.isEmpty(item.getChaName().trim())){
             view.setText(R.id.tv_video_channelname, "--");
         }else {
-            view.setText(R.id.tv_video_channelname, item.getChaName());
+            LogUtil.e("视频名称："+item.getChaName());
+            view.setText(R.id.tv_video_channelname, item.getChaName().toString());
         }
         int position = view.getAdapterPosition()+ 1;
         view.setText(R.id.nameOfreservoirTv, "第"+ position +"组");

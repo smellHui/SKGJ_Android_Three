@@ -5,9 +5,7 @@ import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
-import com.tepia.main.model.reserviros.OperationPlanBean;
-import com.tepia.main.model.reserviros.ReservirosManager;
-import com.tepia.main.model.shangbao.ShangbaoManager;
+import com.tepia.main.model.report.ShangbaoManager;
 
 /**
  * Created by      android studio

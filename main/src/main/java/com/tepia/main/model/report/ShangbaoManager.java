@@ -1,10 +1,8 @@
-package com.tepia.main.model.shangbao;
+package com.tepia.main.model.report;
 
 import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
-import com.tepia.main.model.map.VideoResponse;
-import com.tepia.main.model.reserviros.ReserviorsService;
 import com.tepia.main.model.user.UserManager;
 
 import io.reactivex.Observable;

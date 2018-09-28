@@ -11,6 +11,7 @@ import com.tepia.base.utils.Utils;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.ReservoirListResponse;
+import com.tepia.main.model.setting.DutyOfWorkBean;
 import com.tepia.main.view.MenuItemBean;
 import com.tepia.main.view.login.LoginPresenter;
 
@@ -132,6 +133,20 @@ public class UserManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    /**
+     * 获取工作职责
+     * @return
+     */
+    public Observable<DutyOfWorkBean> getUserJob() {
+        String token = getToken();
+        UserHttpService mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL + APPCostant.API_SERVER_USER_ADMIN).create(UserHttpService.class);
+
+        return mRetrofitService.getUserJob(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 
 
     /**

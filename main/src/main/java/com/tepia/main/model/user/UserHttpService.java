@@ -2,6 +2,7 @@ package com.tepia.main.model.user;
 
 import com.tepia.base.http.BaseResponse;
 import com.tepia.main.model.map.ReservoirListResponse;
+import com.tepia.main.model.setting.DutyOfWorkBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -80,6 +81,11 @@ interface UserHttpService {
                                            @Query("mobile") String mobile,
                                            @Query("address") String address
     );
+
+
+    @GET("app/appSysUser/getUserJob")
+    Observable<DutyOfWorkBean> getUserJob(@Header("Authorization") String token);
+
 
     /**
      * @param token

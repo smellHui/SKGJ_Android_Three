@@ -1,4 +1,4 @@
-package com.tepia.main.model.shangbao;
+package com.tepia.main.model.report;
 
 import com.tepia.base.http.BaseResponse;
 

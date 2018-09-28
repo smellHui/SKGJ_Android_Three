@@ -1,10 +1,8 @@
-package com.tepia.main.model.shangbao;
+package com.tepia.main.model.report;
 
 import com.tepia.base.http.BaseResponse;
-import com.tepia.main.model.reserviros.BizkeyBean;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

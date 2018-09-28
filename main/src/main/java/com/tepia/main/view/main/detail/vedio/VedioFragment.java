@@ -66,7 +66,7 @@ public class VedioFragment extends BaseCommonFragment {
     private VideoInfo videoshuiwus;
     private String result;
     private int channel = 0;
-    
+
 
     private SimpleLoadDialog simpleLoadDialog;
 
@@ -102,10 +102,11 @@ public class VedioFragment extends BaseCommonFragment {
             Psd = dataBean.getPwd();
             accessType = dataBean.getAccessType();
         }
-//        Ip = "218.201.210.189";
-//        User = "admin";
-//        Psd = "tepia@com";
-
+        /*Ip = "114.135.11.80";
+        User = "admin";
+        Psd = "tepia@com";
+        Port = 8019;
+        accessType = "0";*/
         if (!initSdk()) {
             return;
         }
@@ -309,9 +310,12 @@ public class VedioFragment extends BaseCommonFragment {
             int w = HCNetSDK.getInstance().NET_DVR_GetLastError();
             try {
                 String s = new String(DVR_Piccfg.sChanName, "GB2312");
-                videoshuiwus = new VideoInfo(channel, s, "ok");
-                channel++;
-                data_video.add(videoshuiwus);
+                if(!TextUtils.isEmpty(s.trim())){
+                    videoshuiwus = new VideoInfo(channel, s, "ok");
+                    data_video.add(videoshuiwus);
+                    channel++;
+
+                }
 
 
             } catch (UnsupportedEncodingException e) {
@@ -321,7 +325,7 @@ public class VedioFragment extends BaseCommonFragment {
                 }
             }
         }
-        if (data_video.size() == 15) {
+        /*if (endNum == 15) {
             getBaseActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -333,7 +337,18 @@ public class VedioFragment extends BaseCommonFragment {
                 }
 
             });
-        }
+        }*/
+        getBaseActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                showData(data_video);
+                if (simpleLoadDialog != null) {
+                    simpleLoadDialog.dismiss();
+                }
+            }
+
+        });
 
     }
 }

@@ -1,71 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".view.maincommon.setting.DutyActivity">
-    <include layout="@layout/toolbar"/>
-    <View
+<layout>
+
+    <data></data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/background_common"
+        android:orientation="vertical"
+        tools:context=".view.maincommon.setting.DutyActivity">
 
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
-    <FrameLayout
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        <include layout="@layout/toolbar" />
 
-            android:layout_marginLeft="@dimen/left_15"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_color"
-            android:layout_gravity="left"
-            android:text="工作职责"
-            android:drawableLeft="@drawable/zhize_1"
-            android:drawablePadding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <View
 
-        <TextView
-            android:layout_marginRight="@dimen/left_15"
-            android:textColor="#2e3748"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_gravity="right"
-            android:text="巡查责任人"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
 
-    <View
-        android:background="@color/background_common"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="@dimen/left_15"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_color"
-        android:layout_gravity="left"
-        android:text="工作内容描述"
-        android:drawableLeft="@drawable/zhize_2"
-        android:drawablePadding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <TextView
 
-    <TextView
-        android:layout_margin="@dimen/left_15"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:text="巡查责巡查责巡巡查责巡查责巡查责巡查责任人巡查责任人巡查责任人任人任人巡查责任人巡查责任人任人查责巡查责任人巡查责任人巡查责任人任人任人巡查责任人巡查责任人任人"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/left_15"
+                android:drawableLeft="@drawable/zhize_1"
+                android:drawablePadding="10dp"
+                android:text="工作职责"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/dutyNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:layout_marginRight="@dimen/left_15"
+                android:text="--"
+                android:textColor="#2e3748"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/left_15"
+                android:drawableLeft="@drawable/zhize_2"
+                android:drawablePadding="10dp"
+                android:text="工作内容描述"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/workContentTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:layout_marginRight="@dimen/left_15"
+                android:text="--"
+                android:textColor="#2e3748"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/left_15"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/zhize_2"
+                android:drawablePadding="10dp"
+                android:text="负责水库"
+                android:textColor="@color/text_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+
+                android:layout_margin="@dimen/left_15"
+                android:id="@+id/reserviorRec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
