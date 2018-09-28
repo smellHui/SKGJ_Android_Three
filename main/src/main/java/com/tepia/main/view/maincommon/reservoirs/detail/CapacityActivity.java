@@ -37,7 +37,7 @@ import java.util.List;
  * Version         :       1.0
  * 功能描述         :       水库库容曲线页面
  **/
-public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<CapacityBean>,OnChartGestureListener, OnChartValueSelectedListener  {
+public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<CapacityBean>  {
     private LineChart mLineChart;
     private LineChartEntity lineChartEntity;
 
@@ -54,8 +54,8 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         showBack();
         mLineChart = findViewById(R.id.line_chart);
         lineChartEntity = new LineChartEntity(mLineChart,"水位");
-        mLineChart.setOnChartGestureListener(this);
-        mLineChart.setOnChartValueSelectedListener(this);
+//        mLineChart.setOnChartGestureListener(this);
+//        mLineChart.setOnChartValueSelectedListener(this);
         if (mLineChart != null) {
             mLineChart.clear();
             //重设所有缩放和拖动，使图表完全适合它的边界（完全缩小）。
@@ -90,11 +90,7 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
 
     }
 
-    private void initLineChart() {
 
-        ChartUtils.initChart(mLineChart);
-
-    }
 
     /**
      * 刷新表格
@@ -117,59 +113,6 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         return values;
     }
 
-    @Override
-    public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-
-    }
-
-    @Override
-    public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-        // un-highlight values after the gesture is finished and no single-tap
-        if (lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP) {
-            // or highlightTouch(null) for callback to onNothingSelected(...)
-            mLineChart.highlightValues(null);
-        }
-    }
-
-    @Override
-    public void onChartLongPressed(MotionEvent me) {
-
-    }
-
-    @Override
-    public void onChartDoubleTapped(MotionEvent me) {
-
-    }
-
-    @Override
-    public void onChartSingleTapped(MotionEvent me) {
-
-    }
-
-    @Override
-    public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-
-    }
-
-    @Override
-    public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-
-    }
-
-    @Override
-    public void onChartTranslate(MotionEvent me, float dX, float dY) {
-
-    }
-
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-    }
-
-    @Override
-    public void onNothingSelected() {
-
-    }
 
     @Override
     public void success(CapacityBean data) {
