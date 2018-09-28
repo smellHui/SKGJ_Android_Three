@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="84dp">
+    android:layout_height="60dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="58dp"
         android:background="@drawable/operation_list_item_bg"
         >
 
@@ -13,41 +13,42 @@
             android:id="@+id/tv_problemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="18sp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/iv_complete"
+            android:singleLine="true"
             android:text="坝体渗水"
             android:textColor="#232a39"
-            android:layout_marginTop="14dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_problemTitle"
             android:layout_marginLeft="18sp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/iv_complete"
             android:singleLine="true"
-            android:textSize="16sp" />
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_problemTitle"
-                android:layout_toRightOf="@+id/iv_complete"
-                android:text="绿竹坝 2018-09-05 08:00"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:singleLine="true"
-                android:layout_marginLeft="18sp"
-                android:textColor="#979eab"/>
+            android:text="绿竹坝 2018-09-05 08:00"
+            android:textColor="#979eab"
+            android:textSize="13sp" />
+
         <TextView
             android:id="@+id/tv_isExecute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已完成"
-            android:textSize="18sp"
-            android:textColor="#46c189"
-            android:layout_toLeftOf="@+id/tv_enter"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-           />
+            android:layout_toLeftOf="@+id/tv_enter"
+            android:text="已完成"
+            android:textColor="#46c189"
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/tv_enter"
-            android:layout_width="15dp"
-            android:layout_height="18dp"
+            android:layout_width="8dp"
+            android:layout_height="12dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="14dp"

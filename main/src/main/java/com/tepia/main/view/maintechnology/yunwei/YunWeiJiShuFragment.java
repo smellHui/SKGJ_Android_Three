@@ -27,7 +27,7 @@ import java.util.List;
  **/
 @Route(path = AppRoutePath.app_main_fragment_yunwei_jishu)
 public class YunWeiJiShuFragment extends BaseCommonFragment {
-    private String[] tabNames = {"巡检", "保洁", "维修养护", "上报"};
+    private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private List<BaseCommonFragment> mFragments = new ArrayList<>();
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -102,7 +102,7 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
                         mCustomView.measure(0, 0);
                         width = mCustomView.getMeasuredWidth();
                     }
-                    if (i==2){
+                    if (i==1){
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
                         params.weight = (float) 1.5;
                         tabView.setLayoutParams(params);

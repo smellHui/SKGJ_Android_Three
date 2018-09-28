@@ -7,12 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
@@ -205,9 +208,9 @@ public class ThreePointListFragment extends BaseCommonFragment {
 
     private void initRequestResponse() {
         if (localReservoirList != null && localReservoirList.size() > 0) {
-            reservoirId = localReservoirList.get(0).getReservoir();
+            reservoirId = localReservoirList.get(0).getReservoirId();
             srl.setRefreshing(true);
-            tvReservoirName.setText(reservoirId);
+            tvReservoirName.setText(localReservoirList.get(0).getReservoir());
             mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
             waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
         }
@@ -216,4 +219,30 @@ public class ThreePointListFragment extends BaseCommonFragment {
     @Override
     protected void initRequestData() {
     }
+
+    private void showSelectReservoir() {
+        if (localReservoirList != null) {
+            String[] stringItems = new String[localReservoirList.size()];
+            for (int i = 0; i < localReservoirList.size(); i++) {
+                stringItems[i] = localReservoirList.get(i).getReservoir();
+            }
+            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
+            dialog.title("请选择水库")
+                    .titleTextSize_SP(14.5f)
+                    .widthScale(0.8f)
+                    .show();
+            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+                @Override
+                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    reservoirPosition = position;
+//                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
+//                    selectFinish(selectedYunWeiType, selectedResrvoir);
+//                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    tvReservoirName.setText(stringItems[position]);
+                    dialog.dismiss();
+                }
+            });
+        }
+    }
+
 }

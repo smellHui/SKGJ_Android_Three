@@ -68,4 +68,15 @@ public class TrainManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public boolean isImage(String fileName){
+        if (fileName.toLowerCase().endsWith(".gif")){
+            return true;
+        }else if (fileName.toLowerCase().endsWith(".jpg")){
+            return true;
+        }else if (fileName.toLowerCase().endsWith(".png")){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

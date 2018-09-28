@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_common"
-    tools:context=".view.maincommon.setting.TrainActivity">
+    tools:context=".view.maincommon.setting.train.TrainActivity">
 
     <include layout="@layout/toolbar"/>
 

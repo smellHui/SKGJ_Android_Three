@@ -110,7 +110,7 @@ public interface YunWeiJIShuService {
      * @param pageSize
      * @return
      */
-    @GET("appThree/StPptnR/listStPpthRByReservoir")
+    @GET("appThree/StPptnR/listStPptnRByReservoir")
     Observable<RainConditionResponse> listStPpthRByReservoir(@Header("Authorization") String token,
                                                              @Query("reservoirId") String reservoirId,
                                                              @Query("startDate") String startDate,
@@ -129,7 +129,7 @@ public interface YunWeiJIShuService {
      * @param pageSize
      * @return
      */
-    @GET("appThree/StRsvrR/listStPpthRByReservoir")
+    @GET("appThree/StRsvrR/listStRsvrRByReservoir")
     Observable<WaterLevelResponse> listStRsvrRRByReservoir(@Header("Authorization") String token,
                                                           @Query("reservoirId") String reservoirId,
                                                           @Query("startDate") String startDate,

@@ -312,7 +312,7 @@ public class PlanItemsFragment extends MVPBaseFragment<InspectionPlanContract.Vi
                 if (first) {
                     //首次加载
                     if (data == null || data.size() == 0) {
-                        LogUtil.i("搜索为空");
+//                        LogUtil.i("搜索为空");
                         dataList.clear();
                         adapterPlanList.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
                         adapterPlanList.notifyDataSetChanged();

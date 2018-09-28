@@ -36,14 +36,23 @@ public class MyOperationListAdapter extends BaseQuickAdapter<WorkOrderListRespon
         TextView date = helper.getView(R.id.tv_date);
         TextView isExecute = helper.getView(R.id.tv_isExecute);
         ImageView ivComplete = helper.getView(R.id.iv_complete);
-        name.setText("巡检人:"+item.getExecutorName());
+        String operationType = item.getOperationType();
+        String typeName = "执行";
+        if (operationType.equals("1")) {
+            typeName = "巡检";
+        } else if (operationType.equals("2")) {
+            typeName = "维护";
+        } else if (operationType.equals("3")) {
+            typeName = "保洁";
+        }
+        name.setText(typeName + "人:" + item.getExecutorName());
         date.setText(item.getStartTime());
-        if ("2".equals(item.getExecuteStatus())){
+        if ("2".equals(item.getExecuteStatus())) {
             //执行中 未完成
             isExecute.setText("未完成");
             isExecute.setTextColor(Color.parseColor("#e3654d"));
             ivComplete.setImageDrawable(ResUtils.getResources().getDrawable(R.drawable.operation_not_complete));
-        }else {
+        } else {
             isExecute.setText("已完成");
             isExecute.setTextColor(Color.parseColor("#46c189"));
             ivComplete.setImageDrawable(ResUtils.getResources().getDrawable(R.drawable.operation_complete));
