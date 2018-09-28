@@ -17,6 +17,9 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
+import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
+import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,8 @@ public class ReportFragment extends BaseCommonFragment{
     private ArrayList<String> titles ;
 
     private LinearLayout root_dialog_shangbao;
+
+
     public ReportFragment() {
         // Required empty public constructor
     }
@@ -60,10 +65,15 @@ public class ReportFragment extends BaseCommonFragment{
         fragments = new ArrayList<Fragment>();
         titles = new ArrayList<String>();
         initViewpager();
+
+
     }
 
     @Override
     protected void initRequestData() {
+
+
+
 
     }
 

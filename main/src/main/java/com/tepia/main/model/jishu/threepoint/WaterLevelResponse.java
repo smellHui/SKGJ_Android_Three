@@ -125,8 +125,14 @@ public class WaterLevelResponse extends BaseResponse{
 
             private String stcd;
             private String tm;
-            private double rz;
-            private double w;
+            /**
+             * 水位
+             */
+            private String rz;
+            /**
+             * 库容
+             */
+            private String w;
             private String stnm;
 
             public String getStcd() {
@@ -145,19 +151,19 @@ public class WaterLevelResponse extends BaseResponse{
                 this.tm = tm;
             }
 
-            public double getRz() {
+            public String getRz() {
                 return rz;
             }
 
-            public void setRz(double rz) {
-                this.rz = rz;
-            }
-
-            public double getW() {
+            public String getW() {
                 return w;
             }
 
-            public void setW(double w) {
+            public void setRz(String rz) {
+                this.rz = rz;
+            }
+
+            public void setW(String w) {
                 this.w = w;
             }
 

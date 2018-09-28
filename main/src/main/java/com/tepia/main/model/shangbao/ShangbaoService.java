@@ -6,6 +6,7 @@ import com.tepia.main.model.reserviros.BizkeyBean;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -26,9 +27,10 @@ public interface ShangbaoService {
      * 上报水位接口
      * @param token
      * @param reservoirId
-     * @param rz
+     * @param rz 水位
      * @return
      */
+    @FormUrlEncoded
     @POST("appThree/StRsvrR/uploadingStRsvr")
     Observable<BaseResponse> uploadingStRsvr(@Header("Authorization") String token,
                                              @Field("reservoirId") String reservoirId,

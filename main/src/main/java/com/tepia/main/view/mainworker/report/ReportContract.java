@@ -25,7 +25,7 @@ public class ReportContract {
          * @param reservoirId
          * @param rz
          */
-        void getReservoirVideo(String reservoirId, String rz);
+        void uploadingStRsvr(String reservoirId, String rz);
 
         /**
          * 查询应急情况列表

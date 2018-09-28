@@ -1,6 +1,13 @@
 package com.tepia.main.view.mainworker.report;
 
+import com.tepia.base.http.BaseResponse;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.Utils;
+import com.tepia.main.R;
+import com.tepia.main.model.reserviros.OperationPlanBean;
+import com.tepia.main.model.reserviros.ReservirosManager;
+import com.tepia.main.model.shangbao.ShangbaoManager;
 
 /**
  * Created by      android studio
@@ -16,7 +23,28 @@ public class ReportPresenter extends BasePresenterImpl<ReportContract.View> impl
 
 
     @Override
-    public void getReservoirVideo(String reservoirId, String rz) {
+    public void uploadingStRsvr(String reservoirId, String rz) {
+
+        ShangbaoManager.getInstance().uploadingStRsvr(reservoirId,rz)
+                .subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(BaseResponse operationPlanBean) {
+                        if (operationPlanBean != null) {
+                            if (operationPlanBean.getCode() == 0) {
+                                mView.success(operationPlanBean);
+
+                            }else{
+                                mView.failure(operationPlanBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
 
     }
 

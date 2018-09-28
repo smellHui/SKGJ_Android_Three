@@ -127,8 +127,8 @@ public class YunWeiJiShuPresenter extends BasePresenterImpl<YunWeiJiShuContract.
     }
 
     @Override
-    public void listStRsvrRRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize) {
-        YunWeiJiShuManager.getInstance().listStRsvrRRByReservoir(reservoirId, startDate, endDate, currentPage, pageSize).subscribe(new LoadingSubject<WaterLevelResponse>(false,"正在加载中...") {
+    public void listStRsvrRRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize,boolean isshowloading) {
+        YunWeiJiShuManager.getInstance().listStRsvrRRByReservoir(reservoirId, startDate, endDate, currentPage, pageSize).subscribe(new LoadingSubject<WaterLevelResponse>(isshowloading,"正在加载中...") {
             @Override
             protected void _onNext(WaterLevelResponse waterLevelResponse) {
                 if (waterLevelResponse.getCode()==0){

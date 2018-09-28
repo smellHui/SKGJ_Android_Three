@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,10 +19,13 @@ import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.CustomLinearLayoutManager;
 import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VisitLogActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
@@ -54,6 +58,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
     private List<Integer> images = new ArrayList<Integer>();
     private List<String> titles = new ArrayList<>();
     private TextView tv_reservoir_name;
+    private TextView switchTv;
 
     public ReservoirsFragment() {
     }
@@ -74,6 +79,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         getRightTianqi().setVisibility(View.VISIBLE);
         initBanner();
         resviorRec = findView(R.id.resviorRec);
+        switchTv = findView(R.id.switchTv);
         tv_reservoir_name = findView(R.id.tv_reservoir_name);
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
@@ -142,6 +148,13 @@ public class ReservoirsFragment extends BaseCommonFragment {
             }
         });
 
+        switchTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectReservoir();
+            }
+        });
+
     }
 
     private void initBanner() {
@@ -197,9 +210,38 @@ public class ReservoirsFragment extends BaseCommonFragment {
 
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
         tv_reservoir_name.setText(reservoirBean.getReservoir());
+        LogUtil.e("当前默认水库id--------------"+reservoirBean.getReservoirId());
 
 
 
+
+    }
+
+    /**
+     * 切换水库
+     */
+    private void showSelectReservoir() {
+        ArrayList<ReservoirBean> reservoirBeans = UserManager.getInstance().getLocalReservoirList();
+        if (reservoirBeans != null) {
+            String[] stringItems = new String[reservoirBeans.size()];
+            for (int i = 0; i < reservoirBeans.size(); i++) {
+                stringItems[i] = reservoirBeans.get(i).getReservoir();
+            }
+            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
+            dialog.title("请选择水库")
+                    .titleTextSize_SP(14.5f)
+                    .widthScale(0.8f)
+                    .show();
+            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+                @Override
+                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    ReservoirBean selectedResrvoir = reservoirBeans.get(position);
+                    com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
+                    tv_reservoir_name.setText(selectedResrvoir.getReservoir());
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 
     @Override

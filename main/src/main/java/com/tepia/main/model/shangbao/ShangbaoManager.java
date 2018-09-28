@@ -39,7 +39,7 @@ public class ShangbaoManager {
      * @param rz 水位值
      * @return
      */
-    public Observable<BaseResponse> getReservoirVideo(String reservoirId, String rz) {
+    public Observable<BaseResponse> uploadingStRsvr(String reservoirId, String rz) {
         String token = UserManager.getInstance().getToken();
         ShangbaoService mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL+APPCostant.API_SERVER_MONITOR_AREA).create(ShangbaoService.class);
         return mRetrofitService.uploadingStRsvr(token,reservoirId,rz)

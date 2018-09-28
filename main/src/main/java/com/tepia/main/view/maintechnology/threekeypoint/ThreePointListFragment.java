@@ -151,7 +151,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
     private void commonRequestDataFun() {
         if (mPresenter != null && waterPresenter != null) {
             mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
-            waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
+            waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
         }
     }
 
@@ -212,7 +212,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
             srl.setRefreshing(true);
             tvReservoirName.setText(localReservoirList.get(0).getReservoir());
             mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
-            waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
+            waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
         }
     }
 

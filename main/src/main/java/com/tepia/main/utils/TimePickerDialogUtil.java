@@ -51,7 +51,7 @@ public class TimePickerDialogUtil {
                 .setMinMillseconds(System.currentTimeMillis() - tenYears) // 最小时间
                 .setMaxMillseconds(System.currentTimeMillis()) // 最大时间
                 .setCurrentMillseconds(System.currentTimeMillis()) // 当前时间
-                .setThemeColor(mcontext.getResources().getColor(R.color.colorPrimary))
+                .setThemeColor(mcontext.getResources().getColor(R.color.color_load_blue))
                 .setType(type)
                 .setWheelItemTextNormalColor(Utils.getContext().getResources().getColor(R.color.timetimepicker_default_text_color))
                 .setWheelItemTextSelectorColor(mcontext.getResources().getColor(R.color.black))
@@ -80,7 +80,7 @@ public class TimePickerDialogUtil {
                 .setMinMillseconds(start) // 最小时间
                 .setMaxMillseconds(end) // 最大时间
                 .setCurrentMillseconds(System.currentTimeMillis()) // 当前时间
-                .setThemeColor(mcontext.getResources().getColor(R.color.colorPrimary))
+                .setThemeColor(mcontext.getResources().getColor(R.color.color_load_blue))
                 .setType(type)
                 .setWheelItemTextNormalColor(Utils.getContext().getResources().getColor(R.color.timetimepicker_default_text_color))
                 .setWheelItemTextSelectorColor(mcontext.getResources().getColor(R.color.black))

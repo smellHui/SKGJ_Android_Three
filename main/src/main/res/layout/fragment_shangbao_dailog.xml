@@ -35,12 +35,11 @@
 
         <TextView
             android:maxLines="1"
-            android:paddingRight="15dp"
-            android:drawableRight="@drawable/s_right"
             android:id="@+id/selectReserviorTv"
             android:layout_weight="4"
 
-            android:text="绿竹水绿竹水库绿竹水库库绿竹水库"
+            android:text=""
+            android:hint="请选择水库"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_width="0dp"
@@ -77,7 +76,7 @@
 
         <EditText
             android:id="@+id/selectShuiweiEv"
-
+            android:inputType="number"
             android:background="@null"
             android:layout_weight="4"
             android:hint="请输入水位值"

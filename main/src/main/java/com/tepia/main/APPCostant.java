@@ -20,9 +20,8 @@ public class APPCostant {
      * 武汉本地地址 http://192.168.30.220:8765
      * 外网地址    http://weish.vipgz1.idcfengye.com
      * 鸭溪正式地址 http://218.201.212.243:8765
-
      */
-    public static String API_SERVER_URL = "http://192.168.30.115:8765/";//118
+    public static String API_SERVER_URL = "http://192.168.30.127:8765/";
     /**
      * 图片服务器地址
      */

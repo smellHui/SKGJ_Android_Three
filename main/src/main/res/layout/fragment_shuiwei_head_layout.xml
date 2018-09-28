@@ -20,6 +20,7 @@
         android:text="日期" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/hourTv"
 
         android:layout_width="0dp"
@@ -53,6 +54,8 @@
         android:text="库容" />
 
     <TextView
+        android:visibility="gone"
+
         android:id="@+id/stateTv"
 
         android:layout_width="0dp"
