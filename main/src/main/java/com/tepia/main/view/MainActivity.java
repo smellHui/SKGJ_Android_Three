@@ -13,6 +13,7 @@ import android.os.PowerManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -67,7 +68,8 @@ import cn.jpush.android.api.JPushInterface;
 @Route(path = AppRoutePath.appMain)
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
-    private TabFragmentHost mTabHost;
+//    private TabFragmentHost mTabHost;
+    private FragmentTabHost mTabHost;
 
     /**
      * 锁屏相关
@@ -121,6 +123,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onTabChanged(String tabId) {
+                LogUtil.e("-------------切换fragment--------");
 
             }
         });

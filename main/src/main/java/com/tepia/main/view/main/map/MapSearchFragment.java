@@ -121,7 +121,7 @@ public class MapSearchFragment extends MVPBaseFragment<MainMapContract.View, Mai
         rvSearchView = findView(R.id.rv_search_list);
         rvSearchView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mapSearchAdapter = new MapSearchAdapter(R.layout.search_item_rv, dataList);
-        View emptyView = getLayoutInflater().inflate(R.layout.view_empty_list_view_2, null);
+        View emptyView = getLayoutInflater().inflate(R.layout.view_empty_list_view, null);
         mapSearchAdapter.setEmptyView(emptyView);
         //添加Android自带的分割线
         rvSearchView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));

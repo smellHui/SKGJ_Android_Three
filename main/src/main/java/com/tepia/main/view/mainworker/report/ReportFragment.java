@@ -89,8 +89,8 @@ public class ReportFragment extends BaseCommonFragment{
     }
 
     private void new_tab(){
-        tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("水位",R.drawable.bg_operation_tab)));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("应急情况",R.drawable.bg_operation_tab_01)));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("水位",R.drawable.bg_report_tab)));
+        tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("应急情况",R.drawable.bg_report_emergence_tab)));
 
         //Tablayout自定义view绑定ViewPager 自定义view时使用 tabLayout.setupWithViewPager(viewPager);方法关联无效，通过以下方法进行viewpager和tablayout的关联
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

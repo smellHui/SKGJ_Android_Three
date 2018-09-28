@@ -291,13 +291,13 @@ public class TabFragmentHost extends TabHost implements
         mAttached = false;
     }
 
-    @Override
+    /*@Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
         ss.curTab = getCurrentTabTag();
         return ss;
-    }
+    }*/
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
