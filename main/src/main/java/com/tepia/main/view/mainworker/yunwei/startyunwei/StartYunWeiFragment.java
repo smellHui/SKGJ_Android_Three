@@ -26,6 +26,7 @@ import com.tepia.main.model.task.bean.WorkOrderNumBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.work.task.taskdetail.AdapterTaskItemList;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -234,7 +235,8 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         if (data.getTotals() == 0) {
             mBinding.tvDealedPresent.setText("--");
         } else {
-            mBinding.tvDealedPresent.setText(data.getDoneNum() * 100.0 / data.getTotals() + "%");
+            DecimalFormat df = new DecimalFormat("#.0");
+            mBinding.tvDealedPresent.setText(df.format(data.getDoneNum() * 100.0 / data.getTotals() )+ "%");
         }
     }
 

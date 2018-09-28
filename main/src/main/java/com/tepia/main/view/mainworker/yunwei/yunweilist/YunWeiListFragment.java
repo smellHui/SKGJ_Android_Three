@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -13,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
@@ -105,28 +107,29 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             }
         });
 
-//        adapterPatrolWorkOrderList.setEnableLoadMore(true);
-//        adapterPatrolWorkOrderList.setLoadMoreView(new SimpleLoadMoreView());
-//        adapterPatrolWorkOrderList.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-//            @Override
-//            public void onLoadMoreRequested() {
-//                mBinding.rvWorkOrderList.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (mPresenter.isCanLoadMore) {
-//                            if (selectedResrvoir == null) {
-//                                mPresenter.getPatrolWorkOrderListMore("", selectedYunWeiType);
-//                            } else {
-//                                mPresenter.getPatrolWorkOrderListMore(selectedResrvoir.getReservoirId(), selectedYunWeiType);
-//                            }
-//                        } else {
-//                            adapterPatrolWorkOrderList.loadMoreEnd();
-//                        }
-//                    }
-//                },500);
-//
-//            }
-//        });
+        adapterPatrolWorkOrderList.openLoadAnimation();
+        adapterPatrolWorkOrderList.setEnableLoadMore(true);
+        adapterPatrolWorkOrderList.setLoadMoreView(new SimpleLoadMoreView());
+        adapterPatrolWorkOrderList.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mBinding.rvWorkOrderList.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mPresenter.isCanLoadMore) {
+                            if (selectedResrvoir == null) {
+                                mPresenter.getPatrolWorkOrderListMore("", selectedYunWeiType);
+                            } else {
+                                mPresenter.getPatrolWorkOrderListMore(selectedResrvoir.getReservoirId(), selectedYunWeiType);
+                            }
+                        } else {
+                            adapterPatrolWorkOrderList.loadMoreEnd();
+                        }
+                    }
+                }, 1000);
+
+            }
+        }, mBinding.rvWorkOrderList);
     }
 
     @Override
@@ -187,14 +190,21 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
 
     @Override
     public void getPatrolWorkOrderListSuccess(List<TaskBean> list) {
-        adapterPatrolWorkOrderList.loadMoreComplete();
+
         adapterPatrolWorkOrderList.setNewData(list);
+        if (list == null || list.size() == 0) {
+            adapterPatrolWorkOrderList.getData().clear();
+            adapterPatrolWorkOrderList.notifyDataSetChanged();
+            View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
+            adapterPatrolWorkOrderList.setEmptyView(view);
+        }
+        adapterPatrolWorkOrderList.loadMoreComplete();
     }
 
     @Override
     public void getPatrolWorkOrderListMoreSuccess(TaskListResponse.DataBean dataBean) {
-        adapterPatrolWorkOrderList.loadMoreComplete();
-        int i = dataBean.getStartRow();
+
+        int i = dataBean.getStartRow()-1;
         for (int j = 0; j < dataBean.getList().size(); j++) {
             if (!adapterPatrolWorkOrderList.getData().contains(dataBean.getList().get(j))) {
                 adapterPatrolWorkOrderList.addData(i + j, dataBean.getList().get(j));
@@ -202,6 +212,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
                 adapterPatrolWorkOrderList.setData(i + j, dataBean.getList().get(j));
             }
         }
+        adapterPatrolWorkOrderList.loadMoreComplete();
 
     }
 }

@@ -13,7 +13,7 @@ import com.tepia.main.model.task.response.TaskListResponse;
 
 public class YunWeiListPresenter extends BasePresenterImpl<YunWeiListContract.View> implements YunWeiListContract.Presenter {
     int currentPage = 1;
-    String pageSize = "30";
+    String pageSize = "10";
     public boolean isCanLoadMore = true;
 
     public void getPatrolWorkOrderList(String reservoirId, String operationType) {

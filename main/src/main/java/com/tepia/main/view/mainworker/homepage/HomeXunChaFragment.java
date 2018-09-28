@@ -26,6 +26,7 @@ import com.tepia.main.databinding.FragmentHomeXunjianBinding;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
+import com.tepia.main.view.main.detail.LineChartEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private AdapterFloodControlMaterialList adapterFloodControlMaterialList;
     private ReservoirBean selectedResrvoir;
     private HomeGetReservoirInfoBean homeGetReservoirInfoBean;
+    private LineChartEntity lineChartEntity;
 
 
     public HomeXunChaFragment() {
@@ -88,13 +90,21 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         initLineChart();
 
 
-        if (UserManager.getInstance().getDefaultReservoir() != null) {
-            tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
-        }
+
 
         initListener();
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (UserManager.getInstance().getDefaultReservoir() != null) {
+            tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
+            mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
+        }
     }
 
     private void initListener() {
@@ -244,8 +254,13 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     private void initLineChart() {
 
-        ChartUtils.initChart(lcReservoirCapacity);
-
+//        ChartUtils.initChart(lcReservoirCapacity);
+        lineChartEntity = new LineChartEntity(lcReservoirCapacity,"水位");
+        if (lcReservoirCapacity != null) {
+            lcReservoirCapacity.clear();
+            //重设所有缩放和拖动，使图表完全适合它的边界（完全缩小）。
+            lcReservoirCapacity.fitScreen();
+        }
     }
 
     private void showSelectReservoir() {
@@ -267,6 +282,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 //                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
 //                    selectFinish(selectedYunWeiType, selectedResrvoir);
                     mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId());
                     dialog.dismiss();
                 }
@@ -276,7 +292,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     @Override
     protected void initRequestData() {
-        mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
+
 
     }
 
@@ -366,8 +382,21 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         }
 
         if (data.getStorageCapacity() != null) {
-            ChartUtils.notifyDataSetChanged(lcReservoirCapacity, getData(data.getStorageCapacity()), ChartUtils.dayValue);
+           refreshChart(data.getStorageCapacity());
         }
+    }
+
+    /**
+     * 刷新表格
+     *
+     * @param dataBeans
+     */
+    private void refreshChart(List<HomeGetReservoirInfoBean.StorageCapacityBean> dataBeans) {
+        float granularity = 1.0f;
+        int size = dataBeans.size();
+
+        granularity = 1.0f;
+        lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
     }
 
     private void refreshViewWaterLevelStorageCapacity(HomeGetReservoirInfoBean.ReservoirWaterLevelBean reservoirWaterLevel) {
