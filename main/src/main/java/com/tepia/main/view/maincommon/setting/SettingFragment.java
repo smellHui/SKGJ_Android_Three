@@ -181,6 +181,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         setMv.setIvLeft(R.drawable.s_set);
         mvVoiceAssistant.setTitle(getString(R.string.text_voice_assistant));
         mvVoiceAssistant.setIvLeft(R.drawable.s_yuyin);
+        mvVoiceAssistant.setVisibility(View.GONE);
+
         loginOutMv.setTitle(getString(R.string.loginout));
         loginOutMv.setIvLeft(R.drawable.s_loginout);
 
