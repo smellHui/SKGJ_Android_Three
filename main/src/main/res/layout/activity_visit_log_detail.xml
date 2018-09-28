@@ -15,7 +15,7 @@
 
         <include layout="@layout/toolbar" />
 
-        <include layout="@layout/common_qiehuan_reserviors_layout" />
+        <include layout="@layout/reserviros_title_layout" />
 
 
         <LinearLayout

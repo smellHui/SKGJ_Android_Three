@@ -4,6 +4,7 @@
     <style name="picker_toolbar_theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar" tools:ignore="ResourceName">
         <item name="android:homeAsUpIndicator">@drawable/come_back_blue</item>
         <item name="actionMenuTextColor">#59abf1</item>
+        <item name="titleTextColor">#000000</item>
 
     </style>
 </resources>

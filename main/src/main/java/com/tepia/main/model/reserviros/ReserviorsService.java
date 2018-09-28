@@ -148,8 +148,13 @@ public interface ReserviorsService {
 
     );
 
-    //app/fileManage/getFileByBizKey
 
+    /**
+     * 查询文件
+     * @param token
+     * @param bizKey
+     * @return
+     */
     @GET("app/fileManage/getFileByBizKey")
     Observable<BizkeyBean> getFileByBizKey(@Header("Authorization") String token,
                                                         @Query("bizKey") String bizKey

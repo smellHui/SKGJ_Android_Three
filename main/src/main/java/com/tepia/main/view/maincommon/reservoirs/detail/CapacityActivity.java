@@ -127,7 +127,7 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         // un-highlight values after the gesture is finished and no single-tap
         if (lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP) {
             // or highlightTouch(null) for callback to onNothingSelected(...)
-//            mLineChart.highlightValues(null);
+            mLineChart.highlightValues(null);
         }
     }
 
@@ -173,7 +173,7 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
 
     @Override
     public void success(CapacityBean data) {
-        refreshChart(data.getData().getData());
+        refreshChart(data.getData());
 //        ChartUtils.notifyDataSetChanged(mLineChart, getData(data.getData().getData()), ChartUtils.dayValue);
     }
 

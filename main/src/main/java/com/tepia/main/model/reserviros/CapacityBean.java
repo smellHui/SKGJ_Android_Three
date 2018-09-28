@@ -17,31 +17,16 @@ import java.util.List;
  **/
 public class CapacityBean extends BaseResponse {
 
-    /**
-     * data : {"data":[{"waterLevel":10086.24,"storageCapacity":112.12}]}
-     */
 
-    private DataBeanX data;
+    private List<HomeGetReservoirInfoBean.StorageCapacityBean> data;
 
-    public DataBeanX getData() {
+    public List<HomeGetReservoirInfoBean.StorageCapacityBean> getData() {
         return data;
     }
 
-    public void setData(DataBeanX data) {
+    public void setData(List<HomeGetReservoirInfoBean.StorageCapacityBean> data) {
         this.data = data;
     }
 
-    public static class DataBeanX {
-        private List<HomeGetReservoirInfoBean.StorageCapacityBean> data;
 
-        public List<HomeGetReservoirInfoBean.StorageCapacityBean> getData() {
-            return data;
-        }
-
-        public void setData(List<HomeGetReservoirInfoBean.StorageCapacityBean> data) {
-            this.data = data;
-        }
-
-
-    }
 }

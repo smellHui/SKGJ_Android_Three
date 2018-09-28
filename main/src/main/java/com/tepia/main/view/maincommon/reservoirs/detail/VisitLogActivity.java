@@ -8,6 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.widget.TextView;
 
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityVisitLogBinding;
 import com.tepia.main.model.question.AllproblemBean;
@@ -95,6 +99,14 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
         adapterVisitLog = new AdapterVisitLog(this,R.layout.activity_visit_log_item,dataList);
         activityVisitLogBinding.visitlogRec.setAdapter(adapterVisitLog);
         adapterVisitLog.setOnItemClickListener((adapter, view, position) -> {
+            if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                ToastUtils.shortToast(R.string.no_network);
+                return;
+            }
+            if(DoubleClickUtil.isFastDoubleClick()){
+                return;
+            }
+
             Intent intent = new Intent(VisitLogActivity.this, VisitLogDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(key_visit_log, dataList.get(position).getId());

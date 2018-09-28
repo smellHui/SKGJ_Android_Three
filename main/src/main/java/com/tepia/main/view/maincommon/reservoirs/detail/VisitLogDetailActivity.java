@@ -40,11 +40,9 @@ import java.util.List;
 public class VisitLogDetailActivity extends MVPBaseActivity<VisitLogContract.View,VisitLogPresenter> implements VisitLogContract.View<VisitLogDetailBean>{
 
     ActivityVisitLogDetailBinding activityVisitLogDetailBinding;
-    private AdapterVisitLog adapterVisitLog;
     private String id;
 
-    private TextView tv_reservoir_name;
-    private TextView switchTv;
+    private TextView nameTv;
     private PhotoAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
 
@@ -63,15 +61,12 @@ public class VisitLogDetailActivity extends MVPBaseActivity<VisitLogContract.Vie
 
         setCenterTitle("到访日志详情");
         showBack();
-        tv_reservoir_name = findViewById(R.id.tv_reservoir_name);
-        switchTv = findViewById(R.id.switchTv);
-        switchTv.setVisibility(View.INVISIBLE);
+        nameTv = findViewById(R.id.nameTv);
         initRec();
-        Bundle bundle = new Bundle();
+        Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             id = bundle.getString(VisitLogActivity.key_visit_log);
         }
-        //id = "ae4b532e8ab946a19e7436c5ea7c447b";
         mPresenter.detail(id);
     }
 
@@ -104,7 +99,7 @@ public class VisitLogDetailActivity extends MVPBaseActivity<VisitLogContract.Vie
         activityVisitLogDetailBinding.bizRy.setLayoutManager(new GridLayoutManager(getContext(),4));
         activityVisitLogDetailBinding.bizRy.setAdapter(photoAdapter);
         activityVisitLogDetailBinding.bizRy.addOnItemTouchListener(new RecyclerItemClickListener(this, (view, position) -> {
-            PhotoPreview.builder()
+        PhotoPreview.builder()
                     .setPhotos(selectedPhotos)
                     .setCurrentItem(position)
                     .setShowDeleteButton(false)
@@ -120,7 +115,7 @@ public class VisitLogDetailActivity extends MVPBaseActivity<VisitLogContract.Vie
     @Override
     public void success(VisitLogDetailBean visitLogBean) {
         VisitLogDetailBean.DataBean dataBean = visitLogBean.getData();
-        tv_reservoir_name.setText(dataBean.getReservoir());
+        nameTv.setText(dataBean.getReservoir());
         activityVisitLogDetailBinding.causeTv.setText(dataBean.getVisitCause());
         activityVisitLogDetailBinding.contentTv.setText(dataBean.getWorkContent());
         activityVisitLogDetailBinding.usernameTv.setText(dataBean.getUserName());

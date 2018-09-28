@@ -1,8 +1,15 @@
 package com.tepia.main.model.shangbao;
 
+import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
+import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.reserviros.ReserviorsService;
+import com.tepia.main.model.user.UserManager;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by      android studio
@@ -23,6 +30,46 @@ public class ShangbaoManager {
     }
 
     private ShangbaoManager() {
-        this.mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL+APPCostant.API_SERVER_MONITOR_AREA).create(ShangbaoService.class);
+        this.mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL+APPCostant.API_SERVER_TASK_AREA).create(ShangbaoService.class);
+    }
+
+    /**
+     * 上报水位
+     * @param reservoirId
+     * @param rz 水位值
+     * @return
+     */
+    public Observable<BaseResponse> getReservoirVideo(String reservoirId, String rz) {
+        String token = UserManager.getInstance().getToken();
+        ShangbaoService mRetrofitService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL+APPCostant.API_SERVER_MONITOR_AREA).create(ShangbaoService.class);
+        return mRetrofitService.uploadingStRsvr(token,reservoirId,rz)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
+     * 查询应急情况列表
+     * @param reservoirId
+     * @param workOrderId
+     * @param problemStatus
+     * @param startDate
+     * @param endDate
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public Observable<EmergenceListBean> getProblemList(String reservoirId,
+                                                   String workOrderId,
+                                                   String problemStatus,
+                                                   String startDate,
+                                                   String endDate,
+                                                   String currentPage,
+                                                   String pageSize
+    ) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getProblemList(token,reservoirId,workOrderId,problemStatus,startDate,endDate,currentPage,pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

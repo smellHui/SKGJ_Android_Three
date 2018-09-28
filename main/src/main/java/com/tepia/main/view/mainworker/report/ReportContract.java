@@ -20,5 +20,48 @@ public class ReportContract {
     }
 
     interface  Presenter extends BasePresenter<ReportContract.View> {
+        /**
+         * 上报水位
+         * @param reservoirId
+         * @param rz
+         */
+        void getReservoirVideo(String reservoirId, String rz);
+
+        /**
+         * 查询应急情况列表
+         * @param reservoirId
+         * @param workOrderId
+         * @param problemStatus
+         * @param startDate
+         * @param endDate
+         * @param currentPage
+         * @param pageSize
+         */
+        void getProblemList(String reservoirId,
+                       String workOrderId,
+                       String problemStatus,
+                       String startDate,
+                       String endDate,
+                       String currentPage,
+                       String pageSize
+        );
+
+        /**
+         * 应急上报
+         * @param reservoirId
+         * @param problemTitle
+         * @param problemDescription
+         * @param lgtd
+         * @param lttd
+         * @param files
+         */
+        void reportProblem(String reservoirId,
+                String problemTitle,
+                String problemDescription,
+                String lgtd,
+                String lttd,
+                String files
+
+        );
     }
 }

@@ -15,6 +15,18 @@ import com.tepia.base.mvp.BasePresenterImpl;
 public class ReportPresenter extends BasePresenterImpl<ReportContract.View> implements ReportContract.Presenter {
 
 
+    @Override
+    public void getReservoirVideo(String reservoirId, String rz) {
 
+    }
 
+    @Override
+    public void getProblemList(String reservoirId, String workOrderId, String problemStatus, String startDate, String endDate, String currentPage, String pageSize) {
+
+    }
+
+    @Override
+    public void reportProblem(String reservoirId, String problemTitle, String problemDescription, String lgtd, String lttd, String files) {
+
+    }
 }

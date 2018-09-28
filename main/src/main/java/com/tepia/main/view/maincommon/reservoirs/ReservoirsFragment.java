@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
@@ -52,6 +53,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
     private Banner banner;
     private List<Integer> images = new ArrayList<Integer>();
     private List<String> titles = new ArrayList<>();
+    private TextView tv_reservoir_name;
 
     public ReservoirsFragment() {
     }
@@ -72,9 +74,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         getRightTianqi().setVisibility(View.VISIBLE);
         initBanner();
         resviorRec = findView(R.id.resviorRec);
-        ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
-        TextView tv_reservoir_name = findView(R.id.tv_reservoir_name);
-        tv_reservoir_name.setText(reservoirBean.getReservoir());
+        tv_reservoir_name = findView(R.id.tv_reservoir_name);
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
         setResviorRec("水库库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
@@ -192,6 +192,27 @@ public class ReservoirsFragment extends BaseCommonFragment {
 
     @Override
     protected void initRequestData() {
+        //ReservoirBean reservoirBean;
+        LogUtil.e("--------------initRequestData");
+
+        ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+        tv_reservoir_name.setText(reservoirBean.getReservoir());
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtil.e("--------------onResume");
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LogUtil.e("--------------onStart");
 
     }
 }
