@@ -1,8 +1,10 @@
 package com.tepia.main.view.mainworker.homepage;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.google.gson.Gson;
 import com.just.library.AgentWeb;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
@@ -27,6 +30,8 @@ import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
 import com.tepia.main.view.main.detail.LineChartEntity;
+import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.FloodDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +139,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         adapterFloodControlMaterialList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                ARouter.getInstance().build(AppRoutePath.)
+                ARouter.getInstance().build(AppRoutePath.app_flood_detail)
+                        .withString("floodid",new Gson().toJson(adapterFloodControlMaterialList.getData().get(position)))
+                        .navigation();
+//                Intent intent = new Intent();
+//                intent.setClass(getBaseActivity(),FloodDetailActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("floodid",adapterFloodControlMaterialList.getData().get(position));
+//                intent.putExtras(bundle);
+//                startActivity(intent);
             }
         });
     }

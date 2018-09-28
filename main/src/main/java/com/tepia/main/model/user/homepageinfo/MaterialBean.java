@@ -1,5 +1,7 @@
 package com.tepia.main.model.user.homepageinfo;
 
+import java.io.Serializable;
+
 /**
  * Created by      android studio
  *
@@ -9,7 +11,7 @@ package com.tepia.main.model.user.homepageinfo;
  * Version         :       1.0
  * 功能描述        :      防汛物资实体
  **/
-public class MaterialBean {
+public class MaterialBean implements Serializable{
     /**
      * id : ab432a971b87488091fea949e2c0633e
      * meName : 器材1

@@ -31,7 +31,7 @@
                     android:paddingLeft="32dp"
                     android:paddingRight="32dp"
                     android:paddingTop="10dp"
-                    android:text="jfkjdskfjksd"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="22sp" />
 
@@ -101,6 +101,7 @@
                                     android:textSize="14sp" />
 
                                 <LinearLayout
+                                    android:id="@+id/lo_task_desc"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="12dp">
