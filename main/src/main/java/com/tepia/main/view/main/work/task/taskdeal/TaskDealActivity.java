@@ -39,6 +39,7 @@ import com.tepia.main.databinding.ActivityTaskDeal2Binding;
 import com.tepia.main.model.task.bean.PositionNamesBean;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.work.task.taskdeal.taskitemdeal.TaskItemDealFragment;
 import com.tepia.main.view.main.work.task.taskdetail.AdapterPositionTitle;
 
@@ -166,7 +167,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                 int itemCur = mBinding.viewPager.getCurrentItem();
                 TaskItemDealFragment taskItemDealFragment = (TaskItemDealFragment) ((CommonFragmentPagerAdapter) mBinding.viewPager.getAdapter())
                         .getItem(itemCur);
-                if ("2".equals(taskBean.getExecuteStatus())) {
+                if ("2".equals(taskBean.getExecuteStatus()) && (taskBean.getExecuteId() != null && taskBean.getExecuteId().equals(UserManager.getInstance().getUserBean().getData().getUserCode()))) {
                     TaskItemDealFragment.ReturnData data = taskItemDealFragment.getDealContent();
                     if (data.isFinish()) {
                         if (currentPoint != null) {
@@ -225,10 +226,12 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
         if (taskBean == null) {
             taskBean = new Gson().fromJson(temp, TaskBean.class);
         }
-        refreshView(taskBean);
+        if (taskBean != null) {
+            refreshView(taskBean);
+        }
 
         if (taskBean == null) {
-            mPresenter.getTaskDetail(workOrderId, false, getString(R.string.data_loading));
+            mPresenter.getTaskDetail(workOrderId, true, getString(R.string.data_loading));
         } else {
             mPresenter.getTaskDetail(workOrderId, false, "");
         }
@@ -420,7 +423,11 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                 mBinding.tvSaveAndNext.setText("下一项");
                 break;
             case "2":
-                mBinding.tvSaveAndNext.setText("保存并下一项");
+                if (taskBean.getExecuteId() != null && taskBean.getExecuteId().equals(UserManager.getInstance().getUserBean().getData().getUserCode())) {
+                    mBinding.tvSaveAndNext.setText("保存并下一项");
+                } else {
+                    mBinding.tvSaveAndNext.setText("下一项");
+                }
                 break;
             case "3":
                 mBinding.tvSaveAndNext.setText("下一项");

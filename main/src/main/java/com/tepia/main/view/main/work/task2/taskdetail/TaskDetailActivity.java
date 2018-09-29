@@ -61,6 +61,7 @@ import java.util.Map;
 /**
  * 任务详情
  * 邮箱 784787081@qq.com
+ *
  * @author Joeshould
  */
 @Route(path = AppRoutePath.app_task_detail_2)
@@ -98,7 +99,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     @Override
     public void initView() {
         mBinding = DataBindingUtil.bind(mRootView);
-        if (taskBean == null) {
+        if (taskBean == null && TextUtils.isEmpty(temp)) {
             taskBean = new Gson().fromJson(temp, TaskBean.class);
         }
         initListView();
@@ -488,7 +489,11 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                             }
                             LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
-                            mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+                            if (taskBean.getIsProcess() != null &&taskBean.getIsProcess().equals("0")) {
+                                mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
+                            } else {
+                                mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+                            }
                         }
                     });
                 } else {

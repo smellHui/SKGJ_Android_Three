@@ -45,7 +45,7 @@ public class YunWeiListPresenter extends BasePresenterImpl<YunWeiListContract.Vi
         String startDate = null;
         String endDate = null;
 
-        boolean isShow = true;
+        boolean isShow = false;
         String msg = null;
         if (!isCanLoadMore) {
             return;

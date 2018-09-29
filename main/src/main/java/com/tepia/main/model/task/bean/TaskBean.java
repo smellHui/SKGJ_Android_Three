@@ -28,6 +28,8 @@ public  class TaskBean  implements Serializable{
     private String workOrderName;
     private String planStartTime;
     private String startTime;
+    private String executorId;
+    private String isProcess;
     private String executorName;
     private String operationType;
     private String problemNum;
@@ -41,6 +43,22 @@ public  class TaskBean  implements Serializable{
     private BizPlanInfoBean bizPlanInfo;
     private String reservoirName;
     private List<TaskItemBean> bizReservoirWorkOrderItems;
+
+    public String getIsProcess() {
+        return isProcess;
+    }
+
+    public void setIsProcess(String isProcess) {
+        this.isProcess = isProcess;
+    }
+
+    public String getExecuteId() {
+        return executorId;
+    }
+
+    public void setExecuteId(String executeId) {
+        this.executorId = executeId;
+    }
 
     public String getOperationType() {
         return operationType;

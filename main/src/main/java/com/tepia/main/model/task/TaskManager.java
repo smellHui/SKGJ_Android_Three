@@ -136,6 +136,12 @@ public class TaskManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+    public Observable<BaseResponse> endExecute2(String workOrderId, String positionStr) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.endExecute2(token, workOrderId, positionStr)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     /**
      * 获取 任务项 详细信息

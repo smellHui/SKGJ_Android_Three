@@ -29,6 +29,7 @@ import com.tepia.main.model.image.ImageInfoBean;
 import com.tepia.main.model.task.bean.ShowTypeBean;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.work.task.taskdeal.TaskDealActivity;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
@@ -179,23 +180,25 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
             mBinding.etDesc.setText(etDescStr);
         }
 
-        if (!"2".equals(executeStatus)) {
-            mBinding.rgList.setClickable(false);
-            mBinding.rb1.setClickable(false);
-            mBinding.rb2.setClickable(false);
-            mBinding.etDesc.setEnabled(false);
-        } else {
+        if ("2".equals(executeStatus) && UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
+
             mBinding.rgList.setClickable(true);
             mBinding.rb1.setClickable(true);
             mBinding.rb2.setClickable(true);
             mBinding.etDesc.setEnabled(true);
-        }
-        if (!"2".equals(executeStatus)) {
-            photoRecycleViewAdapterBefore.setShowType(true);
-            photoRecycleViewAdapterAfter.setShowType(true);
         } else {
+            mBinding.rgList.setClickable(false);
+            mBinding.rb1.setClickable(false);
+            mBinding.rb2.setClickable(false);
+            mBinding.etDesc.setEnabled(false);
+        }
+        if ("2".equals(executeStatus) && UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
+
             photoRecycleViewAdapterBefore.setShowType(false);
             photoRecycleViewAdapterAfter.setShowType(false);
+        } else {
+            photoRecycleViewAdapterBefore.setShowType(true);
+            photoRecycleViewAdapterAfter.setShowType(true);
         }
 
         mBinding.tvTaskItemName.setText(taskItemBean.getSuperviseItemName());

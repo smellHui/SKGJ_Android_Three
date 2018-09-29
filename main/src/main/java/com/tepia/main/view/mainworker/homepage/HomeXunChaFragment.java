@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,22 +97,11 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         initLineChart();
 
 
-
-
         initListener();
 
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (UserManager.getInstance().getDefaultReservoir() != null) {
-            tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
-            mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
-        }
-    }
 
     private void initListener() {
         mBinding.loHeader.switchTv.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +131,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ARouter.getInstance().build(AppRoutePath.app_flood_detail)
-                        .withString("floodid",new Gson().toJson(adapterFloodControlMaterialList.getData().get(position)))
+                        .withString("floodid", new Gson().toJson(adapterFloodControlMaterialList.getData().get(position)))
                         .navigation();
 //                Intent intent = new Intent();
 //                intent.setClass(getBaseActivity(),FloodDetailActivity.class);
@@ -148,6 +139,19 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 //                bundle.putSerializable("floodid",adapterFloodControlMaterialList.getData().get(position));
 //                intent.putExtras(bundle);
 //                startActivity(intent);
+            }
+        });
+
+        mBinding.wrflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mBinding.wrflContainer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBinding.wrflContainer.setRefreshing(false);
+                    }
+                }, 500);
+                mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
             }
         });
     }
@@ -262,13 +266,18 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
         mBinding.loWeihuStatistics.rtcpNotDealCount.setText("3");
 
+        mBinding.loWeihuStatistics.loStatisticsy.setVisibility(View.GONE);
+        mBinding.loBaojieStatisticsy.loStatisticsy.setVisibility(View.GONE);
+        mBinding.loWeihuFrequency.loFrequency.setVisibility(View.GONE);
+        mBinding.loBaojieFrequency.loFrequency.setVisibility(View.GONE);
+
     }
 
 
     private void initLineChart() {
 
 //        ChartUtils.initChart(lcReservoirCapacity);
-        lineChartEntity = new LineChartEntity(lcReservoirCapacity,"水位");
+        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "水位");
         if (lcReservoirCapacity != null) {
             lcReservoirCapacity.clear();
             //重设所有缩放和拖动，使图表完全适合它的边界（完全缩小）。
@@ -304,9 +313,17 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     protected void initRequestData() {
 
-
+        if (UserManager.getInstance().getDefaultReservoir() != null) {
+            tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
+            mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
+        }
     }
 
     private List<Entry> getData(List<HomeGetReservoirInfoBean.StorageCapacityBean> storageCapacity) {
@@ -395,7 +412,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         }
 
         if (data.getStorageCapacity() != null) {
-           refreshChart(data.getStorageCapacity());
+            refreshChart(data.getStorageCapacity());
         }
     }
 
@@ -416,23 +433,43 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         String host = "http://192.168.30.220:7000/#/appcanvas?";
         String prarm = "";
         prarm += "reservoirCode=" + reservoirWaterLevel.getReservoirId() + "&";
-        prarm += "reservoirHeight=" + reservoirWaterLevel.getDamCrestElevation() + "&";
-        prarm += "checkFloodWaterLevel=" + reservoirWaterLevel.getCheckFloodWaterLevel() + "&";
-        prarm += "designFloodWaterLevel=" + reservoirWaterLevel.getDesignFloodWaterLevel() + "&";
-        prarm += "normalImpoundedLevel=" + reservoirWaterLevel.getNormalImpoundedLevel() + "&";
-        prarm += "floodSeasonWaterLevel=" + reservoirWaterLevel.getFloodSeasonWaterLevel() + "&";
-        prarm += "floodSeasonStartDate=" + reservoirWaterLevel.getFloodSeasonStartDate() + "&";
-        prarm += "floodSeasonEndDate=" + reservoirWaterLevel.getFloodSeasonStartDate() + "&";
-        prarm += "realTimeLevel=" + reservoirWaterLevel.getRz() + "&";
-        prarm += "waterStorate=" + reservoirWaterLevel.getW() + "&";
-        prarm += "dataTime=" + reservoirWaterLevel.getTm();
+        if (reservoirWaterLevel.getDamCrestElevation() != null) {
+            prarm += "reservoirHeight=" + reservoirWaterLevel.getDamCrestElevation() + "&";
+        }
+        if (reservoirWaterLevel.getCheckFloodWaterLevel() != null) {
+            prarm += "checkFloodWaterLevel=" + reservoirWaterLevel.getCheckFloodWaterLevel() + "&";
+        }
+        if (reservoirWaterLevel.getDesignFloodWaterLevel() != null) {
+            prarm += "designFloodWaterLevel=" + reservoirWaterLevel.getDesignFloodWaterLevel() + "&";
+        }
+        if (reservoirWaterLevel.getNormalImpoundedLevel() != null) {
+            prarm += "normalImpoundedLevel=" + reservoirWaterLevel.getNormalImpoundedLevel() + "&";
+        }
+        if (reservoirWaterLevel.getFloodSeasonWaterLevel() != null) {
+            prarm += "floodSeasonWaterLevel=" + reservoirWaterLevel.getFloodSeasonWaterLevel() + "&";
+        }
+        if (reservoirWaterLevel.getFloodSeasonStartDate() != null) {
+            prarm += "floodSeasonStartDate=" + reservoirWaterLevel.getFloodSeasonStartDate() + "&";
+        }
+        if (reservoirWaterLevel.getFloodSeasonStartDate() != null) {
+            prarm += "floodSeasonEndDate=" + reservoirWaterLevel.getFloodSeasonStartDate() + "&";
+        }
+        if (reservoirWaterLevel.getRz() != null) {
+            prarm += "realTimeLevel=" + reservoirWaterLevel.getRz() + "&";
+        }
+        if (reservoirWaterLevel.getW() != null) {
+            prarm += "waterStorate=" + reservoirWaterLevel.getW() + "&";
+        }
+        if (reservoirWaterLevel.getTm() != null) {
+            prarm += "dataTime=" + reservoirWaterLevel.getTm();
+        }
         AgentWeb.with(this)
                 .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
                 .setIndicatorColorWithHeight(-1, 2)
                 .setSecurityType(AgentWeb.SecurityType.strict)
                 .createAgentWeb()
                 .ready()
-                .go(host+prarm);
+                .go(host + prarm);
     }
 
 

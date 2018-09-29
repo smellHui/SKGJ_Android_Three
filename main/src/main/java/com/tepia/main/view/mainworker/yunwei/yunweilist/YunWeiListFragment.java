@@ -26,6 +26,7 @@ import com.tepia.main.model.user.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author :      zhang xinhua
@@ -39,6 +40,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
     private ReservoirBean selectedResrvoir;
     private String selectedYunWeiType;
     public String defaultYunweiType;
+    private ArrayList<String> yunweiTypeStrs;
 
     @Override
     protected int getLayoutId() {
@@ -47,7 +49,12 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
 
     @Override
     protected void initData() {
-
+        Map<String, String> map = UserManager.getInstance().getYunWeiTypeList();
+        yunweiTypeStrs = new ArrayList<>();
+        yunweiTypeStrs.add("全部");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            yunweiTypeStrs.add(entry.getKey() + "");
+        }
     }
 
     @Override
@@ -68,7 +75,19 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         mBinding.srflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (selectedResrvoir == null) {
+                    mPresenter.getPatrolWorkOrderList("", selectedYunWeiType);
+                } else {
+                    mPresenter.getPatrolWorkOrderList(selectedResrvoir.getReservoirId(), selectedYunWeiType);
+                }
                 mBinding.srflContainer.setRefreshing(false);
+            }
+        });
+
+        adapterPatrolWorkOrderList.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
             }
         });
 
@@ -140,21 +159,24 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
     private void showSelectYunweiType() {
 
         String[] stringItems = {"全部", "巡查", "维护", "保洁"};
-
+        if (yunweiTypeStrs != null && yunweiTypeStrs.size() != 0) {
+            stringItems = yunweiTypeStrs.toArray(new String[yunweiTypeStrs.size()]);
+        }
         final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
         dialog.title("请运维类型")
                 .titleTextSize_SP(14.5f)
                 .widthScale(0.8f)
                 .show();
+        String[] finalStringItems = stringItems;
         dialog.setOnOpenItemClickL(new OnOpenItemClick() {
             @Override
             public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    selectedYunWeiType = position + "";
+                    selectedYunWeiType =UserManager.getInstance().getYunWeiTypeList().get(yunweiTypeStrs.get(position))+ "";
                 } else {
                     selectedYunWeiType = "";
                 }
-                mBinding.tvYunweiType.setText(stringItems[position]);
+                mBinding.tvYunweiType.setText(finalStringItems[position]);
                 dialog.dismiss();
             }
         });

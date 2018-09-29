@@ -154,6 +154,11 @@ interface TaskHttpService {
     Observable<BaseResponse> endExecute(@Header("Authorization") String token,
                                         @Field("workOrderId") String workOrderId,
                                         @Field("workOrderRoute") String workOrderRoute);
+    @FormUrlEncoded
+    @POST("app/workOrderTrp/endExecute")
+    Observable<BaseResponse> endExecute2(@Header("Authorization") String token,
+                                        @Field("workOrderId") String workOrderId,
+                                        @Field("workOrderRoute") String workOrderRoute);
 
 
     /**

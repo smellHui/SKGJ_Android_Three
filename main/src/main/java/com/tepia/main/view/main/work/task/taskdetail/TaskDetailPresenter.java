@@ -92,6 +92,24 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
         });
     }
 
+    public void endExecute2(String workOrderId, String workOrderRoute, boolean isShow, String msg) {
+        TaskManager.getInstance().endExecute2(workOrderId, workOrderRoute).subscribe(new LoadingSubject<BaseResponse>(isShow, msg) {
+            @Override
+            protected void _onNext(BaseResponse response) {
+                LoadingDialog.with(AppManager.getInstance().getCurrentActivity()).dismiss();
+                if (mView != null) {
+                    mView.endExecuteSucess();
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                LoadingDialog.with(AppManager.getInstance().getCurrentActivity()).dismiss();
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
+
     public void getPeople(String workOrderId) {
         TaskManager.getInstance().candidate(workOrderId).subscribe(new LoadingSubject<CandidateResponse>(true, ResUtils.getString(R.string.data_loading)) {
             @Override

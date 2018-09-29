@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -94,7 +95,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     @Override
     public void initView() {
         mBinding = DataBindingUtil.bind(mRootView);
-        if (taskBean == null) {
+        if (taskBean == null && TextUtils.isEmpty(temp)) {
             taskBean = new Gson().fromJson(temp, TaskBean.class);
         }
         initListView();
@@ -350,13 +351,14 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     protected void initRequestData() {
         mImmersionBar.titleBar(mBinding.loTitle).init();
         setStatusBarTextDark();
+        mBinding.tvDoTask.setVisibility(View.GONE);
         if (taskBean == null) {
             taskBean = new Gson().fromJson(temp, TaskBean.class);
         }
         refreshView();
 
         if (taskBean == null) {
-            mPresenter.getTaskDetail(id, false, getString(R.string.data_loading));
+            mPresenter.getTaskDetail(id, true, getString(R.string.data_loading));
         } else {
             mPresenter.getTaskDetail(id, false, "");
         }
@@ -451,7 +453,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             mBinding.tvTaskDesc.setText("" + taskBean.getRemarks());
         } else if (taskBean.getBizPlanInfo() != null && !TextUtils.isEmpty(taskBean.getBizPlanInfo().getPlanName())) {
             mBinding.tvTaskDesc.setText("" + taskBean.getBizPlanInfo().getPlanName());
-        }else {
+        } else {
             mBinding.loTaskDesc.setVisibility(View.GONE);
         }
         if (taskBean.getBizReservoirWorkOrderItems() != null) {
@@ -490,7 +492,12 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                             }
                             LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
-                            mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+                            if (taskBean.getIsProcess() != null && taskBean.getIsProcess().equals("1")) {
+                                mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
+                            } else {
+                                mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+                            }
+
                         }
                     });
                 } else {
@@ -515,6 +522,11 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 }
                 mBinding.loEditAndSend.setVisibility(View.GONE);
                 mBinding.tvDoTask.setVisibility(View.VISIBLE);
+                if (taskBean.getExecuteId() != null && taskBean.getExecuteId().equals(com.tepia.main.model.user.UserManager.getInstance().getUserBean().getData().getUserCode())) {
+                    mBinding.tvDoTask.setVisibility(View.VISIBLE);
+                }else {
+                    mBinding.tvDoTask.setVisibility(View.GONE);
+                }
                 break;
             case "3":
                 mBinding.tvTaskExecStatus.setText(ResUtils.getString(R.string.text_task_status_ywc));

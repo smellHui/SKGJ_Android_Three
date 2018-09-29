@@ -29,6 +29,7 @@ import com.tepia.main.view.main.work.task.taskdetail.AdapterTaskItemList;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author :      zhang xinhua
@@ -49,6 +50,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
     private String selectedYunWeiType;
     private AdapterTaskItemList adapterTaskItemList;
     public String defaultYunweiType;
+    private ArrayList<String> yunweiTypeStrs;
 
     @Override
     protected int getLayoutId() {
@@ -57,7 +59,11 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
 
     @Override
     protected void initData() {
-
+        Map<String, String> map = UserManager.getInstance().getYunWeiTypeList();
+        yunweiTypeStrs = new ArrayList<>();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            yunweiTypeStrs.add(entry.getKey() + "");
+        }
     }
 
     @Override
@@ -96,10 +102,15 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
             }
         } else {
             mBinding.loSelectYunweiType.setVisibility(View.VISIBLE);
-            selectedYunWeiType = "1";
-            mBinding.tvYunweiType.setText("巡检");
-            mBinding.tvOperationTaskNumTip.setText("巡检任务");
-            mBinding.tvDealedOperationTaskNumTip.setText("完成巡检");
+            if (yunweiTypeStrs != null && yunweiTypeStrs.size() != 0) {
+                selectedYunWeiType = UserManager.getInstance().getYunWeiTypeList().get(yunweiTypeStrs.get(0));
+                mBinding.tvYunweiType.setText(yunweiTypeStrs.get(0));
+            } else {
+                selectedYunWeiType = "1";
+                mBinding.tvYunweiType.setText("巡检");
+                mBinding.tvOperationTaskNumTip.setText("巡检任务");
+                mBinding.tvDealedOperationTaskNumTip.setText("完成巡检");
+            }
         }
 
     }
@@ -136,19 +147,22 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
     }
 
     private void showSelectYunweiType() {
-
         String[] stringItems = {"巡检", "维护", "保洁"};
+        if (yunweiTypeStrs != null && yunweiTypeStrs.size() != 0) {
+            stringItems = yunweiTypeStrs.toArray(new String[yunweiTypeStrs.size()]);
+        }
 
         final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
         dialog.title("请运维类型")
                 .titleTextSize_SP(14.5f)
                 .widthScale(0.8f)
                 .show();
+        String[] finalStringItems = stringItems;
         dialog.setOnOpenItemClickL(new OnOpenItemClick() {
             @Override
             public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedYunWeiType = position + 1 + "";
-                mBinding.tvYunweiType.setText(stringItems[position]);
+                selectedYunWeiType = UserManager.getInstance().getYunWeiTypeList().get(yunweiTypeStrs.get(position)) + "";
+                mBinding.tvYunweiType.setText(finalStringItems[position]);
                 selectFinish(selectedYunWeiType, selectedResrvoir);
                 dialog.dismiss();
             }
@@ -236,7 +250,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
             mBinding.tvDealedPresent.setText("--");
         } else {
             DecimalFormat df = new DecimalFormat("#.0");
-            mBinding.tvDealedPresent.setText(df.format(data.getDoneNum() * 100.0 / data.getTotals() )+ "%");
+            mBinding.tvDealedPresent.setText(df.format(data.getDoneNum() * 100.0 / data.getTotals()) + "%");
         }
     }
 

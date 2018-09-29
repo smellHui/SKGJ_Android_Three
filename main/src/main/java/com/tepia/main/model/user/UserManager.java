@@ -16,7 +16,9 @@ import com.tepia.main.view.MenuItemBean;
 import com.tepia.main.view.login.LoginPresenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.Observable;
@@ -285,21 +287,21 @@ public class UserManager {
     public Observable<HomeGetReservoirInfoResponse> getAppHomeGetReservoirInfo(String reservoirId) {
         String token = getToken();
         String types = "";
-        if (UserManager.getInstance().getMenuList().get(1).getMenuIcon().equals("110")){
+        if (UserManager.getInstance().getMenuList().get(1).getMenuIcon().equals("110")) {
             MenuItemBean bean = UserManager.getInstance().getMenuList().get(1);
-            if (bean.getChildren()!= null &&(bean.getChildren().size() ==2 || bean.getChildren().size() ==1)){
-                for (MenuItemBean bean1 :bean.getChildren()){
-                    if (bean1.getMenuIcon().equals("111") ){
-                        types +="1,";
+            if (bean.getChildren() != null && (bean.getChildren().size() == 2 || bean.getChildren().size() == 1)) {
+                for (MenuItemBean bean1 : bean.getChildren()) {
+                    if (bean1.getMenuIcon().equals("111")) {
+                        types += "1,";
                     }
-                    if (bean1.getMenuIcon().equals("112") ){
-                        types +="2,";
+                    if (bean1.getMenuIcon().equals("112")) {
+                        types += "2,";
                     }
-                    if (bean1.getMenuIcon().equals("113") ){
-                        types +="3,";
+                    if (bean1.getMenuIcon().equals("113")) {
+                        types += "3,";
                     }
                 }
-                types = types.substring(0,types.length()-1);
+                types = types.substring(0, types.length() - 1);
             }
         }
         return mRetrofitService.getAppHomeGetReservoirInfo(token, reservoirId, types)
@@ -309,8 +311,34 @@ public class UserManager {
 
     public Observable<AddressBookResponse> getAddressBook(String searchKey, String currentPage, String pageSize) {
         String token = getToken();
-        return mRetrofitService.getAddressBook(token,searchKey,currentPage,pageSize)
+        return mRetrofitService.getAddressBook(token, searchKey, currentPage, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Map<String, String> getYunWeiTypeList() {
+        Map<String, String> yunweitypelist = new HashMap<>();
+        if (UserManager.getInstance().getMenuList() == null) {
+            return yunweitypelist;
+        }
+        if (UserManager.getInstance().getMenuList().get(1).getMenuIcon().equals("110")) {
+            MenuItemBean bean = UserManager.getInstance().getMenuList().get(1);
+            if (bean.getChildren() != null && (bean.getChildren().size() == 2 || bean.getChildren().size() == 1)) {
+                for (MenuItemBean bean1 : bean.getChildren()) {
+                    if (bean1.getMenuIcon().equals("111")) {
+                        yunweitypelist.put("巡检", "1");
+                    }
+                    if (bean1.getMenuIcon().equals("112")) {
+                        yunweitypelist.put("维护", "2");
+
+                    }
+                    if (bean1.getMenuIcon().equals("113")) {
+                        yunweitypelist.put("保洁", "3");
+                    }
+                }
+
+            }
+        }
+        return yunweitypelist;
     }
 }

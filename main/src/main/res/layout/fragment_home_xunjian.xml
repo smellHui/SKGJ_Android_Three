@@ -17,266 +17,273 @@
 
             <include layout="@layout/toolbar" />
 
-            <android.support.v4.widget.NestedScrollView
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/wrfl_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <LinearLayout
+                <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!--<LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_res_home_page"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="25dp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="14dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="fkajskfdjk"
-                                android:textColor="@color/white"
-                                android:textSize="18dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="PRESSURE RESERVOIR"
-                                android:textColor="#4dffffff"
-                                android:textSize="10dp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/bg_change_re"
-                            android:paddingBottom="6dp"
-                            android:paddingLeft="14dp"
-                            android:paddingRight="14dp"
-                            android:paddingTop="6dp"
-                            android:text="切换水库"
-                            android:textColor="#ccffffff"
-                            android:textSize="12dp" />
-
-                    </LinearLayout>-->
-
-                    <!--复用布局-->
-                    <include
-                        android:id="@+id/lo_header"
-                        layout="@layout/common_qiehuan_reserviors_layout" />
-
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:orientation="vertical"
-                        android:paddingBottom="15dp">
+                        android:orientation="vertical">
 
-                        <LinearLayout
+                        <!--<LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
+                            android:background="@drawable/bg_res_home_page"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="25dp" />
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
+                                android:layout_marginLeft="14dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@drawable/icon_home_page_worker" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:lineSpacingExtra="0dp"
-                                    android:text="水库人员"
-                                    android:textColor="#2e3748"
-                                    android:textSize="14dp" />
-                            </LinearLayout>
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/rv_worker"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginTop="12dp" />
-                        </LinearLayout>
-
-                        <include
-                            android:id="@+id/lo_xunjian_frequency"
-                            layout="@layout/layout_frequency" />
-
-                        <include
-                            android:id="@+id/lo_baojie_frequency"
-                            layout="@layout/layout_frequency" />
-
-                        <include
-                            android:id="@+id/lo_weihu_frequency"
-                            layout="@layout/layout_frequency" />
-
-                        <include
-                            android:id="@+id/lo_xunjian_statisticsy"
-                            layout="@layout/layout_statistics" />
-
-                        <include
-                            android:id="@+id/lo_baojie_statisticsy"
-                            layout="@layout/layout_statistics" />
-
-                        <include
-                            android:id="@+id/lo_weihu_statistics"
-                            layout="@layout/layout_statistics" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@drawable/icon_home_page_fxwz" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_weight="1"
-                                    android:text="防汛物资"
-                                    android:textColor="#2e3748"
-                                    android:textSize="14dp" />
+                                    android:text="fkajskfdjk"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tv_show_more"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="right"
-                                    android:text="查看更多"
-                                    android:textColor="#bec5d2"
-                                    android:textSize="12dp" />
-
+                                    android:text="PRESSURE RESERVOIR"
+                                    android:textColor="#4dffffff"
+                                    android:textSize="10dp"
+                                    android:textStyle="bold" />
 
                             </LinearLayout>
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/rv_flood_control_material_list"
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
-                                android:layout_marginTop="15dp" />
-                        </LinearLayout>
+                                android:layout_marginTop="20dp"
+                                android:background="@drawable/bg_change_re"
+                                android:paddingBottom="6dp"
+                                android:paddingLeft="14dp"
+                                android:paddingRight="14dp"
+                                android:paddingTop="6dp"
+                                android:text="切换水库"
+                                android:textColor="#ccffffff"
+                                android:textSize="12dp" />
+
+                        </LinearLayout>-->
+
+                        <!--复用布局-->
+                        <include
+                            android:id="@+id/lo_header"
+                            layout="@layout/common_qiehuan_reserviors_layout" />
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="vertical"
+                            android:paddingBottom="15dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
+                                android:layout_marginTop="15dp"
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@drawable/icon_home_page_ssswkr" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:text="实时水位库容"
-                                    android:textColor="@color/black"
-                                    android:textSize="14dp" />
-                            </LinearLayout>
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="228dp"
-                                android:orientation="vertical"
-                                android:padding="20dp">
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:src="@drawable/icon_home_page_worker" />
 
-                                <WebView
-                                    android:id="@+id/wv_real_time_water_level_storage_capacity"
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:lineSpacingExtra="0dp"
+                                        android:text="水库人员"
+                                        android:textColor="#2e3748"
+                                        android:textSize="14dp" />
+                                </LinearLayout>
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rv_worker"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/bg_real_time_water_level_storage_capacity" />
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginTop="12dp" />
                             </LinearLayout>
-                        </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
+                            <include
+                                android:id="@+id/lo_xunjian_frequency"
+                                layout="@layout/layout_frequency" />
+
+                            <include
+                                android:id="@+id/lo_baojie_frequency"
+                                layout="@layout/layout_frequency" />
+
+                            <include
+                                android:id="@+id/lo_weihu_frequency"
+                                layout="@layout/layout_frequency" />
+
+                            <include
+                                android:id="@+id/lo_xunjian_statisticsy"
+                                layout="@layout/layout_statistics" />
+
+                            <include
+                                android:id="@+id/lo_baojie_statisticsy"
+                                layout="@layout/layout_statistics" />
+
+                            <include
+                                android:id="@+id/lo_weihu_statistics"
+                                layout="@layout/layout_statistics" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical">
+                                android:layout_marginTop="15dp"
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@drawable/icon_home_page_swkrqx" />
-
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:text="水位库容曲线"
-                                    android:textColor="@color/black"
-                                    android:textSize="14dp" />
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:src="@drawable/icon_home_page_fxwz" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:layout_weight="1"
+                                        android:text="防汛物资"
+                                        android:textColor="#2e3748"
+                                        android:textSize="14dp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_show_more"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="查看更多"
+                                        android:textColor="#bec5d2"
+                                        android:textSize="12dp" />
+
+
+                                </LinearLayout>
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rv_flood_control_material_list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_marginTop="15dp" />
                             </LinearLayout>
 
-                            <com.github.mikephil.charting.charts.LineChart
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="180dp"
-                                android:tag="lc_reservoir_capacity" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:src="@drawable/icon_home_page_ssswkr" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:text="实时水位库容"
+                                        android:textColor="@color/black"
+                                        android:textSize="14dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="228dp"
+                                    android:orientation="vertical"
+                                    android:padding="20dp">
+
+                                    <WebView
+                                        android:id="@+id/wv_real_time_water_level_storage_capacity"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/bg_real_time_water_level_storage_capacity" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical">
+
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:src="@drawable/icon_home_page_swkrqx" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:text="水位库容曲线"
+                                        android:textColor="@color/black"
+                                        android:textSize="14dp" />
+                                </LinearLayout>
+
+                                <com.github.mikephil.charting.charts.LineChart
+                                    android:layout_width="match_parent"
+                                    android:layout_height="180dp"
+                                    android:tag="lc_reservoir_capacity" />
+                            </LinearLayout>
                         </LinearLayout>
+
+
                     </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
-
-                </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

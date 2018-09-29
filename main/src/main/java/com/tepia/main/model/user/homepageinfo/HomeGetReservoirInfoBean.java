@@ -209,14 +209,14 @@ public class HomeGetReservoirInfoBean {
          */
 
         private String floodSeasonStartDate;
-        private int floodSeasonWaterLevel;
-        private double checkFloodWaterLevel;
-        private int dead_waterLevel;
-        private boolean isFlood;
-        private double designFloodWaterLevel;
+        private Float floodSeasonWaterLevel;
+        private Double checkFloodWaterLevel;
+        private Float dead_waterLevel;
+        private Boolean isFlood;
+        private Double designFloodWaterLevel;
         private String reservoirId;
-        private int normalImpoundedLevel;
-        private int damCrestElevation;
+        private Float normalImpoundedLevel;
+        private Float damCrestElevation;
         private String floodSeasonEndDate;
         private String stcd;
         private String tm;
@@ -231,43 +231,43 @@ public class HomeGetReservoirInfoBean {
             this.floodSeasonStartDate = floodSeasonStartDate;
         }
 
-        public int getFloodSeasonWaterLevel() {
+        public Float getFloodSeasonWaterLevel() {
             return floodSeasonWaterLevel;
         }
 
-        public void setFloodSeasonWaterLevel(int floodSeasonWaterLevel) {
+        public void setFloodSeasonWaterLevel(Float floodSeasonWaterLevel) {
             this.floodSeasonWaterLevel = floodSeasonWaterLevel;
         }
 
-        public double getCheckFloodWaterLevel() {
+        public Double getCheckFloodWaterLevel() {
             return checkFloodWaterLevel;
         }
 
-        public void setCheckFloodWaterLevel(double checkFloodWaterLevel) {
+        public void setCheckFloodWaterLevel(Double checkFloodWaterLevel) {
             this.checkFloodWaterLevel = checkFloodWaterLevel;
         }
 
-        public int getDead_waterLevel() {
+        public Float getDead_waterLevel() {
             return dead_waterLevel;
         }
 
-        public void setDead_waterLevel(int dead_waterLevel) {
+        public void setDead_waterLevel(Float dead_waterLevel) {
             this.dead_waterLevel = dead_waterLevel;
         }
 
-        public boolean isIsFlood() {
+        public Boolean getFlood() {
             return isFlood;
         }
 
-        public void setIsFlood(boolean isFlood) {
-            this.isFlood = isFlood;
+        public void setFlood(Boolean flood) {
+            isFlood = flood;
         }
 
-        public double getDesignFloodWaterLevel() {
+        public Double getDesignFloodWaterLevel() {
             return designFloodWaterLevel;
         }
 
-        public void setDesignFloodWaterLevel(double designFloodWaterLevel) {
+        public void setDesignFloodWaterLevel(Double designFloodWaterLevel) {
             this.designFloodWaterLevel = designFloodWaterLevel;
         }
 
@@ -279,19 +279,19 @@ public class HomeGetReservoirInfoBean {
             this.reservoirId = reservoirId;
         }
 
-        public int getNormalImpoundedLevel() {
+        public Float getNormalImpoundedLevel() {
             return normalImpoundedLevel;
         }
 
-        public void setNormalImpoundedLevel(int normalImpoundedLevel) {
+        public void setNormalImpoundedLevel(Float normalImpoundedLevel) {
             this.normalImpoundedLevel = normalImpoundedLevel;
         }
 
-        public int getDamCrestElevation() {
+        public Float getDamCrestElevation() {
             return damCrestElevation;
         }
 
-        public void setDamCrestElevation(int damCrestElevation) {
+        public void setDamCrestElevation(Float damCrestElevation) {
             this.damCrestElevation = damCrestElevation;
         }
 

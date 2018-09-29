@@ -17,7 +17,7 @@ public class UnfinishedNumResponse extends BaseResponse {
      * data : {"work_order_id":"bad8c0f2f74848baa82d2b9fa7810d70","totals":1}
      */
 
-    private DataBean data;
+    private DataBean data = new DataBean();
 
     public DataBean getData() {
         return data;
