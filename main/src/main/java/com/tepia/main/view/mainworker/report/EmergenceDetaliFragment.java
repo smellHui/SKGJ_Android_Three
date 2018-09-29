@@ -4,8 +4,10 @@ package com.tepia.main.view.mainworker.report;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -89,9 +91,11 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     //标签个数
     private static int labelcount= 8;
     private static int REQUEST_VIDEO_CODE= 100;
+    private static int REQUEST_DELETE_CODE= 200;
     private ImageView videoIcon;
     // 视频路径
-    private String videoPath = "";
+    public static String videoPath = "";
+    private Bitmap addBitmap;
 
     @Override
     protected int getLayoutId() {
@@ -115,6 +119,8 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     protected void initView(View view) {
         setCenterTitle("应急上报");
         showBack();
+        addBitmap = ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.newplay)
+        ).getBitmap();
         UserInfoBean reservoirBean = UserManager.getInstance().getUserBean();
         if( reservoirBean != null && reservoirBean.getData() != null){
             userCode = reservoirBean.getData().getUserCode();
@@ -252,8 +258,6 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     @Override
     protected void initRequestData() {
 
-
-
     }
 
 
@@ -271,9 +275,7 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
             }
             photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
             photoAdapter.notifyDataSetChanged();
-        }
-
-        if (requestCode == REQUEST_VIDEO_CODE) {
+        }else if (requestCode == REQUEST_VIDEO_CODE) {
             if (resultCode == RESULT_OK) {
                 Uri uri = data.getData();
                 // 视频路径
@@ -289,14 +291,26 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
                 //转换文件大小类型
                 if (videoSize > 20*1024*1024) {
                     ToastUtils.shortToast("大小超出限制，最大20MB");
+                    videoPath = "";
                     return;
                 }
                 // 通过视频路径获取bitmap
                 Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Video.Thumbnails.MICRO_KIND);
+
+                Bitmap bmpVedio = CanvasnewBitmap.doodle(bitmap,
+                        addBitmap);
+                if(bitmap != null){
+                    bitmap.recycle();
+                }
+
                 //把bitmap保存到sdcard然后得到图片的路径
-                String imagePath = FileUtil.saveBitmapToSDCard(bitmap, System.currentTimeMillis() + ".jpg");
+//                String imagePath = FileUtil.saveBitmapToSDCard(bitmap, System.currentTimeMillis() + ".jpg");
                 //显示到控件上
-                videoIcon.setImageBitmap(bitmap);
+                videoIcon.setImageBitmap(bmpVedio);
+            }
+        }else if(requestCode == REQUEST_DELETE_CODE){
+            if(TextUtils.isEmpty(videoPath)){
+                videoIcon.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.vedio));
             }
         }
 
@@ -428,7 +442,17 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
                 showRiverDialog(dateBeanList);
             }
         }else if(viewID == R.id.videoIcon){
-            getVedio();
+            if(TextUtils.isEmpty(videoPath)) {
+                getVedio();
+            }else{
+                Intent intent = new Intent();
+                intent.setClass(getBaseActivity(),PlayLocalVedio.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("urllocalvedio",videoPath);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, REQUEST_DELETE_CODE);
+
+            }
         }
     }
 
@@ -475,6 +499,9 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (addBitmap != null) {
+            addBitmap.recycle();
+        }
         clear();
         SPUtils.getInstance().putString(EmergencyDetailActivity.key_Title,questionTitle);
         SPUtils.getInstance().putString(EmergencyDetailActivity.key_Content,questionContent);
