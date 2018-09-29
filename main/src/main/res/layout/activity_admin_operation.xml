@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white">
+    android:background="@color/color_white"
+    android:orientation="vertical">
 
     <include
         layout="@layout/toolbar"
-        android:visibility="gone" />
-
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eff1f3" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,7 +40,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="开始日期 :"
+                android:text="查询日期 :"
                 android:textColor="#464b57"
                 android:paddingLeft="3dp"
                 android:textSize="13sp" />
@@ -47,7 +51,8 @@
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -70,7 +75,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/bg_operation_tv"
-                    android:drawableRight="@mipmap/icon_arrow_down"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingRight="20dp"
@@ -86,7 +90,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/bg_operation_tv"
-                android:drawableRight="@mipmap/icon_arrow_down"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
                 android:paddingRight="20dp"
@@ -107,7 +110,8 @@
             android:background="@drawable/bg_operation_btn"
             android:text="确定"
             android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="gone"/>
 
         <View
             android:layout_width="match_parent"
@@ -122,7 +126,8 @@
             android:paddingTop="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:paddingBottom="15dp">
+            android:paddingBottom="15dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_operation_task"
@@ -154,6 +159,12 @@
                 android:drawablePadding="3dp"
                 android:textColor="#373737" />
         </LinearLayout>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
         <android.support.v7.widget.RecyclerView
             android:scrollbars="vertical"
             android:id="@+id/rv_operation_list"
@@ -163,5 +174,6 @@
             android:layout_marginRight="10dp"
             android:paddingBottom="0dp"
             />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

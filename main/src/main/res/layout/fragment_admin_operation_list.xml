@@ -115,44 +115,67 @@
             android:background="#eff1f3" />
 
         <LinearLayout
-            android:id="@+id/ll_list_title"
+            android:id="@+id/rootLy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:paddingBottom="15dp">
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_worker_item_header"
+            android:orientation="horizontal">
+
 
             <TextView
-                android:id="@+id/tv_operation_task"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:drawableLeft="@drawable/operation_solid"
-                android:text="巡检任务:"
-                android:layout_marginLeft="15dp"
-                android:drawablePadding="3dp"
-                android:textColor="#373737" />
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="年月"
+                android:textColor="#434952"
+                android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/tv_complete"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:drawableLeft="@drawable/operation_solid"
-                android:text="完成检查:"
-                android:layout_marginLeft="10dp"
-                android:drawablePadding="3dp"
-                android:textColor="#373737" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="水库"
+                android:textColor="#434952"
+                android:textSize="12dp" />
 
             <TextView
-                android:id="@+id/tv_percent"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:drawableLeft="@drawable/operation_solid"
-                android:text="完成率:"
-                android:layout_marginLeft="10dp"
-                android:drawablePadding="3dp"
-                android:textColor="#373737" />
+                android:id="@+id/tv_title_done"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="完成任务数"
+                android:textColor="#434952"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_title_totals"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="任务数"
+                android:textColor="#434952"
+                android:textSize="12dp" />
+
+
+            <TextView
+                android:id="@+id/tv_title_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:text="完成率"
+                android:textColor="#434952"
+                android:textSize="12dp"
+                android:visibility="visible" />
+
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:scrollbars="vertical"

@@ -19,6 +19,7 @@
             android:singleLine="true"
             android:text="坝体渗水"
             android:textColor="#232a39"
+            android:layout_marginRight="80dp"
             android:textSize="14sp" />
 
         <TextView

@@ -121,6 +121,7 @@ public class WaterLevelResponse extends BaseResponse{
              * tm : 2018-09-28 14:46:00
              * rz : 1111
              * stnm : 东风水库
+             * w库容
              */
 
             private String stcd;

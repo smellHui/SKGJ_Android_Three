@@ -20,5 +20,5 @@
         android:textColor="@color/primarybar_txt"
         android:layout_toRightOf="@+id/tab_iv"
         android:singleLine="true"
-        android:textSize="18sp"/>
+        android:textSize="13sp"/>
 </RelativeLayout>

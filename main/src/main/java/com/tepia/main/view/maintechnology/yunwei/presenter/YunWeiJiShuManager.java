@@ -2,6 +2,7 @@ package com.tepia.main.view.maintechnology.yunwei.presenter;
 
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
+import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
@@ -72,6 +73,18 @@ public class YunWeiJiShuManager {
         String token = UserManager.getInstance().getToken();
         YunWeiJIShuService yunWeiJIShuService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL + APPCostant.API_SERVER_MONITOR_AREA).create(YunWeiJIShuService.class);
         return yunWeiJIShuService.listStRsvrRRByReservoir(token,reservoirId,startDate,endDate,currentPage,pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<AdminWorkOrderResponse> getAdminWorkOrderList(String reservoirId,String operationType,String queryDate,String currentPage,String pageSize){
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getAdminWorkOrderList(token,reservoirId,operationType,queryDate,currentPage,pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<AdminWorkOrderResponse> getAdminProblemList(String reservoirId,String queryDate,String currentPage,String pageSize){
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getAdminProblemList(token,reservoirId,queryDate,currentPage,pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

@@ -267,6 +267,13 @@
 
             />
 
+        <activity android:name=".view.maincommon.reservoirs.detail.SupportingDetailActivity" />
+        <activity android:name=".view.maincommon.reservoirs.detail.FloodDetailActivity" />
+        <activity android:name=".view.maintechnology.yunwei.JiShuReportDetailActivity"/>
+        <activity android:name=".view.maincommon.reservoirs.detail.VedioListActivity"></activity>
+        <activity android:name=".view.maincommon.setting.train.TrainDetailActivity"/>
+        <activity android:name=".view.mainadminister.yunwei.AdminOperationActivity"/>
+        <activity android:name=".view.mainadminister.yunwei.AdminOperationReportActivity"/>
     </application>
 
 </manifest>

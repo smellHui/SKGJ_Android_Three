@@ -8,11 +8,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.reserviros.OperationPlanBean;
@@ -132,8 +135,7 @@ public class ThreePointTabFragment extends BaseCommonFragment{
         });
         tvSelectReservoir.setOnClickListener(v -> {
 //            setAnchorView : 设置下拉列表的参照控件。下拉列表在显示时将展现在参照控件的下方，注意：如果不设置参照控件就直接调用show函数，系统不知道要把下拉列表在何处展示，只能是异常退出了。
-            mPopup.setAnchorView(v);
-            mPopup.show();
+           showSelectReservoir();
         });
     }
 
@@ -170,13 +172,43 @@ public class ThreePointTabFragment extends BaseCommonFragment{
     protected void initRequestData() {
         if (!isFirstLoad){
             if (localReservoirList != null && localReservoirList.size() > 0) {
-                reservoirId = localReservoirList.get(0).getReservoirId();
+                reservoirId = UserManager.getInstance().getDefaultReservoir().getReservoirId();
                 LogUtil.i(reservoirId);
                 srl.setRefreshing(true);
-                tvReservoirName.setText(localReservoirList.get(0).getReservoir());
+                tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 commonRequestDataFun();
                 isFirstLoad = true;
             }
         }
     }
+
+    private void showSelectReservoir() {
+        if (localReservoirList != null) {
+            String[] stringItems = new String[localReservoirList.size()];
+            for (int i = 0; i < localReservoirList.size(); i++) {
+                stringItems[i] = localReservoirList.get(i).getReservoir();
+            }
+            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
+            dialog.title("请选择水库")
+                    .titleTextSize_SP(14.5f)
+                    .widthScale(0.8f)
+                    .show();
+            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+                @Override
+                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    reservoirPosition = position;
+//                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
+//                    selectFinish(selectedYunWeiType, selectedResrvoir);
+//                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    tvReservoirName.setText(stringItems[position]);
+                    dialog.dismiss();
+                    srl.setRefreshing(true);
+                    Handler handler = new Handler();
+                    //半秒后执行runnable中的run方法commonRequestDatuaFn
+                    handler.postDelayed(() -> commonRequestDataFun(), 500);
+                }
+            });
+        }
+    }
+
 }
