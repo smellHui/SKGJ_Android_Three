@@ -2,6 +2,8 @@ package com.tepia.main.model.detai;
 
 import com.tepia.base.http.BaseResponse;
 
+import java.util.List;
+
 /**
  * Created by      android studio
  *
@@ -12,6 +14,7 @@ import com.tepia.base.http.BaseResponse;
  * 功能描述        :
  **/
 public class ReservoirBean extends BaseResponse{
+
     /**
      * reservoirId : 66fb3d579d084daf8a7d35d9d9612213
      * reservoirCode : NTC520321019L
@@ -111,6 +114,13 @@ public class ReservoirBean extends BaseResponse{
     private String updateBy;
     private String updateDate;
     private String areaName;
+    /**
+     * reservoirId : 66fb3d579d084daf8a7d35d9d9612213
+     * reservoir : 绿竹坝水库
+     * files : [{"fileId":"f5429bcc554f4a88a3d67116de259bf5","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/reservoirAttachment/2018-09/28/水库.jpg"}]
+     */
+
+    private List<FilesBean> files;
 
     public String getReservoirId() {
         return reservoirId;
@@ -494,5 +504,43 @@ public class ReservoirBean extends BaseResponse{
 
     public void setAreaName(String areaName) {
         this.areaName = areaName;
+    }
+
+
+
+
+
+    public List<FilesBean> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FilesBean> files) {
+        this.files = files;
+    }
+
+    public static class FilesBean {
+        /**
+         * fileId : f5429bcc554f4a88a3d67116de259bf5
+         * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/reservoirAttachment/2018-09/28/水库.jpg
+         */
+
+        private String fileId;
+        private String filePath;
+
+        public String getFileId() {
+            return fileId;
+        }
+
+        public void setFileId(String fileId) {
+            this.fileId = fileId;
+        }
+
+        public String getFilePath() {
+            return filePath;
+        }
+
+        public void setFilePath(String filePath) {
+            this.filePath = filePath;
+        }
     }
 }

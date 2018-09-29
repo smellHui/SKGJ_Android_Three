@@ -76,7 +76,7 @@
 
         <EditText
             android:id="@+id/selectShuiweiEv"
-            android:inputType="number"
+            android:inputType="number|numberDecimal"
             android:background="@null"
             android:layout_weight="4"
             android:hint="请输入水位值"

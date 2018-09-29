@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
@@ -39,6 +40,7 @@ public class ReportFragment extends BaseCommonFragment{
 
     private LinearLayout root_dialog_shangbao;
 
+    private String oldReserviorId;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -65,21 +67,50 @@ public class ReportFragment extends BaseCommonFragment{
         fragments = new ArrayList<Fragment>();
         titles = new ArrayList<String>();
         initViewpager();
-
+        ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+        oldReserviorId =  reservoirBean.getReservoirId();
 
     }
 
     @Override
     protected void initRequestData() {
+        ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+        String reservoirId =  reservoirBean.getReservoirId();
+        if(!reservoirId.equals(oldReserviorId)){
+            oldReserviorId = reservoirId;
+            if(viewPager.getCurrentItem() == 0){
+                LogUtil.e("刷新水位------------");
+                waterLevelFragment.search(true);
+            }else{
+                LogUtil.e("刷新应急------------");
+                emergencyFragment.search(true);
+            }
 
-
-
+        }
 
     }
 
+    private void clearData(){
+        if (fragments != null) {
+            fragments.clear();
+        }
+        if (titles != null) {
+            titles.clear();
+        }
+        if (tabLayout != null) {
+            tabLayout.removeAllTabs();
+        }
+
+    }
+
+    private WaterLevelFragment waterLevelFragment;
+    private EmergencyFragment emergencyFragment;
+
     private void initViewpager(){
-        fragments.add(new WaterLevelFragment());
-        fragments.add(new EmergencyFragment());
+        waterLevelFragment = TabReportFragmentFactory.getInstance().getWaterLevelFragment();
+        emergencyFragment = TabReportFragmentFactory.getInstance().getEmergencyFragment();
+        fragments.add(waterLevelFragment);
+        fragments.add(emergencyFragment);
         titles.add("水位");
         titles.add("应急情况");
         MyPagerAdapter adpter = new MyPagerAdapter(getBaseActivity().getSupportFragmentManager(),getBaseActivity(),fragments,titles);

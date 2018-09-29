@@ -55,10 +55,12 @@ public class ReservoirsFragment extends BaseCommonFragment {
     private AdapterMainReservoirs adapterMainReservoirs;
     private List<MyReservoirsItemBean> myReservoirsItemBeanList = new ArrayList<>();
     private Banner banner;
-    private List<Integer> images = new ArrayList<Integer>();
+    private List<Integer> images = new ArrayList<>();
+    private List<String> imagesList = new ArrayList<>();
     private List<String> titles = new ArrayList<>();
     private TextView tv_reservoir_name;
     private TextView switchTv;
+    private String oldReserviorId;
 
     public ReservoirsFragment() {
     }
@@ -77,6 +79,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
     protected void initView(View view) {
         setCenterTitle(getString(R.string.main_reservoirs));
         getRightTianqi().setVisibility(View.VISIBLE);
+        banner = findView(R.id.banner);
         initBanner();
         resviorRec = findView(R.id.resviorRec);
         switchTv = findView(R.id.switchTv);
@@ -154,22 +157,15 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 showSelectReservoir();
             }
         });
+        ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+        oldReserviorId =  reservoirBean.getReservoirId();
+        startBanner(reservoirBean);
+
 
     }
 
     private void initBanner() {
-        banner = findView(R.id.banner);
-        for (int i = 0; i < 4; i++) {
 
-        }
-        images.add(R.drawable.jianjie_banner0);
-        images.add(R.drawable.jianjie_banner1);
-        images.add(R.drawable.jianjie_banner2);
-        images.add(R.drawable.jianjie_banner3);
-        titles.add("2018-02-09");
-        titles.add("");
-        titles.add("2017-02-09");
-        titles.add("");
 
         //设置圆形指示器与标题
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -177,10 +173,44 @@ public class ReservoirsFragment extends BaseCommonFragment {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //设置轮播时间
         banner.setDelayTime(2000);
-        //设置图片源
-        banner.setImages(images);
         //设置标题源
 //        banner.setBannerTitles(titles);
+
+
+
+    }
+
+    /**
+     * 开始循环
+     * @param reservoirBean
+     */
+    private void startBanner(ReservoirBean reservoirBean){
+        LogUtil.e("-----------执行轮播切换");
+        if(imagesList != null){
+            imagesList.clear();
+            banner.stopAutoPlay();
+        }
+        if(images != null){
+            images.clear();
+            banner.stopAutoPlay();
+        }
+        List<ReservoirBean.FilesBean> filesBeanList = reservoirBean.getFiles();
+        if(filesBeanList != null && filesBeanList.size() > 0) {
+            for (ReservoirBean.FilesBean filesBean : reservoirBean.getFiles()) {
+                if (filesBean != null) {
+                    imagesList.add(filesBean.getFilePath());
+                }
+            }
+            //设置图片源
+            banner.setImages(imagesList);
+        }else {
+            images.add(R.drawable.jianjie_banner0);
+            images.add(R.drawable.jianjie_banner1);
+            images.add(R.drawable.jianjie_banner2);
+            images.add(R.drawable.jianjie_banner3);
+            //设置图片源
+            banner.setImages(images);
+        }
         banner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
@@ -192,8 +222,9 @@ public class ReservoirsFragment extends BaseCommonFragment {
             }
         });
         banner.start();
-
     }
+
+
 
     private void setResviorRec(String title, String middle_title, int resourceImg) {
         MyReservoirsItemBean myReservoirsItemBean = new MyReservoirsItemBean();
@@ -211,7 +242,11 @@ public class ReservoirsFragment extends BaseCommonFragment {
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
         tv_reservoir_name.setText(reservoirBean.getReservoir());
         LogUtil.e("当前默认水库id--------------"+reservoirBean.getReservoirId());
-
+        String reservoirId = reservoirBean.getReservoirId();
+        if(!reservoirId.equals(oldReserviorId)) {
+            oldReserviorId = reservoirId;
+            startBanner(reservoirBean);
+        }
 
 
 
@@ -238,23 +273,12 @@ public class ReservoirsFragment extends BaseCommonFragment {
                     ReservoirBean selectedResrvoir = reservoirBeans.get(position);
                     com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     tv_reservoir_name.setText(selectedResrvoir.getReservoir());
+                    startBanner(selectedResrvoir);
                     dialog.dismiss();
                 }
             });
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        LogUtil.e("--------------onResume");
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        LogUtil.e("--------------onStart");
-
-    }
 }

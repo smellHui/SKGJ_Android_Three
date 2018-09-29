@@ -7,9 +7,13 @@ import android.support.v4.content.ContextCompat;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.R;
+import com.tepia.main.model.dictmap.DictMapEntity;
+import com.tepia.main.model.dictmap.DictMapManager;
+import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 主页--上报--应急适配器
@@ -18,19 +22,22 @@ import java.util.List;
  * @date 2018/9/17
  */
 
-public class AdapterEmergency extends BaseQuickAdapter<MyReservoirsItemBean, BaseViewHolder> {
+public class AdapterEmergency extends BaseQuickAdapter<EmergenceListBean.DataBean.ListBean, BaseViewHolder> {
 
-    public AdapterEmergency(Context context, int layoutResId, @Nullable List<MyReservoirsItemBean> data) {
+    public AdapterEmergency(Context context, int layoutResId, @Nullable List<EmergenceListBean.DataBean.ListBean> data) {
         super(layoutResId, data);
         this.mContext = context;
     }
 
     @Override
-    protected void convert(BaseViewHolder view, MyReservoirsItemBean item) {
+    protected void convert(BaseViewHolder view, EmergenceListBean.DataBean.ListBean item) {
 
-        view.setText(R.id.yearTv,"2018-08-09");
-        view.setText(R.id.titleTv, "坝体左侧十米处有白蚁坝体左侧十米处有白蚁");
-        view.setText(R.id.stateTv, "已处理");
+        view.setText(R.id.yearTv,item.getCreateDate());
+        view.setText(R.id.titleTv, item.getProblemTitle());
+
+        DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
+        Map<String, String> mapProblemStatus = dictMapEntity.getObject().getProblemStatus();
+        view.setText(R.id.stateTv, mapProblemStatus.get(item.getProblemStatus()));
         int position = view.getAdapterPosition();
         if( position%2 == 0 ) {
             view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.white));

@@ -60,6 +60,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     private RecyclerView shuiweiRec;
     private AdapterWaterLevelReservoirs adapterShuiweiReservoirs;
     private TextView mstarttimeTv;
+    private TextView currentResvoirTv;
 
     private YunWeiJiShuPresenter yunWeiJiShuPresenter;
 
@@ -90,9 +91,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     protected void initView(View view) {
 
         shuiweiRec = findView(R.id.shuiweiRec);
-
-
-
+        currentResvoirTv = findView(R.id.currentResvoirTv);
         initRec();
 
         TextView sureSearchTv = findView(R.id.sureSearchTv);
@@ -176,7 +175,8 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
      * 查询水情列表（即水位）
      * @param isshowloadiing
      */
-    private void search(boolean isshowloadiing) {
+    public void search(boolean isshowloadiing) {
+        getReservoirId();
         adapterShuiweiReservoirs.setEnableLoadMore(false);
         dataList.clear();
         adapterShuiweiReservoirs.notifyDataSetChanged();
@@ -184,18 +184,26 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
         first = true;
         isloadmore = false;
         if (yunWeiJiShuPresenter != null) {
-            yunWeiJiShuPresenter.listStRsvrRRByReservoir(reservoirId, startData, endData, String.valueOf(currentPage), String.valueOf(pageSize),true);
+            yunWeiJiShuPresenter.listStRsvrRRByReservoir(reservoirId, startData, endData, String.valueOf(currentPage), String.valueOf(pageSize),isshowloadiing);
         }
     }
 
     @Override
     protected void initRequestData() {
+        search(true);
+    }
+
+    /**
+     * 获取水库id
+     */
+    private void getReservoirId(){
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
         reservoirId =  reservoirBean.getReservoirId();
         LogUtil.e("当前默认水库id--------------"+reservoirId);
 
         selectReserviorTv.setText(reservoirBean.getReservoir());
-        search(false);
+        currentResvoirTv.setText("当前水库："+reservoirBean.getReservoir());
+
     }
 
     private void initTime(){
@@ -272,9 +280,10 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
             endData = text;
             mstarttimeTv.setText(endData);
             startflag = false;
-            LogUtil.e("startTime", text);
             //默认查询一天的水位量
             startData = TimeFormatUtils.getNextDay(endData, "-1");
+            LogUtil.e("endData", endData);
+            LogUtil.e("startData", startData);
 
 
         }
@@ -286,6 +295,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.shangbaoTv) {
+            getReservoirId();
             dialog_show.show();
 
         } else if (v.getId() == R.id.sureSearchTv) {

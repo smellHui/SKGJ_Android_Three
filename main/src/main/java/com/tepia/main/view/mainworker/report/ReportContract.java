@@ -3,6 +3,8 @@ package com.tepia.main.view.mainworker.report;
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
 
+import java.util.ArrayList;
+
 /**
  * Created by      android studio
  *
@@ -16,12 +18,14 @@ import com.tepia.base.mvp.BaseView;
 public class ReportContract {
     public interface View<T> extends BaseView {
         void success(T data);
+
         void failure(String msg);
     }
 
-    interface  Presenter extends BasePresenter<ReportContract.View> {
+    interface Presenter extends BasePresenter<ReportContract.View> {
         /**
          * 上报水位
+         *
          * @param reservoirId
          * @param rz
          */
@@ -29,6 +33,7 @@ public class ReportContract {
 
         /**
          * 查询应急情况列表
+         *
          * @param reservoirId
          * @param workOrderId
          * @param problemStatus
@@ -38,29 +43,32 @@ public class ReportContract {
          * @param pageSize
          */
         void getProblemList(String reservoirId,
-                       String workOrderId,
-                       String problemStatus,
-                       String startDate,
-                       String endDate,
-                       String currentPage,
-                       String pageSize
+                            String workOrderId,
+                            String problemStatus,
+                            String startDate,
+                            String endDate,
+                            String currentPage,
+                            String pageSize,
+                            boolean ishowloading
         );
 
         /**
          * 应急上报
+         *
          * @param reservoirId
          * @param problemTitle
          * @param problemDescription
          * @param lgtd
          * @param lttd
-         * @param files
+         * @param selectPhotos
          */
         void reportProblem(String reservoirId,
-                String problemTitle,
-                String problemDescription,
-                String lgtd,
-                String lttd,
-                String files
+                           String problemTitle,
+                           String problemDescription,
+                           String lgtd,
+                           String lttd,
+                           ArrayList<String> selectPhotos,
+                           String fileVedioPath
 
         );
     }

@@ -48,6 +48,7 @@ public class DictMapEntity {
         private List<NameValueBean> status;
         private List<NameValueBean> problem_source;
         private List<NameValueBean> procedure_type;
+        private List<NameValueBean> report_type;
 
         public List<NameValueBean> getSys_code() {
             return sys_code;
@@ -209,6 +210,14 @@ public class DictMapEntity {
             this.procedure_type = procedure_type;
         }
 
+        public List<NameValueBean> getReport_type() {
+            return report_type;
+        }
+
+        public void setReport_type(List<NameValueBean> report_type) {
+            this.report_type = report_type;
+        }
+
         public static class NameValueBean {
 
             /**
@@ -277,6 +286,7 @@ public class DictMapEntity {
         private Map<String,String> operationType;
         private Map<String,String> isSys;
         private Map<String,String> status;
+        private Map<String,String> report_type;
 
         public Map<String, String> getSys_code() {
             return sys_code;
@@ -420,6 +430,14 @@ public class DictMapEntity {
 
         public void setStatus(Map<String, String> status) {
             this.status = status;
+        }
+
+        public Map<String, String> getReport_type() {
+            return report_type;
+        }
+
+        public void setReport_type(Map<String, String> report_type) {
+            this.report_type = report_type;
         }
     }
 

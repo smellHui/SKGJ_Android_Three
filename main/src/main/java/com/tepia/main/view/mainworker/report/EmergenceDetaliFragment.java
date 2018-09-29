@@ -1,13 +1,10 @@
-package com.tepia.main.view.main.question;
+package com.tepia.main.view.mainworker.report;
 
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -36,36 +33,31 @@ import com.tepia.main.R;
 import com.tepia.main.common.pickview.OnItemClickListener;
 import com.tepia.main.common.pickview.PhotoRecycleViewAdapter;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
-import com.tepia.main.model.dictmap.DictMapEntity;
-import com.tepia.main.model.dictmap.DictMapManager;
-import com.tepia.main.model.question.ReservoirBean;
-import com.tepia.main.model.question.ReservoirDateBean;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.main.question.TypeResponse;
+import com.tepia.main.view.mainworker.report.adapter.AdapterEmergenceReport;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
-import io.reactivex.functions.Function;
 
 import static android.app.Activity.RESULT_OK;
 
 
 /**
- * 首页问题反馈
- *
- * @author ly on 2018/5
- */
-public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, QuestionPresenter> implements View.OnClickListener, View.OnTouchListener {
+  * Created by      Android studio
+  *
+  * @author :ly (from Center Of Wuhan)
+  * Date    :2018-9-29
+  * Version :1.0
+  * 功能描述 :
+ **/
+public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View,ReportPresenter> implements View.OnClickListener, View.OnTouchListener {
 
 
 
@@ -83,17 +75,16 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
     private PhotoRecycleViewAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
     private List<TypeResponse> data = new ArrayList<>();
-    private List<ReservoirDateBean> dateBeanList;
-    private List<ReservoirDateBean> dateBeanListChangyong = new ArrayList<>(6);
+    private List<com.tepia.main.model.detai.ReservoirBean> dateBeanList;
     private String userCode = "";
     private RecyclerView recycleChangyong;
-    private AdapterQuestion adapterQuestion;
+    private AdapterEmergenceReport adapterQuestion;
     //标签个数
     private static int labelcount= 8;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.question_main_layout_new;
+        return R.layout.emergence_layout_new;
     }
 
     @Override
@@ -111,7 +102,7 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
 
     @Override
     protected void initView(View view) {
-        setCenterTitle(getString(R.string.question_fragment_title));
+        setCenterTitle("应急上报");
         showBack();
         UserInfoBean reservoirBean = UserManager.getInstance().getUserBean();
         if( reservoirBean != null && reservoirBean.getData() != null){
@@ -125,26 +116,35 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
         resviorTv.setOnClickListener(this);
         typeTv.setOnClickListener(this);
 
-        // TODO: 2018/9/5 数据字典
 
 
-        setType(getString(R.string.question_xunjian), "1", false);
+        /*DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
+        List<DictMapEntity.ArrayBean.NameValueBean> nameValueBeanList = dictMapEntity.getArray().getOperationType();
+        for(DictMapEntity.ArrayBean.NameValueBean bean:nameValueBeanList){
+            setType(getString(R.string.question_xunjian), mapProblemStatus.k, false);
+
+        }
+        setType(getString(R.string.question_xunjian), mapProblemStatus.k, false);
         setType(getString(R.string.question_baojie), "3", true);
         setType(getString(R.string.question_weixiu), "2", false);
-        setType(getString(R.string.question_qita), "4", false);
+        setType(getString(R.string.question_qita), "4", false);*/
+
+         dateBeanList = UserManager.getInstance().getLocalReservoirList();
+
 
         recycleChangyong = findView(R.id.recycleChangyong);
         recycleChangyong.setLayoutManager(new GridLayoutManager(getContext(),4));
         //item居中显示
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recycleChangyong);
-        adapterQuestion = new AdapterQuestion(R.layout.tag_text_layout,dateBeanListChangyong);
+        adapterQuestion = new AdapterEmergenceReport(R.layout.tag_text_layout,dateBeanList);
         recycleChangyong.setAdapter(adapterQuestion);
+
         adapterQuestion.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 resviorTv.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                ReservoirDateBean reservoirDateBean = dateBeanListChangyong.get(position);
+                com.tepia.main.model.detai.ReservoirBean reservoirDateBean = dateBeanList.get(position);
                 if(reservoirDateBean != null) {
                     resviorTv.setText(reservoirDateBean.getReservoir());
                     reservoirId = reservoirDateBean.getReservoirId();
@@ -152,7 +152,6 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
             }
         });
 
-        initFlowAdapte();
 
 
 
@@ -205,12 +204,12 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
                             .setShowCamera(true)
                             .setPreviewEnabled(true)
                             .setSelected(selectedPhotos)
-                            .start(getBaseActivity(), QuestionNewFragment.this);
+                            .start(getBaseActivity(), EmergenceDetaliFragment.this);
                 } else {
                     PhotoPreview.builder()
                             .setPhotos(selectedPhotos)
                             .setCurrentItem(position)
-                            .start(getBaseActivity(), QuestionNewFragment.this);
+                            .start(getBaseActivity(), EmergenceDetaliFragment.this);
                 }
 
             }
@@ -225,71 +224,22 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
      * 保存数据
      */
     private void getSP(){
-            questionTitle = SPUtils.getInstance().getString(QuestionActivity.key_Title,"");
+            questionTitle = SPUtils.getInstance().getString(EmergencyDetailActivity.key_Title,"");
             LogUtil.e("questionTitle",questionTitle+"--");
 
             titleEv.setText(questionTitle);
-            questionContent = SPUtils.getInstance().getString(QuestionActivity.key_Content,"");
+            questionContent = SPUtils.getInstance().getString(EmergencyDetailActivity.key_Content,"");
             LogUtil.e("questionContent",questionContent);
 
             contentEv.setText(questionContent);
 
     }
 
-    /**
-     * 初始化常用标签
-     */
-    private void initFlowAdapte(){
-
-
-        //降序查找
-        List<ReservoirDateBean> dateBeanList = DataSupport.where("userCode = ? and count > ?",userCode, "0").order("count DESC").find(ReservoirDateBean.class);
-        if (dateBeanList != null) {
-            dateBeanListChangyong.clear();
-            for (int i = 0; i < dateBeanList.size(); i++) {
-                //取出前五条数据作为常用标签
-                if(i < labelcount){
-                    ReservoirDateBean dateBean = dateBeanList.get(i);
-                    dateBeanListChangyong.add(dateBean);
-                }
-            }
-        }
-
-        if(dateBeanListChangyong != null && dateBeanListChangyong.size() > 0){
-            recycleChangyong.setVisibility(View.VISIBLE);
-            adapterQuestion.notifyDataSetChanged();
-        }else{
-            recycleChangyong.setVisibility(View.GONE);
-        }
-
-    }
 
     @Override
     protected void initRequestData() {
 
-        //水库接口  //dba41afabdbc484c879faf07411e2a18
-        mPresenter.listReservoirInCenter("");
-        mPresenter.attachView(new QuestionContract.View<ReservoirBean>() {
 
-            @Override
-            public Context getContext() {
-                return null;
-            }
-
-            @Override
-            public void success(ReservoirBean reservoirBean) {
-                if (reservoirBean != null) {
-                    dateBeanList = reservoirBean.getData();
-                }
-
-            }
-
-            @Override
-            public void failure(String msg) {
-                ToastUtils.shortToast(msg);
-                LogUtil.e("listReservoirInCenter", msg);
-            }
-        });
 
     }
 
@@ -316,7 +266,8 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
      *
      * @param mDateBeanList
      */
-    private void showRiverDialog(List<ReservoirDateBean> mDateBeanList) {
+    private void showRiverDialog(List<com.tepia.main.model.detai.ReservoirBean> mDateBeanList) {
+
         if (mDateBeanList != null && mDateBeanList.size() > 0) {
             String[] stringItems = new String[mDateBeanList.size()];
             for (int i = 0; i < mDateBeanList.size(); i++) {
@@ -334,74 +285,13 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
                     resviorTv.setText(stringItems[position]);
                     reservoirId = mDateBeanList.get(position).getReservoirId();
                     dialog.dismiss();
-                    List<ReservoirDateBean> dateBeanList = DataSupport.where("userCode = ? and reservoirId = ?",userCode, reservoirId).find(ReservoirDateBean.class);
-                    if(dateBeanList != null && dateBeanList.size() > 0){
-                        ReservoirDateBean dateBean = dateBeanList.get(0);
-                        int count = dateBean.getCount();
-                        if (count < labelcount) {
-                            dateBean.setCount(count + 1);
-                            dateBean.save();
-                            initFlowAdapte();
-                        }
-                    }else {
-                        //保存
-                        ReservoirDateBean dateBean = mDateBeanList.get(position);
-                        if(dateBean.getCount() != null){
-                            int count = dateBean.getCount();
-                            if (count < labelcount) {
-                                dateBean.setCount(count + 1);
-                                dateBean.setUserCode(userCode);
-                                dateBean.save();
-                                initFlowAdapte();
-                            }
-                        }else {
-                            dateBean.setCount(1);
-                            dateBean.setUserCode(userCode);
-                            dateBean.save();
-                            initFlowAdapte();
-                        }
-                    }
+
 
                 }
             });
         }
     }
 
-    /**
-     * 展示类型
-     *
-     * @param typeResponseList
-     */
-    private void showTypeDialog(List<TypeResponse> typeResponseList) {
-        if (typeResponseList != null) {
-            String[] stringItems = new String[typeResponseList.size()];
-            for (int i = 0; i < typeResponseList.size(); i++) {
-                stringItems[i] = typeResponseList.get(i).getType();
-            }
-            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
-            dialog.title("请选择类型")
-                    .titleTextSize_SP(14.5f)
-                    .widthScale(0.8f)
-                    .show();
-            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
-                @Override
-                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    typeTv.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                    typeTv.setText(stringItems[position]);
-                    questionType = typeResponseList.get(position).getTypeId();
-                    dialog.dismiss();
-                }
-            });
-        }
-    }
-
-
-    private void stopgo(String type, String toastStr) {
-        if (TextUtils.isEmpty(type)) {
-            ToastUtils.shortToast(toastStr);
-            return;
-        }
-    }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -452,10 +342,7 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
                 ToastUtils.shortToast("请输入" + getString(R.string.titlestr));
                 return;
             }
-            if (TextUtils.isEmpty(questionType)) {
-                ToastUtils.shortToast("请选择" + getString(R.string.typestr));
-                return;
-            }
+
             if (TextUtils.isEmpty(reservoirId)) {
                 ToastUtils.shortToast("请选择" + getString(R.string.resviorstr));
                 return;
@@ -469,7 +356,7 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
                 return;
             }
 
-            mPresenter.attachView(new QuestionContract.View<BaseResponse>() {
+            mPresenter.attachView(new ReportContract.View<BaseResponse>() {
 
                 @Override
                 public Context getContext() {
@@ -478,7 +365,7 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
 
                 @Override
                 public void success(BaseResponse data) {
-                    clear();
+                    getBaseActivity().finish();
                 }
 
                 @Override
@@ -486,17 +373,14 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
 
                 }
             });
-            mPresenter.feedback(questionType, questionTitle, questionContent,
-                    reservoirId, selectedPhotos);
+
+            mPresenter.reportProblem(reservoirId,questionTitle, questionContent, "",
+                    "", selectedPhotos,"");
 
 
         } else if (viewID == R.id.resviorTv) {
             if (dateBeanList != null && dateBeanList.size() > 0) {
                 showRiverDialog(dateBeanList);
-            }
-        } else if (viewID == R.id.typeTv) {
-            if (null != data && data.size() > 0) {
-                showTypeDialog(data);
             }
         }
     }
@@ -536,11 +420,9 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        SPUtils.getInstance().putString(QuestionActivity.key_Title,questionTitle);
-        SPUtils.getInstance().putString(QuestionActivity.key_Content,questionContent);
-        if (dateBeanListChangyong != null) {
-            dateBeanListChangyong.clear();
-        }
+        clear();
+        SPUtils.getInstance().putString(EmergencyDetailActivity.key_Title,questionTitle);
+        SPUtils.getInstance().putString(EmergencyDetailActivity.key_Content,questionContent);
         if (dateBeanList != null) {
             dateBeanList.clear();
         }

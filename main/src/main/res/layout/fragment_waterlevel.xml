@@ -16,19 +16,22 @@
         android:background="@color/background_common"
         android:layout_width="match_parent"
         android:layout_height="5dp"/>
+    <include layout="@layout/fragment_shuiwei_common_current"/>
     <LinearLayout
         android:padding="@dimen/shangbaopadding"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@drawable/bg_worker_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-        <include layout="@layout/fragment_shuiwei_head_layout"/>
+        <include layout="@layout/fragment_shuiwei_head_new_layout"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/shuiweiRec"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            />
     </LinearLayout>
 
 

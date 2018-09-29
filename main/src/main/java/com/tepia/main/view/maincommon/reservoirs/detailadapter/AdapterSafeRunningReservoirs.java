@@ -6,10 +6,13 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.R;
+import com.tepia.main.model.dictmap.DictMapEntity;
+import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 主页--水库--安全鉴定记录适配器
@@ -48,23 +51,26 @@ public class AdapterSafeRunningReservoirs extends BaseQuickAdapter<SafeRunningBe
                 "value": "4"
          }
          ],*/
+        DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
+        Map<String, String> map_report = dictMapEntity.getObject().getReport_type();
          if("1".equals(valueId)){
              view.setImageResource(R.id.leftIv,R.drawable.jianjie_anquan);
-             view.setText(R.id.titleResnameTv, "安全鉴定报告");
 
          }else if("2".equals(valueId)){
              view.setImageResource(R.id.leftIv,R.drawable.jianjie_jiagu);
-             view.setText(R.id.titleResnameTv, "除险加固报告");
 
          }else if("3".equals(valueId)){
             view.setImageResource(R.id.leftIv,R.drawable.jianjie_xushui);
-             view.setText(R.id.titleResnameTv, "蓄水验收报告");
 
          }else if("4".equals(valueId)){
              view.setImageResource(R.id.leftIv,R.drawable.jianjie_yanshou);
-             view.setText(R.id.titleResnameTv, "竣工验收报告");
+
+         }else{
+             view.setImageResource(R.id.leftIv,R.drawable.icon_empty);
 
          }
+         view.setText(R.id.titleResnameTv, map_report.get(valueId));
+
 
     }
 }

@@ -65,6 +65,29 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
         reservoirId = "6942292cad144bds97fa6c31f96ee692";
         nameTv = findViewById(R.id.nameTv);
         nameTv.setText(reservoirName);
+
+        videoListAdapter = new VideoListAdapter(this,R.layout.adapter_video_items,dataBeanList);
+        recycleIdRec.setAdapter(videoListAdapter);
+        videoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                    ToastUtils.shortToast(R.string.no_network);
+                    return;
+                }
+                if(DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
+                Intent intent = new Intent();
+                intent.setClass(VedioOfReservoirActivity.this,VedioListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("vedio",dataBeanList.get(position));
+                bundle.putString("vsnm",dataBeanList.get(position).getVsnm());
+                bundle.putString("name",nameTv.getText().toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         mPresenter.getReservoirVideo(reservoirId);
     }
 
@@ -90,30 +113,12 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
 
 
 
+    private List<VideoResponse.DataBean> dataBeanList = new ArrayList<>();
     @Override
     public void success(VideoResponse videoResponse) {
-        videoListAdapter = new VideoListAdapter(this,R.layout.adapter_video_items,videoResponse.getData());
-        recycleIdRec.setAdapter(videoListAdapter);
-        videoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (!NetUtil.isNetworkConnected(Utils.getContext())) {
-                    ToastUtils.shortToast(R.string.no_network);
-                    return;
-                }
-                if(DoubleClickUtil.isFastDoubleClick()){
-                    return;
-                }
-                Intent intent = new Intent();
-                intent.setClass(VedioOfReservoirActivity.this,VedioListActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("vedio",videoResponse.getData().get(position));
-                bundle.putString("vsnm",videoResponse.getData().get(position).getVsnm());
-                bundle.putString("name",nameTv.getText().toString());
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        dataBeanList.clear();
+        dataBeanList.addAll(videoResponse.getData());
+        videoListAdapter.notifyDataSetChanged();
     }
 
     @Override
