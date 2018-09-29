@@ -3,6 +3,10 @@ package com.tepia.main.view.mainworker.report;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -17,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -35,6 +40,7 @@ import com.tepia.main.common.pickview.PhotoRecycleViewAdapter;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.utils.FileUtil;
 import com.tepia.main.view.main.question.TypeResponse;
 import com.tepia.main.view.mainworker.report.adapter.AdapterEmergenceReport;
 import com.tepia.photo_picker.PhotoPicker;
@@ -42,6 +48,7 @@ import com.tepia.photo_picker.PhotoPreview;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +88,10 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     private AdapterEmergenceReport adapterQuestion;
     //标签个数
     private static int labelcount= 8;
+    private static int REQUEST_VIDEO_CODE= 100;
+    private ImageView videoIcon;
+    // 视频路径
+    private String videoPath = "";
 
     @Override
     protected int getLayoutId() {
@@ -112,9 +123,11 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
         typeTv = findView(R.id.typeTv);
         resviorTv = findView(R.id.resviorTv);
         photoTitleTv = findView(R.id.photoTitleTv);
+        videoIcon = findView(R.id.videoIcon);
         photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
         resviorTv.setOnClickListener(this);
         typeTv.setOnClickListener(this);
+        videoIcon.setOnClickListener(this);
 
 
 
@@ -259,7 +272,39 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
             photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
             photoAdapter.notifyDataSetChanged();
         }
+
+        if (requestCode == REQUEST_VIDEO_CODE) {
+            if (resultCode == RESULT_OK) {
+                Uri uri = data.getData();
+                // 视频路径
+                videoPath = FileUtil.getPath(getBaseActivity(), uri);
+                // 视频大小
+                long videoSize = 0;
+                try {
+                    videoSize = FileUtil.getFileSize(new File(videoPath));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                LogUtil.e("videoPath== " + videoPath + " videoSize== " + videoSize);
+                //转换文件大小类型
+                if (videoSize > 20*1024*1024) {
+                    ToastUtils.shortToast("大小超出限制，最大20MB");
+                    return;
+                }
+                // 通过视频路径获取bitmap
+                Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Video.Thumbnails.MICRO_KIND);
+                //把bitmap保存到sdcard然后得到图片的路径
+                String imagePath = FileUtil.saveBitmapToSDCard(bitmap, System.currentTimeMillis() + ".jpg");
+                //显示到控件上
+                videoIcon.setImageBitmap(bitmap);
+            }
+        }
+
+
     }
+
+
+
 
     /**
      * 展示水库
@@ -375,13 +420,15 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
             });
 
             mPresenter.reportProblem(reservoirId,questionTitle, questionContent, "",
-                    "", selectedPhotos,"");
+                    "", selectedPhotos,videoPath);
 
 
         } else if (viewID == R.id.resviorTv) {
             if (dateBeanList != null && dateBeanList.size() > 0) {
                 showRiverDialog(dateBeanList);
             }
+        }else if(viewID == R.id.videoIcon){
+            getVedio();
         }
     }
 
@@ -414,6 +461,14 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
         resviorTv.setText(getString(R.string.selectresviorstr));
         resviorTv.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
         photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
+
+    }
+
+    private void getVedio(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("video/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, REQUEST_VIDEO_CODE);
 
     }
 
