@@ -2,7 +2,9 @@ package com.tepia.main.view.mainworker.yunwei.yunweilist;
 
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.main.R;
 import com.tepia.main.model.task.TaskManager;
 import com.tepia.main.model.task.response.TaskListResponse;
 
@@ -21,7 +23,7 @@ public class YunWeiListPresenter extends BasePresenterImpl<YunWeiListContract.Vi
         String endDate = null;
         currentPage = 1;
         boolean isShow = true;
-        String msg = null;
+        String msg = ResUtils.getString(R.string.data_loading);
         TaskManager.getInstance().getPatrolWorkOrderList(operationType, reservoirId, startDate, endDate, currentPage + "", pageSize + "").safeSubscribe(new LoadingSubject<TaskListResponse>(isShow, msg) {
             @Override
             protected void _onNext(TaskListResponse taskListResponse) {
