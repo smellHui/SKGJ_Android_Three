@@ -1,4 +1,4 @@
-package com.tepia.main.model.train;
+package com.tepia.main.model.jishu.admin;
 
 import com.tepia.base.http.BaseResponse;
 
@@ -7,18 +7,17 @@ import java.util.List;
 
 /**
  * Created by      Intellij IDEA
- * 培训列表
+ *  行政运维工单
  * @author :       wwj
- * Date    :       2018-09-27
- * Time    :       15:21
+ * Date    :       2018-09-28
+ * Time    :       19:03
  * Version :       1.0
  * Company :       北京太比雅科技(武汉研发中心)
  **/
-public class TrainListResponse extends BaseResponse{
-
+public class AdminWorkOrderResponse extends BaseResponse{
 
     /**
-     * data : {"pageNum":1,"pageSize":10,"size":1,"startRow":1,"endRow":1,"total":1,"pages":1,"list":[{"id":"cae29e276e59452fbf9b8a48d822af90","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府","files":[{"filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png"}]}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"lastPage":1,"firstPage":1}
+     * data : {"pageNum":1,"pageSize":10,"size":2,"startRow":1,"endRow":2,"total":2,"pages":1,"list":[{"date":"2018-09","done_num":4,"non_num":22,"totals":26,"reservoirId":"66fb3d579d084daf8a7d35d9d9612213","reservoirName":"绿竹坝水库"},{"date":"2018-09","done_num":0,"non_num":9,"totals":9,"reservoirId":"6942292cad144bds97fa6c31f96ee684","reservoirName":"沙坝水库"}],"prePage":0,"nextPage":0,"isFirstPage":true,"isLastPage":true,"hasPreviousPage":false,"hasNextPage":false,"navigatePages":8,"navigatepageNums":[1],"navigateFirstPage":1,"navigateLastPage":1,"firstPage":1,"lastPage":1}
      */
 
     private DataBean data;
@@ -35,12 +34,12 @@ public class TrainListResponse extends BaseResponse{
         /**
          * pageNum : 1
          * pageSize : 10
-         * size : 1
+         * size : 2
          * startRow : 1
-         * endRow : 1
-         * total : 1
+         * endRow : 2
+         * total : 2
          * pages : 1
-         * list : [{"id":"cae29e276e59452fbf9b8a48d822af90","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府","files":[{"filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png"}]}]
+         * list : [{"date":"2018-09","done_num":4,"non_num":22,"totals":26,"reservoirId":"66fb3d579d084daf8a7d35d9d9612213","reservoirName":"绿竹坝水库"},{"date":"2018-09","done_num":0,"non_num":9,"totals":9,"reservoirId":"6942292cad144bds97fa6c31f96ee684","reservoirName":"沙坝水库"}]
          * prePage : 0
          * nextPage : 0
          * isFirstPage : true
@@ -51,8 +50,8 @@ public class TrainListResponse extends BaseResponse{
          * navigatepageNums : [1]
          * navigateFirstPage : 1
          * navigateLastPage : 1
-         * lastPage : 1
          * firstPage : 1
+         * lastPage : 1
          */
 
         private int pageNum;
@@ -71,8 +70,8 @@ public class TrainListResponse extends BaseResponse{
         private int navigatePages;
         private int navigateFirstPage;
         private int navigateLastPage;
-        private int lastPage;
         private int firstPage;
+        private int lastPage;
         private List<ListBean> list;
         private List<Integer> navigatepageNums;
 
@@ -204,20 +203,20 @@ public class TrainListResponse extends BaseResponse{
             this.navigateLastPage = navigateLastPage;
         }
 
-        public int getLastPage() {
-            return lastPage;
-        }
-
-        public void setLastPage(int lastPage) {
-            this.lastPage = lastPage;
-        }
-
         public int getFirstPage() {
             return firstPage;
         }
 
         public void setFirstPage(int firstPage) {
             this.firstPage = firstPage;
+        }
+
+        public int getLastPage() {
+            return lastPage;
+        }
+
+        public void setLastPage(int lastPage) {
+            this.lastPage = lastPage;
         }
 
         public List<ListBean> getList() {
@@ -238,93 +237,67 @@ public class TrainListResponse extends BaseResponse{
 
         public static class ListBean implements Serializable{
             /**
-             * id : cae29e276e59452fbf9b8a48d822af90
-             * trainTitle : 人工智能
-             * position : 上海
-             * trainDate : 2018-09-19 10:00:00
-             * trainContent : 世界人工智能大会召开
-             * organizeCompany : 政府
-             * files : [{"filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png"}]
+             * date : 2018-09
+             * done_num : 4
+             * non_num : 22
+             * totals : 26
+             * reservoirId : 66fb3d579d084daf8a7d35d9d9612213
+             * reservoirName : 绿竹坝水库
              */
 
-            private String id;
-            private String trainTitle;
-            private String position;
-            private String trainDate;
-            private String trainContent;
-            private String organizeCompany;
-            private List<FilesBean> files;
+            private String date;
+            private int done_num;
+            private int non_num;
+            private int totals;
+            private String reservoirId;
+            private String reservoirName;
 
-            public String getId() {
-                return id;
+            public String getDate() {
+                return date;
             }
 
-            public void setId(String id) {
-                this.id = id;
+            public void setDate(String date) {
+                this.date = date;
             }
 
-            public String getTrainTitle() {
-                return trainTitle;
+            public int getDone_num() {
+                return done_num;
             }
 
-            public void setTrainTitle(String trainTitle) {
-                this.trainTitle = trainTitle;
+            public void setDone_num(int done_num) {
+                this.done_num = done_num;
             }
 
-            public String getPosition() {
-                return position;
+            public int getNon_num() {
+                return non_num;
             }
 
-            public void setPosition(String position) {
-                this.position = position;
+            public void setNon_num(int non_num) {
+                this.non_num = non_num;
             }
 
-            public String getTrainDate() {
-                return trainDate;
+            public int getTotals() {
+                return totals;
             }
 
-            public void setTrainDate(String trainDate) {
-                this.trainDate = trainDate;
+            public void setTotals(int totals) {
+                this.totals = totals;
             }
 
-            public String getTrainContent() {
-                return trainContent;
+            public String getReservoirId() {
+                return reservoirId;
             }
 
-            public void setTrainContent(String trainContent) {
-                this.trainContent = trainContent;
+            public void setReservoirId(String reservoirId) {
+                this.reservoirId = reservoirId;
             }
 
-            public String getOrganizeCompany() {
-                return organizeCompany;
+            public String getReservoirName() {
+                return reservoirName;
             }
 
-            public void setOrganizeCompany(String organizeCompany) {
-                this.organizeCompany = organizeCompany;
-            }
-
-            public List<FilesBean> getFiles() {
-                return files;
-            }
-
-            public void setFiles(List<FilesBean> files) {
-                this.files = files;
-            }
-
-            public static class FilesBean implements Serializable{
-                /**
-                 * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/28/timg.png
-                 */
-
-                private String filePath;
-
-                public String getFilePath() {
-                    return filePath;
-                }
-
-                public void setFilePath(String filePath) {
-                    this.filePath = filePath;
-                }
+            public void setReservoirName(String reservoirName) {
+                this.reservoirName = reservoirName;
             }
         }
     }

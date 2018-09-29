@@ -1,6 +1,7 @@
-package com.tepia.main.view.maintechnology.yunwei;
+package com.tepia.main.view.mainadminister.yunwei;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -12,27 +13,20 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jzxiang.pickerview.data.Type;
-import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
-import com.tepia.base.utils.LogUtil;
-import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
-import com.tepia.main.model.jishu.yunwei.WorkOrderListResponse;
-import com.tepia.main.model.jishu.yunwei.WorkOrderNumResponse;
+import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
-import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationListAdapter;
+import com.tepia.main.view.mainadminister.yunwei.adapter.MyAdminOperationListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
-import com.tepia.main.view.mainworker.yunwei.xunjian.YunWeiXunJianFragment;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -45,14 +39,13 @@ import java.util.Locale;
 /**
  * Created by      Intellij IDEA
  * 运维列表
- *
  * @author :       wwj
  * Date    :       2018-09-18
  * Time    :       10:31
  * Version :       1.0
  * Company :       北京太比雅科技(武汉研发中心)
  **/
-public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
+public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
     private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private ArrayAdapter spinnerAdapter;
     private TextView tvOperationTask;
@@ -63,8 +56,8 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
     private String typeStr;
     private String operationType;
     private TextView tvStartDate;
-    private List<WorkOrderListResponse.DataBean.ListBean> dataList = new ArrayList<>();
-    private MyOperationListAdapter rvAdapter;
+    private List<AdminWorkOrderResponse.DataBean.ListBean> dataList = new ArrayList<>();
+    private MyAdminOperationListAdapter rvAdapter;
     private int pageSize = 10;
     private int currentPage = 1;
     private boolean isloadmore;
@@ -76,24 +69,23 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
     private TextView tvComplete;
     private TextView tvPercent;
     private ArrayList<ReservoirBean> localReservoirList;
-    private YunWeiJiShuPresenter yunWeiJiShuPresenter;
     private ReservoirBean selectedResrvoir;
     private TextView tvReservoir;
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_operation_list;
+        return R.layout.fragment_admin_operation_list;
     }
 
     @Override
     protected void initData() {
         localReservoirList = UserManager.getInstance().getLocalReservoirList();
-        mPresenter.attachView(new YunWeiJiShuContract.View<WorkOrderListResponse>() {
+        mPresenter.attachView(new YunWeiJiShuContract.View<AdminWorkOrderResponse>() {
             @Override
-            public void success(WorkOrderListResponse workOrderListResponse) {
+            public void success(AdminWorkOrderResponse adminWorkOrderResponse) {
 //                LogUtil.i("个数" + workOrderListResponse.getCode());
-                WorkOrderListResponse.DataBean dataBean = workOrderListResponse.getData();
-                List<WorkOrderListResponse.DataBean.ListBean> data = dataBean.getList();
+                AdminWorkOrderResponse.DataBean dataBean = adminWorkOrderResponse.getData();
+                List<AdminWorkOrderResponse.DataBean.ListBean> data = dataBean.getList();
                 int totalSize = dataBean.getTotal();
                 int pages = dataBean.getPages();
                 if (first) {
@@ -146,43 +138,18 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 return null;
             }
         });
-        yunWeiJiShuPresenter = new YunWeiJiShuPresenter();
-        yunWeiJiShuPresenter.attachView(new YunWeiJiShuContract.View<WorkOrderNumResponse>() {
-            @Override
-            public void success(WorkOrderNumResponse workOrderNumResponse) {
-                int doneNum = workOrderNumResponse.getData().getDoneNum();
-                int totals = workOrderNumResponse.getData().getTotals();
-                setSpanned(doneNum,totals);
-            }
-
-            @Override
-            public void failure(String msg) {
-                setSpanned(0,0);
-            }
-
-            @Override
-            public Context getContext() {
-                return null;
-            }
-        });
     }
 
     @Override
     protected void initView(View view) {
-        typeStr = getArguments().getString("type");
-//        LogUtil.i("typeStr:" + typeStr);
-        if (tabNames[3].equals(typeStr)) {
-            operationType = "";
-        } else if (tabNames[0].equals(typeStr)) {
-            operationType = "1";
-            typeName = "巡检";
-        } else if (tabNames[1].equals(typeStr)) {
-            operationType = "2";
-            typeName = "维护";
-        } else if (tabNames[2].equals(typeStr)) {
-            operationType = "3";
-            typeName = "保洁";
-        }
+        TextView tvSelectMonth = findView(R.id.tv_select_month);
+        tvSelectMonth.setText("选择月份");
+        TextView tvTitleDone = findView(R.id.tv_title_done);
+        tvTitleDone.setText("处理数");
+        TextView tvTitleTotals = findView(R.id.tv_title_totals);
+        tvTitleTotals.setText("上报数");
+        TextView tvTitleStatus = findView(R.id.tv_title_status);
+        tvTitleStatus.setText("处理率");
         tvOperationTask = findView(R.id.tv_operation_task);
         tvComplete = findView(R.id.tv_complete);
         tvPercent = findView(R.id.tv_percent);
@@ -199,15 +166,13 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
     }
 
     private void initRequestResponse() {
-
         if (!isFirstLoad) {
             rvAdapter.setEnableLoadMore(false);
             currentPage = 1;
             isloadmore = false;
             first = true;
-            if (mPresenter != null&&yunWeiJiShuPresenter!=null) {
-                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, "", "", String.valueOf(currentPage), String.valueOf(pageSize), true);
-                yunWeiJiShuPresenter.getWorkOrderNumByJs("",operationType,"");
+            if (mPresenter != null) {
+                mPresenter.getAdminProblemList(reservoirId ,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
             }
         }
     }
@@ -228,14 +193,13 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
             isloadmore = false;
             first = true;
             if (mPresenter != null) {
-                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, "", String.valueOf(currentPage), String.valueOf(pageSize), true);
+                mPresenter.getAdminProblemList(reservoirId,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
             }
-            yunWeiJiShuPresenter.getWorkOrderNumByJs(reservoirId,operationType,startDate);
         });
     }
 
     private TimePickerDialogUtil timePickerDialogUtil;
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
 
     private void initStartDate() {
         long fiveYears = 5L * 365 * 1000 * 60 * 60 * 24L;
@@ -247,7 +211,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
         //昨天减1
         ca.add(Calendar.DATE, -1);
         Date lastDate = ca.getTime();
-        tvStartDate.setText(TimeFormatUtils.dateToStrLong(lastDate));
+        tvStartDate.setText(sf.format(lastDate));
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
             long currentLong = 0;
@@ -255,21 +219,21 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
                 String text = timePickerDialogUtil.getDateToString(millseconds);
                 tvStartDate.setText(text);
-            }, Type.ALL, System.currentTimeMillis() - fiveYears, System.currentTimeMillis() + fiveYears, R.color.color_load_blue);
+            }, Type.YEAR_MONTH, System.currentTimeMillis() - fiveYears, System.currentTimeMillis(), R.color.color_load_blue);
             if (timePickerDialogUtil.startDialog != null) {
                 timePickerDialogUtil.startDialog = null;
             }
             if (currentLong != 0) {
                 timePickerDialogUtil.builder.setCurrentMillseconds(currentLong);
             }
-            timePickerDialogUtil.builder.setTitleStringId(getString(R.string.starttimeTitle));
+            timePickerDialogUtil.builder.setTitleStringId("请选择查询月份");
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
         });
     }
 
     public static long strToLong(String strDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
         ParsePosition pos = new ParsePosition(0);
         Date strtodate = formatter.parse(strDate, pos);
         //继续转换得到秒数的long型
@@ -279,7 +243,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
 
     private void initRecyclerView() {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvAdapter = new MyOperationListAdapter(R.layout.operation_list_item, dataList);
+        rvAdapter = new MyAdminOperationListAdapter(R.layout.admin_operation_list_item, dataList);
         rvAdapter.openLoadAnimation();
         rv.setAdapter(rvAdapter);
         rvAdapter.setOnLoadMoreListener(() -> {
@@ -292,16 +256,15 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
             },1000);
         },rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
-            LogUtil.i("position:"+position);
-            ARouter.getInstance().build(AppRoutePath.app_task_detail)
-                    .withString("workOrderId", dataList.get(position).getWorkOrderId())
-                    .navigation();
+            Intent bundle = new Intent(getActivity(),AdminOperationReportActivity.class);
+            bundle.putExtra("item",dataList.get(position));
+            startActivity(bundle);
         });
     }
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, "", String.valueOf(currentPage), String.valueOf(pageSize), isShowLoading);
+            mPresenter.getAdminProblemList(reservoirId,startDate, String.valueOf(currentPage), String.valueOf(pageSize),isShowLoading);
         }
     }
 

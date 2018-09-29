@@ -1,5 +1,6 @@
 package com.tepia.main.view.maintechnology.yunwei.presenter;
 
+import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
@@ -136,5 +137,32 @@ public interface YunWeiJIShuService {
                                                           @Query("endDate") String endDate,
                                                           @Query("currentPage") String currentPage,
                                                           @Query("pageSize") String pageSize
+    );
+
+    /**
+     * 分页查询运维工单统计列表（行政责任人）
+     * @param token
+     * @param reservoirId
+     * @param queryDate
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/workOrderTrp/getAdminWorkOrderList")
+    Observable<AdminWorkOrderResponse> getAdminWorkOrderList(@Header("Authorization") String token,
+                                                             @Query("reservoirId") String reservoirId,
+                                                             @Query("operationType") String operationType,
+                                                             @Query("queryDate") String queryDate,
+                                                             @Query("currentPage") String currentPage,
+                                                             @Query("pageSize") String pageSize
+    );
+
+
+    @GET("app/workOrderTrp/getAdminProblemList")
+    Observable<AdminWorkOrderResponse> getAdminProblemList(@Header("Authorization") String token,
+                                                             @Query("reservoirId") String reservoirId,
+                                                             @Query("queryDate") String queryDate,
+                                                             @Query("currentPage") String currentPage,
+                                                             @Query("pageSize") String pageSize
     );
 }

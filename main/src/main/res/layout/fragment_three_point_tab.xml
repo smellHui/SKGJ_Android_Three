@@ -68,6 +68,7 @@
                     android:layout_marginLeft="13dp"
                     android:layout_marginRight="13dp"
                     android:layout_marginTop="13dp"
+                    android:paddingBottom="10dp"
                     android:background="@drawable/bg_three_point_real_time_data"
                     android:orientation="vertical">
 
@@ -90,7 +91,7 @@
                             android:paddingTop="13dp"
                             android:text="水情实时数据"
                             android:textColor="#000000"
-                            android:textSize="18sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -101,7 +102,7 @@
                             android:layout_marginRight="10dp"
                             android:text="历史数据"
                             android:textColor="#7d8390"
-                            android:textSize="16sp" />
+                            android:textSize="13sp" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -186,14 +187,17 @@
                         android:id="@+id/rv_water"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="10dp" />
-
+                         />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="13dp"
+                    android:paddingBottom="10dp"
                     android:background="@drawable/bg_three_point_real_time_data"
                     android:orientation="vertical">
 
@@ -216,7 +220,7 @@
                             android:paddingTop="13dp"
                             android:text="雨情实时数据"
                             android:textColor="#000000"
-                            android:textSize="18sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -227,7 +231,7 @@
                             android:layout_marginRight="10dp"
                             android:text="历史数据"
                             android:textColor="#7d8390"
-                            android:textSize="16sp" />
+                            android:textSize="13sp" />
                     </RelativeLayout>
 
                     <LinearLayout
