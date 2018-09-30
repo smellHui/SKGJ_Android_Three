@@ -22,6 +22,7 @@ import com.tepia.main.R;
 import com.tepia.main.common.MySettingView;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.MenuItemBean;
 import com.tepia.main.view.TabMainFragmentFactory;
 import com.tepia.main.view.login.LoginActivity;
 import com.tepia.main.view.maincommon.setting.train.TrainActivity;
@@ -33,7 +34,7 @@ import com.tepia.main.view.maincommon.setting.voiceassistant.VoiceAssistantSetti
  * by ly on 2018/6/4
  */
 @Route(path = AppRoutePath.app_main_fragment_mine)
-public class SettingFragment extends BaseCommonFragment implements View.OnClickListener{
+public class SettingFragment extends BaseCommonFragment implements View.OnClickListener {
 
     private ImageView headIv;
     private TextView userTv;
@@ -48,6 +49,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     private EditText changeipEv;
 
     private Context mContext;
+    private MySettingView worknotificationMv;
 
 
     @Override
@@ -75,37 +77,44 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     @Override
     public void onClick(View view) {
         Intent intent;
-        if(view.getId() == R.id.headIv){
+        if (view.getId() == R.id.headIv) {
 
             intent = new Intent(getBaseActivity(), EditUserInfoActivity.class);
             startActivity(intent);
 
-        }else if(view.getId() == R.id.userTv){
+        } else if (view.getId() == R.id.userTv) {
+            intent = new Intent(getBaseActivity(), EditUserInfoActivity.class);
+            startActivity(intent);
+        } else if (view.getId() == R.id.worknotificationMv) {
+            if (UserManager.getInstance().getMenuList().size() == 5) {
+                if (UserManager.getInstance().getMenuList().get(4).getChildren() != null && UserManager.getInstance().getMenuList().get(4).getChildren().size() != 0) {
+                    MenuItemBean bean = UserManager.getInstance().getMenuList().get(4).getChildren().get(0);
+                    ARouter.getInstance().build(bean.getMenuHref()).navigation();
+                }
+            }
+
+        } else if (view.getId() == R.id.personinfoMv) {
             intent = new Intent(getBaseActivity(), EditUserInfoActivity.class);
             startActivity(intent);
 
-        }else if(view.getId() == R.id.personinfoMv){
-            intent = new Intent(getBaseActivity(), EditUserInfoActivity.class);
-            startActivity(intent);
-
-        }else if(view.getId() == R.id.zhizeMvMv){
+        } else if (view.getId() == R.id.zhizeMvMv) {
             intent = new Intent(getBaseActivity(), DutyActivity.class);
             startActivity(intent);
-        }else if(view.getId() == R.id.peixunMv){
+        } else if (view.getId() == R.id.peixunMv) {
             intent = new Intent(getBaseActivity(), TrainActivity.class);
             startActivity(intent);
 
-        }else if(view.getId() == R.id.msgMv){
+        } else if (view.getId() == R.id.msgMv) {
 //            ToastUtils.shortToast("待开发功能");
             ARouter.getInstance().build(AppRoutePath.app_contacts).navigation();
-        }else if(view.getId() == R.id.setMv){
-            intent = new Intent(getBaseActivity(),VersionActivity.class);
+        } else if (view.getId() == R.id.setMv) {
+            intent = new Intent(getBaseActivity(), VersionActivity.class);
             startActivity(intent);
-        }else if(view.getId() == R.id.mv_voice_assistant){
-            intent = new Intent(getBaseActivity(),VoiceAssistantSettingActivity.class);
+        } else if (view.getId() == R.id.mv_voice_assistant) {
+            intent = new Intent(getBaseActivity(), VoiceAssistantSettingActivity.class);
             startActivity(intent);
 
-        }else if(view.getId() == R.id.loginOutMv){
+        } else if (view.getId() == R.id.loginOutMv) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getBaseActivity());
             builder.setMessage(R.string.exit_message);
             builder.setCancelable(true);
@@ -129,13 +138,11 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             builder.create().show();
 
 
-
         }
     }
 
 
-
-    private void initView(){
+    private void initView() {
 
         headIv = findView(R.id.headIv);
         userTv = findView(R.id.userTv);
@@ -145,10 +152,11 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
         msgMv = findView(R.id.msgMv);
         setMv = findView(R.id.setMv);
-        mvVoiceAssistant =findView(R.id.mv_voice_assistant);
-        peixunMv =findView(R.id.peixunMv);
-        zhizeMvMv =findView(R.id.zhizeMvMv);
-        loginOutMv =findView(R.id.loginOutMv);
+        worknotificationMv = findView(R.id.worknotificationMv);
+        mvVoiceAssistant = findView(R.id.mv_voice_assistant);
+        peixunMv = findView(R.id.peixunMv);
+        zhizeMvMv = findView(R.id.zhizeMvMv);
+        loginOutMv = findView(R.id.loginOutMv);
 
 
         headIv.setOnClickListener(SettingFragment.this);
@@ -160,12 +168,13 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         peixunMv.setOnClickListener(SettingFragment.this);
         zhizeMvMv.setOnClickListener(SettingFragment.this);
         loginOutMv.setOnClickListener(SettingFragment.this);
+        worknotificationMv.setOnClickListener(SettingFragment.this);
         setItem();
 
 
     }
 
-    private void setItem(){
+    private void setItem() {
         personinfoMv.setTitle(getString(R.string.personinfostr));
         personinfoMv.setIvLeft(R.drawable.s_personinfo);
         personinfoMv.setVisibility(View.GONE);
@@ -174,6 +183,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         zhizeMvMv.setTitle(getString(R.string.zhizestr));
         zhizeMvMv.setIvLeft(R.drawable.s_zhize);
 
+        worknotificationMv.setTitle("工作通知");
+        worknotificationMv.setIvLeft(R.drawable.s_zhize);
 
         msgMv.setTitle(getString(R.string.phonestr));
         msgMv.setIvLeft(R.drawable.s_msg);
@@ -192,17 +203,17 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     /**
      * 获取用户信息并保存
      */
-    private void saveUserInfoBean(){
-        UserManager.getInstance_ADMIN().getLoginUser().subscribe(new LoadingSubject<UserInfoBean>(false,"正在提交") {
+    private void saveUserInfoBean() {
+        UserManager.getInstance_ADMIN().getLoginUser().subscribe(new LoadingSubject<UserInfoBean>(false, "正在提交") {
             @Override
             protected void _onNext(UserInfoBean userInfoBean) {
-                if(userInfoBean != null){
+                if (userInfoBean != null) {
                     if (userInfoBean.getCode() == 0) {
-                        LogUtil.e("getLoginUser","getLoginUser:成功获取用户信息------");
+                        LogUtil.e("getLoginUser", "getLoginUser:成功获取用户信息------");
                         UserManager.getInstance().setUserBean(userInfoBean);
                         userTv.setText(userInfoBean.getData().getUserName());
                         zhizeTv.setText(userInfoBean.getData().getOfficeName());
-                    }else{
+                    } else {
                         ToastUtils.longToast(userInfoBean.getMsg());
 
                     }
@@ -212,7 +223,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             @Override
             protected void _onError(String message) {
                 UserInfoBean userInfoBean = UserManager.getInstance().getUserBean();
-                if(userInfoBean != null){
+                if (userInfoBean != null) {
                     userTv.setText(userInfoBean.getData().getUserName());
                 }
                 LogUtil.e("getLoginUser:获取用户信息失败-----");
@@ -225,7 +236,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     @Override
     public void onResume() {
         super.onResume();
-        if(NetUtil.isNetworkConnected(getBaseActivity())) {
+        if (NetUtil.isNetworkConnected(getBaseActivity())) {
             saveUserInfoBean();
         }
 

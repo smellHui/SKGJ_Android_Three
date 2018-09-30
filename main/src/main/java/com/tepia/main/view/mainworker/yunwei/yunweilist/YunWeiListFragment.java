@@ -50,10 +50,12 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
     @Override
     protected void initData() {
         Map<String, String> map = UserManager.getInstance().getYunWeiTypeList();
-        yunweiTypeStrs = new ArrayList<>();
-        yunweiTypeStrs.add("全部");
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            yunweiTypeStrs.add(entry.getKey() + "");
+        if (map != null) {
+            yunweiTypeStrs = new ArrayList<>();
+            yunweiTypeStrs.add("全部");
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                yunweiTypeStrs.add(entry.getKey() + "");
+            }
         }
     }
 
@@ -172,7 +174,11 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             @Override
             public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
-                    selectedYunWeiType =UserManager.getInstance().getYunWeiTypeList().get(yunweiTypeStrs.get(position))+ "";
+                    if (yunweiTypeStrs != null) {
+                        selectedYunWeiType = UserManager.getInstance().getYunWeiTypeList().get(yunweiTypeStrs.get(position)) + "";
+                    }else {
+                        selectedYunWeiType = position+"";
+                    }
                 } else {
                     selectedYunWeiType = "";
                 }
@@ -226,7 +232,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
     @Override
     public void getPatrolWorkOrderListMoreSuccess(TaskListResponse.DataBean dataBean) {
 
-        int i = dataBean.getStartRow()-1;
+        int i = dataBean.getStartRow() - 1;
         for (int j = 0; j < dataBean.getList().size(); j++) {
             if (!adapterPatrolWorkOrderList.getData().contains(dataBean.getList().get(j))) {
                 adapterPatrolWorkOrderList.addData(i + j, dataBean.getList().get(j));

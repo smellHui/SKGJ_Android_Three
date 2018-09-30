@@ -7,9 +7,9 @@
     <include layout="@layout/toolbar" />
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         android:background="@color/white">
 
         <LinearLayout
@@ -93,9 +93,20 @@
 
 
             <com.tepia.main.common.MySettingView
+                android:id="@+id/worknotificationMv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                style="@style/LineH"
+                android:layout_marginLeft="@dimen/autodimen_setting"
+                android:layout_marginRight="@dimen/autodimen_setting" />
+
+            <com.tepia.main.common.MySettingView
                 android:id="@+id/zhizeMvMv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
 
             <View
                 style="@style/LineH"
@@ -153,9 +164,9 @@
                 android:layout_marginRight="@dimen/autodimen_setting" />
 
             <View
-                android:background="@color/background_common"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="20dp"
+                android:background="@color/background_common" />
 
         </LinearLayout>
 

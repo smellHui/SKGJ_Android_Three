@@ -3,6 +3,7 @@ package com.tepia.main.model.user;
 import com.tepia.base.http.BaseResponse;
 import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.setting.DutyOfWorkBean;
+import com.tepia.main.model.worknotification.WorkNoticeListResponse;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -118,4 +119,6 @@ interface UserHttpService {
                                                    @Query("searchParam") String searchKey,
                                                    @Query("currentPage")String currentPage,
                                                    @Query("pageSize") String pageSize);
+
+
 }

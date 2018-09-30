@@ -1,0 +1,55 @@
+package com.tepia.main.model.worknotification;
+
+import io.reactivex.Observable;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Query;
+
+/**
+ * Created by      android studio
+ *
+ * @author :      zhang xinhua
+ * Date            :       2018-09-30
+ * Time            :       9:53
+ * Version         :       1.0
+ * 功能描述        :
+ **/
+interface WorkNotificationHttpService {
+    /**
+     * 查询工作通知列表
+     *
+     * @param token
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/workNotice/getPageList")
+    Observable<WorkNoticeListResponse> getWorkNoticeLeeaderList(@Header("Authorization") String token,
+                                                                @Query("currentPage") String currentPage,
+                                                                @Query("pageSize") String pageSize);
+
+    /**
+     * @param token
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/appWorkNoticeFeedback/findPageWorkNoticeFeedBack")
+    Observable<FeedBackWorkNoticeListResponse> getWorkNoticeWorkerList(@Header("Authorization") String token,
+                                                                       @Query("currentPage") String currentPage,
+                                                                       @Query("pageSize") String pageSize);
+
+    /**
+     * @param token
+     * @param noticeId
+     * @return
+     */
+    @GET("app/workNotice/getByNoticeId")
+    Observable<WorkNoticeDetailResponse> getWorkNoticeDetail(@Header("Authorization") String token,
+                                                             @Query("noticeId") String noticeId);
+
+    @GET("app/appWorkNoticeFeedback/findWorkNoticeFeedBackById")
+    Observable<WorkNoticeDetailResponse> getWorkNoticeDetailWroker(@Header("Authorization") String token,
+                                                 @Query("noticeFeedbackId") String noticeFeedbackId,
+                                                 @Query("noticeId") String noticeId);
+}

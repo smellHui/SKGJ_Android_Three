@@ -12,6 +12,7 @@ import com.tepia.main.APPCostant;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.setting.DutyOfWorkBean;
+import com.tepia.main.model.worknotification.WorkNoticeListResponse;
 import com.tepia.main.view.MenuItemBean;
 import com.tepia.main.view.login.LoginPresenter;
 
@@ -138,6 +139,7 @@ public class UserManager {
 
     /**
      * 获取工作职责
+     *
      * @return
      */
     public Observable<DutyOfWorkBean> getUserJob() {
@@ -148,7 +150,6 @@ public class UserManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
 
 
     /**
@@ -242,6 +243,8 @@ public class UserManager {
         return menuItemBeans;
     }
 
+
+
     /**
      * 保存 我们负责的水库
      *
@@ -317,13 +320,14 @@ public class UserManager {
     }
 
     public Map<String, String> getYunWeiTypeList() {
-        Map<String, String> yunweitypelist = new HashMap<>();
+        Map<String, String> yunweitypelist = null;
         if (UserManager.getInstance().getMenuList() == null) {
             return yunweitypelist;
         }
         if (UserManager.getInstance().getMenuList().get(1).getMenuIcon().equals("110")) {
             MenuItemBean bean = UserManager.getInstance().getMenuList().get(1);
             if (bean.getChildren() != null && (bean.getChildren().size() == 2 || bean.getChildren().size() == 1)) {
+                yunweitypelist = new HashMap<>();
                 for (MenuItemBean bean1 : bean.getChildren()) {
                     if (bean1.getMenuIcon().equals("111")) {
                         yunweitypelist.put("巡检", "1");
@@ -341,4 +345,6 @@ public class UserManager {
         }
         return yunweitypelist;
     }
+
+
 }

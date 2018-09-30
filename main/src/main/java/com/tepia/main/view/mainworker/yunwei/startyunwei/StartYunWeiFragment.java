@@ -60,9 +60,11 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
     @Override
     protected void initData() {
         Map<String, String> map = UserManager.getInstance().getYunWeiTypeList();
-        yunweiTypeStrs = new ArrayList<>();
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            yunweiTypeStrs.add(entry.getKey() + "");
+        if (map != null) {
+            yunweiTypeStrs = new ArrayList<>();
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                yunweiTypeStrs.add(entry.getKey() + "");
+            }
         }
     }
 
@@ -161,7 +163,11 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         dialog.setOnOpenItemClickL(new OnOpenItemClick() {
             @Override
             public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedYunWeiType = UserManager.getInstance().getYunWeiTypeList().get(yunweiTypeStrs.get(position)) + "";
+                if (yunweiTypeStrs != null) {
+                    selectedYunWeiType = UserManager.getInstance().getYunWeiTypeList().get(yunweiTypeStrs.get(position)) + "";
+                } else {
+                    selectedYunWeiType = position + 1 + "";
+                }
                 mBinding.tvYunweiType.setText(finalStringItems[position]);
                 selectFinish(selectedYunWeiType, selectedResrvoir);
                 dialog.dismiss();
