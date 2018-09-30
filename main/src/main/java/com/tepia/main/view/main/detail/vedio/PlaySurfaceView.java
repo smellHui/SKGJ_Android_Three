@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 import com.hikvision.netsdk.HCNetSDK;
 import com.hikvision.netsdk.NET_DVR_PREVIEWINFO;
 import com.hikvision.netsdk.RealPlayCallBack;
+import com.tepia.main.view.maincommon.reservoirs.detail.VideoPlayThreeActivity;
 
 import org.MediaPlayer.PlayM4.Player;
 
@@ -35,6 +36,11 @@ public class PlaySurfaceView extends SurfaceView implements Callback {
     private boolean m_bSurfaceCreated = false;
 
     public PlaySurfaceView(VideoPlayActivity activity) {
+        super(activity);
+        getHolder().addCallback(this);
+    }
+
+    public PlaySurfaceView(VideoPlayThreeActivity activity) {
         super(activity);
         getHolder().addCallback(this);
     }

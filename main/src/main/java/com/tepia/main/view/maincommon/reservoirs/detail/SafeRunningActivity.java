@@ -116,8 +116,13 @@ public class SafeRunningActivity extends MVPBaseActivity<ReserviorContract.View,
     @Override
     public void success(SafeRunningBean data) {
         myReservoirsItemBeanList.clear();
-        myReservoirsItemBeanList.addAll(data.getData());
-        adapterSafeRunningReservoirs.notifyDataSetChanged();
+        if(data.getData() != null && data.getData().size() > 0){
+            myReservoirsItemBeanList.addAll(data.getData());
+            adapterSafeRunningReservoirs.notifyDataSetChanged();
+        }else{
+            adapterSafeRunningReservoirs.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
+        }
+
     }
 
     @Override

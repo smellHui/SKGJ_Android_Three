@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/video_rel"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="false"
+        android:background="#33000000"
+        >
+
+        <VideoView
+            android:id="@+id/surfaceView"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"/>
+
+        <ProgressBar
+            android:id="@+id/liveProgressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="false"
+            android:indeterminateDrawable="@drawable/bg_ring_rotate"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/liveProgressBar"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="8dp"
+            android:text="正在加载视频..."
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#336666"/>
+
+    <LinearLayout
+        android:id="@+id/selectionArea"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/theme_trans_vedio"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:padding="2dp"
+                android:id="@+id/mainRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="高清"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                />
+
+            <RadioButton
+                android:padding="2dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/subRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="标清"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                />
+        </RadioGroup>
+    </LinearLayout>
+    <include layout="@layout/adapter_video_item"/>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.tepia.main.common.MyListView
+                android:visibility="gone"
+                android:id="@+id/videolist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/divider_list"
+                android:footerDividersEnabled="true"
+                >
+            </com.tepia.main.common.MyListView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

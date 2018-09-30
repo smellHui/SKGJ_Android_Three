@@ -95,7 +95,7 @@ public interface YunWeiJIShuService {
      * @param problemId
      * @return
      */
-    @GET("app/appProblemInfo/getDetailedProblemInfoByProblemId")
+    @GET("app/workOrderTrp/getProblemInfo")
     Observable<JiShuRePortDetailResponse> getDetailedProblemInfoByProblemId(@Header("Authorization") String token,
                                                                             @Query("problemId") String problemId
     );

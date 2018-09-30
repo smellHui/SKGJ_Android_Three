@@ -87,7 +87,7 @@ public class YunWeiJiShuPresenter extends BasePresenterImpl<YunWeiJiShuContract.
 
     @Override
     public void getDetailedProblemInfoByProblemId(String problemId) {
-        YunWeiJiShuManager.getInstance().getDetailedProblemInfoByProblemId(problemId).subscribe(new LoadingSubject<JiShuRePortDetailResponse>(false, "正在加载中...") {
+        YunWeiJiShuManager.getInstance().getDetailedProblemInfoByProblemId(problemId).subscribe(new LoadingSubject<JiShuRePortDetailResponse>(true, "正在加载中...") {
             @Override
             protected void _onNext(JiShuRePortDetailResponse jiShuRePortDetailResponse) {
                 if (jiShuRePortDetailResponse.getCode() == 0) {

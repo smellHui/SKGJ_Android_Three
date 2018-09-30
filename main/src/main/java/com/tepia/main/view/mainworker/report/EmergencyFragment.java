@@ -4,6 +4,7 @@ package com.tepia.main.view.mainworker.report;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
@@ -148,6 +150,12 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
         adapterShuiweiReservoirs = new AdapterEmergency(getBaseActivity(),R.layout.fragment_shuiwei_yingji_head_layout,dataList);
         shuiweiRec.setAdapter(adapterShuiweiReservoirs);
         adapterShuiweiReservoirs.setOnItemClickListener((adapter, view, position) -> {
+             Intent intent = new Intent();
+             intent.setClass(getBaseActivity(),EmergenceSearchDetailActivity.class);
+             Bundle bundle = new Bundle();
+             bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
+             intent.putExtras(bundle);
+             startActivity(intent);
 
 
         });

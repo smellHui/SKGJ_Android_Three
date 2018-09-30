@@ -5,7 +5,7 @@
     android:id="@+id/rootVedioLy"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="#eff3f7"
     android:gravity="center_vertical"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"

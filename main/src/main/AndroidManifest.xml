@@ -192,6 +192,9 @@
             android:name=".view.main.detail.vedio.VideoPlayActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.maincommon.reservoirs.detail.VideoPlayThreeActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.maincommon.setting.EditUserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -245,7 +248,10 @@
             android:name=".view.mainworker.report.EmergencyDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.mainworker.report.PlayLocalVedio"
+            android:name=".view.mainworker.report.EmergenceSearchDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mainworker.report.PlayLocalVedioActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.reservoirs.detail.VisitLogActivity"

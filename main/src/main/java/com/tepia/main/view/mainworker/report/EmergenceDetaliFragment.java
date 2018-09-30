@@ -10,11 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -26,7 +23,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.http.BaseResponse;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
@@ -40,7 +36,7 @@ import com.tepia.main.R;
 import com.tepia.main.common.pickview.OnItemClickListener;
 import com.tepia.main.common.pickview.PhotoRecycleViewAdapter;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
-import com.tepia.main.model.user.UserInfoBean;
+import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.FileUtil;
 import com.tepia.main.view.main.question.TypeResponse;
@@ -48,12 +44,9 @@ import com.tepia.main.view.mainworker.report.adapter.AdapterEmergenceReport;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
 
-import org.litepal.crud.DataSupport;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -96,6 +89,9 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     // 视频路径
     public static String videoPath = "";
     private Bitmap addBitmap;
+    private int flag ;
+
+    private EmergenceListBean.DataBean.ListBean listBean;
 
     @Override
     protected int getLayoutId() {
@@ -107,13 +103,7 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
 
     }
 
-    private void setType(String typestr, String typeid, boolean isshowIcon) {
-        TypeResponse typeResponse = new TypeResponse();
-        typeResponse.setShowIcon(isshowIcon);
-        typeResponse.setTypeId(typeid);
-        typeResponse.setType(typestr);
-        data.add(typeResponse);
-    }
+
 
     @Override
     protected void initView(View view) {
@@ -121,10 +111,7 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
         showBack();
         addBitmap = ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.newplay)
         ).getBitmap();
-        UserInfoBean reservoirBean = UserManager.getInstance().getUserBean();
-        if( reservoirBean != null && reservoirBean.getData() != null){
-            userCode = reservoirBean.getData().getUserCode();
-        }
+
 
         typeTv = findView(R.id.typeTv);
         resviorTv = findView(R.id.resviorTv);
@@ -135,27 +122,12 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
         typeTv.setOnClickListener(this);
         videoIcon.setOnClickListener(this);
 
+        dateBeanList = UserManager.getInstance().getLocalReservoirList();
 
 
-        /*DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
-        List<DictMapEntity.ArrayBean.NameValueBean> nameValueBeanList = dictMapEntity.getArray().getOperationType();
-        for(DictMapEntity.ArrayBean.NameValueBean bean:nameValueBeanList){
-            setType(getString(R.string.question_xunjian), mapProblemStatus.k, false);
-
-        }
-        setType(getString(R.string.question_xunjian), mapProblemStatus.k, false);
-        setType(getString(R.string.question_baojie), "3", true);
-        setType(getString(R.string.question_weixiu), "2", false);
-        setType(getString(R.string.question_qita), "4", false);*/
-
-         dateBeanList = UserManager.getInstance().getLocalReservoirList();
-
-
-        recycleChangyong = findView(R.id.recycleChangyong);
+        /*recycleChangyong = findView(R.id.recycleChangyong);
         recycleChangyong.setLayoutManager(new GridLayoutManager(getContext(),4));
-        //item居中显示
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(recycleChangyong);
+
         adapterQuestion = new AdapterEmergenceReport(R.layout.tag_text_layout,dateBeanList);
         recycleChangyong.setAdapter(adapterQuestion);
 
@@ -169,7 +141,7 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
                     reservoirId = reservoirDateBean.getReservoirId();
                 }
             }
-        });
+        });*/
 
 
 
@@ -233,11 +205,15 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
 
             }
         }));
+
+
         photoAdapter = new PhotoRecycleViewAdapter(getBaseActivity(), selectedPhotos);
         rvImagePick.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
         rvImagePick.setAdapter(photoAdapter);
         getSP();
     }
+
+
 
     /**
      * 保存数据
@@ -424,11 +400,15 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
 
                 @Override
                 public void success(BaseResponse data) {
+                    videoPath = "";
+                    ToastUtils.shortToast("提交成功");
+
                     getBaseActivity().finish();
                 }
 
                 @Override
                 public void failure(String msg) {
+                    LogUtil.e("EmergenceDetaliFragment",msg+"---");
 
                 }
             });
@@ -446,8 +426,9 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
                 getVedio();
             }else{
                 Intent intent = new Intent();
-                intent.setClass(getBaseActivity(),PlayLocalVedio.class);
+                intent.setClass(getBaseActivity(),PlayLocalVedioActivity.class);
                 Bundle bundle = new Bundle();
+
                 bundle.putString("urllocalvedio",videoPath);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, REQUEST_DELETE_CODE);
@@ -499,9 +480,7 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (addBitmap != null) {
-            addBitmap.recycle();
-        }
+
         clear();
         SPUtils.getInstance().putString(EmergencyDetailActivity.key_Title,questionTitle);
         SPUtils.getInstance().putString(EmergencyDetailActivity.key_Content,questionContent);

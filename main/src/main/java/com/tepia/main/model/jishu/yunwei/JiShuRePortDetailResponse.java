@@ -16,7 +16,7 @@ import java.util.List;
 public class JiShuRePortDetailResponse extends BaseResponse{
 
     /**
-     * data : {"problemId":"8a5dd549fd98446a91e674fc7b060120","reservoirId":"66fb3d579d084daf8a7d35d9d9612213","problemTitle":"测试应急上报-apizza","problemDescription":"这是由apizza发起的上报","problemSource":"2","problemSourceUserId":"d76b251318494686a4c799f34ccba039","problemSourceUserName":"鲁志平","problemLgtd":"123","problemLttd":"123","problemStatus":"4","isMakePlan":"0","status":"0","createBy":"d76b251318494686a4c799f34ccba039","createDate":"2018-09-25 19:38:34","isProcess":"1","reservoirName":"绿竹坝水库","userName":"鲁志平","isVerify":"0","iSysFileUploads":[],"bizProblemFlows":[]}
+     * data : {"problemId":"9b5387aa4e824c56aab891bb1e7c9341","reservoirId":"66fb3d579d084daf8a7d35d9d9612213","problemTitle":"wzm","problemDescription":"wzm","problemSource":"2","problemSourceUserId":"c6fc4372f7e948e38c7e1ea0296facf4","problemSourceUserName":"李维保","problemLgtd":"","problemLttd":"","problemStatus":"4","isMakePlan":"0","status":"0","createBy":"c6fc4372f7e948e38c7e1ea0296facf4","createDate":"2018-09-30 09:26:23","isProcess":"1","reservoirName":"绿竹坝水库","userName":"李维保","isVerify":"0","iSysFileUploads":[{"fileId":"3fee6a4b258f45598c6c2749abd4d504","bizKey":"9b5387aa4e824c56aab891bb1e7c9341","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/Problem/2018-09/30/3fee6a4b258f45598c6c2749abd4d504.jpg"}],"bizProblemFlows":[]}
      */
 
     private DataBean data;
@@ -31,25 +31,25 @@ public class JiShuRePortDetailResponse extends BaseResponse{
 
     public static class DataBean {
         /**
-         * problemId : 8a5dd549fd98446a91e674fc7b060120
+         * problemId : 9b5387aa4e824c56aab891bb1e7c9341
          * reservoirId : 66fb3d579d084daf8a7d35d9d9612213
-         * problemTitle : 测试应急上报-apizza
-         * problemDescription : 这是由apizza发起的上报
+         * problemTitle : wzm
+         * problemDescription : wzm
          * problemSource : 2
-         * problemSourceUserId : d76b251318494686a4c799f34ccba039
-         * problemSourceUserName : 鲁志平
-         * problemLgtd : 123
-         * problemLttd : 123
+         * problemSourceUserId : c6fc4372f7e948e38c7e1ea0296facf4
+         * problemSourceUserName : 李维保
+         * problemLgtd :
+         * problemLttd :
          * problemStatus : 4
          * isMakePlan : 0
          * status : 0
-         * createBy : d76b251318494686a4c799f34ccba039
-         * createDate : 2018-09-25 19:38:34
+         * createBy : c6fc4372f7e948e38c7e1ea0296facf4
+         * createDate : 2018-09-30 09:26:23
          * isProcess : 1
          * reservoirName : 绿竹坝水库
-         * userName : 鲁志平
+         * userName : 李维保
          * isVerify : 0
-         * iSysFileUploads : []
+         * iSysFileUploads : [{"fileId":"3fee6a4b258f45598c6c2749abd4d504","bizKey":"9b5387aa4e824c56aab891bb1e7c9341","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/Problem/2018-09/30/3fee6a4b258f45598c6c2749abd4d504.jpg"}]
          * bizProblemFlows : []
          */
 
@@ -71,7 +71,8 @@ public class JiShuRePortDetailResponse extends BaseResponse{
         private String reservoirName;
         private String userName;
         private String isVerify;
-        private List<?> iSysFileUploads;
+        private List<ISysFileUploadsBean> images;
+        private List<ISysFileUploadsBean> videos;
         private List<?> bizProblemFlows;
 
         public String getProblemId() {
@@ -218,12 +219,20 @@ public class JiShuRePortDetailResponse extends BaseResponse{
             this.isVerify = isVerify;
         }
 
-        public List<?> getISysFileUploads() {
-            return iSysFileUploads;
+        public List<ISysFileUploadsBean> getImages() {
+            return images;
         }
 
-        public void setISysFileUploads(List<?> iSysFileUploads) {
-            this.iSysFileUploads = iSysFileUploads;
+        public void setImages(List<ISysFileUploadsBean> images) {
+            this.images = images;
+        }
+
+        public List<ISysFileUploadsBean> getVideos() {
+            return videos;
+        }
+
+        public void setVideos(List<ISysFileUploadsBean> videos) {
+            this.videos = videos;
         }
 
         public List<?> getBizProblemFlows() {
@@ -232,6 +241,42 @@ public class JiShuRePortDetailResponse extends BaseResponse{
 
         public void setBizProblemFlows(List<?> bizProblemFlows) {
             this.bizProblemFlows = bizProblemFlows;
+        }
+
+        public static class ISysFileUploadsBean {
+            /**
+             * fileId : 3fee6a4b258f45598c6c2749abd4d504
+             * bizKey : 9b5387aa4e824c56aab891bb1e7c9341
+             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/Problem/2018-09/30/3fee6a4b258f45598c6c2749abd4d504.jpg
+             */
+
+            private String fileId;
+            private String bizKey;
+            private String filePath;
+
+            public String getFileId() {
+                return fileId;
+            }
+
+            public void setFileId(String fileId) {
+                this.fileId = fileId;
+            }
+
+            public String getBizKey() {
+                return bizKey;
+            }
+
+            public void setBizKey(String bizKey) {
+                this.bizKey = bizKey;
+            }
+
+            public String getFilePath() {
+                return filePath;
+            }
+
+            public void setFilePath(String filePath) {
+                this.filePath = filePath;
+            }
         }
     }
 }

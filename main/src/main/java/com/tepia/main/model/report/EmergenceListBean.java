@@ -2,6 +2,7 @@ package com.tepia.main.model.report;
 
 import com.tepia.base.http.BaseResponse;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * location        :       武汉研发中心
  * 功能描述         :       应急情况列表
  **/
-public class EmergenceListBean extends BaseResponse{
+public class EmergenceListBean extends BaseResponse implements Serializable{
 
     /**
      * data : {"pageNum":1,"pageSize":10,"size":3,"startRow":1,"endRow":3,"total":3,"pages":1,"list":[{"problemTitle":"测试应急上报图片和文件-apizza","problemStatus":"4","createDate":"2018-09-26 14:10:18","reservoirName":"绿竹坝水库","isVerify":"0"}]}
@@ -30,7 +31,7 @@ public class EmergenceListBean extends BaseResponse{
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * pageNum : 1
          * pageSize : 10
@@ -115,7 +116,7 @@ public class EmergenceListBean extends BaseResponse{
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable{
             /**
              * problemTitle : 测试应急上报图片和文件-apizza
              * problemStatus : 4
@@ -129,6 +130,7 @@ public class EmergenceListBean extends BaseResponse{
             private String createDate;
             private String reservoirName;
             private String isVerify;
+            private String problemId;
 
             public String getProblemTitle() {
                 return problemTitle;
@@ -168,6 +170,14 @@ public class EmergenceListBean extends BaseResponse{
 
             public void setIsVerify(String isVerify) {
                 this.isVerify = isVerify;
+            }
+
+            public String getProblemId() {
+                return problemId;
+            }
+
+            public void setProblemId(String problemId) {
+                this.problemId = problemId;
             }
         }
     }

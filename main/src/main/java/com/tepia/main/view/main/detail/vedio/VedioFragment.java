@@ -325,19 +325,7 @@ public class VedioFragment extends BaseCommonFragment {
                 }
             }
         }
-        /*if (endNum == 15) {
-            getBaseActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
 
-                    showData(data_video);
-                    if (simpleLoadDialog != null) {
-                        simpleLoadDialog.dismiss();
-                    }
-                }
-
-            });
-        }*/
         getBaseActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

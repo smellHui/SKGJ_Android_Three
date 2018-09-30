@@ -3,6 +3,7 @@ package com.tepia.main.model.reserviros;
 import com.tepia.base.http.BaseResponse;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**

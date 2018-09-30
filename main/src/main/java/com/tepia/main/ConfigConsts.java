@@ -48,4 +48,5 @@ public class ConfigConsts {
      * 极光推送注册id保存
      */
     public static String regisid_jiguang = "regisid_jiguang";
+    public static String emergence = "emergence";
 }

@@ -148,6 +148,7 @@ public class ReportPresenter extends BasePresenterImpl<ReportContract.View> impl
                     simpleLoadDialog.dismiss();
                 }
                 ToastUtils.shortToast("提交失败");
+                mView.failure(message);
 
 
             }

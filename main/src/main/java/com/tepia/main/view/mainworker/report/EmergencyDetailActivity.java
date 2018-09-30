@@ -1,18 +1,22 @@
 package com.tepia.main.view.mainworker.report;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.SPUtils;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.pickview.OnItemClickListener;
 import com.tepia.main.common.pickview.PhotoRecycleViewAdapter;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
+import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.view.main.question.QuestionNewFragment;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
