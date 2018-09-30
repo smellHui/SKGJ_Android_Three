@@ -1,5 +1,6 @@
 package com.tepia.main.model.worknotification;
 
+import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.user.UserManager;
@@ -53,6 +54,13 @@ public class WorkNotificationManager {
     public Observable<WorkNoticeDetailResponse> getWorkNoticeDetailWroker(String noticeFeedbackId, String noticeId) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getWorkNoticeDetailWroker(token,noticeFeedbackId, noticeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseResponse>  feedBackWorkNotice(String noticeFeedbackId, String feedBackContent) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.feedBackWorkNotice(token,noticeFeedbackId, feedBackContent)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

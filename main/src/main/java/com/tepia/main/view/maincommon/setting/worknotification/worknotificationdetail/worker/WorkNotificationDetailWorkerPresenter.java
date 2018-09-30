@@ -1,5 +1,6 @@
 package com.tepia.main.view.maincommon.setting.worknotification.worknotificationdetail.worker;
 
+import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.ToastUtils;
@@ -27,4 +28,17 @@ public class WorkNotificationDetailWorkerPresenter extends BasePresenterImpl<Wor
         });
     }
 
+    public void feedBackWorkNotice(String noticeFeedbackId, String feedBackContent) {
+        WorkNotificationManager.getInstance().feedBackWorkNotice(noticeFeedbackId,feedBackContent).safeSubscribe(new LoadingSubject<BaseResponse>() {
+            @Override
+            protected void _onNext(BaseResponse workNoticeDetailResponse) {
+                mView.feedBackWorkNoticeSuccess();
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
 }

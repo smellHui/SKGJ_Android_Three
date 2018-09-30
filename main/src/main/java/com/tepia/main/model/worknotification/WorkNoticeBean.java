@@ -31,6 +31,14 @@ public class WorkNoticeBean {
     private String userName;
     private String feedBackStatus;
 
+    public String getFeedBackStatus() {
+        return feedBackStatus;
+    }
+
+    public void setFeedBackStatus(String feedBackStatus) {
+        this.feedBackStatus = feedBackStatus;
+    }
+
     private List<WorkNoticeFeedbackBean> feedbackList;
 
     public String getId() {

@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -12,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityContactsBinding;
 import com.tepia.main.model.user.AddressBookResponse;
@@ -110,6 +112,12 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
     @Override
     public void getAddressBookSuccess(List<ContactBean> list) {
         adapterContactsList.setNewData(list);
+        if (list == null || list.size() == 0) {
+            adapterContactsList.getData().clear();
+            adapterContactsList.notifyDataSetChanged();
+            View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
+            adapterContactsList.setEmptyView(view);
+        }
         adapterContactsList.loadMoreComplete();
     }
 

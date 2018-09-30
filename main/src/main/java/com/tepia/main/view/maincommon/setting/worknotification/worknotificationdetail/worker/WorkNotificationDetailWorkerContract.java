@@ -15,6 +15,8 @@ public class WorkNotificationDetailWorkerContract {
     interface View extends BaseView {
 
         void getWorkNoticeDetailSuccess(WorkNoticeBean data);
+
+        void feedBackWorkNoticeSuccess();
     }
 
     interface  Presenter extends BasePresenter<View> {

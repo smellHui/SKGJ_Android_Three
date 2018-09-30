@@ -267,11 +267,13 @@
         <activity android:name=".view.maincommon.setting.worknotification.worknotificationdetail.leader.WorkNotificationDetailActivity" />
         <activity android:name=".view.maincommon.setting.worknotification.worknotificationlist.worker.WorkNotificatoinListWorkerActivity" />
         <activity android:name=".view.maincommon.setting.worknotification.worknotificationdetail.worker.WorkNotificationDetailWorkerActivity" />
-
+        <activity android:name=".view.maincommon.setting.worknotification.worknotificationlist.leader.WorkNotificationListLeaderActivity" />
 
         <activity android:name=".view.maincommon.setting.train.TrainDetailActivity"/>
         <activity android:name=".view.mainadminister.yunwei.AdminOperationActivity"/>
         <activity android:name=".view.mainadminister.yunwei.AdminOperationReportActivity"/>
+        <activity android:name=".view.maincommon.setting.worknotification.addworknotification.AddWorkNotificationActivity" />
+
     </application>
 
 </manifest>

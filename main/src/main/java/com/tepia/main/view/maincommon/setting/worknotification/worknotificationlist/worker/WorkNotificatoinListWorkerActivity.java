@@ -4,6 +4,7 @@ package com.tepia.main.view.maincommon.setting.worknotification.worknotification
 import android.databinding.DataBindingUtil;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -12,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWorkNotificationListBinding;
 import com.tepia.main.model.worknotification.FeedBackWorkNoticeBean;
@@ -64,7 +66,7 @@ public class WorkNotificatoinListWorkerActivity extends MVPBaseActivity<WorkNoti
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_work_notification_worker_detail)
-                        .withString("noticeFeedbackId",adapterWorkNotificationWorkerList.getData().get(position).getId())
+                        .withString("noticeFeedbackId", adapterWorkNotificationWorkerList.getData().get(position).getId())
                         .withString("noticeId", adapterWorkNotificationWorkerList.getData().get(position).getBizWorkNotice().getId())
                         .navigation();
             }
@@ -85,5 +87,11 @@ public class WorkNotificatoinListWorkerActivity extends MVPBaseActivity<WorkNoti
     @Override
     public void getWorkNoticeWorkerListSuccess(List<FeedBackWorkNoticeBean> list) {
         adapterWorkNotificationWorkerList.setNewData(list);
+        if (list == null || list.size() == 0) {
+            adapterWorkNotificationWorkerList.getData().clear();
+            adapterWorkNotificationWorkerList.notifyDataSetChanged();
+            View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
+            adapterWorkNotificationWorkerList.setEmptyView(view);
+        }
     }
 }

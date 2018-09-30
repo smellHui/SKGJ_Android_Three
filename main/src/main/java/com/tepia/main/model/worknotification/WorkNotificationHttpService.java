@@ -1,8 +1,13 @@
 package com.tepia.main.model.worknotification;
 
+import com.tepia.base.http.BaseResponse;
+
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -50,6 +55,12 @@ interface WorkNotificationHttpService {
 
     @GET("app/appWorkNoticeFeedback/findWorkNoticeFeedBackById")
     Observable<WorkNoticeDetailResponse> getWorkNoticeDetailWroker(@Header("Authorization") String token,
-                                                 @Query("noticeFeedbackId") String noticeFeedbackId,
-                                                 @Query("noticeId") String noticeId);
+                                                                   @Query("noticeFeedbackId") String noticeFeedbackId,
+                                                                   @Query("noticeId") String noticeId);
+
+    @FormUrlEncoded
+    @POST("app/appWorkNoticeFeedback/feedBackWorkNotice")
+    Observable<BaseResponse> feedBackWorkNotice(@Header("Authorization") String token,
+                                                @Field("id") String noticeFeedbackId,
+                                                @Field("feedBackContent") String feedBackContent);
 }

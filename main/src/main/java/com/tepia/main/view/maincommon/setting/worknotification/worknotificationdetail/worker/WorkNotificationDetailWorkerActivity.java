@@ -54,12 +54,17 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
 
     @Override
     protected void initListener() {
-
+        mBinding.tvFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.feedBackWorkNotice(noticeFeedbackId,mBinding.rtFeedback.getText().toString());
+            }
+        });
     }
 
     @Override
     protected void initRequestData() {
-        mPresenter.getWorkNoticeDetail(noticeFeedbackId,noticeId);
+        mPresenter.getWorkNoticeDetail(noticeFeedbackId, noticeId);
     }
 
     @Override
@@ -68,8 +73,20 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
         mBinding.tvDesc.setText("通知内容:" + data.getNoticeContent());
         mBinding.tvPeople.setText("通知发布人:" + data.getUserName());
         mBinding.tvTime.setText("通知时间:" + data.getCreateDate());
-        mBinding.tvTime.setVisibility(View.GONE);
+        mBinding.tvReservoir.setVisibility(View.GONE);
         mBinding.tvStatus.setVisibility(View.GONE);
         adapterFeedBackList.setNewData(data.getFeedbackList());
+        if (data.getFeedBackStatus() != null && data.getFeedBackStatus().equals("0")) {
+            mBinding.loFeedBack.setVisibility(View.VISIBLE);
+        }else {
+            mBinding.loFeedBack.setVisibility(View.GONE);
+
+        }
+    }
+
+    @Override
+    public void feedBackWorkNoticeSuccess() {
+        mBinding.loFeedBack.setVisibility(View.GONE);
+        mPresenter.getWorkNoticeDetail(noticeFeedbackId,noticeId);
     }
 }

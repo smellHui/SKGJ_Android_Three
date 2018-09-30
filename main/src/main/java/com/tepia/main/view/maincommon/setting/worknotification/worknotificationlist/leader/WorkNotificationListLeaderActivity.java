@@ -2,8 +2,10 @@ package com.tepia.main.view.maincommon.setting.worknotification.worknotification
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -11,6 +13,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWorkNotificationListBinding;
 import com.tepia.main.model.worknotification.WorkNoticeBean;
@@ -38,6 +42,9 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
     public void initView() {
         setCenterTitle("工作通知");
         showBack();
+        getRithtTv().setVisibility(View.VISIBLE);
+        getRithtTv().setTextColor(Color.BLACK);
+        getRithtTv().setText("发布通知");
         mBinding = DataBindingUtil.bind(mRootView);
         initListView();
     }
@@ -69,6 +76,15 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
                 mBinding.srflContainer.setRefreshing(false);
             }
         });
+        getRithtTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
+                ARouter.getInstance().build(AppRoutePath.app_add_work_notification).navigation();
+            }
+        });
     }
 
     @Override
@@ -79,5 +95,11 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
     @Override
     public void getWorkNoticeListSuccess(List<WorkNoticeBean> list) {
         adapterWorkNotificationList.setNewData(list);
+        if (list == null || list.size() == 0) {
+            adapterWorkNotificationList.getData().clear();
+            adapterWorkNotificationList.notifyDataSetChanged();
+            View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
+            adapterWorkNotificationList.setEmptyView(view);
+        }
     }
 }

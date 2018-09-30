@@ -56,6 +56,33 @@
                     android:text="fkdasjkf" />
             </LinearLayout>
 
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/lo_feed_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/rt_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:background="@drawable/bg_bt_next_item"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="反馈"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
             <include
                 android:id="@+id/lo_feedback_header_view"
                 layout="@layout/layout_feedback_header_view" />
