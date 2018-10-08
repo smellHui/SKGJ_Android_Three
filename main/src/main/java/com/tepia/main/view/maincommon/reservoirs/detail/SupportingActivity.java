@@ -99,8 +99,15 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
     @Override
     public void success(SupportingBean data) {
         myReservoirsItemBeanList.clear();
-        myReservoirsItemBeanList.addAll(data.getData());
-        adapterSupportingReservoirs.notifyDataSetChanged();
+//        myReservoirsItemBeanList.addAll(data.getData());
+//        adapterSupportingReservoirs.notifyDataSetChanged();
+
+        if(data.getData() != null && data.getData().size() > 0){
+            myReservoirsItemBeanList.addAll(data.getData());
+            adapterSupportingReservoirs.notifyDataSetChanged();
+        }else{
+            adapterSupportingReservoirs.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
+        }
     }
 
     @Override

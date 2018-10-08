@@ -206,8 +206,8 @@ public class ReservoirsFragment extends BaseCommonFragment {
         }else {
             images.add(R.drawable.jianjie_banner0);
             images.add(R.drawable.jianjie_banner1);
-            images.add(R.drawable.jianjie_banner2);
-            images.add(R.drawable.jianjie_banner3);
+//            images.add(R.drawable.jianjie_banner2);
+//            images.add(R.drawable.jianjie_banner3);
             //设置图片源
             banner.setImages(images);
         }

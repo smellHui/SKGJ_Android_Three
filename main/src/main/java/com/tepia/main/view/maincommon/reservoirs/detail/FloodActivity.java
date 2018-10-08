@@ -110,8 +110,12 @@ public class FloodActivity extends MVPBaseActivity<ReserviorContract.View,Reserv
     @Override
     public void success(FloodBean data) {
         myReservoirsItemBeanList.clear();
-        myReservoirsItemBeanList.addAll(data.getData());
-        adapterFloodReservoirs.notifyDataSetChanged();
+        if(data.getData() != null && data.getData().size() > 0){
+            myReservoirsItemBeanList.addAll(data.getData());
+            adapterFloodReservoirs.notifyDataSetChanged();
+        }else{
+            adapterFloodReservoirs.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
+        }
     }
 
     @Override
