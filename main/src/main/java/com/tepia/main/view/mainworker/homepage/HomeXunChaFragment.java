@@ -374,6 +374,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
         if (data.getOAMStatistics() != null) {
             if (data.getOAMStatistics().getInspection() != null) {
+                mBinding.loXunjianStatisticsy.loStatisticsy.setVisibility(View.VISIBLE);
                 mBinding.loXunjianStatisticsy.rtcpDealedCount.setMax(data.getOAMStatistics().getInspection().getProblemCount());
                 mBinding.loXunjianStatisticsy.rtcpNotDealCount.setMax(data.getOAMStatistics().getInspection().getProblemCount());
                 mBinding.loXunjianStatisticsy.rtcpDealedCount.setProgress(data.getOAMStatistics().getInspection().getProcessedProblem());
@@ -386,6 +387,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 mBinding.loXunjianStatisticsy.loStatisticsy.setVisibility(View.GONE);
             }
             if (data.getOAMStatistics().getClean() != null) {
+                mBinding.loBaojieStatisticsy.loStatisticsy.setVisibility(View.VISIBLE);
                 mBinding.loBaojieStatisticsy.rtcpDealedCount.setMax(data.getOAMStatistics().getClean().getProblemCount());
                 mBinding.loBaojieStatisticsy.rtcpNotDealCount.setMax(data.getOAMStatistics().getClean().getProblemCount());
                 mBinding.loBaojieStatisticsy.rtcpDealedCount.setProgress(data.getOAMStatistics().getClean().getProcessedProblem());
@@ -398,6 +400,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 mBinding.loBaojieStatisticsy.loStatisticsy.setVisibility(View.GONE);
             }
             if (data.getOAMStatistics().getMaintain() != null) {
+                mBinding.loWeihuStatistics.loStatisticsy.setVisibility(View.VISIBLE);
                 mBinding.loWeihuStatistics.rtcpDealedCount.setMax(data.getOAMStatistics().getMaintain().getProblemCount());
                 mBinding.loWeihuStatistics.rtcpNotDealCount.setMax(data.getOAMStatistics().getMaintain().getProblemCount());
                 mBinding.loWeihuStatistics.rtcpDealedCount.setProgress(data.getOAMStatistics().getMaintain().getProcessedProblem());

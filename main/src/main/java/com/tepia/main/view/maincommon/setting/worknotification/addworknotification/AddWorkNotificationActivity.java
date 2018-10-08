@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.main.R;
@@ -51,6 +52,12 @@ public class AddWorkNotificationActivity extends MVPBaseActivity<AddWorkNotifica
                 String noticeContent = mBinding.etContent.getText().toString();
                 ArrayList<String> files = new ArrayList<>();
                 mPresenter.addWorkNotice(reservoirIds,noticeTitle,noticeContent,files);
+            }
+        });
+        mBinding.loSelectReservoir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ARouter.getInstance().build(AppRoutePath.app_select_reservor).navigation();
             }
         });
     }
