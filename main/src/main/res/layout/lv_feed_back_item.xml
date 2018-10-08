@@ -6,60 +6,106 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/lo_container"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/jianjie_jilubg"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:minHeight="45dp"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
 
-        <TextView
-            android:id="@+id/tv_people"
-            android:layout_width="0dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/iv_complete"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/operation_complete" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="--"
-            android:textColor="#434952"
-            android:textSize="12dp" />
+            android:gravity="center_vertical"
+            android:minHeight="45dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_reservoir"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="--"
-            android:textColor="#434952"
-            android:textSize="12dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="--"
-            android:textColor="#434952"
-            android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/tv_reservoir"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="--"
+                    android:textColor="#232a39"
+                    android:textSize="15dp" />
 
-        <TextView
-            android:id="@+id/tv_desc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:gravity="center"
-            android:text="--"
-            android:textColor="#434952"
-            android:textSize="12dp" />
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="--"
+                    android:textColor="#434952"
+                    android:textSize="15dp" />
+            </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="--"
-            android:textColor="#434952"
-            android:textSize="12dp" />
+            <LinearLayout
+                android:id="@+id/lo_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="--"
+                        android:textColor="#434952"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="--"
+                        android:textColor="#434952"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/tv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="--"
+                    android:textColor="#434952"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </LinearLayout>
 
 
     </LinearLayout>

@@ -169,7 +169,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loXunjianStatisticsy.rtcpXunchaCount.setMax(100);
         mBinding.loXunjianStatisticsy.rtcpXunchaCount.setProgress(100);
         mBinding.loXunjianStatisticsy.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
-        mBinding.loXunjianStatisticsy.rtcpXunchaCount.setText("25");
+        mBinding.loXunjianStatisticsy.rtcpXunchaCount.setText("0");
 
         mBinding.loXunjianStatisticsy.rtcpQuestionCount.setTextColor(Color.parseColor("#809dd2"));
         mBinding.loXunjianStatisticsy.rtcpQuestionCount.setTextSize(14);
@@ -177,7 +177,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loXunjianStatisticsy.rtcpQuestionCount.setProgress(100);
         mBinding.loXunjianStatisticsy.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
         mBinding.loXunjianStatisticsy.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
-        mBinding.loXunjianStatisticsy.rtcpQuestionCount.setText("12");
+        mBinding.loXunjianStatisticsy.rtcpQuestionCount.setText("0");
 
         mBinding.loXunjianStatisticsy.rtcpDealedCount.setTextColor(Color.parseColor("#4acaa0"));
         mBinding.loXunjianStatisticsy.rtcpDealedCount.setTextSize(14);
@@ -185,7 +185,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loXunjianStatisticsy.rtcpDealedCount.setProgress(75);
         mBinding.loXunjianStatisticsy.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
         mBinding.loXunjianStatisticsy.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
-        mBinding.loXunjianStatisticsy.rtcpDealedCount.setText("9");
+        mBinding.loXunjianStatisticsy.rtcpDealedCount.setText("0");
 
         mBinding.loXunjianStatisticsy.rtcpNotDealCount.setTextColor(Color.parseColor("#ff8773"));
         mBinding.loXunjianStatisticsy.rtcpNotDealCount.setTextSize(14);
@@ -193,7 +193,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loXunjianStatisticsy.rtcpNotDealCount.setProgress(75);
         mBinding.loXunjianStatisticsy.rtcpNotDealCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#ff8773"));
         mBinding.loXunjianStatisticsy.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
-        mBinding.loXunjianStatisticsy.rtcpNotDealCount.setText("3");
+        mBinding.loXunjianStatisticsy.rtcpNotDealCount.setText("0");
 
 
         mBinding.loBaojieFrequency.tvTitle.setText("保洁频率");
@@ -205,7 +205,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loBaojieStatisticsy.rtcpXunchaCount.setMax(100);
         mBinding.loBaojieStatisticsy.rtcpXunchaCount.setProgress(100);
         mBinding.loBaojieStatisticsy.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
-        mBinding.loBaojieStatisticsy.rtcpXunchaCount.setText("25");
+        mBinding.loBaojieStatisticsy.rtcpXunchaCount.setText("0");
 
         mBinding.loBaojieStatisticsy.rtcpQuestionCount.setTextColor(Color.parseColor("#809dd2"));
         mBinding.loBaojieStatisticsy.rtcpQuestionCount.setTextSize(14);
@@ -213,7 +213,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loBaojieStatisticsy.rtcpQuestionCount.setProgress(100);
         mBinding.loBaojieStatisticsy.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
         mBinding.loBaojieStatisticsy.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
-        mBinding.loBaojieStatisticsy.rtcpQuestionCount.setText("12");
+        mBinding.loBaojieStatisticsy.rtcpQuestionCount.setText("0");
 
         mBinding.loBaojieStatisticsy.rtcpDealedCount.setTextColor(Color.parseColor("#4acaa0"));
         mBinding.loBaojieStatisticsy.rtcpDealedCount.setTextSize(14);
@@ -221,7 +221,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loBaojieStatisticsy.rtcpDealedCount.setProgress(75);
         mBinding.loBaojieStatisticsy.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
         mBinding.loBaojieStatisticsy.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
-        mBinding.loBaojieStatisticsy.rtcpDealedCount.setText("9");
+        mBinding.loBaojieStatisticsy.rtcpDealedCount.setText("0");
 
         mBinding.loBaojieStatisticsy.rtcpNotDealCount.setTextColor(Color.parseColor("#ff8773"));
         mBinding.loBaojieStatisticsy.rtcpNotDealCount.setTextSize(14);
@@ -229,7 +229,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loBaojieStatisticsy.rtcpNotDealCount.setProgress(75);
         mBinding.loBaojieStatisticsy.rtcpNotDealCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#ff8773"));
         mBinding.loBaojieStatisticsy.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
-        mBinding.loBaojieStatisticsy.rtcpNotDealCount.setText("3");
+        mBinding.loBaojieStatisticsy.rtcpNotDealCount.setText("0");
 
         mBinding.loWeihuFrequency.tvTitle.setText("维修养护频率");
 
@@ -240,7 +240,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpXunchaCount.setMax(100);
         mBinding.loWeihuStatistics.rtcpXunchaCount.setProgress(100);
         mBinding.loWeihuStatistics.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
-        mBinding.loWeihuStatistics.rtcpXunchaCount.setText("25");
+        mBinding.loWeihuStatistics.rtcpXunchaCount.setText("0");
 
         mBinding.loWeihuStatistics.rtcpQuestionCount.setTextColor(Color.parseColor("#809dd2"));
         mBinding.loWeihuStatistics.rtcpQuestionCount.setTextSize(14);
@@ -248,7 +248,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpQuestionCount.setProgress(100);
         mBinding.loWeihuStatistics.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
         mBinding.loWeihuStatistics.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
-        mBinding.loWeihuStatistics.rtcpQuestionCount.setText("12");
+        mBinding.loWeihuStatistics.rtcpQuestionCount.setText("0");
 
         mBinding.loWeihuStatistics.rtcpDealedCount.setTextColor(Color.parseColor("#4acaa0"));
         mBinding.loWeihuStatistics.rtcpDealedCount.setTextSize(14);
@@ -256,7 +256,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpDealedCount.setProgress(75);
         mBinding.loWeihuStatistics.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
         mBinding.loWeihuStatistics.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
-        mBinding.loWeihuStatistics.rtcpDealedCount.setText("9");
+        mBinding.loWeihuStatistics.rtcpDealedCount.setText("0");
 
         mBinding.loWeihuStatistics.rtcpNotDealCount.setTextColor(Color.parseColor("#ff8773"));
         mBinding.loWeihuStatistics.rtcpNotDealCount.setTextSize(14);
@@ -264,7 +264,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpNotDealCount.setProgress(75);
         mBinding.loWeihuStatistics.rtcpNotDealCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#ff8773"));
         mBinding.loWeihuStatistics.rtcpNotDealCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#fae8e5"));
-        mBinding.loWeihuStatistics.rtcpNotDealCount.setText("3");
+        mBinding.loWeihuStatistics.rtcpNotDealCount.setText("0");
 
         mBinding.loWeihuStatistics.loStatisticsy.setVisibility(View.GONE);
         mBinding.loBaojieStatisticsy.loStatisticsy.setVisibility(View.GONE);
@@ -430,7 +430,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     }
 
     private void refreshViewWaterLevelStorageCapacity(HomeGetReservoirInfoBean.ReservoirWaterLevelBean reservoirWaterLevel) {
-        String host = "http://192.168.30.220:7000/#/appcanvas?";
+        String host = "http://202.98.201.102:1340/#/appcanvas?";
         String prarm = "";
         prarm += "reservoirCode=" + reservoirWaterLevel.getReservoirId() + "&";
         if (reservoirWaterLevel.getDamCrestElevation() != null) {

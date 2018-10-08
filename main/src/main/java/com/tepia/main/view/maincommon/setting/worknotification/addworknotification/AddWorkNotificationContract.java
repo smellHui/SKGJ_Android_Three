@@ -12,7 +12,8 @@ import com.tepia.base.mvp.BaseView;
 
 public class AddWorkNotificationContract {
     interface View extends BaseView {
-        
+
+        void addWorkNoticeSuccess();
     }
 
     interface  Presenter extends BasePresenter<View> {

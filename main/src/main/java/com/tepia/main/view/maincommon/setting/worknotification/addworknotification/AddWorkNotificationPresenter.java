@@ -1,6 +1,12 @@
 package com.tepia.main.view.maincommon.setting.worknotification.addworknotification;
 
+import com.tepia.base.http.BaseResponse;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.main.model.worknotification.WorkNotificationManager;
+
+import java.util.ArrayList;
 
 /**
  * MVPPlugin
@@ -8,5 +14,18 @@ import com.tepia.base.mvp.BasePresenterImpl;
  */
 
 public class AddWorkNotificationPresenter extends BasePresenterImpl<AddWorkNotificationContract.View> implements AddWorkNotificationContract.Presenter{
-    
+
+    public void addWorkNotice(String reservoirIds, String noticeTitle, String noticeContent, ArrayList<String> files) {
+        WorkNotificationManager.getInstance().addWorkNotice(reservoirIds,noticeTitle,noticeContent,files).safeSubscribe(new LoadingSubject<BaseResponse>() {
+            @Override
+            protected void _onNext(BaseResponse baseResponse) {
+                mView.addWorkNoticeSuccess();
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
 }

@@ -5,9 +5,17 @@ import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.user.UserManager;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by      android studio
@@ -53,14 +61,33 @@ public class WorkNotificationManager {
 
     public Observable<WorkNoticeDetailResponse> getWorkNoticeDetailWroker(String noticeFeedbackId, String noticeId) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getWorkNoticeDetailWroker(token,noticeFeedbackId, noticeId)
+        return mRetrofitService.getWorkNoticeDetailWroker(token, noticeFeedbackId, noticeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<BaseResponse>  feedBackWorkNotice(String noticeFeedbackId, String feedBackContent) {
+    public Observable<BaseResponse> feedBackWorkNotice(String noticeFeedbackId, String feedBackContent) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.feedBackWorkNotice(token,noticeFeedbackId, feedBackContent)
+        return mRetrofitService.feedBackWorkNotice(token, noticeFeedbackId, feedBackContent)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseResponse> addWorkNotice(String reservoirIds, String noticeTitle, String noticeContent, ArrayList<String> files) {
+        String token = UserManager.getInstance().getToken();
+
+        Map<String, RequestBody> params = new HashMap<>();
+        params.put("reservoirIds", RetrofitManager.convertToRequestBody(reservoirIds));
+        params.put("noticeTitle", RetrofitManager.convertToRequestBody(noticeTitle));
+        params.put("noticeContent", RetrofitManager.convertToRequestBody(noticeContent));
+
+        List<File> fileList = new ArrayList<>();
+        for (int i = 0; i < files.size(); i++) {
+            File file = new File(files.get(i));
+            fileList.add(file);
+        }
+        List<MultipartBody.Part> beforePathList = RetrofitManager.filesToMultipartBodyParts("files", fileList);
+        return mRetrofitService.addWorkNotice(token, params, beforePathList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
