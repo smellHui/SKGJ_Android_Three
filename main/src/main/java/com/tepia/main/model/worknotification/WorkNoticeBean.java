@@ -1,5 +1,7 @@
 package com.tepia.main.model.worknotification;
 
+import com.tepia.main.model.reserviros.FloodBean;
+
 import java.util.List;
 
 /**
@@ -30,6 +32,8 @@ public class WorkNoticeBean {
     private String createDate;
     private String userName;
     private String feedBackStatus;
+
+
 
     public String getFeedBackStatus() {
         return feedBackStatus;

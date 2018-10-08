@@ -69,10 +69,10 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
 
     @Override
     public void getWorkNoticeDetailSuccess(WorkNoticeBean data) {
-        mBinding.tvTitle.setText("通知标题:" + data.getNoticeTitle());
-        mBinding.tvDesc.setText("通知内容:" + data.getNoticeContent());
-        mBinding.tvPeople.setText("通知发布人:" + data.getUserName());
-        mBinding.tvTime.setText("通知时间:" + data.getCreateDate());
+        mBinding.tvTitle.setText("" + data.getNoticeTitle());
+        mBinding.tvDesc.setText("" + data.getNoticeContent());
+        mBinding.tvPeople.setText("通知发布人:\t\t" + data.getUserName());
+        mBinding.tvTime.setText("通知时间:\t\t\t" + data.getCreateDate());
         mBinding.tvReservoir.setVisibility(View.GONE);
         mBinding.tvStatus.setVisibility(View.GONE);
         adapterFeedBackList.setNewData(data.getFeedbackList());
