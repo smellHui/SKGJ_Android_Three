@@ -58,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="fdasd"
+                        android:text=""
                         android:textColor="#232a39"
                         android:textSize="14dp" />
 
@@ -95,7 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="fdasd"
+                        android:text=""
                         android:textColor="#232a39"
                         android:textSize="14dp" />
 

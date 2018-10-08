@@ -17,6 +17,11 @@
 
             <include layout="@layout/toolbar" />
 
+            <!--复用布局-->
+            <include
+                android:id="@+id/lo_header"
+                layout="@layout/common_qiehuan_reserviors_layout" />
+
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/wrfl_container"
                 android:layout_width="match_parent"
@@ -86,10 +91,7 @@
 
                         </LinearLayout>-->
 
-                        <!--复用布局-->
-                        <include
-                            android:id="@+id/lo_header"
-                            layout="@layout/common_qiehuan_reserviors_layout" />
+
 
 
                         <LinearLayout

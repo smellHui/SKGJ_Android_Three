@@ -1,9 +1,12 @@
 package com.tepia.main.view.maincommon.setting.contacts;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +75,17 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
             }
         });
 
+        adapterContactsList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!TextUtils.isEmpty(adapterContactsList.getData().get(position).getMobile())) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    Uri data = Uri.parse("tel:" + adapterContactsList.getData().get(position).getMobile());
+                    intent.setData(data);
+                    startActivity(intent);
+                }
+            }
+        });
 
         adapterContactsList.openLoadAnimation();
         adapterContactsList.setEnableLoadMore(true);
@@ -123,7 +137,7 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
 
     @Override
     public void getAddressBookMoreSuccess(AddressBookResponse.DataBean dataBean) {
-        int i = dataBean.getStartRow()-1;
+        int i = dataBean.getStartRow() - 1;
         for (int j = 0; j < dataBean.getList().size(); j++) {
             if (!adapterContactsList.getData().contains(dataBean.getList().get(j))) {
                 adapterContactsList.addData(i + j, dataBean.getList().get(j));
