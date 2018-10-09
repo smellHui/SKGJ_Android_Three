@@ -209,6 +209,7 @@ public class ThreePointTabFragment extends BaseCommonFragment{
 //                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
                     tvReservoirName.setText(stringItems[position]);
                     ReservoirBean selectedResrvoir = localReservoirList.get(position);
+                    reservoirId = selectedResrvoir.getReservoirId();
                     com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     dialog.dismiss();
                     srl.setRefreshing(true);

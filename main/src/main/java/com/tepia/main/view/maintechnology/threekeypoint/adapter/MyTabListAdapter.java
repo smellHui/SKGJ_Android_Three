@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.main.R;
 import com.tepia.main.model.reserviros.OperationPlanBean;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
@@ -56,11 +57,13 @@ public class MyTabListAdapter extends BaseQuickAdapter<OperationPlanBean.DataBea
             }
         }
         helper.getView(R.id.officeDownloadTv).setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, DownLoadActivity.class);
+            if (!DoubleClickUtil.isFastDoubleClick()){
+                Intent intent = new Intent(mContext, DownLoadActivity.class);
 //            DownLoadActivity.setIntent(intent,"ggsg8.apk","http://rs.0.gaoshouyou.com/d/04/1e/400423a7551e1f3f0eb1812afa1f9b44.apk");
 //            DownLoadActivity.setIntent(intent,"CloudMusic_official_5.5.2.826166.apk","http://d1.music.126.net/dmusic/CloudMusic_official_5.5.2.826166.apk");
-              DownLoadActivity.setIntent(intent,item.getFileName(),item.getFilePath());
-              mContext.startActivity(intent);
+                DownLoadActivity.setIntent(intent,item.getFileName(),item.getFilePath());
+                mContext.startActivity(intent);
+            }
         });
         helper.getView(R.id.officePreviewTv).setOnClickListener(v -> {
 //            Intent intent = new Intent();
@@ -68,7 +71,9 @@ public class MyTabListAdapter extends BaseQuickAdapter<OperationPlanBean.DataBea
 //            intent.putExtra("select",OperationPlanActivity.value_preview);
 //            intent.putExtra(OperationPlanActivity.PREVIEW_PATH,item.getFilePath());
 //            mContext.startActivity(intent);
-            onPreviewTvClickListener.onPreviewTvClick(v,adapterPosition,item);
+            if (!DoubleClickUtil.isFastDoubleClick()){
+                onPreviewTvClickListener.onPreviewTvClick(v,adapterPosition,item);
+            }
         });
 
     }
