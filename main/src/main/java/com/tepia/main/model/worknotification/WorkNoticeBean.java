@@ -1,5 +1,6 @@
 package com.tepia.main.model.worknotification;
 
+import com.tepia.main.model.image.ImageInfoBean;
 import com.tepia.main.model.reserviros.FloodBean;
 
 import java.util.List;
@@ -33,7 +34,24 @@ public class WorkNoticeBean {
     private String userName;
     private String feedBackStatus;
 
+    public List<ImageInfoBean> files;
+    public List<ImageInfoBean> images;
 
+    public List<ImageInfoBean> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<ImageInfoBean> files) {
+        this.files = files;
+    }
+
+    public List<ImageInfoBean> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageInfoBean> images) {
+        this.images = images;
+    }
 
     public String getFeedBackStatus() {
         return feedBackStatus;

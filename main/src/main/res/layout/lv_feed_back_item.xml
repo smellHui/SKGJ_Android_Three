@@ -68,10 +68,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_marginTop="5dp"
+                <TextView
+                    android:id="@+id/tv_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="left"
+                    android:text="--"
+                    android:textColor="#434952"
+                    android:textSize="12dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -95,15 +105,7 @@
                         android:textSize="12dp" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/tv_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="--"
-                    android:textColor="#434952"
-                    android:textSize="12dp" />
+
             </LinearLayout>
         </LinearLayout>
 

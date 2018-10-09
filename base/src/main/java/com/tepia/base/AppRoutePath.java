@@ -153,12 +153,13 @@ public class AppRoutePath {
      */
     public final static String app_flood_detail = "/app/flood/detail";
     /**
-     * 工作通知 县领导
+     * 工作通知
      */
     public final static String app_work_notification_leader = "/app/work/notification/leader";
     public final static String app_work_notification_worker = "/app/work/notification/woeker";
     public  final static String app_work_notification_leader_detail = "/app/work/notification/leader/detail";
     public  final static String app_work_notification_worker_detail = "/app/work/notification/worker/detail";
-
     public final static String  app_add_work_notification = "/app/add/work/notification";
+
+    public final static String app_select_reservor = "/app/select/reservor";
 }

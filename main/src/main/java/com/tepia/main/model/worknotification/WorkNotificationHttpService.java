@@ -71,9 +71,11 @@ interface WorkNotificationHttpService {
     Observable<BaseResponse> feedBackWorkNotice(@Header("Authorization") String token,
                                                 @Field("id") String noticeFeedbackId,
                                                 @Field("feedBackContent") String feedBackContent);
+
     @Multipart
     @POST("app/workNotice/addWorkNotice")
     Observable<BaseResponse> addWorkNotice(@Header("Authorization") String token,
                                            @PartMap Map<String, RequestBody> params,
-                                           @Part List<MultipartBody.Part> beforePathList);
+                                           @Part List<MultipartBody.Part> beforePathList,
+                                           @Part List<MultipartBody.Part> imagesPathList);
 }

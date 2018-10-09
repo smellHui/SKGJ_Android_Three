@@ -1,8 +1,12 @@
 package com.tepia.main.model.detai;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import com.tepia.base.http.BaseResponse;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by      android studio
@@ -13,7 +17,7 @@ import java.util.List;
  * Version         :       1.0
  * 功能描述        :
  **/
-public class ReservoirBean extends BaseResponse{
+public class ReservoirBean extends BaseResponse {
 
     /**
      * reservoirId : 66fb3d579d084daf8a7d35d9d9612213
@@ -506,8 +510,18 @@ public class ReservoirBean extends BaseResponse{
         this.areaName = areaName;
     }
 
-
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ReservoirBean that = (ReservoirBean) o;
+        return Objects.equals(reservoirId, that.reservoirId);
+    }
 
 
     public List<FilesBean> getFiles() {

@@ -20,215 +20,262 @@
                 android:layout_height="0.5dp"
                 android:background="#eaedef" />
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/zhize_2"
-                    android:drawablePadding="15dp"
-                    android:padding="16dp"
-                    android:text="fkdasjkf"
-                    android:textColor="@color/black"
-                    android:textSize="15dp" />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#e7eaed" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/icon_dian"
-                        android:drawablePadding="8dp"
-                        android:text="fkdasjkf"
-                        android:textColor="#525a69" />
-
-                    <TextView
-                        android:id="@+id/tv_reservoir"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:drawableLeft="@drawable/icon_dian"
-                        android:drawablePadding="8dp"
-                        android:text="fkdasjkf"
-                        android:textColor="#525a69" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:drawableLeft="@drawable/icon_dian"
-                            android:drawablePadding="8dp"
-                            android:text="通知内容：       "
-                            android:textColor="#525a69" />
-
-                        <TextView
-                            android:id="@+id/tv_desc"
+                            android:id="@+id/tv_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text=""
-                            android:textColor="#525a69" />
+                            android:drawableLeft="@drawable/zhize_2"
+                            android:drawablePadding="15dp"
+                            android:padding="16dp"
+                            android:text="fkdasjkf"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#e7eaed" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/icon_dian"
+                                android:drawablePadding="8dp"
+                                android:text="fkdasjkf"
+                                android:textColor="#525a69" />
+
+                            <TextView
+                                android:id="@+id/tv_reservoir"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:drawableLeft="@drawable/icon_dian"
+                                android:drawablePadding="8dp"
+                                android:text="fkdasjkf"
+                                android:textColor="#525a69" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:drawableLeft="@drawable/icon_dian"
+                                    android:drawablePadding="8dp"
+                                    android:text="通知内容：       "
+                                    android:textColor="#525a69" />
+
+                                <TextView
+                                    android:id="@+id/tv_desc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text=""
+                                    android:textColor="#525a69" />
+
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:id="@+id/tv_people"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:drawableLeft="@drawable/icon_dian"
+                                android:drawablePadding="8dp"
+                                android:text="fkdasjkf"
+                                android:textColor="#525a69" />
+
+                            <TextView
+                                android:id="@+id/tv_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:drawableLeft="@drawable/icon_dian"
+                                android:drawablePadding="8dp"
+                                android:text="fkdasjkf"
+                                android:textColor="#525a69" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/peixunRec"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/tv_people"
+                    <LinearLayout
+                        android:id="@+id/lo_fujian"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:drawableLeft="@drawable/icon_dian"
-                        android:drawablePadding="8dp"
-                        android:text="fkdasjkf"
-                        android:textColor="#525a69" />
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/tv_status"
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+                            android:layout_marginLeft="@dimen/jianjiemarginleft"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:text="附件"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <android.support.v7.widget.RecyclerView
+
+                            android:id="@+id/rv_file_pick"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/left_15"
+                            android:layout_marginRight="@dimen/left_15"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/jianjie_fujian_bg"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:src="@drawable/jianjie_word" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="2"
+                                android:text="水库安全管理...课件.doc"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:layout_weight="0.5"
+                                android:src="@drawable/jianjie_download" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lo_feed_back"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:drawableLeft="@drawable/icon_dian"
-                        android:drawablePadding="8dp"
-                        android:text="fkdasjkf"
-                        android:textColor="#525a69" />
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:padding="15dp"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/rt_feedback"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_operation_tv"
+                            android:hint="请输入反馈内容"
+                            android:padding="10dp"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_feedback"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginRight="50dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_bt_next_item"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="反馈"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/background_common" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="#e7eaed" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/zhize_2"
+                            android:drawablePadding="15dp"
+                            android:padding="16dp"
+                            android:text="通知水库及反馈情况"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_feed_back_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/lo_fujian"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@color/background_common" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="@dimen/left_15"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:text="附件"
-                    android:textColor="@color/text_color"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_fujian_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@color/background_common" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lo_feed_back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="15dp"
-                android:visibility="gone">
-
-                <EditText
-                    android:id="@+id/rt_feedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_operation_tv"
-                    android:hint="请输入反馈内容"
-                    android:padding="10dp"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_feedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="50dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_bt_next_item"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="反馈"
-                    android:textColor="@color/white" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background_common" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingBottom="10dp">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#e7eaed" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/zhize_2"
-                    android:drawablePadding="15dp"
-                    android:padding="16dp"
-                    android:text="通知水库及反馈情况"
-                    android:textColor="@color/black"
-                    android:textSize="15dp" />
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_feed_back_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-
+            </android.support.v4.widget.NestedScrollView>
         </LinearLayout>
+
+
     </android.support.constraint.ConstraintLayout>
 </layout>

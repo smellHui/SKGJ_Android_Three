@@ -7,191 +7,264 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            android:orientation="vertical">
-
-            <include layout="@layout/toolbar" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#eaedef" />
-
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
                 android:orientation="vertical">
 
+                <include layout="@layout/toolbar" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#eaedef" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="通知标题"
-                        android:textColor="#5f6166" />
-
-                    <EditText
-                        android:id="@+id/et_title"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/transparent"
+                        android:layout_height="45dp"
                         android:gravity="center_vertical"
-                        android:hint="请输入通知标题"
-                        android:textColor="#5f6166"
-                        android:textColorHint="#bec2c8"
-                        android:textSize="15dp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="通知标题"
+                            android:textColor="#5f6166" />
+
+                        <EditText
+                            android:id="@+id/et_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:hint="请输入通知标题"
+                            android:textColor="#5f6166"
+                            android:textColorHint="#bec2c8"
+                            android:textSize="15dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/s_right"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#eaedef" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/s_right"
-                        android:visibility="gone" />
-                </LinearLayout>
+                        android:gravity="center_vertical"
+                        android:minHeight="45dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#eaedef" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:gravity="top"
+                            android:text="通知内容"
+                            android:textColor="#5f6166" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:minHeight="45dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp">
+                        <EditText
+                            android:id="@+id/et_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:gravity="top"
+                            android:hint="请输入通知内容"
+                            android:minHeight="80dp"
+                            android:textColor="#5f6166"
+                            android:textColorHint="#bec2c8"
+                            android:textSize="15dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/s_right"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#eaedef" />
+
+                    <LinearLayout
+                        android:id="@+id/lo_select_reservoir"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="通知水库"
+                            android:textColor="#5f6166" />
+
+                        <TextView
+                            android:id="@+id/tv_reservoir_names"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical|right"
+                            android:hint="请选择通知水库"
+                            android:textColor="#5f6166"
+                            android:textColorHint="#bec2c8"
+                            android:textSize="15dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/s_right"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#eaedef" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="#eaedef" />
 
                     <TextView
+                        android:id="@+id/photoTitleTv"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:background="@color/bgcolor"
+                        android:drawableLeft="@drawable/type_pic"
+                        android:drawablePadding="@dimen/drawablepadding"
+                        android:freezesText="true"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="@string/picstr"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/textquesdm" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:padding="10dp">
+
+                        <android.support.v7.widget.RecyclerView
+
+                            android:id="@+id/rv_image_pick"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="7dp"
+                        android:text="培训附件"
+                        android:textColor="#5f6166"
+                        android:textSize="16sp" />
+
+                    <!--<include layout="@layout/common_office_layout" />-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/left_15"
+                        android:layout_marginRight="@dimen/left_15"
                         android:layout_marginTop="10dp"
-                        android:gravity="top"
-                        android:text="通知内容"
-                        android:textColor="#5f6166" />
+                        android:background="@drawable/jianjie_fujian_bg"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
-                    <EditText
-                        android:id="@+id/et_content"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:src="@drawable/peixun_fujian" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="2"
+                            android:text="点击上传附件"
+                            android:textColor="#b2b9c7"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+
+                        android:id="@+id/rv_file_pick"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/transparent"
-                        android:gravity="top"
-                        android:hint="请输入通知内容"
-                        android:minHeight="80dp"
-                        android:textColor="#5f6166"
-                        android:textColorHint="#bec2c8"
-                        android:textSize="15dp" />
+                        android:layout_marginRight="10dp"/>
+                    <View style="@style/LineH" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/s_right"
-                        android:visibility="gone" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#eaedef" />
-
-                <LinearLayout
-                    android:id="@+id/lo_select_reservoir"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="通知水库"
-                        android:textColor="#5f6166" />
-
-                    <TextView
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/transparent"
-                        android:gravity="center_vertical|right"
-                        android:hint="请选择通知水库"
-                        android:textColor="#5f6166"
-                        android:textColorHint="#bec2c8"
-                        android:textSize="15dp" />
+                        android:layout_height="0.5dp"
+                        android:background="#eaedef" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/s_right"
-                        android:visibility="visible" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#eaedef" />
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="附件"
-                        android:textColor="#5f6166" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#eaedef" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_add"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="30dp"
-                        android:background="@drawable/bg_bt_next_item"
-                        android:gravity="center"
-                        android:padding="@dimen/dp_10"
-                        android:text="发布"
-                        android:textColor="@color/white"
-                        android:textSize="15dp" />
-                </LinearLayout>
+                        android:layout_height="wrap_content">
 
+                        <TextView
+                            android:id="@+id/tv_add"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="30dp"
+                            android:background="@drawable/bg_bt_next_item"
+                            android:gravity="center"
+                            android:padding="@dimen/dp_10"
+                            android:text="发布"
+                            android:textColor="@color/white"
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

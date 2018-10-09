@@ -233,6 +233,7 @@
     <string name="gongchenggaikuangstr">(一)工程概况\n1.1 水库流域情况\n2016年3月，经专家实地考察确证：杭州良渚古城外围发现的水利系统，是迄今所知中国最早的大型水利工程，也是世界最早的水坝，距今已经有4700至5100年，比传说中的“大禹治水”还要早1000年。专家建议，尽快把水利系统列入良渚遗址保护范围，并纳入良渚古城申遗价值研究范围。</string>
     <string name="peixunstr">工作培训</string>
     <string name="zhizestr">工作职责</string>
+    <string name="text_search">搜索</string>
 
     <!--LHotelEntityAdapter中item setTag的key-->
     <item name="tag_groupItemIndex" type="id">groupItemIndex</item>

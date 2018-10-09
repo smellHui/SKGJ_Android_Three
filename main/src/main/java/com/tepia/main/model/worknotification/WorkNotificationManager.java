@@ -73,7 +73,7 @@ public class WorkNotificationManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<BaseResponse> addWorkNotice(String reservoirIds, String noticeTitle, String noticeContent, ArrayList<String> files) {
+    public Observable<BaseResponse> addWorkNotice(String reservoirIds, String noticeTitle, String noticeContent, ArrayList<String> files, ArrayList<String> images) {
         String token = UserManager.getInstance().getToken();
 
         Map<String, RequestBody> params = new HashMap<>();
@@ -87,7 +87,13 @@ public class WorkNotificationManager {
             fileList.add(file);
         }
         List<MultipartBody.Part> beforePathList = RetrofitManager.filesToMultipartBodyParts("files", fileList);
-        return mRetrofitService.addWorkNotice(token, params, beforePathList)
+        List<File> fileList2 = new ArrayList<>();
+        for (int i = 0; i < images.size(); i++) {
+            File file = new File(images.get(i));
+            fileList2.add(file);
+        }
+        List<MultipartBody.Part> imagesPathList = RetrofitManager.filesToMultipartBodyParts("images", fileList2);
+        return mRetrofitService.addWorkNotice(token, params, beforePathList,imagesPathList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

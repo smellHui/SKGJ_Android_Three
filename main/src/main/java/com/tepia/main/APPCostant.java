@@ -17,13 +17,11 @@ public class APPCostant {
     /**
      * host 地址
      * 贵州本地地址 http://192.168.10.99:8765  魏爽192.168.10.220
-     * wzm  http://192.168.30.127:8765
      * 武汉本地地址 http://192.168.30.220:8765
      * 外网地址    http://weish.vipgz1.idcfengye.com
      * 鸭溪正式地址 http://218.201.212.243:8765
-     * 正是地址（二）202.98.201.102:1341
      */
-    public static String API_SERVER_URL = "http://202.98.201.102:1341/";
+    public static String API_SERVER_URL = "http://192.168.30.127:8765/";
     /**
      * 图片服务器地址
      */
