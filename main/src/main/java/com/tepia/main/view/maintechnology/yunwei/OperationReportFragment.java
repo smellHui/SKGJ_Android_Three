@@ -213,7 +213,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         Date lastDate = ca.getTime();
 //        tvEndDate.setText(TimeFormatUtils.dateToStrLong(lastDate));
         tvEndDate.setOnClickListener(v -> {
-            String current = (String) tvStartDate.getText();
+            String current = (String) tvEndDate.getText();
             long currentLong = 0;
             if (current != null && current.length() > 0) {
                 currentLong = strToLong(current);
