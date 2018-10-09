@@ -4,10 +4,12 @@ package com.tepia.main.view.mainworker.homepage;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -127,6 +129,20 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             }
         });
 
+        adapterWorker.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!TextUtils.isEmpty(adapterWorker.getData().get(position).getMobile())) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    Uri data = Uri.parse("tel:" + adapterWorker.getData().get(position).getMobile());
+                    intent.setData(data);
+                    startActivity(intent);
+                } else {
+                    ToastUtils.shortToast("暂无手机号码");
+                }
+                return false;
+            }
+        });
         adapterFloodControlMaterialList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
