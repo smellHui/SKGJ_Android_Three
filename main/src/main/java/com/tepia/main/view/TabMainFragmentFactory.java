@@ -4,6 +4,7 @@ package com.tepia.main.view;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.view.main.map.MapArcgisFragment;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
@@ -343,8 +344,8 @@ public class TabMainFragmentFactory {
                 MenuItemBean bean = new MenuItemBean();
                 bean.setMenuHref(AppRoutePath.app_main_fragment_yunwei_jishu);
                 bean.setMenuName("运维");
-                bean.setMenuCode("210");
-                bean.setMenuIcon("210");
+                bean.setMenuCode(ConfigConsts.TECHNOLOGRROLE);
+                bean.setMenuIcon(ConfigConsts.TECHNOLOGRROLE);
 
                 menuData.add(bean);
             }

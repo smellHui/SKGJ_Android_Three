@@ -22,12 +22,13 @@
             android:src="@drawable/jianjie_word" />
 
         <TextView
+            android:maxLines="2"
             android:id="@+id/officeTitleTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="2"
-            android:text="水库安全管理...课件.doc"
+            android:text="--"
             android:textColor="@color/black"
             android:textSize="15sp" />
 

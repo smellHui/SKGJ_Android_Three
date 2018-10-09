@@ -14,12 +14,13 @@
         android:id="@+id/tab"
         android:layout_marginTop="1dp"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/commmon_blue"
         app:tabTextColor="@color/text_color"
         app:tabSelectedTextColor="@color/commmon_blue"
         app:tabBackground="@color/white"
+
         />
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

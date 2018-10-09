@@ -178,13 +178,14 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         personinfoMv.setTitle(getString(R.string.personinfostr));
         personinfoMv.setIvLeft(R.drawable.s_personinfo);
         personinfoMv.setVisibility(View.GONE);
+        worknotificationMv.setTitle("工作通知");
+        worknotificationMv.setIvLeft(R.drawable.s_tongzhi);
         peixunMv.setTitle(getString(R.string.peixunstr));
         peixunMv.setIvLeft(R.drawable.s_peixun);
         zhizeMvMv.setTitle(getString(R.string.zhizestr));
         zhizeMvMv.setIvLeft(R.drawable.s_zhize);
 
-        worknotificationMv.setTitle("工作通知");
-        worknotificationMv.setIvLeft(R.drawable.s_zhize);
+
 
         msgMv.setTitle(getString(R.string.phonestr));
         msgMv.setIvLeft(R.drawable.s_msg);

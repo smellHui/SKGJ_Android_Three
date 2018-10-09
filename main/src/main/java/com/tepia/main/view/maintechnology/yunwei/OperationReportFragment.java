@@ -31,7 +31,7 @@ import com.tepia.main.utils.TimePickerDialogUtil;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
-import com.tepia.main.view.mainworker.report.EmergenceSearchDetailActivity;
+import com.tepia.main.view.mainworker.report.EmergenceShowDetailActivity;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -136,7 +136,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 //            bundle.putExtra("item",dataList.get(position));
 //            startActivity(bundle);
             Intent intent = new Intent();
-            intent.setClass(getBaseActivity(),EmergenceSearchDetailActivity.class);
+            intent.setClass(getBaseActivity(),EmergenceShowDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
             intent.putExtras(bundle);

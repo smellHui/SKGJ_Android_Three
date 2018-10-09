@@ -9,6 +9,7 @@ import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.APPCostant;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.setting.DutyOfWorkBean;
@@ -241,6 +242,23 @@ public class UserManager {
             }.getType());
         }
         return menuItemBeans;
+    }
+
+    /**
+     * 判断是否是正式环境
+     * @return
+     */
+    public boolean isTechnology(){
+        ArrayList<MenuItemBean> menuItemList = getMenuList();
+
+        if(menuItemList != null && menuItemList.size() > 0){
+            if(ConfigConsts.TECHNOLOGRROLE.equals(menuItemList.get(1).getMenuIcon())){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
     }
 
 

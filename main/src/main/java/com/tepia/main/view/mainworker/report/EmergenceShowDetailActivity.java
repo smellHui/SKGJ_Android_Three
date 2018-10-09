@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,6 @@ import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityTrainEmergenceBinding;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
-import com.tepia.main.view.maincommon.setting.SuggestionActivity;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.report.adapter.ImageShowAdapter;
@@ -36,7 +36,7 @@ import java.util.List;
   * Version :1.0
   * 功能描述 : 应急详情页面展示
  **/
-public class EmergenceSearchDetailActivity extends BaseActivity {
+public class EmergenceShowDetailActivity extends BaseActivity {
     private ArrayList<String> images = new ArrayList<>();
     private Bitmap addBitmap;
 
@@ -58,6 +58,12 @@ public class EmergenceSearchDetailActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null && bundle.containsKey(ConfigConsts.emergence)){
             getDetailedProblemInfoByProblemId(bundle.getString(ConfigConsts.emergence));
+        }
+
+        if(com.tepia.main.model.user.UserManager.getInstance().isTechnology()){
+            bindings.feedbackLy.setVisibility(View.VISIBLE);
+        }else{
+            bindings.feedbackLy.setVisibility(View.GONE);
         }
 
     }
@@ -123,7 +129,7 @@ public class EmergenceSearchDetailActivity extends BaseActivity {
                                     .setPhotos(images)
                                     .setShowDeleteButton(false)
                                     .setCurrentItem(position)
-                                    .start(EmergenceSearchDetailActivity.this);
+                                    .start(EmergenceShowDetailActivity.this);
                         }
                     });
                 }
@@ -149,7 +155,7 @@ public class EmergenceSearchDetailActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent();
-                            intent.setClass(EmergenceSearchDetailActivity.this,PlayLocalVedioActivity.class);
+                            intent.setClass(EmergenceShowDetailActivity.this,PlayLocalVedioActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("urllocalvedio",videoPath);
                             bundle.putString("flag","1");

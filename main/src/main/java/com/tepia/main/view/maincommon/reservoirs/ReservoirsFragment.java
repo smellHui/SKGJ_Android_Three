@@ -144,7 +144,6 @@ public class ReservoirsFragment extends BaseCommonFragment {
                     intent.setClass(getBaseActivity(), SafeRunningActivity.class);
                     startActivity(intent);
                 } else if (position == 8) {
-                    // TODO: 2018/9/20 待更换图标 
                     intent.setClass(getBaseActivity(), VisitLogActivity.class);
                     startActivity(intent);
                 }

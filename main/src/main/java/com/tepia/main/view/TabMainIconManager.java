@@ -1,5 +1,6 @@
 package com.tepia.main.view;
 
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class TabMainIconManager {
         imageIconMap.put("112", R.drawable.selector_tabbar_yunwei);
         imageIconMap.put("113", R.drawable.selector_tabbar_yunwei);
         imageIconMap.put("200", R.drawable.selector_tabbar_home_page);
-        imageIconMap.put("210", R.drawable.selector_tabbar_yunwei);
+        imageIconMap.put(ConfigConsts.TECHNOLOGRROLE, R.drawable.selector_tabbar_yunwei);
         imageIconMap.put("220", R.drawable.selector_tabbar_threepoint);
         imageIconMap.put("300", R.drawable.selector_tabbar_home_page);
         imageIconMap.put("310", R.drawable.selector_tabbar_yunwei);

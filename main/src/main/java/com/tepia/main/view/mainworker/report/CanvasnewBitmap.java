@@ -8,7 +8,6 @@ public class CanvasnewBitmap {
 
 		public static Bitmap doodle(Bitmap src, Bitmap watermark)  
 	    {  
-	        // ���ⴴ��һ��ͼƬ  
 	        Bitmap newb = Bitmap.createBitmap(src.getWidth(), src.getHeight(), Config.ARGB_8888);
 	        Canvas canvas = new Canvas(newb);  
 	        canvas.drawBitmap(src, 0, 0, null);

@@ -1,19 +1,12 @@
 package com.tepia.main.view.mainworker.report;
 
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -22,18 +15,13 @@ import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.TimeFormatUtils;
-import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
-import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
-import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
-import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.mainworker.report.adapter.AdapterEmergency;
-import com.tepia.main.view.mainworker.report.adapter.AdapterWaterLevelReservoirs;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -151,7 +139,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
         shuiweiRec.setAdapter(adapterShuiweiReservoirs);
         adapterShuiweiReservoirs.setOnItemClickListener((adapter, view, position) -> {
              Intent intent = new Intent();
-             intent.setClass(getBaseActivity(),EmergenceSearchDetailActivity.class);
+             intent.setClass(getBaseActivity(),EmergenceShowDetailActivity.class);
              Bundle bundle = new Bundle();
              bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
              intent.putExtras(bundle);
@@ -188,7 +176,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
 
     @Override
     protected void initRequestData() {
-
+//        initTime();
         search(true);
     }
 
@@ -203,7 +191,9 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     }
 
     private void initTime(){
-        timePickerDialogUtil = new TimePickerDialogUtil(getContext(),sf);
+        if(timePickerDialogUtil == null) {
+            timePickerDialogUtil = new TimePickerDialogUtil(getContext(), sf);
+        }
         timePickerDialogUtil.initTimePicker(this, Type.ALL);
         endData = TimeFormatUtils.getStringDate();
         startData = TimeFormatUtils.getNextDay(endData, "-1");
@@ -243,7 +233,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     public void onClick(View v) {
         if (v.getId() == R.id.shangbaoTv) {
            Intent intent = new Intent();
-           intent.setClass(getBaseActivity(),EmergencyDetailActivity.class);
+           intent.setClass(getBaseActivity(),EmergencyReportActivity.class);
            startActivity(intent);
         } else if (v.getId() == R.id.sureSearchTv) {
             search(true);
@@ -255,6 +245,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
             if (last_millseconds_start != 0) {
                 timePickerDialogUtil.builder.setCurrentMillseconds(last_millseconds_start);
             }
+            timePickerDialogUtil.builder.setMaxMillseconds(System.currentTimeMillis()) ;
             timePickerDialogUtil.builder.setTitleStringId(getContext().getString(R.string.endtimeTitle));
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");

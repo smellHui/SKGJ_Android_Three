@@ -111,11 +111,10 @@
 
         <!--
          蒲公英
-         新包名878d98e5d7fb8c5e38aae321aff634f1
         -->
         <meta-data
             android:name="PGYER_APPID"
-            android:value="878d98e5d7fb8c5e38aae321aff634f1" />
+            android:value="cd3513e4ee84a838261dfc627379bdf3" />
 
         <!-- 高德地图 -->
         <service
@@ -247,10 +246,10 @@
         <activity android:name=".view.maincommon.setting.train.TrainActivity" />
         <activity android:name=".view.maincommon.reservoirs.detail.SafeRunningDetailActivity" />
         <activity
-            android:name=".view.mainworker.report.EmergencyDetailActivity"
+            android:name=".view.mainworker.report.EmergencyReportActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.mainworker.report.EmergenceSearchDetailActivity"
+            android:name=".view.mainworker.report.EmergenceShowDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.mainworker.report.PlayLocalVedioActivity"

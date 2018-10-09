@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.R;
 import com.tepia.main.model.reserviros.BizkeyBean;
 import com.tepia.main.model.reserviros.FloodBean;
@@ -48,7 +49,7 @@ public class AdapterSafeRunningDetailReservoirs extends BaseQuickAdapter<BizkeyB
         view.getView(R.id.officeDownloadTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ToastUtils.shortToast("待开发下载功能");
             }
         });
         view.getView(R.id.officePreviewTv).setOnClickListener(new View.OnClickListener() {

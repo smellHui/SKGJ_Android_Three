@@ -130,10 +130,10 @@ public class ReportFragment extends BaseCommonFragment{
     }
 
     private View tab_icon(String name,int iconID){
-        View newtab =  LayoutInflater.from(getBaseActivity()).inflate(R.layout.tablayout_my,null);
-        TextView tv = (TextView) newtab.findViewById(R.id.tabtext);
+        View newtab =  LayoutInflater.from(getBaseActivity()).inflate(R.layout.operation_tab_custom_view2,null);
+        TextView tv = (TextView) newtab.findViewById(R.id.tab_tv);
         tv.setText(name);
-        ImageView im = (ImageView)newtab.findViewById(R.id.tabicon);
+        ImageView im = (ImageView)newtab.findViewById(R.id.tab_iv);
         im.setImageResource(iconID);
         return newtab;
     }

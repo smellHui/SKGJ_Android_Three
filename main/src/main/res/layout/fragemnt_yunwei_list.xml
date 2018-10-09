@@ -97,7 +97,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
-                        android:text="确  定"
+                        android:text="查询"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -110,10 +110,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/shangbaopadding"
                     android:background="@drawable/bg_worker_item"
                     android:orientation="vertical">
 

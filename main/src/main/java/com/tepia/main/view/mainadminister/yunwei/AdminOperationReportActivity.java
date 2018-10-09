@@ -20,7 +20,7 @@ import com.tepia.main.view.maintechnology.yunwei.JiShuReportDetailActivity;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
-import com.tepia.main.view.mainworker.report.EmergenceSearchDetailActivity;
+import com.tepia.main.view.mainworker.report.EmergencyReportActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -137,7 +137,7 @@ public class AdminOperationReportActivity extends BaseActivity {
 //            bundle.putExtra("item",dataList.get(position));
 //            startActivity(bundle);
             Intent intent = new Intent();
-            intent.setClass(this,EmergenceSearchDetailActivity.class);
+            intent.setClass(this,EmergencyReportActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
             intent.putExtras(bundle);

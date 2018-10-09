@@ -38,9 +38,10 @@ import org.MediaPlayer.PlayM4.Player;
 import java.util.List;
 
 /**
- * copy from鸭溪水务app
+ *
  * @author ly
  * @date 2018/8/1
+ * 视频播放
  */
 public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -48,6 +49,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
     private int m_iPort = -1;
     private int m_iPlayID = -1;
     private static PlaySurfaceView[] playView = new PlaySurfaceView[1];
+//    private PlaySurfaceView playsurfaceView;
     private int screenWidth = 0;
     private int screenHeight = 0;
     private int m_iLogID;
@@ -99,6 +101,8 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
     public void initView() {
         setCenterTitle("实时视频");
         showBack();
+//        playsurfaceView = findViewById(R.id.playsurfaceView);
+
         svTest = findViewById(R.id.surfaceView);
         liveProgressBar = findViewById(R.id.liveProgressBar);
         loading = findViewById(R.id.loading);
@@ -109,6 +113,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
         video_rel = findViewById(R.id.video_rel);
         tvStatus = findViewById(R.id.tv_video_channelStatus);
         tvName = findViewById(R.id.tv_video_channelname);
+        mRadioGroup.check(R.id.subRadio);
         mRadioGroup.check(R.id.subRadio);
         mStreamType = Constant.SUB_STREAM;
         initVedioview();
@@ -242,26 +247,32 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
      * @param pos
      */
     private void startPlay(int pos) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
+         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenWidth = displayMetrics.widthPixels;
         screenHeight = displayMetrics.heightPixels;
-        for (int position = 0; position < 1; position++) {
+       for (int position = 0; position < 1; position++) {
             if (playView[position] == null) {
                 playView[position] = new PlaySurfaceView(this);
-                playView[position].setParam(screenWidth, screenHeight);
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+//                playView[position].setParam(screenWidth, screenHeight);
+                playView[position].setLayoutParams(svTest.getLayoutParams());
+                /*FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
                         FrameLayout.LayoutParams.WRAP_CONTENT);
-                params.topMargin = ScreenUtil.dp2px(this, 46);
+                params.topMargin = ScreenUtil.dp2px(this, 66);
                 params.rightMargin = (position % 2) * playView[position].getCurWidth() + ScreenUtil.dp2px(this, 2);
                 params.leftMargin = (position % 2) * playView[position].getCurWidth() + ScreenUtil.dp2px(this, 2);
-                params.gravity = Gravity.TOP | Gravity.LEFT | Gravity.RIGHT;
-                addContentView(playView[position], params);
+                params.gravity = Gravity.TOP | Gravity.LEFT | Gravity.RIGHT;*/
+
+//                addContentView(playView[position], svTest.getLayoutParams());
+                video_rel.addView(playView[position]);
 //                mStreamType = 6;
                 playView[position].startPreview(mStreamType, m_iLogID, m_iStartChan + pos);
             }
         }
+//        mStreamType = 6;
+//        playsurfaceView.startPreview(mStreamType, m_iLogID, m_iStartChan + pos);
         m_iPlayID = playView[0].m_iPreviewHandle;
+//        m_iPlayID = playsurfaceView.m_iPreviewHandle;
     }
 
 
@@ -275,7 +286,10 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
                 ((ViewGroup) playView[i].getParent()).removeView(playView[i]);
                 playView[i] = null;
             }
+//            playsurfaceView.stopPreview();
+//            ((ViewGroup) playsurfaceView.getParent()).removeView(playsurfaceView);
         }
+
         //把所有的消息和回调移除
         data.clear();
         handler.removeCallbacksAndMessages(null);

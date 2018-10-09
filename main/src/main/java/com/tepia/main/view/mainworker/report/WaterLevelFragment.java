@@ -308,6 +308,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
             if (last_millseconds_start != 0) {
                 timePickerDialogUtil.builder.setCurrentMillseconds(last_millseconds_start);
             }
+            timePickerDialogUtil.builder.setMaxMillseconds(System.currentTimeMillis()) ;
             timePickerDialogUtil.builder.setTitleStringId(getContext().getString(R.string.endtimeTitle));
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
@@ -324,6 +325,6 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     @Override
     public void failure(String msg) {
         dialog_show.dismiss();
-        ToastUtils.shortToast("上传失败");
+        ToastUtils.shortToast(msg);
     }
 }

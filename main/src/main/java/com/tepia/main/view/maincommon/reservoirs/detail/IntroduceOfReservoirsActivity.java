@@ -11,7 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.SpatialReference;
+import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
 import com.esri.arcgisruntime.location.LocationDataSource;
@@ -21,6 +24,7 @@ import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ScreenUtil;
 import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.main.R;
@@ -218,11 +222,18 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
         activityIntroduceOfReservoirsBinding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient()+"");
         activityIntroduceOfReservoirsBinding.mainFunctionTv.setText(dataBean.getMainFunction()+"");
         activityIntroduceOfReservoirsBinding.reservoirAddressTv.setText(dataBean.getReservoirAddress()+"");
-        Point point = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
+        LogUtil.e("经度："+dataBean.getReservoirLongitude()+"，纬度："+dataBean.getReservoirLatitude());
+       /* Point point = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
                 Double.parseDouble(dataBean.getReservoirLatitude())
-        );
+        );*/
+
+        Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
+                Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));
+        Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
         arcgisLayout.addPic(R.drawable.map_ku,point);
         arcgisLayout.setCenterPoint(point,arcgisLayout.groupScale);
+
+
     }
 
     @Override

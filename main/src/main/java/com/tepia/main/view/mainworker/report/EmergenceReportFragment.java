@@ -57,9 +57,9 @@ import static android.app.Activity.RESULT_OK;
   * @author :ly (from Center Of Wuhan)
   * Date    :2018-9-29
   * Version :1.0
-  * 功能描述 :
+  * 功能描述 :应急上报fragment
  **/
-public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View,ReportPresenter> implements View.OnClickListener, View.OnTouchListener {
+public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View,ReportPresenter> implements View.OnClickListener, View.OnTouchListener {
 
 
 
@@ -101,6 +101,8 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     @Override
     protected void initData() {
 
+
+        UserManager.getInstance().isTechnology();
     }
 
 
@@ -123,28 +125,6 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
         videoIcon.setOnClickListener(this);
 
         dateBeanList = UserManager.getInstance().getLocalReservoirList();
-
-
-        /*recycleChangyong = findView(R.id.recycleChangyong);
-        recycleChangyong.setLayoutManager(new GridLayoutManager(getContext(),4));
-
-        adapterQuestion = new AdapterEmergenceReport(R.layout.tag_text_layout,dateBeanList);
-        recycleChangyong.setAdapter(adapterQuestion);
-
-        adapterQuestion.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                resviorTv.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                com.tepia.main.model.detai.ReservoirBean reservoirDateBean = dateBeanList.get(position);
-                if(reservoirDateBean != null) {
-                    resviorTv.setText(reservoirDateBean.getReservoir());
-                    reservoirId = reservoirDateBean.getReservoirId();
-                }
-            }
-        });*/
-
-
-
 
         titleEv = findView(R.id.titleEv);
         titleEv.addTextChangedListener(new TextWatcher() {
@@ -195,12 +175,12 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
                             .setShowCamera(true)
                             .setPreviewEnabled(true)
                             .setSelected(selectedPhotos)
-                            .start(getBaseActivity(), EmergenceDetaliFragment.this);
+                            .start(getBaseActivity(), EmergenceReportFragment.this);
                 } else {
                     PhotoPreview.builder()
                             .setPhotos(selectedPhotos)
                             .setCurrentItem(position)
-                            .start(getBaseActivity(), EmergenceDetaliFragment.this);
+                            .start(getBaseActivity(), EmergenceReportFragment.this);
                 }
 
             }
@@ -219,11 +199,11 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
      * 保存数据
      */
     private void getSP(){
-            questionTitle = SPUtils.getInstance().getString(EmergencyDetailActivity.key_Title,"");
+            questionTitle = SPUtils.getInstance().getString(EmergencyReportActivity.key_Title,"");
             LogUtil.e("questionTitle",questionTitle+"--");
 
             titleEv.setText(questionTitle);
-            questionContent = SPUtils.getInstance().getString(EmergencyDetailActivity.key_Content,"");
+            questionContent = SPUtils.getInstance().getString(EmergencyReportActivity.key_Content,"");
             LogUtil.e("questionContent",questionContent);
 
             contentEv.setText(questionContent);
@@ -240,17 +220,17 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && (requestCode == PhotoPicker.REQUEST_CODE)) {
+        if (resultCode == RESULT_OK && (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
             List<String> photos = null;
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
             }
-            selectedPhotos.clear();
             if (photos != null) {
+                selectedPhotos.clear();
                 selectedPhotos.addAll(photos);
+                photoAdapter.notifyDataSetChanged();
             }
             photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
-            photoAdapter.notifyDataSetChanged();
         }else if (requestCode == REQUEST_VIDEO_CODE) {
             if (resultCode == RESULT_OK) {
                 Uri uri = data.getData();
@@ -408,7 +388,7 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
 
                 @Override
                 public void failure(String msg) {
-                    LogUtil.e("EmergenceDetaliFragment",msg+"---");
+                    LogUtil.e("EmergenceReportFragment",msg+"---");
 
                 }
             });
@@ -482,8 +462,8 @@ public class EmergenceDetaliFragment extends MVPBaseFragment<ReportContract.View
         super.onDestroyView();
 
         clear();
-        SPUtils.getInstance().putString(EmergencyDetailActivity.key_Title,questionTitle);
-        SPUtils.getInstance().putString(EmergencyDetailActivity.key_Content,questionContent);
+        SPUtils.getInstance().putString(EmergencyReportActivity.key_Title,questionTitle);
+        SPUtils.getInstance().putString(EmergencyReportActivity.key_Content,questionContent);
         if (dateBeanList != null) {
             dateBeanList.clear();
         }

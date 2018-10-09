@@ -125,8 +125,6 @@ public class QuestionNewFragment extends MVPBaseFragment<QuestionContract.View, 
         resviorTv.setOnClickListener(this);
         typeTv.setOnClickListener(this);
 
-        // TODO: 2018/9/5 数据字典
-
 
         setType(getString(R.string.question_xunjian), "1", false);
         setType(getString(R.string.question_baojie), "3", true);

@@ -9,9 +9,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -175,7 +172,7 @@ public class PlayLocalVedioActivity extends BaseActivity {
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which) {
-										EmergenceDetaliFragment.videoPath = "";
+										EmergenceReportFragment.videoPath = "";
 										Intent intent = new Intent();
 										setResult(200,intent);
 										finish();

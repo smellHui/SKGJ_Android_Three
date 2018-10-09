@@ -78,7 +78,6 @@ public class AdapterProblemCallList extends BaseQuickAdapter<ProblemDetailBean.D
 
         //"1": "工单问题","2": "app上报","3": "web上报"
         if(flag == 0) {
-            // TODO: 2018/9/5 数据字典
             switch (item.getProblemSource()) {
                 case "1":
                     problemsourceTv.setText("工单问题");
@@ -92,7 +91,6 @@ public class AdapterProblemCallList extends BaseQuickAdapter<ProblemDetailBean.D
                 default:
             }
         }else if(flag == 1){
-            // TODO: 2018/9/5 数据字典
             Map<String, String> map_configure = dictMapEntity.getObject().getProblemCofirmType();
             problemsourceTv.setText(map_configure.get(item.getProblemCofirmType()));
             if("2".equals(item.getProblemCofirmType())){

@@ -598,12 +598,10 @@ public class ProblemDetailActivity extends MVPBaseActivity<QuestionContract.View
 
             confirmProblem(problemId,typeStr, problemConfirmTypeStr);
         }else if(v.getId() == R.id.statusUpTv){
-            // TODO: 2018/9/5 数据字典
             DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
             List<DictMapEntity.ArrayBean.NameValueBean> valueBeanList = dictMapEntity.getArray().getProblemCofirmType();
             showStatusUpTvDialog(valueBeanList);
         } else if(v.getId() == R.id.typeUpTv){
-            // TODO: 2018/9/5 数据字典
             DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
             List<DictMapEntity.ArrayBean.NameValueBean> valueBeanList = dictMapEntity.getArray().getOperationType();
             showTypeDialog(valueBeanList);

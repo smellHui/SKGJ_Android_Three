@@ -17,7 +17,6 @@ import com.tepia.main.model.train.TrainListResponse;
 import com.tepia.main.model.train.TrainPresenter;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
 import com.tepia.main.view.maincommon.setting.adapter.MyFIleListAdapter;
-import com.tepia.main.view.mainworker.report.EmergenceSearchDetailActivity;
 import com.tepia.main.view.mainworker.report.adapter.ImageShowAdapter;
 import com.tepia.photo_picker.PhotoPreview;
 
