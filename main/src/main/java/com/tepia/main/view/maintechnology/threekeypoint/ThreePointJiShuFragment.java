@@ -27,7 +27,7 @@ import java.util.List;
 public class ThreePointJiShuFragment extends BaseCommonFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private String[] tpTabNames = {"检测预报", "调度运用", "应急预案"};
+    private String[] tpTabNames = {"监测预报", "调度运用", "应急预案"};
     private List<BaseCommonFragment> mFragments = new ArrayList<>();
 
     public ThreePointJiShuFragment() {

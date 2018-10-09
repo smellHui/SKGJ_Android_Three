@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
@@ -37,14 +39,14 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by      Intellij IDEA
- * 运维列表
- * @author :       wwj
- * Date    :       2018-09-18
- * Time    :       10:31
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+  * Created by      Android studio
+  *
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/10/9
+  * Version :1.0
+  * 功能描述 :行政运维
  **/
+
 public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
     private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private ArrayAdapter spinnerAdapter;
@@ -157,7 +159,7 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
             typeName = "保洁";
         }
         TextView tvSelectMonth = findView(R.id.tv_select_month);
-        tvSelectMonth.setText("选择月份");
+        tvSelectMonth.setText("选择月份:");
         tvOperationTask = findView(R.id.tv_operation_task);
         tvComplete = findView(R.id.tv_complete);
         tvPercent = findView(R.id.tv_percent);
@@ -165,6 +167,10 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         rv = findView(R.id.rv_operation_list);
         tvStartDate = findView(R.id.tv_start_date);
         tvReservoir = findView(R.id.tv_reservoir);
+        TextView tvCleanMonth = findView(R.id.tv_clean_month);
+        tvCleanMonth.setOnClickListener(v -> {
+            tvStartDate.setText("");
+        });
         tvReservoir.setOnClickListener(v -> showSelectReservoir());
         initStartDate();
 //        initSpinner();
@@ -200,8 +206,12 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
             currentPage = 1;
             isloadmore = false;
             first = true;
-            if (mPresenter != null) {
-                mPresenter.getAdminWorkOrderList(reservoirId,operationType,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
+            if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                ToastUtils.shortToast(R.string.no_network);
+            }else {
+                if (mPresenter != null) {
+                    mPresenter.getAdminWorkOrderList(reservoirId,operationType,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
+                }
             }
         });
     }
@@ -219,11 +229,13 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         //昨天减1
         ca.add(Calendar.DATE, -1);
         Date lastDate = ca.getTime();
-        tvStartDate.setText(sf.format(lastDate));
+//        tvStartDate.setText(sf.format(lastDate));
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
             long currentLong = 0;
-            currentLong = strToLong(current);
+            if (current!=null&&current.length()>0){
+                currentLong = strToLong(current);
+            }
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
                 String text = timePickerDialogUtil.getDateToString(millseconds);
                 tvStartDate.setText(text);

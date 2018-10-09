@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
@@ -37,14 +39,14 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by      Intellij IDEA
- * 运维列表
- * @author :       wwj
- * Date    :       2018-09-18
- * Time    :       10:31
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+  * Created by      Android studio
+  *
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/10/9
+  * Version :1.0
+  * 功能描述 :行政运维上报
  **/
+
 public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
     private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private ArrayAdapter spinnerAdapter;
@@ -192,8 +194,12 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
             currentPage = 1;
             isloadmore = false;
             first = true;
-            if (mPresenter != null) {
-                mPresenter.getAdminProblemList(reservoirId,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
+            if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                ToastUtils.shortToast(R.string.no_network);
+            }else {
+                if (mPresenter != null) {
+                    mPresenter.getAdminProblemList(reservoirId,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
+                }
             }
         });
     }

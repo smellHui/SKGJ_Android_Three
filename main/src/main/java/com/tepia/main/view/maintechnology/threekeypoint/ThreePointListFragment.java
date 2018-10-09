@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
@@ -31,14 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by      Intellij IDEA
- * 检测预报
- * @author :       wwj
- * Date    :       2018-09-19
- * Time    :       10:30
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+  * Created by      Android studio
+  *
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/10/9
+  * Version :1.0
+  * 功能描述 :三个重点监测预报
  **/
+
 public class ThreePointListFragment extends BaseCommonFragment {
 
     private YunWeiJiShuPresenter mPresenter;
@@ -149,9 +151,13 @@ public class ThreePointListFragment extends BaseCommonFragment {
     }
 
     private void commonRequestDataFun() {
-        if (mPresenter != null && waterPresenter != null) {
-            mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
-            waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
+        if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+            ToastUtils.shortToast(R.string.no_network);
+        }else {
+            if (mPresenter != null && waterPresenter != null) {
+                mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
+                waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
+            }
         }
     }
 
@@ -208,12 +214,17 @@ public class ThreePointListFragment extends BaseCommonFragment {
     }
 
     private void initRequestResponse() {
-        if (localReservoirList != null && localReservoirList.size() > 0) {
-            reservoirId = localReservoirList.get(0).getReservoirId();
-            srl.setRefreshing(true);
-            tvReservoirName.setText(localReservoirList.get(0).getReservoir());
-            mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
-            waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
+        if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+            ToastUtils.shortToast(R.string.no_network);
+        }else {
+            if (localReservoirList != null && localReservoirList.size() > 0) {
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                reservoirId = defaultReservoir.getReservoirId();
+                srl.setRefreshing(true);
+                tvReservoirName.setText(defaultReservoir.getReservoir());
+                mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
+                waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
+            }
         }
     }
 
@@ -243,6 +254,10 @@ public class ThreePointListFragment extends BaseCommonFragment {
                     ReservoirBean selectedResrvoir = localReservoirList.get(position);
                     com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     dialog.dismiss();
+                    srl.setRefreshing(true);
+                    Handler handler = new Handler();
+                    //半秒后执行runnable中的run方法commonRequestDatuaFn
+                    handler.postDelayed(() -> commonRequestDataFun(), 500);
                 }
             });
         }

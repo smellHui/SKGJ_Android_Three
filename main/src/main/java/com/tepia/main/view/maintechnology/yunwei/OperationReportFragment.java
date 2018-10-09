@@ -17,8 +17,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.ConfigConsts;
@@ -42,15 +44,14 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by      Intellij IDEA
- * 运维上报列表
+ * Created by      Android studio
  *
- * @author :       wwj
- * Date    :       2018-09-25
- * Time    :       18:35
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+ * @author :wwj (from Center Of Wuhan)
+ * Date    :2018/10/9
+ * Version :1.0
+ * 功能描述 :技术责任人 运维上报
  **/
+
 public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
     private Spinner spinner;
     private RecyclerView rv;
@@ -69,6 +70,8 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
     private String reservoirId;
     private String startDate;
     private TextView tvReservoir;
+    private TextView tvEndDate;
+    private String endDate;
 
     @Override
     protected int getLayoutId() {
@@ -87,7 +90,9 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 //        spinner = findView(R.id.operation_spinner);
         rv = findView(R.id.rv_operation_list);
         tvStartDate = findView(R.id.tv_start_date);
+        tvEndDate = findView(R.id.tv_end_date);
         initStartDate();
+        initEndDate();
 //        initSpinner();
         tvReservoir = findView(R.id.tv_reservoir);
         tvReservoir.setOnClickListener(v -> showSelectReservoir());
@@ -98,23 +103,32 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
     private void initSearch() {
         Button btConfirm = findView(R.id.bt_confirm);
         btConfirm.setOnClickListener(v -> {
-            dataList.clear();
-            if (spinnerPosition==0){
-                reservoirId = "";
-            }else {
-                reservoirId = localReservoirList.get(spinnerPosition-1).getReservoirId();
-            }
-            startDate = tvStartDate.getText().toString();
-            rvAdapter.setEnableLoadMore(false);
-            currentPage = 1;
-            isloadmore = false;
-            first = true;
-            if (mPresenter!=null){
-                if (mPresenter != null) {
-                    mPresenter.getProblemList(reservoirId,"",startDate,"",String.valueOf(currentPage),String.valueOf(pageSize),"",true);
-                }
+            if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                ToastUtils.shortToast(R.string.no_network);
+            } else {
+                search();
             }
         });
+    }
+
+    private void search() {
+        dataList.clear();
+        if (spinnerPosition == 0) {
+            reservoirId = "";
+        } else {
+            reservoirId = localReservoirList.get(spinnerPosition - 1).getReservoirId();
+        }
+        startDate = tvStartDate.getText().toString();
+        endDate = tvEndDate.getText().toString();
+        rvAdapter.setEnableLoadMore(false);
+        currentPage = 1;
+        isloadmore = false;
+        first = true;
+        if (mPresenter != null) {
+            if (mPresenter != null) {
+                mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), "", true);
+            }
+        }
     }
 
     private void initRecyclerView() {
@@ -129,24 +143,25 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                 isloadmore = true;
                 //加载更多数据
                 loadDataOrMore(false);
-            },1000);
-        },rv);
+            }, 1000);
+        }, rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
 //            Intent bundle = new Intent(getActivity(),JiShuReportDetailActivity.class);
 //            bundle.putExtra("item",dataList.get(position));
 //            startActivity(bundle);
             Intent intent = new Intent();
-            intent.setClass(getBaseActivity(),EmergenceShowDetailActivity.class);
+            intent.setClass(getBaseActivity(), EmergenceShowDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
+            bundle.putString(ConfigConsts.emergence, dataList.get(position).getProblemId());
+            bundle.putString("problemStatus", dataList.get(position).getProblemStatus());
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         });
     }
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getProblemList(reservoirId,"",startDate,"",String.valueOf(currentPage),String.valueOf(pageSize),"",isShowLoading);
+            mPresenter.getProblemList(reservoirId, "", startDate, "", String.valueOf(currentPage), String.valueOf(pageSize), "", isShowLoading);
         }
     }
 
@@ -163,11 +178,13 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         //昨天减1
         ca.add(Calendar.DATE, -1);
         Date lastDate = ca.getTime();
-        tvStartDate.setText(TimeFormatUtils.dateToStrLong(lastDate));
+//        tvStartDate.setText(TimeFormatUtils.dateToStrLong(lastDate));
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
             long currentLong = 0;
-            currentLong = strToLong(current);
+            if (current != null && current.length() > 0) {
+                currentLong = strToLong(current);
+            }
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
                 String text = timePickerDialogUtil.getDateToString(millseconds);
                 tvStartDate.setText(text);
@@ -179,6 +196,39 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                 timePickerDialogUtil.builder.setCurrentMillseconds(currentLong);
             }
             timePickerDialogUtil.builder.setTitleStringId(getString(R.string.starttimeTitle));
+            timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
+            timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
+        });
+    }
+
+    private void initEndDate() {
+        long fiveYears = 5L * 365 * 1000 * 60 * 60 * 24L;
+        timePickerDialogUtil = new TimePickerDialogUtil(getActivity(), sf);
+        //得到一个Calendar的实例
+        Calendar ca = Calendar.getInstance();
+        //设置时间为当前时间
+        ca.setTime(new Date());
+        //昨天减1
+        ca.add(Calendar.DATE, -1);
+        Date lastDate = ca.getTime();
+//        tvEndDate.setText(TimeFormatUtils.dateToStrLong(lastDate));
+        tvEndDate.setOnClickListener(v -> {
+            String current = (String) tvStartDate.getText();
+            long currentLong = 0;
+            if (current != null && current.length() > 0) {
+                currentLong = strToLong(current);
+            }
+            timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
+                String text = timePickerDialogUtil.getDateToString(millseconds);
+                tvEndDate.setText(text);
+            }, Type.ALL, System.currentTimeMillis() - fiveYears, System.currentTimeMillis() + fiveYears, R.color.color_load_blue);
+            if (timePickerDialogUtil.startDialog != null) {
+                timePickerDialogUtil.startDialog = null;
+            }
+            if (currentLong != 0) {
+                timePickerDialogUtil.builder.setCurrentMillseconds(currentLong);
+            }
+            timePickerDialogUtil.builder.setTitleStringId("请选择结束时间");
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
         });
@@ -287,16 +337,16 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
             isloadmore = false;
             first = true;
             if (mPresenter != null) {
-                mPresenter.getProblemList(reservoirId,"","","",String.valueOf(currentPage),String.valueOf(pageSize),"",false);
+                mPresenter.getProblemList(reservoirId, "", "", "", String.valueOf(currentPage), String.valueOf(pageSize), "", false);
             }
         }
     }
 
     private void showSelectReservoir() {
         if (localReservoirList != null) {
-            String[] stringItems = new String[localReservoirList.size()+1];
+            String[] stringItems = new String[localReservoirList.size() + 1];
             for (int i = 0; i < localReservoirList.size(); i++) {
-                stringItems[i+1] = localReservoirList.get(i).getReservoir();
+                stringItems[i + 1] = localReservoirList.get(i).getReservoir();
             }
             stringItems[0] = "全部";
             final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
@@ -317,6 +367,26 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                     dialog.dismiss();
                 }
             });
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                //添加计划返回
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    boolean isSubmit = extras.getBoolean("isSubmit");
+//                    LogUtil.i("isAddPlan:"+isAddPlan);
+                    if (isSubmit) {
+                        search();
+                    }
+                }
+                break;
+            default:
+                break;
         }
     }
 }

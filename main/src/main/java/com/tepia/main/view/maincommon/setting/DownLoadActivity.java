@@ -34,14 +34,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by      Android studio
- *
- * @author :       wwj
- * Date    :       2018-09-30
- * Time    :       09:19
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+  * Created by      Android studio
+  *
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/10/9
+  * Version :1.0
+  * 功能描述 :下载
  **/
+
 public class DownLoadActivity extends BaseActivity {
 
     private String downloadSpName = "downloadMap";

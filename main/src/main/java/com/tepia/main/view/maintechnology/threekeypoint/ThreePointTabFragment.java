@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
@@ -30,14 +33,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by      Intellij IDEA
- *
- * @author :       wwj
- * Date    :       2018-09-27
- * Time    :       10:12
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+  * Created by      Android studio
+  *
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/10/9
+  * Version :1.0
+  * 功能描述 :三个重点调度运用，应急预案
  **/
+
 public class ThreePointTabFragment extends BaseCommonFragment{
 
     private TextView tvReservoirName;
@@ -140,12 +143,16 @@ public class ThreePointTabFragment extends BaseCommonFragment{
     }
 
     private void commonRequestDataFun() {
-        if (fragmentPosition==1){
-            //调度运用界面
-            mPresent.getFloodControlByReservoir(reservoirId);
-        }else if (fragmentPosition==2){
-            //应急预案界面
-            mPresent.getEmergencyByReservoir(reservoirId);
+        if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+            ToastUtils.shortToast(R.string.no_network);
+        }else {
+            if (fragmentPosition==1){
+                //调度运用界面
+                mPresent.getFloodControlByReservoir(reservoirId);
+            }else if (fragmentPosition==2){
+                //应急预案界面
+                mPresent.getEmergencyByReservoir(reservoirId);
+            }
         }
     }
 

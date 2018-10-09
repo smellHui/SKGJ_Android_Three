@@ -36,10 +36,13 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="30dp"
-            android:text="选择水库"
-            android:textColor="#2b313b"
+            android:text="切换水库"
+            android:textColor="#ffffff"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:background="@drawable/bg_bt_next_item"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:textSize="16sp" />
     </RelativeLayout>
 

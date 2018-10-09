@@ -47,7 +47,7 @@
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 拨打电话权限  -->
+    <!-- 拨打电话权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application android:theme="@style/AppTheme">
@@ -278,6 +278,7 @@
         <!--多选水库-->
         <activity android:name=".view.maincommon.setting.worknotification.addworknotification.SelectReservorsActivity" />
 
+        <activity android:name=".view.maintechnology.threekeypoint.HistoryDataActivity"></activity>
     </application>
 
 </manifest>

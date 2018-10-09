@@ -26,14 +26,14 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by      Intellij IDEA
- *
- * @author :       wwj
- * Date    :       2018-09-29
- * Time    :       10:29
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+  * Created by      Android studio
+  *
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/10/9
+  * Version :1.0
+  * 功能描述 :行政运维具体月份
  **/
+
 public class AdminOperationActivity extends BaseActivity {
     private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private YunWeiJiShuPresenter mPresenter;

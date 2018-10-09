@@ -16,15 +16,14 @@ import com.tepia.main.model.jishu.yunwei.WorkOrderListResponse;
 import java.util.List;
 
 /**
- * Created by      Intellij IDEA
- * 运维列表
- *
- * @author :       wwj
- * Date    :       2018-09-18
- * Time    :       20:19
- * Version :       1.0
- * Company :       北京太比雅科技(武汉研发中心)
+  * Created by      Android studio
+  *
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/10/9
+  * Version :1.0
+  * 功能描述 :  运维列表
  **/
+
 public class MyOperationListAdapter extends BaseQuickAdapter<WorkOrderListResponse.DataBean.ListBean, BaseViewHolder> {
     public MyOperationListAdapter(int layoutResId, @Nullable List<WorkOrderListResponse.DataBean.ListBean> data) {
         super(layoutResId, data);

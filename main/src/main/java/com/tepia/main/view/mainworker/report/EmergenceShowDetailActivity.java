@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,6 +26,7 @@ import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityTrainEmergenceBinding;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
 import com.tepia.main.model.report.ShangbaoManager;
+import com.tepia.main.view.main.jihua.AddPlanActivity;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.report.adapter.ImageShowAdapter;
@@ -84,6 +86,9 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                                     if (operationPlanBean != null) {
                                         if (operationPlanBean.getCode() == 0) {
                                             ToastUtils.shortToast("提交成功");
+                                            Intent intent = new Intent();
+                                            intent.putExtra("isSubmit",true);
+                                            EmergenceShowDetailActivity.this.setResult(1,intent);
                                             finish();
 
                                         }else{
@@ -105,7 +110,14 @@ public class EmergenceShowDetailActivity extends BaseActivity {
         }else{
             bindings.feedbackLy.setVisibility(View.GONE);
         }
-
+        if(bundle != null && bundle.containsKey("problemStatus")){
+            String problemStatus = bundle.getString("problemStatus");
+            if ("4".equals(problemStatus)){
+                bindings.feedbackLy.setVisibility(View.VISIBLE);
+            }else {
+                bindings.feedbackLy.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void initRec(){
@@ -226,5 +238,17 @@ public class EmergenceShowDetailActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent();
+            intent.putExtra("isSubmit",false);
+            EmergenceShowDetailActivity.this.setResult(1,intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
