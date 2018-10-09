@@ -11,15 +11,20 @@ import android.os.UserManager;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.tepia.base.http.BaseResponse;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityTrainEmergenceBinding;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
+import com.tepia.main.model.report.ShangbaoManager;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.report.adapter.ImageShowAdapter;
@@ -42,6 +47,7 @@ public class EmergenceShowDetailActivity extends BaseActivity {
 
     ActivityTrainEmergenceBinding bindings;
     private ImageShowAdapter imageShowAdapter;
+    private String problemId;
     @Override
     public int getLayoutId() {
         return R.layout.activity_train_emergence;
@@ -57,11 +63,45 @@ public class EmergenceShowDetailActivity extends BaseActivity {
         initRec();
         Bundle bundle = getIntent().getExtras();
         if(bundle != null && bundle.containsKey(ConfigConsts.emergence)){
-            getDetailedProblemInfoByProblemId(bundle.getString(ConfigConsts.emergence));
+            problemId = bundle.getString(ConfigConsts.emergence);
+            getDetailedProblemInfoByProblemId(problemId);
         }
 
         if(com.tepia.main.model.user.UserManager.getInstance().isTechnology()){
             bindings.feedbackLy.setVisibility(View.VISIBLE);
+            bindings.includeBtn.sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String excuteDes = bindings.feedbackEv.getText().toString();
+                    if (TextUtils.isEmpty(excuteDes)) {
+                        ToastUtils.shortToast("请输入反馈意见");
+                        return;
+                    }
+                    ShangbaoManager.getInstance().feedback(problemId,excuteDes)
+                            .subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+                                @Override
+                                protected void _onNext(BaseResponse operationPlanBean) {
+                                    if (operationPlanBean != null) {
+                                        if (operationPlanBean.getCode() == 0) {
+                                            ToastUtils.shortToast("提交成功");
+                                            finish();
+
+                                        }else{
+                                            ToastUtils.shortToast(operationPlanBean.getMsg());
+
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                protected void _onError(String message) {
+                                    ToastUtils.shortToast(message);
+
+
+                                }
+                            });
+                }
+            });
         }else{
             bindings.feedbackLy.setVisibility(View.GONE);
         }

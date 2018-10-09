@@ -84,5 +84,17 @@ public interface ShangbaoService {
 
     );
 
-
+    /**
+     * 应急上报反馈
+     * @param token
+     * @param problemId
+     * @param excuteDes
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/appProblemInfo/feedback")
+    Observable<BaseResponse> feedback(@Header("Authorization") String token,
+                                             @Field("problemId") String problemId,
+                                             @Field("excuteDes") String excuteDes
+    );
 }

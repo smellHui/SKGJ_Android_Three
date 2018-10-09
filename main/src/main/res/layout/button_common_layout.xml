@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<layout>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/sendBtn"
-        android:layout_width="211dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/selector_loginout_btn"
-        android:gravity="center"
-        android:text="@string/sendbtnstr"
-        android:textColor="@color/white" />
-</FrameLayout>
+        <TextView
+            android:id="@+id/sendBtn"
+            android:layout_width="211dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_loginout_btn"
+            android:gravity="center"
+            android:text="@string/sendbtnstr"
+            android:textColor="@color/white" />
+    </FrameLayout>
+</layout>
 
 
 

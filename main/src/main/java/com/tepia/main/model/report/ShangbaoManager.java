@@ -124,4 +124,17 @@ public class ShangbaoManager {
 
 
     }
+
+    /**
+     * 应急上报反馈
+     * @param problemId
+     * @param excuteDes
+     * @return
+     */
+    public Observable<BaseResponse> feedback(String problemId, String excuteDes) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.feedback(token, problemId, excuteDes)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
