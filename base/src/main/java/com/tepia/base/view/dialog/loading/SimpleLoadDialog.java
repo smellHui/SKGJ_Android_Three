@@ -93,7 +93,7 @@ public class SimpleLoadDialog extends Handler{
                 animationDrawable.stop();
                 animationDrawable = null;
             }
-            load.dismiss();
+            load.cancel();
             load = null;
         }
     }

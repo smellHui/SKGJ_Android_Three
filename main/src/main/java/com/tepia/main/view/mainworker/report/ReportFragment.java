@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
+import com.tepia.base.common.CommonFragmentPagerAdapter;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
@@ -25,6 +26,8 @@ import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
+import com.tepia.main.view.mainworker.yunwei.startyunwei.StartYunWeiFragment;
+import com.tepia.main.view.mainworker.yunwei.yunweilist.YunWeiListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,13 +163,16 @@ public class ReportFragment extends BaseCommonFragment{
     private void initViewpager(){
         waterLevelFragment = TabReportFragmentFactory.getInstance().getWaterLevelFragment();
         emergencyFragment = TabReportFragmentFactory.getInstance().getEmergencyFragment();
-        fragments.add(waterLevelFragment);
-        fragments.add(emergencyFragment);
-        titles.add("水位");
-        titles.add("应急情况");
-        MyPagerAdapter adpter = new MyPagerAdapter(getBaseActivity().getSupportFragmentManager(),getBaseActivity(),fragments,titles);
-        viewPager.setAdapter(adpter);
+        initViewPager();
         new_tab();
+
+    }
+
+    private void initViewPager() {
+        CommonFragmentPagerAdapter adapter = new CommonFragmentPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(waterLevelFragment);
+        adapter.addFragment(emergencyFragment);
+        viewPager.setAdapter(adapter);
 
     }
 

@@ -53,6 +53,17 @@ public class TimeFormatUtils {
         return dateString;
     }
 
+    /**
+     * 获取现在时间
+     * @return
+     */
+    public static String getStringDateMonthDay() {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
+
     public static String getStringDate(long millseconds) {
         Date currentTime = new Date(millseconds);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

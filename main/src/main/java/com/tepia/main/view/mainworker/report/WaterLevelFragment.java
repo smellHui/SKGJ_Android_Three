@@ -44,6 +44,7 @@ import com.tepia.main.view.mainworker.report.adapter.AdapterWaterLevelReservoirs
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -203,9 +204,8 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
      */
     public void refresh(boolean isshowloading){
         first = true;
-        endData = TimeFormatUtils.getStringDate();
-        startData = TimeFormatUtils.getNextDay(endData, "-1");
-        mstarttimeTv.setText(endData);
+        String date = TimeFormatUtils.getStringDateMonthDay();
+        setTime(date);
         search(isshowloading);
     }
 
@@ -229,10 +229,28 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
 
     private void initTime(){
         timePickerDialogUtil = new TimePickerDialogUtil(getContext(),sf);
-        timePickerDialogUtil.initTimePicker(this, Type.ALL);
-        endData = TimeFormatUtils.getStringDate();
-        startData = TimeFormatUtils.getNextDay(endData, "-1");
-        mstarttimeTv.setText(endData);
+        timePickerDialogUtil.initTimePicker(this, Type.YEAR_MONTH);
+        String date = TimeFormatUtils.getStringDateMonthDay();
+        setTime(date);
+    }
+
+    private void setTime(String date){
+        String[] split = date.split("-");
+        if (split.length == 2){
+            int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
+            startData = date+"-01 00:00:00";
+            endData = date+"-"+dayOfMonth+" 23:59:59";
+        }
+//        String monthDay = TimeFormatUtils.getStringDateMonthDay();
+        mstarttimeTv.setText(date);
+    }
+
+    private int getDayOfMonth(int year,int month){
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, 0); //输入类型为int类型
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+//        LogUtil.i("一个月的天数:"+dayOfMonth);
+        return dayOfMonth;
     }
 
 
@@ -287,7 +305,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
 
     // 起始时间选择器
     private boolean startflag = false;
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
     private long last_millseconds_start = 0;
 
     private TimePickerDialogUtil timePickerDialogUtil;
@@ -297,12 +315,13 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
 
         if (startflag) {
             last_millseconds_start = millseconds;
-            String text = timePickerDialogUtil.getDateToString(millseconds);
-            endData = text;
-            mstarttimeTv.setText(endData);
+            String date = timePickerDialogUtil.getDateToString(millseconds);
+//            endData = text;
+            setTime(date);
+            mstarttimeTv.setText(date);
             startflag = false;
             //默认查询一天的水位量
-            startData = TimeFormatUtils.getNextDay(endData, "-1");
+//            startData = TimeFormatUtils.getNextDay(endData, "-1");
             LogUtil.e("endData", endData);
             LogUtil.e("startData", startData);
 

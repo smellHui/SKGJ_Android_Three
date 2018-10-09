@@ -28,6 +28,7 @@ import com.tepia.main.view.mainworker.report.adapter.AdapterEmergency;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -192,9 +193,9 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
      */
     public void refresh(boolean isshowloading){
         first = true;
-        endData = TimeFormatUtils.getStringDate();
-        startData = TimeFormatUtils.getNextDay(endData, "-1");
-        mstarttimeTv.setText(endData);
+        String date = TimeFormatUtils.getStringDateMonthDay();
+//        startData = TimeFormatUtils.getNextDay(endData, "-1");
+        setTime(date);
         search(isshowloading);
     }
 
@@ -218,17 +219,41 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
         if(timePickerDialogUtil == null) {
             timePickerDialogUtil = new TimePickerDialogUtil(getContext(), sf);
         }
-        timePickerDialogUtil.initTimePicker(this, Type.ALL);
-        endData = TimeFormatUtils.getStringDate();
-        startData = TimeFormatUtils.getNextDay(endData, "-1");
-        mstarttimeTv.setText(endData);
+        timePickerDialogUtil.initTimePicker(this, Type.YEAR_MONTH);
+
+        String date = TimeFormatUtils.getStringDateMonthDay();
+        setTime(date);
+
+//        endData = TimeFormatUtils.getStringDate();
+//        startData = TimeFormatUtils.getNextDay(endData, "-1");
+
+    }
+
+    private void setTime(String date){
+        String[] split = date.split("-");
+        if (split.length == 2){
+            int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
+            startData = date+"-01 00:00:00";
+            endData = date+"-"+dayOfMonth+" 23:59:59";
+        }
+        mstarttimeTv.setText(date);
+        LogUtil.e("endData", endData);
+        LogUtil.e("startData", startData);
+    }
+
+    private int getDayOfMonth(int year,int month){
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, 0); //输入类型为int类型
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+//        LogUtil.i("一个月的天数:"+dayOfMonth);
+        return dayOfMonth;
     }
 
 
 
     // 起始时间选择器
     private boolean startflag = false;
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
     private long last_millseconds_start = 0;
 
     private TimePickerDialogUtil timePickerDialogUtil;
@@ -238,12 +263,15 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
 
         if (startflag) {
             last_millseconds_start = millseconds;
-            String text = timePickerDialogUtil.getDateToString(millseconds);
-            endData = text;
-            mstarttimeTv.setText(endData);
+            String date = timePickerDialogUtil.getDateToString(millseconds);
+
+            setTime(date);
+
+//            endData = text;
+            mstarttimeTv.setText(date);
             startflag = false;
             //默认查询一天的水位量
-            startData = TimeFormatUtils.getNextDay(endData, "-1");
+//            startData = TimeFormatUtils.getNextDay(endData, "-1");
             LogUtil.e("endData", endData);
             LogUtil.e("startData", startData);
 
@@ -285,7 +313,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
                 timePickerDialogUtil.builder.setCurrentMillseconds(last_millseconds_start);
             }
             timePickerDialogUtil.builder.setMaxMillseconds(System.currentTimeMillis()) ;
-            timePickerDialogUtil.builder.setTitleStringId(getContext().getString(R.string.endtimeTitle));
+            timePickerDialogUtil.builder.setTitleStringId("请选择查询月份");
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
         }
