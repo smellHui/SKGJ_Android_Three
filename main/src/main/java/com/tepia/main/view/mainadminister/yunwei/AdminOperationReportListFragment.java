@@ -158,6 +158,10 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
 //        spinner = findView(R.id.operation_spinner);
         rv = findView(R.id.rv_operation_list);
         tvStartDate = findView(R.id.tv_start_date);
+        TextView tvCleanMonth = findView(R.id.tv_clean_month);
+        tvCleanMonth.setOnClickListener(v -> {
+            tvStartDate.setText("");
+        });
         tvReservoir = findView(R.id.tv_reservoir);
         tvReservoir.setOnClickListener(v -> showSelectReservoir());
         initStartDate();
@@ -217,11 +221,13 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         //昨天减1
         ca.add(Calendar.DATE, -1);
         Date lastDate = ca.getTime();
-        tvStartDate.setText(sf.format(lastDate));
+//        tvStartDate.setText(sf.format(lastDate));
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
             long currentLong = 0;
-            currentLong = strToLong(current);
+            if (current==null&&current.length()>0){
+                currentLong = strToLong(current);
+            }
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
                 String text = timePickerDialogUtil.getDateToString(millseconds);
                 tvStartDate.setText(text);

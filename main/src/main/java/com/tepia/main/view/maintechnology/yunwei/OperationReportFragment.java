@@ -376,12 +376,14 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         switch (requestCode) {
             case 1:
                 //添加计划返回
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    boolean isSubmit = extras.getBoolean("isSubmit");
+                if (data!=null){
+                    Bundle extras = data.getExtras();
+                    if (extras != null) {
+                        boolean isSubmit = extras.getBoolean("isSubmit");
 //                    LogUtil.i("isAddPlan:"+isAddPlan);
-                    if (isSubmit) {
-                        search();
+                        if (isSubmit) {
+                            search();
+                        }
                     }
                 }
                 break;

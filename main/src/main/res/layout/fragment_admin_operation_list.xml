@@ -105,6 +105,7 @@
                 android:text=""
                 android:singleLine="true"
                 android:textColor="#191c21"
+                android:hint="请选择月份"
                 android:textSize="13sp" />
         </LinearLayout>
 
