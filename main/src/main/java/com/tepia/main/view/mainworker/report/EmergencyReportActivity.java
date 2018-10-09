@@ -1,5 +1,6 @@
 package com.tepia.main.view.mainworker.report;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
 import com.tepia.base.mvp.MVPBaseActivity;
@@ -47,16 +48,19 @@ public class EmergencyReportActivity extends MVPBaseActivity<ReportContract.View
     }
 
     private FragmentTransaction transaction;
-    private EmergenceReportFragment questionFragment;
+    private EmergenceReportFragment emergenceReportFragment;
 
     /**
      * 事件上报
      */
     private void initQuestionFragment() {
         transaction = getSupportFragmentManager().beginTransaction();
-        questionFragment = new EmergenceReportFragment();
-        transaction.replace(R.id.fl_container, questionFragment);
-        transaction.show(questionFragment);
+        emergenceReportFragment = new EmergenceReportFragment();
+        Bundle bundle = getIntent().getExtras();
+        emergenceReportFragment.setArguments(bundle);
+
+        transaction.replace(R.id.fl_container, emergenceReportFragment);
+        transaction.show(emergenceReportFragment);
         transaction.commitAllowingStateLoss();
     }
 

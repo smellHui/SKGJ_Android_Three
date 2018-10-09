@@ -2,68 +2,56 @@ package com.tepia.main.model.reserviros;
 
 import com.tepia.base.http.BaseResponse;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by      android studio
  *
  * @author :       ly
- * Date            :       2018-09-25
- * Time            :       下午3:51
+ * Date            :       2018-10-09
+ * Time            :       下午5:00
  * Version         :       1.0
  * location        :       武汉研发中心
- * 功能描述         :       防汛物资实体
+ * 功能描述         :       防汛物资详情实体
  **/
-public class FloodBean extends BaseResponse {
+public class FloodBeanDetailBean extends BaseResponse {
 
+    /**
+     * data : {"meName":"钠灯","meType":"7","meTotals":"10","position":"后勤仓库","manageName":"大头峰","phoneNum":"1888871212","remark":"萝卜","fileInfo":[{"fileName":"Java学习图片.jpg","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/Cleaning/2018-09/30/76fd5fe2642542e2b21334b377bcf5b9.jpg"}],"meTypeName":"照明设备"}
+     */
 
-    private List<DataBean> data;
+    private DataBean data;
 
-    public List<DataBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<DataBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean {
         /**
-         * meName : 锣鼓
-         * meType : 1
-         * meTotals : 3
-         * position : 水库管理办公室
+         * meName : 钠灯
+         * meType : 7
+         * meTotals : 10
+         * position : 后勤仓库
+         * manageName : 大头峰
+         * phoneNum : 1888871212
+         * remark : 萝卜
+         * fileInfo : [{"fileName":"Java学习图片.jpg","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/Cleaning/2018-09/30/76fd5fe2642542e2b21334b377bcf5b9.jpg"}]
+         * meTypeName : 照明设备
          */
 
-        private String id;
-        /**
-         * 物资名
-         */
         private String meName;
-        /**
-         * 物资类型
-         */
         private String meType;
-        /**
-         * 数量
-         */
         private String meTotals;
-        /**
-         * 存放位置
-         */
         private String position;
-
-
         private String manageName;
         private String phoneNum;
         private String remark;
         private String meTypeName;
-
-        /**
-         * 文件信息list
-         */
-        private List<FloodBean.DataBean.FileInfoBean> fileInfo;
+        private List<FileInfoBean> fileInfo;
 
         public String getMeName() {
             return meName;
@@ -121,22 +109,6 @@ public class FloodBean extends BaseResponse {
             this.remark = remark;
         }
 
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public List<FloodBean.DataBean.FileInfoBean> getFileInfo() {
-            return fileInfo;
-        }
-
-        public void setFileInfo(List<FloodBean.DataBean.FileInfoBean> fileInfo) {
-            this.fileInfo = fileInfo;
-        }
-
         public String getMeTypeName() {
             return meTypeName;
         }
@@ -145,16 +117,21 @@ public class FloodBean extends BaseResponse {
             this.meTypeName = meTypeName;
         }
 
-        public static class FileInfoBean implements Serializable{
+        public List<FileInfoBean> getFileInfo() {
+            return fileInfo;
+        }
+
+        public void setFileInfo(List<FileInfoBean> fileInfo) {
+            this.fileInfo = fileInfo;
+        }
+
+        public static class FileInfoBean {
             /**
-             * fileName : xhr35_19201.jpg
-             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/reservoirDevice/2018-09/18/xhr35_19201.jpg
+             * fileName : Java学习图片.jpg
+             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/Cleaning/2018-09/30/76fd5fe2642542e2b21334b377bcf5b9.jpg
              */
 
             private String fileName;
-            /**
-             * 文件路径
-             */
             private String filePath;
 
             public String getFileName() {

@@ -155,7 +155,6 @@ public class RetrofitManager {
                 ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Utils.getContext()));
                 OkHttpClient.Builder builder = new OkHttpClient.Builder()
                         .cookieJar(cookieJar)
-                        .cache(cache)
                         .addInterceptor(cacheControlInterceptor)
                         .connectTimeout(30, TimeUnit.SECONDS)
                         .readTimeout(40, TimeUnit.SECONDS)
@@ -192,7 +191,6 @@ public class RetrofitManager {
             ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Utils.getContext()));
             OkHttpClient.Builder builder = new OkHttpClient.Builder()
                     .cookieJar(cookieJar)
-                    .cache(cache)
                     .addInterceptor(cacheControlInterceptor)
                     .connectTimeout(20, TimeUnit.SECONDS)
                     .readTimeout(25, TimeUnit.SECONDS)

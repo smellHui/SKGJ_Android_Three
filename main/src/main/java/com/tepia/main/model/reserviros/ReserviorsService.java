@@ -89,6 +89,18 @@ public interface ReserviorsService {
     );
 
     /**
+     * 根据防汛物资ID查询防汛物资
+     * @param token
+     * @param materialId
+     * @return
+     */
+    @GET("app/reservoir/getMaterialByMaterialId")
+    Observable<FloodBeanDetailBean> getMaterialByMaterialId(@Header("Authorization") String token,
+                                                 @Query("materialId") String materialId
+
+    );
+
+    /**
      * 查询水库安全管理应急预案
      * @param token
      * @param reservoirId

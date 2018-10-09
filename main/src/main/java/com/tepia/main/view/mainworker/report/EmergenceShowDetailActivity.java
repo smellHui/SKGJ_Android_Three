@@ -70,7 +70,20 @@ public class EmergenceShowDetailActivity extends BaseActivity {
         }
 
         if(com.tepia.main.model.user.UserManager.getInstance().isTechnology()){
-            bindings.feedbackLy.setVisibility(View.VISIBLE);
+            if(bundle != null && bundle.containsKey("problemStatus")){
+                String problemStatus = bundle.getString("problemStatus");
+                if ("4".equals(problemStatus)){
+                    bindings.feedbackLy.setVisibility(View.VISIBLE);
+                    bindings.showfeedbackLy.setVisibility(View.GONE);
+
+                }else {
+                    bindings.feedbackLy.setVisibility(View.GONE);
+                    bindings.showfeedbackLy.setVisibility(View.VISIBLE);
+
+                }
+            }
+            /*bindings.feedbackLy.setVisibility(View.VISIBLE);
+            bindings.showfeedbackLy.setVisibility(View.GONE);*/
             bindings.includeBtn.sendBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,15 +122,10 @@ public class EmergenceShowDetailActivity extends BaseActivity {
             });
         }else{
             bindings.feedbackLy.setVisibility(View.GONE);
+            bindings.showfeedbackLy.setVisibility(View.VISIBLE);
+
         }
-        if(bundle != null && bundle.containsKey("problemStatus")){
-            String problemStatus = bundle.getString("problemStatus");
-            if ("4".equals(problemStatus)){
-                bindings.feedbackLy.setVisibility(View.VISIBLE);
-            }else {
-                bindings.feedbackLy.setVisibility(View.GONE);
-            }
-        }
+
     }
 
     private void initRec(){
@@ -164,6 +172,7 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                 bindings.nameTv.setText("上报人："+ data.getUserName());
                 bindings.timeTv.setText("上报时间："+ data.getCreateDate());
                 bindings.descriptionTv.setText(data.getProblemDescription());
+                bindings.feedbackTv.setText(data.getRemarks());
                 //图片
                 List<JiShuRePortDetailResponse.DataBean.ISysFileUploadsBean> imageList = data.getImages();
 

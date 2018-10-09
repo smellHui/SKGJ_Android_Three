@@ -250,6 +250,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.mainworker.report.EmergenceShowDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.mainworker.report.PlayLocalVedioActivity"

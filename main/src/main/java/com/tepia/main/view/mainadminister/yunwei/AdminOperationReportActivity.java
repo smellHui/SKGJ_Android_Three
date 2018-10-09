@@ -20,7 +20,6 @@ import com.tepia.main.view.maintechnology.yunwei.JiShuReportDetailActivity;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
-import com.tepia.main.view.mainworker.report.EmergenceShowDetailActivity;
 import com.tepia.main.view.mainworker.report.EmergencyReportActivity;
 
 import java.util.ArrayList;
@@ -138,12 +137,11 @@ public class AdminOperationReportActivity extends BaseActivity {
 //            bundle.putExtra("item",dataList.get(position));
 //            startActivity(bundle);
             Intent intent = new Intent();
-            intent.setClass(AdminOperationReportActivity.this, EmergenceShowDetailActivity.class);
+            intent.setClass(this,EmergencyReportActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(ConfigConsts.emergence, dataList.get(position).getProblemId());
-            bundle.putString("problemStatus", dataList.get(position).getProblemStatus());
+            bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
             intent.putExtras(bundle);
-            startActivityForResult(intent, 1);
+            startActivity(intent);
         });
     }
 
@@ -224,33 +222,5 @@ public class AdminOperationReportActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 1:
-                //添加计划返回
-                if (data!=null){
-                    Bundle extras = data.getExtras();
-                    if (extras != null) {
-                        boolean isSubmit = extras.getBoolean("isSubmit");
-//                    LogUtil.i("isAddPlan:"+isAddPlan);
-                        if (isSubmit) {
-                            rvAdapter.setEnableLoadMore(false);
-                            currentPage = 1;
-                            isloadmore = false;
-                            first = true;
-                            if (mPresenter != null) {
-                                mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),"",true);
-                            }
-                        }
-                    }
-                }
-                break;
-            default:
-                break;
-        }
     }
 }

@@ -100,9 +100,6 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
     @Override
     protected void initData() {
-
-
-        UserManager.getInstance().isTechnology();
     }
 
 
@@ -114,13 +111,15 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         addBitmap = ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.newplay)
         ).getBitmap();
 
-
+        reservoirId = getArguments().getString("reservoirId");
+        String reservoir = getArguments().getString("reservoir");
         typeTv = findView(R.id.typeTv);
         resviorTv = findView(R.id.resviorTv);
+        resviorTv.setText(reservoir);
         photoTitleTv = findView(R.id.photoTitleTv);
         videoIcon = findView(R.id.videoIcon);
         photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
-        resviorTv.setOnClickListener(this);
+//        resviorTv.setOnClickListener(this);
         typeTv.setOnClickListener(this);
         videoIcon.setOnClickListener(this);
 
@@ -143,6 +142,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
             }
         });
+
         contentEv = findView(R.id.contentEv);
         contentEv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -382,7 +382,8 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 public void success(BaseResponse data) {
                     videoPath = "";
                     ToastUtils.shortToast("提交成功");
-
+                    Intent intent = new Intent();
+                    getBaseActivity().setResult(200,intent);
                     getBaseActivity().finish();
                 }
 
@@ -399,7 +400,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
         } else if (viewID == R.id.resviorTv) {
             if (dateBeanList != null && dateBeanList.size() > 0) {
-                showRiverDialog(dateBeanList);
+//                showRiverDialog(dateBeanList);
             }
         }else if(viewID == R.id.videoIcon){
             if(TextUtils.isEmpty(videoPath)) {

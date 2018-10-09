@@ -99,6 +99,18 @@ public class ReservirosManager {
     }
 
     /**
+     * 根据防汛物资ID查询防汛物资
+     * @param materialId
+     * @return
+     */
+    public Observable<FloodBeanDetailBean> getMaterialByMaterialId(String materialId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getMaterialByMaterialId(token,materialId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
      * 查询水库安全管理应急预案
      * @param reservoirId
      * @return

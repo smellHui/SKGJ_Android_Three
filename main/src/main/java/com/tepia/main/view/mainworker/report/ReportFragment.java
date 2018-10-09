@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,9 +18,12 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 
 import java.util.ArrayList;
@@ -41,6 +45,8 @@ public class ReportFragment extends BaseCommonFragment{
     private LinearLayout root_dialog_shangbao;
 
     private String oldReserviorId;
+    private TextView switchTv;
+    private TextView tv_reservoir_name;
 
     public ReportFragment() {
         // Required empty public constructor
@@ -70,24 +76,69 @@ public class ReportFragment extends BaseCommonFragment{
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
         oldReserviorId =  reservoirBean.getReservoirId();
 
+        switchTv = findView(R.id.switchTv);
+        tv_reservoir_name = findView(R.id.tv_reservoir_name);
+        switchTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectReservoir();
+            }
+        });
+
+    }
+
+    /**
+     * 切换水库
+     */
+    private void showSelectReservoir() {
+        ArrayList<ReservoirBean> reservoirBeans = UserManager.getInstance().getLocalReservoirList();
+        if (reservoirBeans != null) {
+            String[] stringItems = new String[reservoirBeans.size()];
+            for (int i = 0; i < reservoirBeans.size(); i++) {
+                stringItems[i] = reservoirBeans.get(i).getReservoir();
+            }
+            final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
+            dialog.title("请选择水库")
+                    .titleTextSize_SP(14.5f)
+                    .widthScale(0.8f)
+                    .show();
+            dialog.setOnOpenItemClickL(new OnOpenItemClick() {
+                @Override
+                public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    ReservoirBean selectedResrvoir = reservoirBeans.get(position);
+                    com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
+//                    tv_reservoir_name.setText(selectedResrvoir.getReservoir());
+                    dialog.dismiss();
+                    refreshPage();
+                }
+            });
+        }
     }
 
     @Override
     protected void initRequestData() {
+        refreshPage();
+
+    }
+
+    private boolean haschangeReserviors;
+    private void refreshPage(){
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
         String reservoirId =  reservoirBean.getReservoirId();
+        tv_reservoir_name.setText(reservoirBean.getReservoir());
+        LogUtil.e("当前默认水库id--------------"+reservoirBean.getReservoirId());
         if(!reservoirId.equals(oldReserviorId)){
+            haschangeReserviors = true;
             oldReserviorId = reservoirId;
             if(viewPager.getCurrentItem() == 0){
                 LogUtil.e("刷新水位------------");
-                waterLevelFragment.search(true);
+                waterLevelFragment.refresh(true);
             }else{
                 LogUtil.e("刷新应急------------");
-                emergencyFragment.search(true);
+                emergencyFragment.refresh(true);
             }
 
         }
-
     }
 
     private void clearData(){
@@ -124,8 +175,38 @@ public class ReportFragment extends BaseCommonFragment{
         tabLayout.addTab(tabLayout.newTab().setCustomView(tab_icon("应急情况",R.drawable.bg_report_emergence_tab)));
 
         //Tablayout自定义view绑定ViewPager 自定义view时使用 tabLayout.setupWithViewPager(viewPager);方法关联无效，通过以下方法进行viewpager和tablayout的关联
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+        viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                viewPager.setCurrentItem(position);
+
+                if (haschangeReserviors) {
+                    haschangeReserviors = false;
+                    if(viewPager.getCurrentItem() == 0){
+                        LogUtil.e("刷新水位------------");
+                        waterLevelFragment.refresh(true);
+                    }else{
+                        LogUtil.e("刷新应急------------");
+                        emergencyFragment.refresh(true);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 

@@ -26,12 +26,17 @@
 
 
         <include layout="@layout/fragment_shuiwei_head_new_layout"/>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srfl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/shuiweiRec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
 

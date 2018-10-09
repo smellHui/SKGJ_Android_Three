@@ -1,71 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data></data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/background_common"
-        >
-        <include layout="@layout/toolbar"/>
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/meNameTv"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <include layout="@layout/toolbar" />
 
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/meTotalsTv"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/positionTv"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/manageNameTv"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/phoneNumTv"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/contentLy"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:padding="10dp"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/bizRy"
+            <TextView
+                android:id="@+id/meNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/meTotalsTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/positionTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/manageNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/phoneNumTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="10dp"
+                android:visibility="visible">
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/bizRy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <include
+            android:visibility="gone"
+            android:id="@+id/includeEmpty"
+            layout="@layout/view_empty_list_view"/>
     </LinearLayout>
 </layout>

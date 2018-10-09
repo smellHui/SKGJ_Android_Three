@@ -74,6 +74,7 @@ public class JiShuRePortDetailResponse extends BaseResponse{
         private List<ISysFileUploadsBean> images;
         private List<ISysFileUploadsBean> videos;
         private List<?> bizProblemFlows;
+        private String remarks;
 
         public String getProblemId() {
             return problemId;
@@ -241,6 +242,14 @@ public class JiShuRePortDetailResponse extends BaseResponse{
 
         public void setBizProblemFlows(List<?> bizProblemFlows) {
             this.bizProblemFlows = bizProblemFlows;
+        }
+
+        public String getRemarks() {
+            return remarks;
+        }
+
+        public void setRemarks(String remarks) {
+            this.remarks = remarks;
         }
 
         public static class ISysFileUploadsBean {

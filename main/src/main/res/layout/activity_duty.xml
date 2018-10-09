@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="5dp" />
 
-        <FrameLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -40,8 +41,9 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/dutyNameTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:gravity="right"
@@ -50,14 +52,15 @@
                 android:textColor="#2e3748"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-        </FrameLayout>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp" />
 
 
-        <FrameLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -78,17 +81,18 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="@dimen/left_15"
                 android:id="@+id/workContentTv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:gravity="right"
                 android:layout_marginRight="@dimen/left_15"
                 android:text="--"
                 android:textColor="#2e3748"
                 android:textSize="18sp"
-                android:textStyle="bold" />
-        </FrameLayout>
+                />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
@@ -106,7 +110,6 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="@dimen/left_15"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@drawable/zhize_2"
                 android:drawablePadding="10dp"
                 android:text="负责水库"
                 android:textColor="@color/text_color"

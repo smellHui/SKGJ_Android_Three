@@ -3,6 +3,7 @@ package com.tepia.main.view.mainworker.report;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -148,6 +149,15 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
             }
         });
 
+        SwipeRefreshLayout srflContainer = findView(R.id.srfl_container);
+        srflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh(false);
+                srflContainer.setRefreshing(false);
+            }
+        });
+
     }
 
     /**
@@ -175,7 +185,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
      * 查询水情列表（即水位）
      * @param isshowloadiing
      */
-    public void search(boolean isshowloadiing) {
+    private void search(boolean isshowloadiing) {
         getReservoirId();
         adapterShuiweiReservoirs.setEnableLoadMore(false);
         dataList.clear();
@@ -186,6 +196,17 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
         if (yunWeiJiShuPresenter != null) {
             yunWeiJiShuPresenter.listStRsvrRRByReservoir(reservoirId, startData, endData, String.valueOf(currentPage), String.valueOf(pageSize),isshowloadiing);
         }
+    }
+
+    /**
+     * 刷新
+     */
+    public void refresh(boolean isshowloading){
+        first = true;
+        endData = TimeFormatUtils.getStringDate();
+        startData = TimeFormatUtils.getNextDay(endData, "-1");
+        mstarttimeTv.setText(endData);
+        search(isshowloading);
     }
 
     @Override

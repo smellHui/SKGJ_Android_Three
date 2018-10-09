@@ -4,8 +4,11 @@ package com.tepia.main.view.mainworker.report;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -51,6 +54,8 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     private List<EmergenceListBean.DataBean.ListBean> dataList = new ArrayList<>();
     private String startData,endData;
     private String reservoirId;
+    private static int REQUEST_DELETE_CODE= 200;
+
 
     public EmergencyFragment() {
         // Required empty public constructor
@@ -127,6 +132,14 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
                 return null;
             }
         });
+        SwipeRefreshLayout srflContainer = findView(R.id.srfl_container);
+        srflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh(false);
+                srflContainer.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -161,7 +174,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
      * 查询应急情况列表
      * @param isshowloadiing
      */
-    public void search(boolean isshowloadiing) {
+    private void search(boolean isshowloadiing) {
         getReservoirId();
         adapterShuiweiReservoirs.setEnableLoadMore(false);
         dataList.clear();
@@ -172,6 +185,17 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
         if (mPresenter != null) {
             mPresenter.getProblemList(reservoirId, "","",startData, endData, String.valueOf(currentPage), String.valueOf(pageSize),isshowloadiing);
         }
+    }
+
+    /**
+     * 刷新
+     */
+    public void refresh(boolean isshowloading){
+        first = true;
+        endData = TimeFormatUtils.getStringDate();
+        startData = TimeFormatUtils.getNextDay(endData, "-1");
+        mstarttimeTv.setText(endData);
+        search(isshowloading);
     }
 
     @Override
@@ -230,11 +254,26 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_DELETE_CODE){
+            refresh(true);
+        }
+    }
+
+
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.shangbaoTv) {
            Intent intent = new Intent();
            intent.setClass(getBaseActivity(),EmergencyReportActivity.class);
-           startActivity(intent);
+            ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+            Bundle bundle = new Bundle();
+            bundle.putString("reservoirId",reservoirBean.getReservoirId());
+            bundle.putString("reservoir",reservoirBean.getReservoir());
+            intent.putExtras(bundle);
+            startActivityForResult(intent,REQUEST_DELETE_CODE);
         } else if (v.getId() == R.id.sureSearchTv) {
             search(true);
         }else if(v.getId() == R.id.mstarttimeTv){
