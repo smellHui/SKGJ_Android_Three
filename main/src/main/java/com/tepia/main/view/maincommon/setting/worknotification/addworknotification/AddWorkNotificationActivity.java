@@ -57,7 +57,7 @@ public class AddWorkNotificationActivity extends MVPBaseActivity<AddWorkNotifica
         mBinding.loSelectReservoir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ARouter.getInstance().build(AppRoutePath.app_select_reservor).navigation();
+//                ARouter.getInstance().build(AppRoutePath.app_select_reservor).navigation();
             }
         });
     }

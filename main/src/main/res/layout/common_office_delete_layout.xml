@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/officeLy"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/jianjie_fujian_bg"
+        android:gravity="center_vertical"
+       >
+
+        <ImageView
+            android:id="@+id/officeIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/jianjie_word" />
+
+        <TextView
+            android:id="@+id/officeTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/officeIv"
+            android:text="水库安全管理...课件.doc"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:textSize="15sp" />
+
+
+            <ImageView
+                android:padding="10dp"
+                android:id="@+id/officeDownloadTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/train_delete"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

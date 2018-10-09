@@ -42,6 +42,8 @@ public class TrainListAdapter extends BaseQuickAdapter<TrainListResponse.DataBea
                     .load(files.get(0).getFilePath())
                     .apply(ConfigConsts.options)
                     .into(ivTrain);
+        }else {
+            ivTrain.setImageResource(R.mipmap.icon_empty);
         }
     }
 }

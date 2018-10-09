@@ -15,8 +15,9 @@ import java.util.List;
  **/
 public class TrainDetailResponse extends BaseResponse{
 
+
     /**
-     * data : {"id":"2e729e0243904a66864824a53ee31408","userCode":"a9ee6587f9ef46c2a6a8953a2c6dde62","trainTitle":"人工智能","position":"上海","trainDate":"2018-09-19 10:00:00","trainContent":"世界人工智能大会召开","organizeCompany":"政府","status":"0","createBy":"a9ee6587f9ef46c2a6a8953a2c6dde62","createDate":"2018-09-27 15:11:35","files":[{"fileName":"视频播放脚本.doc","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/27/视频播放脚本.doc","fileType":"doc"},{"fileName":"cover_img.jpg","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/27/cover_img.jpg","fileType":"jpg"},{"fileName":"图层6.png","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/27/图层6.png","fileType":"png"}]}
+     * data : {"id":"d467d2e237144a38900b35e1f3b53a75","userCode":"501bb19b45d44caf9807d6ba55db27ae","trainTitle":"安全专会","position":"播州水务局","trainDate":"2018-09-11 10:00:00","trainContent":"安全第一","organizeCompany":"水利局","status":"0","createBy":"501bb19b45d44caf9807d6ba55db27ae","createDate":"2018-09-18 10:47:05","files":[{"fileId":"fc15eb12036543018bb0cc4694727e6c","fileName":"04200170041121440060.pdf","bizType":"trainFile","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/trainFiles/2018-10/08/04200170041121440060.pdf"}],"images":[{"fileId":"b52831632b964560b1bdf134188423d6","fileName":"锣鼓.png","bizType":"trainImg","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/trainImg/2018-10/08/锣鼓.png"}]}
      */
 
     private DataBean data;
@@ -31,17 +32,18 @@ public class TrainDetailResponse extends BaseResponse{
 
     public static class DataBean {
         /**
-         * id : 2e729e0243904a66864824a53ee31408
-         * userCode : a9ee6587f9ef46c2a6a8953a2c6dde62
-         * trainTitle : 人工智能
-         * position : 上海
-         * trainDate : 2018-09-19 10:00:00
-         * trainContent : 世界人工智能大会召开
-         * organizeCompany : 政府
+         * id : d467d2e237144a38900b35e1f3b53a75
+         * userCode : 501bb19b45d44caf9807d6ba55db27ae
+         * trainTitle : 安全专会
+         * position : 播州水务局
+         * trainDate : 2018-09-11 10:00:00
+         * trainContent : 安全第一
+         * organizeCompany : 水利局
          * status : 0
-         * createBy : a9ee6587f9ef46c2a6a8953a2c6dde62
-         * createDate : 2018-09-27 15:11:35
-         * files : [{"fileName":"视频播放脚本.doc","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/27/视频播放脚本.doc","fileType":"doc"},{"fileName":"cover_img.jpg","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/27/cover_img.jpg","fileType":"jpg"},{"fileName":"图层6.png","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/27/图层6.png","fileType":"png"}]
+         * createBy : 501bb19b45d44caf9807d6ba55db27ae
+         * createDate : 2018-09-18 10:47:05
+         * files : [{"fileId":"fc15eb12036543018bb0cc4694727e6c","fileName":"04200170041121440060.pdf","bizType":"trainFile","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/trainFiles/2018-10/08/04200170041121440060.pdf"}]
+         * images : [{"fileId":"b52831632b964560b1bdf134188423d6","fileName":"锣鼓.png","bizType":"trainImg","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/trainImg/2018-10/08/锣鼓.png"}]
          */
 
         private String id;
@@ -55,6 +57,7 @@ public class TrainDetailResponse extends BaseResponse{
         private String createBy;
         private String createDate;
         private List<FilesBean> files;
+        private List<ImagesBean> images;
 
         public String getId() {
             return id;
@@ -144,16 +147,34 @@ public class TrainDetailResponse extends BaseResponse{
             this.files = files;
         }
 
+        public List<ImagesBean> getImages() {
+            return images;
+        }
+
+        public void setImages(List<ImagesBean> images) {
+            this.images = images;
+        }
+
         public static class FilesBean {
             /**
-             * fileName : 视频播放脚本.doc
-             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/train/2018-09/27/视频播放脚本.doc
-             * fileType : doc
+             * fileId : fc15eb12036543018bb0cc4694727e6c
+             * fileName : 04200170041121440060.pdf
+             * bizType : trainFile
+             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/trainFiles/2018-10/08/04200170041121440060.pdf
              */
 
+            private String fileId;
             private String fileName;
+            private String bizType;
             private String filePath;
-            private String fileType;
+
+            public String getFileId() {
+                return fileId;
+            }
+
+            public void setFileId(String fileId) {
+                this.fileId = fileId;
+            }
 
             public String getFileName() {
                 return fileName;
@@ -163,6 +184,14 @@ public class TrainDetailResponse extends BaseResponse{
                 this.fileName = fileName;
             }
 
+            public String getBizType() {
+                return bizType;
+            }
+
+            public void setBizType(String bizType) {
+                this.bizType = bizType;
+            }
+
             public String getFilePath() {
                 return filePath;
             }
@@ -170,13 +199,51 @@ public class TrainDetailResponse extends BaseResponse{
             public void setFilePath(String filePath) {
                 this.filePath = filePath;
             }
+        }
 
-            public String getFileType() {
-                return fileType;
+        public static class ImagesBean {
+            /**
+             * fileId : b52831632b964560b1bdf134188423d6
+             * fileName : 锣鼓.png
+             * bizType : trainImg
+             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/trainImg/2018-10/08/锣鼓.png
+             */
+
+            private String fileId;
+            private String fileName;
+            private String bizType;
+            private String filePath;
+
+            public String getFileId() {
+                return fileId;
             }
 
-            public void setFileType(String fileType) {
-                this.fileType = fileType;
+            public void setFileId(String fileId) {
+                this.fileId = fileId;
+            }
+
+            public String getFileName() {
+                return fileName;
+            }
+
+            public void setFileName(String fileName) {
+                this.fileName = fileName;
+            }
+
+            public String getBizType() {
+                return bizType;
+            }
+
+            public void setBizType(String bizType) {
+                this.bizType = bizType;
+            }
+
+            public String getFilePath() {
+                return filePath;
+            }
+
+            public void setFilePath(String filePath) {
+                this.filePath = filePath;
             }
         }
     }

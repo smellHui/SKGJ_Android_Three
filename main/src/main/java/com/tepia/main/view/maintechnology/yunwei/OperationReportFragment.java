@@ -21,6 +21,7 @@ import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
@@ -30,6 +31,7 @@ import com.tepia.main.utils.TimePickerDialogUtil;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
+import com.tepia.main.view.mainworker.report.EmergenceSearchDetailActivity;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -130,9 +132,15 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
             },1000);
         },rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
-            Intent bundle = new Intent(getActivity(),JiShuReportDetailActivity.class);
-            bundle.putExtra("item",dataList.get(position));
-            startActivity(bundle);
+//            Intent bundle = new Intent(getActivity(),JiShuReportDetailActivity.class);
+//            bundle.putExtra("item",dataList.get(position));
+//            startActivity(bundle);
+            Intent intent = new Intent();
+            intent.setClass(getBaseActivity(),EmergenceSearchDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
     }
 
@@ -303,6 +311,8 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 //                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
 //                    selectFinish(selectedYunWeiType, selectedResrvoir);
 //                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    ReservoirBean selectedResrvoir = localReservoirList.get(position);
+                    com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     tvReservoir.setText(stringItems[position]);
                     dialog.dismiss();
                 }

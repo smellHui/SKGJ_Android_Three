@@ -184,8 +184,9 @@ public class ThreePointListFragment extends BaseCommonFragment {
         });
         tvSelectReservoir.setOnClickListener(v -> {
 //            setAnchorView : 设置下拉列表的参照控件。下拉列表在显示时将展现在参照控件的下方，注意：如果不设置参照控件就直接调用show函数，系统不知道要把下拉列表在何处展示，只能是异常退出了。
-            mPopup.setAnchorView(v);
-            mPopup.show();
+//            mPopup.setAnchorView(v);
+//            mPopup.show();
+            showSelectReservoir();
         });
     }
 
@@ -239,6 +240,8 @@ public class ThreePointListFragment extends BaseCommonFragment {
 //                    selectFinish(selectedYunWeiType, selectedResrvoir);
 //                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
                     tvReservoirName.setText(stringItems[position]);
+                    ReservoirBean selectedResrvoir = localReservoirList.get(position);
+                    com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     dialog.dismiss();
                 }
             });

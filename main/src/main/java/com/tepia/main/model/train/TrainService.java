@@ -52,10 +52,18 @@ public interface TrainService {
                                                    @Query("id") String id
     );
 
+    /**
+     * 新增培训
+     * @param token
+     * @param parts
+     * @param pathList
+     * @return
+     */
     @Multipart
     @POST("app/userTrain/addUserTrain")
     Observable<BaseResponse> addUserTrain(@Header("Authorization") String token,
                                           @PartMap Map<String, RequestBody> parts,
-                                          @Part List<MultipartBody.Part> pathList
+                                          @Part List<MultipartBody.Part> pathList,
+                                          @Part List<MultipartBody.Part> photoList
     );
 }

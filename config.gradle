@@ -106,6 +106,14 @@ ext {
             jpush                        : 'cn.jiguang.sdk:jpush:3.1.1',
             jcore                        : 'cn.jiguang.sdk:jcore:1.1.9',
             //pdf在线加载
-            pdfview                      : 'com.github.barteksc:android-pdf-viewer:2.8.2'
+            pdfview                      : 'com.github.barteksc:android-pdf-viewer:2.8.2',
+
+            //下载
+            aria                         : 'com.arialyy.aria:aria-core:3.5',
+            ariaCompiler                 : 'com.arialyy.aria:aria-compiler:3.5',
+            MVVM2                        : 'com.arialyy.frame:MVVM2:2.2.0',
+
+            //选择附件
+            iFileSelected                : 'com.leon:lfilepickerlibrary:1.8.0',
     ]
 }

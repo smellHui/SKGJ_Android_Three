@@ -388,6 +388,8 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
 //                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
 //                    selectFinish(selectedYunWeiType, selectedResrvoir);
 //                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    ReservoirBean selectedResrvoir = localReservoirList.get(position);
+                    com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     tvReservoir.setText(stringItems[position]);
                     dialog.dismiss();
                 }

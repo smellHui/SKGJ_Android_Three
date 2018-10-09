@@ -50,21 +50,31 @@ public class TrainManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<BaseResponse> addUserTrain(String trainTitle, String position, String trainContent, String organizeCompany, String trainDate, ArrayList<String> selectFiles){
+    public Observable<BaseResponse> addUserTrain(String trainTitle, String position, String trainContent, String organizeCompany, String trainDate,ArrayList<String> selectPhotos,ArrayList<String> files){
         Map<String, RequestBody> params = new HashMap<>();
         params.put("trainTitle",RetrofitManager.convertToRequestBody(trainTitle));
         params.put("position",RetrofitManager.convertToRequestBody(position));
         params.put("trainContent",RetrofitManager.convertToRequestBody(trainContent));
         params.put("organizeCompany",RetrofitManager.convertToRequestBody(organizeCompany));
         params.put("trainDate",RetrofitManager.convertToRequestBody(trainDate));
-        List<File> fileList = new ArrayList<>();
-        for (int i = 0; i < selectFiles.size(); i++) {
-            File file = new File(selectFiles.get(i));
-            fileList.add(file);
+        List<File> photoList = new ArrayList<>();
+        if (selectPhotos!=null&&selectPhotos.size()>0){
+            for (int i = 0; i < selectPhotos.size(); i++) {
+                File file = new File(selectPhotos.get(i));
+                photoList.add(file);
+            }
         }
-        List<MultipartBody.Part> pathList = RetrofitManager.filesToMultipartBodyParts("files",fileList);
+        List<File> fileList = new ArrayList<>();
+        if (files!=null&&files.size()>0){
+            for (int i = 0; i < files.size(); i++) {
+                File file = new File(files.get(i));
+                fileList.add(file);
+            }
+        }
+        List<MultipartBody.Part> imagesList = RetrofitManager.filesToMultipartBodyParts("images",photoList);
+        List<MultipartBody.Part> fileLists = RetrofitManager.filesToMultipartBodyParts("files",fileList);
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.addUserTrain(token,params,pathList)  .subscribeOn(Schedulers.io())
+        return mRetrofitService.addUserTrain(token,params,fileLists,imagesList)  .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

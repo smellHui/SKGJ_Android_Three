@@ -2,22 +2,21 @@ package com.tepia.main.view.maincommon.setting.train;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.main.R;
-import com.tepia.main.model.plan.PlanListResponse;
 import com.tepia.main.model.train.TrainContract;
 import com.tepia.main.model.train.TrainListResponse;
 import com.tepia.main.model.train.TrainPresenter;
 import com.tepia.main.utils.EmptyLayoutUtil;
+import com.tepia.main.view.main.jihua.AddPlanActivity;
 import com.tepia.main.view.maincommon.setting.adapter.AdapterTrainDetail;
 import com.tepia.main.view.maincommon.setting.adapter.TrainListAdapter;
-import com.tepia.main.view.maintechnology.yunwei.JiShuReportDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +83,8 @@ public class TrainActivity extends BaseActivity {
         peixunRec.setAdapter(adapterPeixunDetail);
 */
         srl = findViewById(R.id.srl);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab.setOnClickListener(view1 -> startActivityForResult(new Intent(TrainActivity.this, AddTrainActivity.class), 1));
         initSwipeRefreshLayout();
         initRecycleView();
     }
@@ -209,5 +210,22 @@ public class TrainActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode){
+            case 1:
+                //新增培训返回
+                Bundle extras = data.getExtras();
+                if (extras!=null){
+                    boolean isAddPlan =extras.getBoolean("isAddPlan");
+//                    LogUtil.i("isAddPlan:"+isAddPlan);
+                    if (isAddPlan){
+                        search();
+                    }
+                }
+        }
     }
 }

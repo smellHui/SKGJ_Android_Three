@@ -2,6 +2,7 @@ package com.tepia.main.view.mainadminister.yunwei;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
@@ -18,6 +20,7 @@ import com.tepia.main.view.maintechnology.yunwei.JiShuReportDetailActivity;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
+import com.tepia.main.view.mainworker.report.EmergenceSearchDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -129,10 +132,16 @@ public class AdminOperationReportActivity extends BaseActivity {
             },1000);
         },rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
-            LogUtil.i("position:"+position);
-            Intent bundle = new Intent(AdminOperationReportActivity.this,JiShuReportDetailActivity.class);
-            bundle.putExtra("item",dataList.get(position));
-            startActivity(bundle);
+//            LogUtil.i("position:"+position);
+//            Intent bundle = new Intent(AdminOperationReportActivity.this,JiShuReportDetailActivity.class);
+//            bundle.putExtra("item",dataList.get(position));
+//            startActivity(bundle);
+            Intent intent = new Intent();
+            intent.setClass(this,EmergenceSearchDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
     }
 

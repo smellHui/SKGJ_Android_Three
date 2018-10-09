@@ -3,6 +3,8 @@ package com.tepia.main.model.train;
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
 
+import java.util.ArrayList;
+
 /**
  * Created by      Intellij IDEA
  *
@@ -20,5 +22,6 @@ public class TrainContract {
     interface Presenter extends BasePresenter<TrainContract.View>{
         void getTrainList(String currentPage,String pageSize);
         void getTrainDetail(String id);
+        void addTrain(String trainTitle,String position,String trainContent,String organizeCompany,String trainDate,ArrayList<String> selectPhotos,ArrayList<String> files);
     }
 }

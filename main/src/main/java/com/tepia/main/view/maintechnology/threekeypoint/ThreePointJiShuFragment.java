@@ -74,7 +74,7 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
         ThreePointTabFragment fragment3 = new ThreePointTabFragment();
         Bundle bundle3 = new Bundle();
         bundle3.putInt("position",2);
-        fragment3.setArguments(bundle);
+        fragment3.setArguments(bundle3);
         mFragments.add(fragment3);
         ThreePointTabPageAdapter tabPageAdapter = new ThreePointTabPageAdapter(getFragmentManager(), mFragments);
         viewPager.setAdapter(tabPageAdapter);
