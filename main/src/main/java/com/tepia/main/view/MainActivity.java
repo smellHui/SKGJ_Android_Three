@@ -72,7 +72,7 @@ import cn.jpush.android.api.JPushInterface;
 @Route(path = AppRoutePath.appMain)
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
-//    private TabFragmentHost mTabHost;
+    //    private TabFragmentHost mTabHost;
     private FragmentTabHost mTabHost;
 
     /**
@@ -87,6 +87,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      * 暂时暂时身份标识 等接口 好之后 再改为动态菜单
      */
     private String valuestr;
+    private BadgeView badgeView;
 
 
     @Override
@@ -128,7 +129,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             @Override
             public void onTabChanged(String tabId) {
                 LogUtil.e("-------------切换fragment--------");
-
+                updateData();
             }
         });
 
@@ -223,16 +224,28 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     protected void initRequestData() {
 
 
+    }
+
+
+    private void updateData() {
         WorkNotificationManager.getInstance().findNotFeedBackCount().safeSubscribe(new LoadingSubject<NotFeedBackCountResponse>() {
             @Override
             protected void _onNext(NotFeedBackCountResponse notFeedBackCountResponse) {
 
                 if (notFeedBackCountResponse != null && notFeedBackCountResponse.getData() != 0) {
-                    BadgeView badgeView = new BadgeView(getContext(),  (View)findViewById(R.id.badgeView));
-                    badgeView.setText(notFeedBackCountResponse.getData()+"");
-                    badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-                    badgeView.setBadgeBackgroundColor(0xFFff0015);
-                    badgeView.show();
+                    if (badgeView == null) {
+                        badgeView = new BadgeView(getContext(), (View) findViewById(R.id.badgeView));
+                        badgeView.setText(notFeedBackCountResponse.getData() + "");
+                        badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+                        badgeView.setBadgeBackgroundColor(0xFFff0015);
+                        badgeView.show();
+                    } else {
+
+                        badgeView.setText(notFeedBackCountResponse.getData() + "");
+
+                    }
+                } else if (badgeView != null) {
+                    badgeView.setVisibility(View.GONE);
                 }
 
             }
@@ -242,7 +255,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
             }
         });
-
     }
 
 
@@ -323,7 +335,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         super.onResume();
         LogUtil.e("MainActivity", "极光推送before onresum状态getConnectionState：" + JPushInterface.getConnectionState(Utils.getContext()));
         LogUtil.e("MainActivity", "极光推送before onresum状态isPushStopped：" + JPushInterface.isPushStopped(Utils.getContext()));
-
+        updateData();
         if (JPushInterface.isPushStopped(Utils.getContext()) || !JPushInterface.getConnectionState(Utils.getContext())) {
             LogUtil.e("MainActivity", "MainActivity极光推送已停止，正在重新开启");
             //极光推送

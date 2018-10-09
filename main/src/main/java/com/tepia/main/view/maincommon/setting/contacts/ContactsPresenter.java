@@ -18,7 +18,7 @@ public class ContactsPresenter extends BasePresenterImpl<ContactsContract.View> 
     public boolean isCanLoadMore = true;
 
     public void getAddressBook(String searchKey) {
-
+        currentPage = 1;
         UserManager.getInstance_ADMIN().getAddressBook(searchKey, currentPage + "", pageSize).safeSubscribe(new LoadingSubject<AddressBookResponse>() {
             @Override
             protected void _onNext(AddressBookResponse addressBookResponse) {

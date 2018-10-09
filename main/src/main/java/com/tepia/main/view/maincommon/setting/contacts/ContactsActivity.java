@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityContactsBinding;
@@ -78,6 +79,9 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
         adapterContactsList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
                 if (!TextUtils.isEmpty(adapterContactsList.getData().get(position).getMobile())) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     Uri data = Uri.parse("tel:" + adapterContactsList.getData().get(position).getMobile());

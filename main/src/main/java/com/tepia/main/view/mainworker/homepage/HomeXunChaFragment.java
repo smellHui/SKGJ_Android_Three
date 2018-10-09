@@ -351,22 +351,22 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         if (data.getExecuteFrequency() != null) {
             if (data.getExecuteFrequency().getInspection() != null) {
                 mBinding.loXunjianFrequency.loFrequency.setVisibility(View.VISIBLE);
-                mBinding.loXunjianFrequency.tvDaily.setText(data.getExecuteFrequency().getInspection().getNoFlood() + "天/次");
-                mBinding.loXunjianFrequency.tvFlood.setText(data.getExecuteFrequency().getInspection().getFlood() + "天/次");
+                mBinding.loXunjianFrequency.tvDaily.setText(data.getExecuteFrequency().getInspection().getNoFlood() + "次/月");
+                mBinding.loXunjianFrequency.tvFlood.setText(data.getExecuteFrequency().getInspection().getFlood() + "次/月");
             } else {
                 mBinding.loXunjianFrequency.loFrequency.setVisibility(View.GONE);
             }
             if (data.getExecuteFrequency().getClean() != null) {
                 mBinding.loBaojieFrequency.loFrequency.setVisibility(View.VISIBLE);
-                mBinding.loBaojieFrequency.tvDaily.setText(data.getExecuteFrequency().getClean().getNoFlood() + "天/次");
-                mBinding.loBaojieFrequency.tvFlood.setText(data.getExecuteFrequency().getClean().getFlood() + "天/次");
+                mBinding.loBaojieFrequency.tvDaily.setText(data.getExecuteFrequency().getClean().getNoFlood() + "次/月");
+                mBinding.loBaojieFrequency.tvFlood.setText(data.getExecuteFrequency().getClean().getFlood() + "次/月");
             } else {
                 mBinding.loBaojieFrequency.loFrequency.setVisibility(View.GONE);
             }
             if (data.getExecuteFrequency().getMaintain() != null) {
                 mBinding.loWeihuFrequency.loFrequency.setVisibility(View.VISIBLE);
-                mBinding.loWeihuFrequency.tvDaily.setText(data.getExecuteFrequency().getMaintain().getNoFlood() + "天/次");
-                mBinding.loWeihuFrequency.tvFlood.setText(data.getExecuteFrequency().getMaintain().getFlood() + "天/次");
+                mBinding.loWeihuFrequency.tvDaily.setText(data.getExecuteFrequency().getMaintain().getNoFlood() + "次/月");
+                mBinding.loWeihuFrequency.tvFlood.setText(data.getExecuteFrequency().getMaintain().getFlood() + "次/月");
             } else {
                 mBinding.loWeihuFrequency.loFrequency.setVisibility(View.GONE);
             }
@@ -469,7 +469,6 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         AgentWeb.with(this)
                 .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
                 .setIndicatorColorWithHeight(-1, 2)
-                .setSecurityType(AgentWeb.SecurityType.strict)
                 .createAgentWeb()
                 .ready()
                 .go(host + prarm);

@@ -53,6 +53,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
     private Context mContext;
     private MySettingView worknotificationMv;
+    private BadgeView badgeView;
 
 
     @Override
@@ -74,16 +75,32 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
     @Override
     protected void initRequestData() {
+
+
+
+    }
+
+
+
+    private void updateData() {
         WorkNotificationManager.getInstance().findNotFeedBackCount().safeSubscribe(new LoadingSubject<NotFeedBackCountResponse>() {
             @Override
             protected void _onNext(NotFeedBackCountResponse notFeedBackCountResponse) {
-                worknotificationMv.getSecondtitleTv().setVisibility(View.VISIBLE);
-                worknotificationMv.getSecondtitleTv().setText("          ");
-                BadgeView badgeView = new BadgeView(getContext(), worknotificationMv.getSecondtitleTv());
-                badgeView.setText("" + notFeedBackCountResponse.getData());
-                badgeView.setBadgePosition(BadgeView.POSITION_CENTER);
-                badgeView.setBadgeBackgroundColor(0xFFff0015);
-                badgeView.show();
+                if (notFeedBackCountResponse != null && notFeedBackCountResponse.getData() != 0) {
+                    worknotificationMv.getSecondtitleTv().setVisibility(View.VISIBLE);
+                    worknotificationMv.getSecondtitleTv().setText("          ");
+                    if (badgeView == null) {
+                        badgeView = new BadgeView(getContext(), worknotificationMv.getSecondtitleTv());
+                        badgeView.setText("" + notFeedBackCountResponse.getData());
+                        badgeView.setBadgePosition(BadgeView.POSITION_CENTER);
+                        badgeView.setBadgeBackgroundColor(0xFFff0015);
+                        badgeView.show();
+                    }else {
+                        badgeView.setText("" + notFeedBackCountResponse.getData());
+                    }
+                }else if (badgeView != null){
+                    badgeView.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -91,7 +108,6 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
             }
         });
-
     }
 
     @Override
@@ -259,7 +275,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         if (NetUtil.isNetworkConnected(getBaseActivity())) {
             saveUserInfoBean();
         }
-
+        updateData();
     }
 
     @Override

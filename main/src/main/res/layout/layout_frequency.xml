@@ -65,7 +65,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="日常频率(次)"
+                        android:text="日常频率 "
                         android:textColor="#979eab"
                         android:textSize="12dp" />
                 </LinearLayout>
@@ -102,7 +102,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="汛期频率(次)  "
+                        android:text="汛期频率   "
                         android:textColor="#979eab"
                         android:textSize="12dp" />
                 </LinearLayout>
