@@ -4,11 +4,13 @@ package com.tepia.main.view.maincommon.setting.worknotification.worknotification
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWorkNotificationDetailBinding;
 import com.tepia.main.model.image.ImageInfoBean;
@@ -41,6 +43,7 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
     private MyFIleListAdapter myFIleListAdapter;
     private ArrayList<String> images = new ArrayList<>();
     private ImageShowAdapter imageShowAdapter;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_work_notification_detail;
@@ -74,7 +77,11 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
         mBinding.tvFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.feedBackWorkNotice(noticeFeedbackId,mBinding.rtFeedback.getText().toString());
+                if (TextUtils.isEmpty(mBinding.rtFeedback.getText().toString())) {
+                    ToastUtils.shortToast("请输入反馈内容");
+                } else {
+                    mPresenter.feedBackWorkNotice(noticeFeedbackId, mBinding.rtFeedback.getText().toString());
+                }
             }
         });
     }
@@ -95,7 +102,7 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
         adapterFeedBackList.setNewData(data.getFeedbackList());
         if (data.getFeedBackStatus() != null && data.getFeedBackStatus().equals("0")) {
             mBinding.loFeedBack.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mBinding.loFeedBack.setVisibility(View.GONE);
 
         }
@@ -105,7 +112,7 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
     @Override
     public void feedBackWorkNoticeSuccess() {
         mBinding.loFeedBack.setVisibility(View.GONE);
-        mPresenter.getWorkNoticeDetail(noticeFeedbackId,noticeId);
+        mPresenter.getWorkNoticeDetail(noticeFeedbackId, noticeId);
     }
 
     private void initRecycle() {
@@ -153,7 +160,7 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
                 filesBeanList.add(files1.get(i));
             }
             myFIleListAdapter.notifyDataSetChanged();
-        }else {
+        } else {
 
         }
     }

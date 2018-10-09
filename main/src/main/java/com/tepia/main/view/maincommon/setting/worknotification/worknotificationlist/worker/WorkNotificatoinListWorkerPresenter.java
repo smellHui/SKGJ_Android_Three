@@ -2,7 +2,9 @@ package com.tepia.main.view.maincommon.setting.worknotification.worknotification
 
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.main.R;
 import com.tepia.main.model.worknotification.FeedBackWorkNoticeListResponse;
 import com.tepia.main.model.worknotification.WorkNotificationManager;
 
@@ -15,19 +17,20 @@ import com.tepia.main.model.worknotification.WorkNotificationManager;
 public class WorkNotificatoinListWorkerPresenter extends BasePresenterImpl<WorkNotificatoinListWorkerContract.View> implements WorkNotificatoinListWorkerContract.Presenter {
 
     int currentPage = 1;
-    String pageSize = "20";
+    String pageSize = "100";
 
     public void getWorkNoticeWorkerList() {
-        WorkNotificationManager.getInstance().getWorkNoticeWorkerList(currentPage+"",pageSize).safeSubscribe(new LoadingSubject<FeedBackWorkNoticeListResponse>() {
-            @Override
-            protected void _onNext(FeedBackWorkNoticeListResponse feedBackWorkNoticeListResponse) {
-                mView.getWorkNoticeWorkerListSuccess(feedBackWorkNoticeListResponse.getData().getList());
-            }
+        WorkNotificationManager.getInstance().getWorkNoticeWorkerList(currentPage + "", pageSize)
+                .safeSubscribe(new LoadingSubject<FeedBackWorkNoticeListResponse>(true, ResUtils.getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(FeedBackWorkNoticeListResponse feedBackWorkNoticeListResponse) {
+                        mView.getWorkNoticeWorkerListSuccess(feedBackWorkNoticeListResponse.getData().getList());
+                    }
 
-            @Override
-            protected void _onError(String message) {
-                ToastUtils.shortToast(message);
-            }
-        });
+                    @Override
+                    protected void _onError(String message) {
+                        ToastUtils.shortToast(message);
+                    }
+                });
     }
 }
