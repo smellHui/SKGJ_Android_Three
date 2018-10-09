@@ -10,6 +10,7 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
@@ -17,6 +18,7 @@ import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWorkNotificationListBinding;
 import com.tepia.main.model.worknotification.FeedBackWorkNoticeBean;
+import com.tepia.main.model.worknotification.FeedBackWorkNoticeListResponse;
 
 
 import java.util.List;
@@ -71,10 +73,30 @@ public class WorkNotificatoinListWorkerActivity extends MVPBaseActivity<WorkNoti
                         .navigation();
             }
         });
+        adapterWorkNotificationWorkerList.openLoadAnimation();
+        adapterWorkNotificationWorkerList.setEnableLoadMore(true);
+        adapterWorkNotificationWorkerList.setLoadMoreView(new SimpleLoadMoreView());
+        adapterWorkNotificationWorkerList.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mBinding.rvWorkNotificationList.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mPresenter.isCanLoadMore) {
+                            mPresenter.getWorkNoticeListMore();
+
+                        } else {
+                            adapterWorkNotificationWorkerList.loadMoreEnd();
+                        }
+                    }
+                }, 1000);
+            }
+        },mBinding.rvWorkNotificationList);
         mBinding.srflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mBinding.srflContainer.setRefreshing(false);
+                mPresenter.getWorkNoticeListMore();
             }
         });
     }
@@ -93,5 +115,18 @@ public class WorkNotificatoinListWorkerActivity extends MVPBaseActivity<WorkNoti
             View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
             adapterWorkNotificationWorkerList.setEmptyView(view);
         }
+    }
+
+    @Override
+    public void getWorkNoticeWorkerListMoreSuccess(FeedBackWorkNoticeListResponse.DataBean dataBean) {
+        int i = dataBean.getStartRow() - 1;
+        for (int j = 0; j < dataBean.getList().size(); j++) {
+            if (!adapterWorkNotificationWorkerList.getData().contains(dataBean.getList().get(j))) {
+                adapterWorkNotificationWorkerList.addData(i + j, dataBean.getList().get(j));
+            } else {
+                adapterWorkNotificationWorkerList.setData(i + j, dataBean.getList().get(j));
+            }
+        }
+        adapterWorkNotificationWorkerList.loadMoreComplete();
     }
 }

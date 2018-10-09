@@ -98,13 +98,14 @@ public class WorkNotificationDetailWorkerActivity extends MVPBaseActivity<WorkNo
         mBinding.tvPeople.setText("通知发布人:\t\t" + data.getUserName());
         mBinding.tvTime.setText("通知时间:\t\t\t" + data.getCreateDate());
         mBinding.tvReservoir.setVisibility(View.GONE);
-        mBinding.tvStatus.setVisibility(View.GONE);
+        mBinding.tvStatus.setVisibility(View.VISIBLE);
         adapterFeedBackList.setNewData(data.getFeedbackList());
         if (data.getFeedBackStatus() != null && data.getFeedBackStatus().equals("0")) {
             mBinding.loFeedBack.setVisibility(View.VISIBLE);
+            mBinding.tvStatus.setText("反馈状态:\t\t\t"+"未反馈");
         } else {
             mBinding.loFeedBack.setVisibility(View.GONE);
-
+            mBinding.tvStatus.setText("反馈状态:\t\t\t"+"已反馈");
         }
         refreshView(data);
     }

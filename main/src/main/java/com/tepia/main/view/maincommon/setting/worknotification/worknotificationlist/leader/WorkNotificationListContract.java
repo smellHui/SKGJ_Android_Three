@@ -3,6 +3,7 @@ package com.tepia.main.view.maincommon.setting.worknotification.worknotification
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
 import com.tepia.main.model.worknotification.WorkNoticeBean;
+import com.tepia.main.model.worknotification.WorkNoticeListResponse;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class WorkNotificationListContract {
     interface View extends BaseView {
 
         void getWorkNoticeListSuccess(List<WorkNoticeBean> list);
+
+        void getWorkNoticeListSuccessMore(WorkNoticeListResponse.DataBean data);
     }
 
     interface  Presenter extends BasePresenter<View> {
