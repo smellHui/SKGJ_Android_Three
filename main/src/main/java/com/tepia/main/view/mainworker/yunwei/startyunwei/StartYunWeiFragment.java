@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -14,6 +15,7 @@ import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.R;
@@ -258,11 +260,18 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
             DecimalFormat df = new DecimalFormat("#.0");
             mBinding.tvDealedPresent.setText(df.format(data.getDoneNum() * 100.0 / data.getTotals()) + "%");
         }
+
     }
 
     @Override
     public void getItemListByReservoirIdSuccess(List<TaskItemBean> data) {
         adapterTaskItemList.setNewData(data);
+        if (data == null && data.size() == 0){
+            adapterTaskItemList.getData().clear();
+            adapterTaskItemList.notifyDataSetChanged();
+            View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
+            adapterTaskItemList.setEmptyView(view);
+        }
     }
 
     @Override
