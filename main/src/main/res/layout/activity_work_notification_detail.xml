@@ -45,7 +45,7 @@
                             android:drawableLeft="@drawable/zhize_2"
                             android:drawablePadding="15dp"
                             android:padding="16dp"
-                            android:text="fkdasjkf"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -70,7 +70,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/icon_dian"
                                 android:drawablePadding="8dp"
-                                android:text="fkdasjkf"
+                                android:text=""
                                 android:textColor="#525a69" />
 
                             <TextView
@@ -80,7 +80,7 @@
                                 android:layout_marginTop="5dp"
                                 android:drawableLeft="@drawable/icon_dian"
                                 android:drawablePadding="8dp"
-                                android:text="fkdasjkf"
+                                android:text=""
                                 android:textColor="#525a69" />
 
                             <LinearLayout
@@ -115,7 +115,7 @@
                                 android:layout_marginTop="5dp"
                                 android:drawableLeft="@drawable/icon_dian"
                                 android:drawablePadding="8dp"
-                                android:text="fkdasjkf"
+                                android:text=""
                                 android:textColor="#525a69" />
 
                             <TextView
@@ -125,7 +125,7 @@
                                 android:layout_marginTop="5dp"
                                 android:drawableLeft="@drawable/icon_dian"
                                 android:drawablePadding="8dp"
-                                android:text="fkdasjkf"
+                                android:text=""
                                 android:textColor="#525a69" />
 
                             <android.support.v7.widget.RecyclerView
