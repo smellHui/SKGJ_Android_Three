@@ -37,16 +37,20 @@ import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
 import com.tepia.base.AppRoutePath;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
+import com.tepia.base.view.BadgeView;
 import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.model.worknotification.NotFeedBackCountResponse;
+import com.tepia.main.model.worknotification.WorkNotificationManager;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
 
@@ -147,7 +151,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         view = inflater.inflate(R.layout.tab_layout, null);
         ImageView imageView = view.findViewById(R.id.tabImg);
         imageView.setImageResource(imageId);
-
         TextView textView = view.findViewById(R.id.tabTv);
         textView.setText(title);
         return view;
@@ -218,8 +221,27 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     protected void initRequestData() {
-//        DictMapManager.getInstance().getDictMapEntity();
-//        setStatusBarTextDark();
+
+
+        WorkNotificationManager.getInstance().findNotFeedBackCount().safeSubscribe(new LoadingSubject<NotFeedBackCountResponse>() {
+            @Override
+            protected void _onNext(NotFeedBackCountResponse notFeedBackCountResponse) {
+
+                if (notFeedBackCountResponse != null && notFeedBackCountResponse.getData() != 0) {
+                    BadgeView badgeView = new BadgeView(getContext(),  (View)findViewById(R.id.badgeView));
+                    badgeView.setText(notFeedBackCountResponse.getData()+"");
+                    badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+                    badgeView.setBadgeBackgroundColor(0xFFff0015);
+                    badgeView.show();
+                }
+
+            }
+
+            @Override
+            protected void _onError(String message) {
+
+            }
+        });
 
     }
 

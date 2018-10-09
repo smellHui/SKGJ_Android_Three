@@ -24,16 +24,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <FrameLayout
                 android:id="@+id/realtabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
+
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="0dp"
@@ -56,6 +59,34 @@
                 android:visibility="visible" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:weightSum="5">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4" />
+
+                <TextView
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/badgeView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity=""
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </android.support.v4.app.FragmentTabHost>
 

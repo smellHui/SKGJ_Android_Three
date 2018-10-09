@@ -18,10 +18,13 @@ import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.BadgeView;
 import com.tepia.main.R;
 import com.tepia.main.common.MySettingView;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.model.worknotification.NotFeedBackCountResponse;
+import com.tepia.main.model.worknotification.WorkNotificationManager;
 import com.tepia.main.view.MenuItemBean;
 import com.tepia.main.view.TabMainFragmentFactory;
 import com.tepia.main.view.login.LoginActivity;
@@ -71,6 +74,23 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
     @Override
     protected void initRequestData() {
+        WorkNotificationManager.getInstance().findNotFeedBackCount().safeSubscribe(new LoadingSubject<NotFeedBackCountResponse>() {
+            @Override
+            protected void _onNext(NotFeedBackCountResponse notFeedBackCountResponse) {
+                worknotificationMv.getSecondtitleTv().setVisibility(View.VISIBLE);
+                worknotificationMv.getSecondtitleTv().setText("          ");
+                BadgeView badgeView = new BadgeView(getContext(), worknotificationMv.getSecondtitleTv());
+                badgeView.setText("" + notFeedBackCountResponse.getData());
+                badgeView.setBadgePosition(BadgeView.POSITION_CENTER);
+                badgeView.setBadgeBackgroundColor(0xFFff0015);
+                badgeView.show();
+            }
+
+            @Override
+            protected void _onError(String message) {
+
+            }
+        });
 
     }
 
@@ -184,7 +204,6 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         peixunMv.setIvLeft(R.drawable.s_peixun);
         zhizeMvMv.setTitle(getString(R.string.zhizestr));
         zhizeMvMv.setIvLeft(R.drawable.s_zhize);
-
 
 
         msgMv.setTitle(getString(R.string.phonestr));

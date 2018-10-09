@@ -72,6 +72,12 @@ public class WorkNotificationManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+    public Observable<NotFeedBackCountResponse> findNotFeedBackCount() {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.findNotFeedBackCount(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     public Observable<BaseResponse> addWorkNotice(String reservoirIds, String noticeTitle, String noticeContent, ArrayList<String> files, ArrayList<String> images) {
         String token = UserManager.getInstance().getToken();

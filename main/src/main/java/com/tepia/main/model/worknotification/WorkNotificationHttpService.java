@@ -78,4 +78,7 @@ interface WorkNotificationHttpService {
                                            @PartMap Map<String, RequestBody> params,
                                            @Part List<MultipartBody.Part> beforePathList,
                                            @Part List<MultipartBody.Part> imagesPathList);
+
+    @GET("app/appWorkNoticeFeedback/findNotFeedBackCount")
+    Observable<NotFeedBackCountResponse> findNotFeedBackCount(@Header("Authorization") String token);
 }

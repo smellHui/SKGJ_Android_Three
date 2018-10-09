@@ -17,7 +17,7 @@ import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWorkNotificationListBinding;
 import com.tepia.main.model.worknotification.FeedBackWorkNoticeBean;
-import com.tepia.main.view.maincommon.setting.worknotification.worknotificationlist.leader.AdapterWorkNotificationList;
+
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class WorkNotificatoinListWorkerActivity extends MVPBaseActivity<WorkNoti
 
     private void initListView() {
         mBinding.rvWorkNotificationList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterWorkNotificationWorkerList = new AdapterWorkNotificationWorkerList(R.layout.lv_work_notification_item, null);
+        adapterWorkNotificationWorkerList = new AdapterWorkNotificationWorkerList(R.layout.lv_work_notification_item_worker, null);
         mBinding.rvWorkNotificationList.setAdapter(adapterWorkNotificationWorkerList);
     }
 
