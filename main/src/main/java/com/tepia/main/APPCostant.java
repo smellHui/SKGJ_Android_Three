@@ -21,7 +21,7 @@ public class APPCostant {
      * 外网地址    http://weish.vipgz1.idcfengye.com
      * 鸭溪正式地址 http://218.201.212.243:8765
      */
-    public static String API_SERVER_URL = "http://192.168.30.127:8765/";
+    public static String API_SERVER_URL = "http://202.98.201.102:1341/";
     /**
      * 图片服务器地址
      */
