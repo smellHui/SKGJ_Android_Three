@@ -65,10 +65,10 @@ public class AdapterPatrolWorkOrderList extends BaseQuickAdapter<TaskBean, BaseV
                         mBinding.tvQusetion.setTextColor(Color.parseColor("#46c189"));
                     } else {
                         if (!TextUtils.isEmpty(item.getProblemNonNum())) {
-                            mBinding.tvQusetion.setText("" + item.getProblemNonNum() + "/" + item.getProblemNum());
+                            mBinding.tvQusetion.setText("" + item.getProblemDoneNum() + "/" + item.getProblemNum());
                             mBinding.tvQusetion.setTextColor(Color.parseColor("#e3654d"));
                         } else {
-                            mBinding.tvQusetion.setText("" + item.getProblemNum() + "/" + item.getProblemNum());
+                            mBinding.tvQusetion.setText("" + 0 + "/" + item.getProblemNum());
                             mBinding.tvQusetion.setTextColor(Color.parseColor("#46c189"));
                         }
 
