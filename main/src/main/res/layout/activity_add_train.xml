@@ -59,6 +59,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="#5f6166"
+                    android:maxLength="20"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -152,6 +153,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="#5f6166"
+                    android:maxLength="200"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -199,6 +201,7 @@
                     android:singleLine="true"
                     android:text=""
                     android:textColor="#000000"
+                    android:maxLength="50"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -286,6 +289,7 @@
                     android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="#5f6166"
+                    android:maxLength="200"
                     android:textSize="16sp" />
             </LinearLayout>
 
