@@ -48,6 +48,7 @@ import com.tepia.base.view.BadgeView;
 import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
+import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.model.worknotification.NotFeedBackCountResponse;
 import com.tepia.main.model.worknotification.WorkNotificationManager;
@@ -228,6 +229,26 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
 
     private void updateData() {
+        UserManager.getInstance().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>() {
+            @Override
+            protected void _onNext(ReservoirListResponse response) {
+                if (response.getCode() == 0) {
+                    UserManager.getInstance().saveReservoirList(response.getData());
+                    if (response.getData() != null && response.getData().size() > 0) {
+                        UserManager.getInstance().saveDefaultReservoir(response.getData().get(0));
+                    }
+
+                } else {
+
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+//                ToastUtils.shortToast(message);
+
+            }
+        });
         WorkNotificationManager.getInstance().findNotFeedBackCount().safeSubscribe(new LoadingSubject<NotFeedBackCountResponse>() {
             @Override
             protected void _onNext(NotFeedBackCountResponse notFeedBackCountResponse) {
