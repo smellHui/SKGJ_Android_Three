@@ -2,6 +2,8 @@ package com.tepia.main.view.maincommon.setting.worknotification.worknotification
 
 
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -96,14 +98,20 @@ public class WorkNotificatoinListWorkerActivity extends MVPBaseActivity<WorkNoti
             @Override
             public void onRefresh() {
                 mBinding.srflContainer.setRefreshing(false);
-                mPresenter.getWorkNoticeListMore();
+                mPresenter.getWorkNoticeWorkerList();
             }
         });
     }
 
     @Override
-    protected void initRequestData() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mPresenter.getWorkNoticeWorkerList();
+    }
+
+    @Override
+    protected void initRequestData() {
+
     }
 
     @Override

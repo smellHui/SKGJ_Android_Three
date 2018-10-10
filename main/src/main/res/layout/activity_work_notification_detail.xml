@@ -64,14 +64,29 @@
                             android:orientation="vertical"
                             android:padding="10dp">
 
-                            <TextView
-                                android:id="@+id/tv_time"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/icon_dian"
-                                android:drawablePadding="8dp"
-                                android:text=""
-                                android:textColor="#525a69" />
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableLeft="@drawable/icon_dian"
+                                    android:drawablePadding="8dp"
+                                    android:text="通知时间："
+                                    android:textColor="#525a69" />
+
+                                <TextView
+                                    android:id="@+id/tv_time"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:text=""
+                                    android:textColor="#525a69" />
+                            </LinearLayout>
+
 
                             <TextView
                                 android:id="@+id/tv_reservoir"
@@ -81,7 +96,8 @@
                                 android:drawableLeft="@drawable/icon_dian"
                                 android:drawablePadding="8dp"
                                 android:text=""
-                                android:textColor="#525a69" />
+                                android:textColor="#525a69"
+                                android:visibility="gone" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -89,44 +105,80 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
                                     android:drawableLeft="@drawable/icon_dian"
                                     android:drawablePadding="8dp"
-                                    android:text="通知内容：       "
+                                    android:text="通知内容:"
                                     android:textColor="#525a69" />
 
                                 <TextView
                                     android:id="@+id/tv_desc"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
+                                    android:layout_weight="2"
                                     android:text=""
                                     android:textColor="#525a69" />
 
                             </LinearLayout>
 
 
-                            <TextView
-                                android:id="@+id/tv_people"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:drawableLeft="@drawable/icon_dian"
-                                android:drawablePadding="8dp"
-                                android:text=""
-                                android:textColor="#525a69" />
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tv_status"
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:drawableLeft="@drawable/icon_dian"
+                                    android:drawablePadding="8dp"
+                                    android:text="通知发布人："
+                                    android:textColor="#525a69" />
+
+                                <TextView
+                                    android:id="@+id/tv_people"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="2"
+                                    android:text=""
+                                    android:textColor="#525a69" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/lo_status"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:drawableLeft="@drawable/icon_dian"
-                                android:drawablePadding="8dp"
-                                android:text=""
-                                android:textColor="#525a69" />
+                                android:orientation="horizontal">
+
+                                <TextView
+
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="1"
+                                    android:drawableLeft="@drawable/icon_dian"
+                                    android:drawablePadding="8dp"
+                                    android:text="反馈状态："
+                                    android:textColor="#525a69" />
+
+                                <TextView
+                                    android:id="@+id/tv_status"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_weight="2"
+                                    android:text=""
+                                    android:textColor="#525a69" />
+                            </LinearLayout>
+
 
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/peixunRec"

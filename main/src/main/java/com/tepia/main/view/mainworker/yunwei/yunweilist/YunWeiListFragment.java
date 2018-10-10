@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
@@ -122,11 +123,16 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         adapterPatrolWorkOrderList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
                 ARouter.getInstance().build(AppRoutePath.app_task_detail)
                         .withString("workOrderId", adapterPatrolWorkOrderList.getData().get(position).getWorkOrderId())
                         .navigation();
             }
         });
+
+
 
         adapterPatrolWorkOrderList.openLoadAnimation();
         adapterPatrolWorkOrderList.setEnableLoadMore(true);
@@ -165,7 +171,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             stringItems = yunweiTypeStrs.toArray(new String[yunweiTypeStrs.size()]);
         }
         final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
-        dialog.title("请运维类型")
+        dialog.title("请选择运维类型")
                 .titleTextSize_SP(14.5f)
                 .widthScale(0.8f)
                 .show();

@@ -157,7 +157,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         }
 
         final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
-        dialog.title("请运维类型")
+        dialog.title("请选择运维类型")
                 .titleTextSize_SP(14.5f)
                 .widthScale(0.8f)
                 .show();

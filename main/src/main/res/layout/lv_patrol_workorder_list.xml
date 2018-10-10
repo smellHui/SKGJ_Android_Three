@@ -73,6 +73,7 @@
             android:src="@drawable/operation_not_complete" />
 
         <TextView
+            android:clickable="true"
             android:id="@+id/tv_qusetion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
