@@ -44,8 +44,8 @@ public class YunWeiJiShuPresenter extends BasePresenterImpl<YunWeiJiShuContract.
     }
 
     @Override
-    public void getWorkOrderNumByJs(String reservoirId, String operationType, String startDate) {
-        YunWeiJiShuManager.getInstance().getWorkOrderNumByJs(reservoirId, operationType, startDate).subscribe(new LoadingSubject<WorkOrderNumResponse>(false, "正在加载中...") {
+    public void getWorkOrderNumByJs(String reservoirId, String operationType, String startDate,String endDate) {
+        YunWeiJiShuManager.getInstance().getWorkOrderNumByJs(reservoirId, operationType, startDate,endDate).subscribe(new LoadingSubject<WorkOrderNumResponse>(false, "正在加载中...") {
             @Override
             protected void _onNext(WorkOrderNumResponse workOrderNumResponse) {
                 if (workOrderNumResponse.getCode() == 0) {
@@ -107,8 +107,8 @@ public class YunWeiJiShuPresenter extends BasePresenterImpl<YunWeiJiShuContract.
     }
 
     @Override
-    public void listStPpthRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize) {
-        YunWeiJiShuManager.getInstance().listStPpthRByReservoir(reservoirId, startDate, endDate, currentPage, pageSize).subscribe(new LoadingSubject<RainConditionResponse>(false, "正在加载中...") {
+    public void listStPpthRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize,boolean isShowLoading) {
+        YunWeiJiShuManager.getInstance().listStPpthRByReservoir(reservoirId, startDate, endDate, currentPage, pageSize).subscribe(new LoadingSubject<RainConditionResponse>(isShowLoading, "正在加载中...") {
             @Override
             protected void _onNext(RainConditionResponse rainConditionResponse) {
                 if (rainConditionResponse.getCode() == 0) {

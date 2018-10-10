@@ -107,6 +107,13 @@ public class ThreePointTabFragment extends BaseCommonFragment{
         rvList = findView(R.id.rv_list);
         initRecycleView();
         initClick();
+        if (localReservoirList != null && localReservoirList.size() > 0) {
+            reservoirId = UserManager.getInstance().getDefaultReservoir().getReservoirId();
+//                LogUtil.i(reservoirId);
+//            srl.setRefreshing(true);
+            tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
+            commonRequestDataFun();
+        }
     }
 
     private ListPopupWindow mPopup;
@@ -175,18 +182,22 @@ public class ThreePointTabFragment extends BaseCommonFragment{
 
     boolean isFirstLoad;
 
-    @Override
-    protected void initRequestData() {
-        if (!isFirstLoad){
-            if (localReservoirList != null && localReservoirList.size() > 0) {
-                reservoirId = UserManager.getInstance().getDefaultReservoir().getReservoirId();
-                LogUtil.i(reservoirId);
-                srl.setRefreshing(true);
+    public void initRequestResponse(){
+        if (localReservoirList != null && localReservoirList.size() > 0) {
+            String defaultReservoirId = UserManager.getInstance().getDefaultReservoir().getReservoirId();
+            if (!defaultReservoirId.equals(reservoirId)){
+                reservoirId = defaultReservoirId;
+//                srl.setRefreshing(true);
                 tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 commonRequestDataFun();
-                isFirstLoad = true;
             }
+//            LogUtil.i(this.reservoirId);
         }
+    }
+
+    @Override
+    protected void initRequestData() {
+
     }
 
     private void showSelectReservoir() {

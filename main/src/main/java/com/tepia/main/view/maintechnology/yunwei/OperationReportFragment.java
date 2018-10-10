@@ -90,15 +90,48 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 //        spinner = findView(R.id.operation_spinner);
         rv = findView(R.id.rv_operation_list);
         tvStartDate = findView(R.id.tv_start_date);
-        tvEndDate = findView(R.id.tv_end_date);
-        initStartDate();
-        initEndDate();
+//        tvEndDate = findView(R.id.tv_end_date);
+//        initStartDate();
+//        initEndDate();
+        initMonthDate();
 //        initSpinner();
         tvReservoir = findView(R.id.tv_reservoir);
         tvReservoir.setOnClickListener(v -> showSelectReservoir());
         initRecyclerView();
         initSearch();
     }
+
+    private void initMonthDate() {
+        long fiveYears = 5L * 365 * 1000 * 60 * 60 * 24L;
+        timePickerDialogUtil = new TimePickerDialogUtil(getActivity(), sf);
+        //得到一个Calendar的实例
+        Calendar ca = Calendar.getInstance();
+        //设置时间为当前时间
+        ca.setTime(new Date());
+        Date lastDate = ca.getTime();
+        tvStartDate.setText(sf.format(lastDate));
+        tvStartDate.setOnClickListener(v -> {
+            String current = (String) tvStartDate.getText();
+            long currentLong = 0;
+            if (current!=null&&current.length()>0){
+                currentLong = strToLong(current);
+            }
+            timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
+                String text = timePickerDialogUtil.getDateToString(millseconds);
+                tvStartDate.setText(text);
+            }, Type.YEAR_MONTH, System.currentTimeMillis() - fiveYears, System.currentTimeMillis(), R.color.color_load_blue);
+            if (timePickerDialogUtil.startDialog != null) {
+                timePickerDialogUtil.startDialog = null;
+            }
+            if (currentLong != 0) {
+                timePickerDialogUtil.builder.setCurrentMillseconds(currentLong);
+            }
+            timePickerDialogUtil.builder.setTitleStringId("请选择查询月份");
+            timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
+            timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
+        });
+    }
+
 
     private void initSearch() {
         Button btConfirm = findView(R.id.bt_confirm);
@@ -113,13 +146,8 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 
     private void search() {
         dataList.clear();
-        if (spinnerPosition == 0) {
-            reservoirId = "";
-        } else {
-            reservoirId = localReservoirList.get(spinnerPosition - 1).getReservoirId();
-        }
-        startDate = tvStartDate.getText().toString();
-        endDate = tvEndDate.getText().toString();
+        //转换开始日期和结束日期
+        getStartAndEndOfMonth();
         rvAdapter.setEnableLoadMore(false);
         currentPage = 1;
         isloadmore = false;
@@ -161,12 +189,12 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getProblemList(reservoirId, "", startDate, "", String.valueOf(currentPage), String.valueOf(pageSize), "", isShowLoading);
+            mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), "", isShowLoading);
         }
     }
 
     private TimePickerDialogUtil timePickerDialogUtil;
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
 
     private void initStartDate() {
         long fiveYears = 5L * 365 * 1000 * 60 * 60 * 24L;
@@ -188,14 +216,14 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
                 String text = timePickerDialogUtil.getDateToString(millseconds);
                 tvStartDate.setText(text);
-            }, Type.ALL, System.currentTimeMillis() - fiveYears, System.currentTimeMillis() + fiveYears, R.color.color_load_blue);
+            }, Type.YEAR_MONTH_DAY, System.currentTimeMillis() - fiveYears, System.currentTimeMillis() + fiveYears, R.color.color_load_blue);
             if (timePickerDialogUtil.startDialog != null) {
                 timePickerDialogUtil.startDialog = null;
             }
             if (currentLong != 0) {
                 timePickerDialogUtil.builder.setCurrentMillseconds(currentLong);
             }
-            timePickerDialogUtil.builder.setTitleStringId(getString(R.string.starttimeTitle));
+            timePickerDialogUtil.builder.setTitleStringId("请选择开始日期");
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
         });
@@ -221,14 +249,14 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
                 String text = timePickerDialogUtil.getDateToString(millseconds);
                 tvEndDate.setText(text);
-            }, Type.ALL, System.currentTimeMillis() - fiveYears, System.currentTimeMillis() + fiveYears, R.color.color_load_blue);
+            }, Type.YEAR_MONTH_DAY, System.currentTimeMillis() - fiveYears, System.currentTimeMillis() + fiveYears, R.color.color_load_blue);
             if (timePickerDialogUtil.startDialog != null) {
                 timePickerDialogUtil.startDialog = null;
             }
             if (currentLong != 0) {
                 timePickerDialogUtil.builder.setCurrentMillseconds(currentLong);
             }
-            timePickerDialogUtil.builder.setTitleStringId("请选择结束时间");
+            timePickerDialogUtil.builder.setTitleStringId("请选择结束日期");
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
         });
@@ -267,7 +295,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 
 
     public static long strToLong(String strDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
         ParsePosition pos = new ParsePosition(0);
         Date strtodate = formatter.parse(strDate, pos);
         //继续转换得到秒数的long型
@@ -332,23 +360,65 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
             }
         });
         if (!isFirstLoad) {
-            rvAdapter.setEnableLoadMore(false);
-            currentPage = 1;
-            isloadmore = false;
-            first = true;
-            if (mPresenter != null) {
-                mPresenter.getProblemList(reservoirId, "", "", "", String.valueOf(currentPage), String.valueOf(pageSize), "", false);
+            ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+            String defaultReservoirId = defaultReservoir.getReservoirId();
+            if (defaultReservoirId!=reservoirId){
+                reservoirId = defaultReservoir.getReservoirId();
+                tvReservoir.setText(defaultReservoir.getReservoir());
+                rvAdapter.setEnableLoadMore(false);
+                currentPage = 1;
+                isloadmore = false;
+                first = true;
+                //转换开始日期和结束日期
+                getStartAndEndOfMonth();
+                if (mPresenter != null) {
+                    mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), "", false);
+                }
             }
         }
     }
 
+    public void initRequestResponse(){
+        ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+        String defaultReservoirId = defaultReservoir.getReservoirId();
+        if (defaultReservoirId!=reservoirId) {
+            reservoirId = defaultReservoir.getReservoirId();
+            tvReservoir.setText(defaultReservoir.getReservoir());
+            rvAdapter.setEnableLoadMore(false);
+            currentPage = 1;
+            isloadmore = false;
+            first = true;
+            tvStartDate.setText("");
+            if (mPresenter != null) {
+                mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), "", false);
+            }
+        }
+    }
+
+    private void getStartAndEndOfMonth(){
+        String date = tvStartDate.getText().toString();
+        String[] split = date.split("-");
+        if (split.length==2){
+            int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
+            startDate = date+"-01 00:00:00";
+            endDate = date+"-"+dayOfMonth+" 23:59:59";
+        }
+    }
+
+    private int getDayOfMonth(int year,int month){
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, 0); //输入类型为int类型
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+//        LogUtil.i("一个月的天数:"+dayOfMonth);
+        return dayOfMonth;
+    }
+
     private void showSelectReservoir() {
         if (localReservoirList != null) {
-            String[] stringItems = new String[localReservoirList.size() + 1];
+            String[] stringItems = new String[localReservoirList.size()];
             for (int i = 0; i < localReservoirList.size(); i++) {
-                stringItems[i + 1] = localReservoirList.get(i).getReservoir();
+                stringItems[i] = localReservoirList.get(i).getReservoir();
             }
-            stringItems[0] = "全部";
             final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
             dialog.title("请选择水库")
                     .titleTextSize_SP(14.5f)
@@ -362,6 +432,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 //                    selectFinish(selectedYunWeiType, selectedResrvoir);
 //                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
                     ReservoirBean selectedResrvoir = localReservoirList.get(position);
+                    reservoirId = localReservoirList.get(position).getReservoirId();
                     com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     tvReservoir.setText(stringItems[position]);
                     dialog.dismiss();

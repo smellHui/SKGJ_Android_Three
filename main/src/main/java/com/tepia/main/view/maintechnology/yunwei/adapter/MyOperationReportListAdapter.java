@@ -54,10 +54,10 @@ public class MyOperationReportListAdapter extends BaseQuickAdapter<OperationRepo
         tvName.setText(item.getReservoirName()+"  "+item.getCreateDate());
         String problemStatus = item.getProblemStatus();
         if ("4".equals(problemStatus)){
-            tvIsexecute.setText("未完成");
+            tvIsexecute.setText("未处理");
             tvIsexecute.setTextColor(Color.parseColor("#e3654d"));
         }else {
-            tvIsexecute.setText("已完成");
+            tvIsexecute.setText("已处理");
             tvIsexecute.setTextColor(Color.parseColor("#46c189"));
         }
 

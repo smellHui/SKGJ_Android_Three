@@ -3,6 +3,7 @@ package com.tepia.main.view.maintechnology.threekeypoint.adapter;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,14 +31,18 @@ public class MyWaterListAdapter extends BaseQuickAdapter<WaterLevelResponse.Data
 
     @Override
     protected void convert(BaseViewHolder helper, WaterLevelResponse.DataBean.ListBean item) {
-        TextView tvReservoirName = helper.getView(R.id.tv_reservoir_name);
+//        TextView tvReservoirName = helper.getView(R.id.tv_reservoir_name);
         TextView tvDate = helper.getView(R.id.tv_date);
         TextView tvWaterLevel = helper.getView(R.id.tv_water_level);
         TextView tvW = helper.getView(R.id.tv_w);
-        tvReservoirName.setText(item.getStnm());
+//        tvReservoirName.setText(item.getStnm());
         tvDate.setText(item.getTm());
         tvWaterLevel.setText(item.getRz()+"");
-        tvW.setText(item.getW()+"");
+        if (TextUtils.isEmpty(item.getW())) {
+            tvW.setText(mContext.getString(R.string.setting_t_null));
+        }else{
+            tvW.setText(item.getW()+"");
+        }
         if (helper.getLayoutPosition() % 2 == 0) {
             helper.setBackgroundColor(R.id.ll_root, ContextCompat.getColor(mContext, R.color.white));
         } else {

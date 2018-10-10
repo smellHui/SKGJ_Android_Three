@@ -31,6 +31,7 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
     private List<BaseCommonFragment> mFragments = new ArrayList<>();
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private OperationReportFragment operationReportFragment;
 
     public YunWeiJiShuFragment() {
         // Required empty public constructor
@@ -61,6 +62,23 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
     private void initListener() {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                int position = tab.getPosition();
+//                viewPager.setCurrentItem(position);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
 
     private void initViewPager() {
@@ -71,7 +89,7 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
             fragment.setArguments(bundle);
             mFragments.add(fragment);
         }
-        OperationReportFragment operationReportFragment = new OperationReportFragment();
+        operationReportFragment = new OperationReportFragment();
         mFragments.add(operationReportFragment);
         OperationTabPageAdapter tabPageAdapter = new OperationTabPageAdapter(getFragmentManager(), mFragments);
         viewPager.setAdapter(tabPageAdapter);
@@ -131,7 +149,17 @@ public class YunWeiJiShuFragment extends BaseCommonFragment {
 
     @Override
     protected void initRequestData() {
-
+//        refreshPage();
     }
+
+    private void refreshPage() {
+        if (viewPager.getCurrentItem()<=2){
+            OperationListFragment operationListFragment = (OperationListFragment) mFragments.get(viewPager.getCurrentItem());
+            operationListFragment.initRequestResponse();
+        }else {
+            operationReportFragment.initRequestResponse();
+        }
+    }
+
 
 }

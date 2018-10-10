@@ -60,7 +60,8 @@ public interface YunWeiJIShuService {
     Observable<WorkOrderNumResponse> getWorkOrderNumByJs(@Header("Authorization") String token,
                                                          @Query("reservoirId") String reservoirId,
                                                          @Query("operationType") String operationType,
-                                                         @Query("startDate") String startDate
+                                                         @Query("startDate") String startDate,
+                                                         @Query("endDate") String endDate
     );
 
 

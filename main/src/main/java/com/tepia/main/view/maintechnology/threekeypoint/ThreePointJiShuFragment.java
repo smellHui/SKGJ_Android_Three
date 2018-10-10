@@ -12,7 +12,10 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.R;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.view.maintechnology.threekeypoint.adapter.ThreePointTabPageAdapter;
 
 import java.util.ArrayList;
@@ -29,6 +32,9 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
     private ViewPager viewPager;
     private String[] tpTabNames = {"监测预报", "调度运用", "应急预案"};
     private List<BaseCommonFragment> mFragments = new ArrayList<>();
+    private ThreePointListFragment fragment;
+    private ThreePointTabFragment fragment2;
+    private ThreePointTabFragment fragment3;
 
     public ThreePointJiShuFragment() {
         // Required empty public constructor
@@ -60,18 +66,42 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
 
     private void initListener() {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+//        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                viewPager.setCurrentItem(position);
+                if(viewPager.getCurrentItem() == 0){
+                    fragment.initRequestResponse();
+                }else if (viewPager.getCurrentItem()==1){
+                    fragment2.initRequestResponse();
+                }else {
+                    fragment3.initRequestResponse();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void initViewPager() {
-        ThreePointListFragment fragment = new ThreePointListFragment();
+        fragment = new ThreePointListFragment();
         mFragments.add(fragment);
-        ThreePointTabFragment fragment2 = new ThreePointTabFragment();
+        fragment2 = new ThreePointTabFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("position",1);
         fragment2.setArguments(bundle);
         mFragments.add(fragment2);
-        ThreePointTabFragment fragment3 = new ThreePointTabFragment();
+        fragment3 = new ThreePointTabFragment();
         Bundle bundle3 = new Bundle();
         bundle3.putInt("position",2);
         fragment3.setArguments(bundle3);
@@ -97,7 +127,19 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
 
     @Override
     protected void initRequestData() {
+//        LogUtil.i("三个责任人");
+//        ToastUtils.longToast("三个责任人");
+        refreshPage();
+    }
 
+    private void refreshPage(){
+            if(viewPager.getCurrentItem() == 0){
+                fragment.initRequestResponse();
+            }else if (viewPager.getCurrentItem()==1){
+                fragment2.initRequestResponse();
+            }else {
+                fragment3.initRequestResponse();
+            }
     }
 
 }

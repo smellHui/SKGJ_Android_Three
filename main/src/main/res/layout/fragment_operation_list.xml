@@ -18,13 +18,108 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="水库名称 :"
+                android:textColor="#464b57"
+                android:paddingLeft="3dp"
+                android:textSize="13sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_select_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="查询月份:"
+                    android:textColor="#464b57"
+                    android:paddingLeft="3dp"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tv_clean_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="重置"
+                    android:textColor="@color/blue_user"
+                    android:paddingLeft="3dp"
+                    android:textSize="13sp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingRight="19dp">
+
+                <Spinner
+                    android:id="@+id/operation_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"
+                    android:overlapAnchor="false"
+                    android:popupBackground="@android:color/white"
+                    android:spinnerMode="dropdown"
+                    />
+                <TextView
+                    android:id="@+id/tv_reservoir"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_operation_tv"
+                    android:drawableRight="@mipmap/icon_arrow_down"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="20dp"
+                    android:text="全部"
+                    android:singleLine="true"
+                    android:textColor="#191c21"
+                    android:textSize="13sp" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_start_date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_operation_tv"
+                android:drawableRight="@mipmap/icon_arrow_down"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="20dp"
+                android:text=""
+                android:singleLine="true"
+                android:textColor="#191c21"
+                android:hint="请选择月份"
+                android:textSize="13sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -36,7 +131,6 @@
                 android:paddingLeft="3dp"
                 android:visibility="visible"/>
             <TextView
-                android:id="@+id/tv_reservoir"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -57,7 +151,8 @@
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"
@@ -85,10 +180,10 @@
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
-                android:id="@+id/tv_start_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -101,7 +196,7 @@
                 android:singleLine="true"
                 android:textColor="#191c21"
                 android:layout_marginRight="5dp"
-                android:hint="请选择开始时间"
+                android:hint="请选择开始日期"
                 android:textSize="13sp" />
 
             <TextView
@@ -117,7 +212,7 @@
                 android:text=""
                 android:singleLine="true"
                 android:textColor="#191c21"
-                android:hint="请选择结束时间"
+                android:hint="请选择结束日期"
                 android:textSize="13sp" />
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.tepia.main.view.maintechnology.threekeypoint;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-  * Created by      Android studio
-  *
-  * @author :wwj (from Center Of Wuhan)
-  * Date    :2018/10/9
-  * Version :1.0
-  * 功能描述 :三个重点监测预报
+ * Created by      Android studio
+ *
+ * @author :wwj (from Center Of Wuhan)
+ * Date    :2018/10/9
+ * Version :1.0
+ * 功能描述 :三个重点监测预报
  **/
 
 public class ThreePointListFragment extends BaseCommonFragment {
@@ -58,6 +59,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
     private MyRainListAdapter rainListAdapter;
     private SwipeRefreshLayout srl = null;
     private String reservoirId;
+    private String reservoirName;
     private int reservoirPosition;
 
     @Override
@@ -144,6 +146,22 @@ public class ThreePointListFragment extends BaseCommonFragment {
         tvSelectReservoir = findView(R.id.tv_select_reservoir);
         rvWater = findView(R.id.rv_water);
         rvRain = findView(R.id.rv_rain);
+        TextView tvWaterSearch = findView(R.id.tv_water_search);
+        TextView tvRainSearch = findView(R.id.tv_rain_search);
+        tvWaterSearch.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), HistoryDataActivity.class);
+            intent.putExtra("searchType", "water");
+            intent.putExtra("reservoirName", reservoirName);
+            intent.putExtra("reservoirId", reservoirId);
+            startActivity(intent);
+        });
+        tvRainSearch.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), HistoryDataActivity.class);
+            intent.putExtra("searchType", "rain");
+            intent.putExtra("reservoirName", reservoirName);
+            intent.putExtra("reservoirId", reservoirId);
+            startActivity(intent);
+        });
         //默认加载第一个
         initRequestResponse();
         initRecycleView();
@@ -153,10 +171,10 @@ public class ThreePointListFragment extends BaseCommonFragment {
     private void commonRequestDataFun() {
         if (!NetUtil.isNetworkConnected(Utils.getContext())) {
             ToastUtils.shortToast(R.string.no_network);
-        }else {
+        } else {
             if (mPresenter != null && waterPresenter != null) {
-                mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
-                waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
+                mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
             }
         }
     }
@@ -213,17 +231,21 @@ public class ThreePointListFragment extends BaseCommonFragment {
         rvRain.setAdapter(rainListAdapter);
     }
 
-    private void initRequestResponse() {
+    public void initRequestResponse() {
         if (!NetUtil.isNetworkConnected(Utils.getContext())) {
             ToastUtils.shortToast(R.string.no_network);
-        }else {
+        } else {
             if (localReservoirList != null && localReservoirList.size() > 0) {
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                reservoirId = defaultReservoir.getReservoirId();
-                srl.setRefreshing(true);
-                tvReservoirName.setText(defaultReservoir.getReservoir());
-                mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize));
-                waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize),false);
+                String defaultReservoirId = defaultReservoir.getReservoirId();
+                if (!defaultReservoirId.equals(reservoirId)) {
+                    reservoirId = defaultReservoir.getReservoirId();
+                    srl.setRefreshing(true);
+                    reservoirName = defaultReservoir.getReservoir();
+                    tvReservoirName.setText(defaultReservoir.getReservoir());
+                    mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                    waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                }
             }
         }
     }
@@ -251,7 +273,9 @@ public class ThreePointListFragment extends BaseCommonFragment {
 //                    selectFinish(selectedYunWeiType, selectedResrvoir);
 //                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
                     tvReservoirName.setText(stringItems[position]);
+                    reservoirName = stringItems[position];
                     ReservoirBean selectedResrvoir = localReservoirList.get(position);
+                    reservoirId = selectedResrvoir.getReservoirId();
                     com.tepia.main.model.user.UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     dialog.dismiss();
                     srl.setRefreshing(true);

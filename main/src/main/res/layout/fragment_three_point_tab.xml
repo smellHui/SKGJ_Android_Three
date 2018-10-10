@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -105,9 +105,14 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
                             android:text="历史数据"
-                            android:textColor="#7d8390"
+                            android:textColor="#ffffff"
                             android:textSize="13sp"
-                            android:visibility="invisible"/>
+                            android:background="@drawable/bg_bt_next_item"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:visibility="visible"/>
                     </RelativeLayout>
 
                     <LinearLayout
@@ -124,7 +129,8 @@
                             android:layout_marginLeft="18dp"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
-                            android:text="测站名" />
+                            android:text="测站名"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -236,9 +242,14 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
                             android:text="历史数据"
-                            android:textColor="#7d8390"
+                            android:textColor="#ffffff"
                             android:textSize="13sp"
-                            android:visibility="invisible"/>
+                            android:background="@drawable/bg_bt_next_item"
+                            android:paddingRight="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:visibility="visible"/>/>
                     </RelativeLayout>
 
                     <LinearLayout
@@ -314,6 +325,6 @@
                         android:paddingBottom="10dp" />
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -44,9 +44,9 @@ public class YunWeiJiShuManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<WorkOrderNumResponse> getWorkOrderNumByJs(String reservoirId, String operationType, String startDate) {
+    public Observable<WorkOrderNumResponse> getWorkOrderNumByJs(String reservoirId, String operationType, String startDate,String endDate) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.getWorkOrderNumByJs(token, reservoirId, operationType, startDate).subscribeOn(Schedulers.io())
+        return mRetrofitService.getWorkOrderNumByJs(token, reservoirId, operationType, startDate,endDate).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

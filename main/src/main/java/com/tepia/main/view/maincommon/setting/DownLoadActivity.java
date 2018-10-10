@@ -315,7 +315,8 @@ public class DownLoadActivity extends BaseActivity {
             LogUtil.i("下载完成");
 //            btOpenFile.setVisibility(View.VISIBLE);
             progressBar.setProgress(100);
-            Toast.makeText(DownLoadActivity.this, "下载完成", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(DownLoadActivity.this, "下载完成"+"路径("+parentPath+")", Toast.LENGTH_SHORT).show();
+            ToastUtils.longToast("下载完成"+"路径("+parentPath+")");
             tvDownloadPreview.setText("预览文件");
             tvDownloadPreview.setVisibility(View.VISIBLE);
             isLoadComplete = true;
