@@ -358,7 +358,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     @Override
     public void success(BaseResponse data) {
         dialog_show.dismiss();
-
+        selectShuiweiEv.setText("");
         ToastUtils.shortToast("上传成功");
     }
 

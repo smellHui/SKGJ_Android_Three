@@ -70,8 +70,7 @@ public class NetUtil {
      * 判断是否有网络连接
      */
     public static boolean isNetworkConnected(Context context) {
-        if (context != null) {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) Utils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
             //获取连接对象
             if (mNetworkInfo != null) {
@@ -92,7 +91,7 @@ public class NetUtil {
                     }
                 }
             }
-        }
+
         return false;
     }
 

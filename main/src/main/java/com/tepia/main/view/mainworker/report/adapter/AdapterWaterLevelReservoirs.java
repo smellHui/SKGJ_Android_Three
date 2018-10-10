@@ -3,6 +3,7 @@ package com.tepia.main.view.mainworker.report.adapter;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -32,7 +33,11 @@ public class AdapterWaterLevelReservoirs extends BaseQuickAdapter<WaterLevelResp
         view.setText(R.id.yearTv,item.getTm());
         //view.setText(R.id.hourTv, "10:11");
         view.setText(R.id.waterLevelTv, item.getRz()+"");
-        view.setText(R.id.capacityTv, item.getW()+"");
+        if (TextUtils.isEmpty(item.getW())) {
+            view.setText(R.id.capacityTv, mContext.getString(R.string.setting_t_null));
+        }else{
+            view.setText(R.id.capacityTv, item.getW()+"");
+        }
         //view.setText(R.id.stateTv, "已处理");
         int position = view.getAdapterPosition();
         if( position%2 == 0 ) {

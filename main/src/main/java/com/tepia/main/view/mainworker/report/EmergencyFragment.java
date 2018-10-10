@@ -40,7 +40,7 @@ import java.util.Locale;
  * Version :1.0
  * 功能描述 :应急
  **/
-public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, ReportPresenter> implements View.OnClickListener,OnDateSetListener {
+public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, ReportPresenter> implements View.OnClickListener, OnDateSetListener {
 
     private RecyclerView shuiweiRec;
     private AdapterEmergency adapterShuiweiReservoirs;
@@ -53,9 +53,9 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     private boolean first;
     private boolean isloadmore;
     private List<EmergenceListBean.DataBean.ListBean> dataList = new ArrayList<>();
-    private String startData,endData;
+    private String startData, endData;
     private String reservoirId;
-    private static int REQUEST_DELETE_CODE= 200;
+    private static int REQUEST_DELETE_CODE = 200;
 
 
     public EmergencyFragment() {
@@ -147,17 +147,17 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     /**
      * 初始化recycleview
      */
-    private void initRec(){
+    private void initRec() {
         shuiweiRec.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
-        adapterShuiweiReservoirs = new AdapterEmergency(getBaseActivity(),R.layout.fragment_shuiwei_yingji_head_layout,dataList);
+        adapterShuiweiReservoirs = new AdapterEmergency(getBaseActivity(), R.layout.fragment_shuiwei_yingji_head_layout, dataList);
         shuiweiRec.setAdapter(adapterShuiweiReservoirs);
         adapterShuiweiReservoirs.setOnItemClickListener((adapter, view, position) -> {
-             Intent intent = new Intent();
-             intent.setClass(getBaseActivity(),EmergenceShowDetailActivity.class);
-             Bundle bundle = new Bundle();
-             bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
-             intent.putExtras(bundle);
-             startActivity(intent);
+            Intent intent = new Intent();
+            intent.setClass(getBaseActivity(), EmergenceShowDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(ConfigConsts.emergence, dataList.get(position).getProblemId());
+            intent.putExtras(bundle);
+            startActivity(intent);
 
 
         });
@@ -166,13 +166,14 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
                 currentPage++;
                 first = false;
                 isloadmore = true;
-                mPresenter.getProblemList(reservoirId, "","",startData, endData, String.valueOf(currentPage), String.valueOf(pageSize),false);
+                mPresenter.getProblemList(reservoirId, "", "", startData, endData, String.valueOf(currentPage), String.valueOf(pageSize), false);
             }, 1000);
         }, shuiweiRec);
     }
 
     /**
      * 查询应急情况列表
+     *
      * @param isshowloadiing
      */
     private void search(boolean isshowloadiing) {
@@ -184,14 +185,14 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
         first = true;
         isloadmore = false;
         if (mPresenter != null) {
-            mPresenter.getProblemList(reservoirId, "","",startData, endData, String.valueOf(currentPage), String.valueOf(pageSize),isshowloadiing);
+            mPresenter.getProblemList(reservoirId, "", "", startData, endData, String.valueOf(currentPage), String.valueOf(pageSize), isshowloadiing);
         }
     }
 
     /**
      * 刷新
      */
-    public void refresh(boolean isshowloading){
+    public void refresh(boolean isshowloading) {
         first = true;
         String date = TimeFormatUtils.getStringDateMonthDay();
 //        startData = TimeFormatUtils.getNextDay(endData, "-1");
@@ -208,15 +209,15 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     /**
      * 获取水库id
      */
-    private void getReservoirId(){
+    private void getReservoirId() {
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
-        reservoirId =  reservoirBean.getReservoirId();
-        LogUtil.e("当前默认水库id--------------"+reservoirId);
-        currentResvoirTv.setText("当前水库："+reservoirBean.getReservoir());
+        reservoirId = reservoirBean.getReservoirId();
+        LogUtil.e("当前默认水库id--------------" + reservoirId);
+        currentResvoirTv.setText("当前水库：" + reservoirBean.getReservoir());
     }
 
-    private void initTime(){
-        if(timePickerDialogUtil == null) {
+    private void initTime() {
+        if (timePickerDialogUtil == null) {
             timePickerDialogUtil = new TimePickerDialogUtil(getContext(), sf);
         }
         timePickerDialogUtil.initTimePicker(this, Type.YEAR_MONTH);
@@ -229,26 +230,25 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
 
     }
 
-    private void setTime(String date){
+    private void setTime(String date) {
         String[] split = date.split("-");
-        if (split.length == 2){
+        if (split.length == 2) {
             int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
-            startData = date+"-01 00:00:00";
-            endData = date+"-"+dayOfMonth+" 23:59:59";
+            startData = date + "-01 00:00:00";
+            endData = date + "-" + dayOfMonth + " 23:59:59";
         }
         mstarttimeTv.setText(date);
         LogUtil.e("endData", endData);
         LogUtil.e("startData", startData);
     }
 
-    private int getDayOfMonth(int year,int month){
+    private int getDayOfMonth(int year, int month) {
         Calendar c = Calendar.getInstance();
         c.set(year, month, 0); //输入类型为int类型
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 //        LogUtil.i("一个月的天数:"+dayOfMonth);
         return dayOfMonth;
     }
-
 
 
     // 起始时间选择器
@@ -284,27 +284,26 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_DELETE_CODE){
+        if (requestCode == REQUEST_DELETE_CODE) {
             refresh(true);
         }
     }
 
 
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.shangbaoTv) {
-           Intent intent = new Intent();
-           intent.setClass(getBaseActivity(),EmergencyReportActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(getBaseActivity(), EmergencyReportActivity.class);
             ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
             Bundle bundle = new Bundle();
-            bundle.putString("reservoirId",reservoirBean.getReservoirId());
-            bundle.putString("reservoir",reservoirBean.getReservoir());
+            bundle.putString("reservoirId", reservoirBean.getReservoirId());
+            bundle.putString("reservoir", reservoirBean.getReservoir());
             intent.putExtras(bundle);
-            startActivityForResult(intent,REQUEST_DELETE_CODE);
+            startActivityForResult(intent, REQUEST_DELETE_CODE);
         } else if (v.getId() == R.id.sureSearchTv) {
             search(true);
-        }else if(v.getId() == R.id.mstarttimeTv){
+        } else if (v.getId() == R.id.mstarttimeTv) {
             if (timePickerDialogUtil.startDialog != null) {
                 timePickerDialogUtil.startDialog = null;
             }
@@ -312,7 +311,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
             if (last_millseconds_start != 0) {
                 timePickerDialogUtil.builder.setCurrentMillseconds(last_millseconds_start);
             }
-            timePickerDialogUtil.builder.setMaxMillseconds(System.currentTimeMillis()) ;
+            timePickerDialogUtil.builder.setMaxMillseconds(System.currentTimeMillis());
             timePickerDialogUtil.builder.setTitleStringId("请选择查询月份");
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
