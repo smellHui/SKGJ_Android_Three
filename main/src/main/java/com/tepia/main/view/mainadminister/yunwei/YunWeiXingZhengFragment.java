@@ -122,7 +122,7 @@ public class YunWeiXingZhengFragment extends BaseCommonFragment {
     }
 
     private View getTabCustomView(String name, int id) {
-        View view = getLayoutInflater().inflate(R.layout.operation_tab_custom_view, null);
+        View view = getLayoutInflater().inflate(R.layout.operation_tab_custom_view2, null);
         TextView tab_tv = (TextView) view.findViewById(R.id.tab_tv);
         tab_tv.setText(name);
         ImageView tab_iv = view.findViewById(R.id.tab_iv);

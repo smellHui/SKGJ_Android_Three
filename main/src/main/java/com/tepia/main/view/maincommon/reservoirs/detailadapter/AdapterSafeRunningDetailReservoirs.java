@@ -13,6 +13,7 @@ import com.tepia.main.R;
 import com.tepia.main.model.reserviros.BizkeyBean;
 import com.tepia.main.model.reserviros.FloodBean;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
+import com.tepia.main.view.maincommon.setting.DownLoadActivity;
 
 import java.util.List;
 
@@ -49,7 +50,11 @@ public class AdapterSafeRunningDetailReservoirs extends BaseQuickAdapter<BizkeyB
         view.getView(R.id.officeDownloadTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.shortToast("待开发下载功能");
+                Intent intent = new Intent(mContext, DownLoadActivity.class);
+//            DownLoadActivity.setIntent(intent,"ggsg8.apk","http://rs.0.gaoshouyou.com/d/04/1e/400423a7551e1f3f0eb1812afa1f9b44.apk");
+//            DownLoadActivity.setIntent(intent,"CloudMusic_official_5.5.2.826166.apk","http://d1.music.126.net/dmusic/CloudMusic_official_5.5.2.826166.apk");
+                DownLoadActivity.setIntent(intent,item.getFileName(),item.getFilePath());
+                mContext.startActivity(intent);
             }
         });
         view.getView(R.id.officePreviewTv).setOnClickListener(new View.OnClickListener() {

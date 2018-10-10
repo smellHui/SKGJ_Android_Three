@@ -172,7 +172,12 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                 bindings.nameTv.setText("上报人："+ data.getUserName());
                 bindings.timeTv.setText("上报时间："+ data.getCreateDate());
                 bindings.descriptionTv.setText(data.getProblemDescription());
-                bindings.feedbackTv.setText(data.getRemarks());
+                if (TextUtils.isEmpty(data.getRemarks())) {
+                    bindings.feedbackTv.setText(getString(R.string.setting_t_null));
+                }else{
+                    bindings.feedbackTv.setText(data.getRemarks());
+
+                }
                 //图片
                 List<JiShuRePortDetailResponse.DataBean.ISysFileUploadsBean> imageList = data.getImages();
 
