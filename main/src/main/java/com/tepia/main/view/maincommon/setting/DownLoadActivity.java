@@ -269,7 +269,6 @@ public class DownLoadActivity extends BaseActivity {
                 String tvSpeedString = "下载中...(" + s + "/" + target.getConvertFileSize() + ")";
                 tvSpeed.setText(tvSpeedString);
             }
-
         }
     }
 
