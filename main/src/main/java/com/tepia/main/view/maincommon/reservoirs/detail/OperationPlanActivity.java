@@ -61,6 +61,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     private TextView officeTitleTv;
     private ImageView officePreviewTv;
     private ImageView officeDownloadTv;
+    private LinearLayout officeLy;
 
     @Override
     public int getLayoutId() {
@@ -70,6 +71,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        officeLy = findViewById(R.id.officeLy);
         String  selectstr = getIntent().getStringExtra("select");
         if(value_one.equals(selectstr)) {
             setCenterTitle("调度运行方案");
@@ -77,6 +79,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
             setCenterTitle("水库安全管理应急预案");
         }else if(value_preview.equals(selectstr)){
             setCenterTitle("文件预览");
+            officeLy.setVisibility(View.GONE);
         }
         showBack();
 

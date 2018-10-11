@@ -2,13 +2,18 @@ package com.tepia.main.view.maincommon.setting.train;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.main.R;
 import com.tepia.main.model.train.TrainContract;
 import com.tepia.main.model.train.TrainListResponse;
@@ -55,6 +60,18 @@ public class TrainActivity extends BaseActivity {
     public void initView() {
         setCenterTitle("我的培训");
         showBack();
+        getRithtTv().setVisibility(View.VISIBLE);
+        getRithtTv().setTextColor(Color.BLACK);
+        getRithtTv().setText("新增培训");
+        getRithtTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
+                startActivityForResult(new Intent(TrainActivity.this, AddTrainActivity.class), 1);
+            }
+        });
      /*     peixunRec = findViewById(R.id.peixunRec);
         images.add(R.drawable.jianjie_banner0);
         images.add(R.drawable.jianjie_banner1);

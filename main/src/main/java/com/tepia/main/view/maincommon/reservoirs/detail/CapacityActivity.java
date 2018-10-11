@@ -37,7 +37,7 @@ import java.util.List;
  * Version         :       1.0
  * 功能描述         :       水位库容曲线页面
  **/
-public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<CapacityBean>  {
+public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<CapacityBean> ,OnChartGestureListener, OnChartValueSelectedListener {
     private LineChart mLineChart;
     private LineChartEntity lineChartEntity;
 
@@ -53,6 +53,8 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         setCenterTitle("水库库容曲线");
         showBack();
         mLineChart = findViewById(R.id.line_chart);
+        mLineChart.setOnChartGestureListener(this);
+        mLineChart.setOnChartValueSelectedListener(this);
         lineChartEntity = new LineChartEntity(mLineChart,"库容(万m³)");
 //        mLineChart.setOnChartGestureListener(this);
 //        mLineChart.setOnChartValueSelectedListener(this);
@@ -125,6 +127,56 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
 
     @Override
     public void failure(String msg) {
+
+    }
+
+    @Override
+    public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+
+    }
+
+    @Override
+    public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+
+    }
+
+    @Override
+    public void onChartLongPressed(MotionEvent me) {
+
+    }
+
+    @Override
+    public void onChartDoubleTapped(MotionEvent me) {
+
+    }
+
+    @Override
+    public void onChartSingleTapped(MotionEvent me) {
+
+    }
+
+    @Override
+    public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+
+    }
+
+    @Override
+    public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+
+    }
+
+    @Override
+    public void onChartTranslate(MotionEvent me, float dX, float dY) {
+
+    }
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
 
     }
 }
