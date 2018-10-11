@@ -116,7 +116,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="#eff1f3" />
+            android:background="#eff1f3"
+            android:layout_marginBottom="10dp"/>
 
         <LinearLayout
             android:id="@+id/ll_list_title"
