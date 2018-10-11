@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="0dp"
     android:background="@drawable/selector_bg_citychange_rip"
+    android:layout_centerVertical="true"
     android:paddingBottom="20dp"
     android:paddingLeft="@dimen/autodimen_setting"
     android:paddingRight="@dimen/autodimen_setting"

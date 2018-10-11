@@ -1,17 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_common"
-    android:paddingBottom="20dp"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="40dp">
 
     <include layout="@layout/toolbar" />
 
     <android.support.v4.widget.NestedScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
-        android:background="@color/white">
+        android:layout_marginTop="1dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -21,27 +21,35 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/s_bg"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/headIv"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                <FrameLayout
+                    android:paddingBottom="15dp"
+                    android:id="@+id/imageFy"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="40dp"
-                    android:src="@drawable/s_head" />
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/headIv"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+
+                        android:src="@drawable/s_head" />
+                </FrameLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-
                     android:layout_marginLeft="20dp"
-                    android:layout_toRightOf="@+id/headIv"
-                    android:orientation="vertical">
+
+                    android:layout_toRightOf="@+id/imageFy"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:id="@+id/userTv"
@@ -85,12 +93,14 @@
                 android:id="@+id/personinfoMv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
 
             <View
                 style="@style/LineH"
                 android:layout_marginLeft="@dimen/autodimen_setting"
-                android:layout_marginRight="@dimen/autodimen_setting" />
+                android:layout_marginRight="@dimen/autodimen_setting"
+                android:visibility="gone" />
 
 
             <com.tepia.main.common.MySettingView
@@ -147,13 +157,14 @@
             <com.tepia.main.common.MySettingView
                 android:id="@+id/mv_voice_assistant"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <View
-                android:visibility="gone"
                 style="@style/LineH"
                 android:layout_marginLeft="@dimen/autodimen_setting"
-                android:layout_marginRight="@dimen/autodimen_setting" />
+                android:layout_marginRight="@dimen/autodimen_setting"
+                android:visibility="gone" />
 
             <com.tepia.main.common.MySettingView
                 android:id="@+id/loginOutMv"
@@ -164,7 +175,6 @@
                 style="@style/LineH"
                 android:layout_marginLeft="@dimen/autodimen_setting"
                 android:layout_marginRight="@dimen/autodimen_setting" />
-
 
 
         </LinearLayout>
