@@ -3,6 +3,7 @@ package com.tepia.main.view.maincommon.reservoirs.detail;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,26 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
-import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
-import com.esri.arcgisruntime.location.LocationDataSource;
-import com.esri.arcgisruntime.mapping.ArcGISMap;
-import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
-import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ScreenUtil;
 import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityIntroduceOfReservoirsBinding;
-import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.dictmap.DictMapEntity;
 import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.model.reserviros.IntroduceOfReservoirsBean;
@@ -52,7 +46,7 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
     private LinearLayout baseLy;
     private FrameLayout moreorlessFy;
     private TextView moreorlessTv;
-    ActivityIntroduceOfReservoirsBinding activityIntroduceOfReservoirsBinding;
+    ActivityIntroduceOfReservoirsBinding binding;
     private boolean isopen;
 
     private MapView mapView;
@@ -72,7 +66,7 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
         super.onCreate(savedInstanceState);
         setCenterTitle("水库简介");
         showBack();
-        activityIntroduceOfReservoirsBinding = DataBindingUtil.bind(mRootView);
+        binding = DataBindingUtil.bind(mRootView);
         baseLy = findViewById(R.id.baseLy);
         moreorlessFy = findViewById(R.id.moreorlessFy);
         moreorlessTv = findViewById(R.id.moreorlessTv);
@@ -178,8 +172,8 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
     @Override
     public void success(IntroduceOfReservoirsBean introduceOfReservoirsBean) {
         IntroduceOfReservoirsBean.DataBean dataBean = introduceOfReservoirsBean.getData();
-        activityIntroduceOfReservoirsBinding.reservoirNameTv.setText(dataBean.getReservoir());
-        activityIntroduceOfReservoirsBinding.scrollviewS.setOnTouchListener(new View.OnTouchListener() {
+        binding.reservoirNameTv.setText(dataBean.getReservoir());
+        binding.scrollviewS.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -187,45 +181,41 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
             }
         });
 
-        //解决滑动冲突
-        /*mapView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    //允许ScrollView截断点击事件，ScrollView可滑动
-                    nestedsv.requestDisallowInterceptTouchEvent(false);
-                } else {
-                    //不允许ScrollView截断点击事件，点击事件由子View处理
-                    nestedsv.requestDisallowInterceptTouchEvent(true);
-                }
-                return false;
-            }
-        });*/
+
         DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
         Map<String, String> map_Reservoirtype = dictMapEntity.getObject().getReservoir_type();
 
         if(map_Reservoirtype != null) {
-            activityIntroduceOfReservoirsBinding.reservoirTypeTv.setText("水库类型：" + map_Reservoirtype.get(dataBean.getReservoirType()));
+            binding.reservoirTypeTv.setText("水库类型：" + map_Reservoirtype.get(dataBean.getReservoirType()));
         }
-        activityIntroduceOfReservoirsBinding.belongTv.setText("所属乡镇："+dataBean.getAreaName());
-        activityIntroduceOfReservoirsBinding.buildStartDateTv.setText("兴建时间："+dataBean.getBuildStartDate());
-        activityIntroduceOfReservoirsBinding.buildEndDateTv.setText("竣工时间："+dataBean.getBuildEndDate());
-        activityIntroduceOfReservoirsBinding.widthAndlengthTv.setText("坝高:"+dataBean.getDamHeight()+"m    |   坝长："+dataBean.getDamLength()+
+        binding.belongTv.setText("所属乡镇："+dataBean.getAreaName());
+        String buildtime = dataBean.getBuildStartDate();
+        if(TextUtils.isEmpty(buildtime)){
+            buildtime = getString(R.string.setting_t_null);
+        }
+        String endtime = dataBean.getBuildEndDate();
+        if(TextUtils.isEmpty(endtime)){
+            endtime = getString(R.string.setting_t_null);
+        }
+        binding.buildStartDateTv.setText("兴建时间："+ buildtime);
+        binding.buildEndDateTv.setText("竣工时间："+ endtime);
+        binding.widthAndlengthTv.setText("坝高:"+dataBean.getDamHeight()+"m    |   坝长："+dataBean.getDamLength()+
                 "m    |   坝宽："+dataBean.getDamWidth()+"m");
-        activityIntroduceOfReservoirsBinding.normalImpoundedLevelTv.setText("正常蓄水位："+dataBean.getNormalImpoundedLevel()+"");
+        binding.normalImpoundedLevelTv.setText("正常蓄水位："+dataBean.getNormalImpoundedLevel()+"m");
 
 
         Map<String, String> map_Damtype = dictMapEntity.getObject().getDam_type();
-        activityIntroduceOfReservoirsBinding.damTypeTv.setText("大坝类型："+ map_Damtype.get(dataBean.getDamType())+"");
-        activityIntroduceOfReservoirsBinding.damCrestElevationTv.setText("坝顶高程："+dataBean.getDamCrestElevation()+"");
-        activityIntroduceOfReservoirsBinding.damBotmMaxWidthTv.setText("坝底最大宽度："+dataBean.getDamBotmMaxWidth()+"");
-        activityIntroduceOfReservoirsBinding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient()+"");
-        activityIntroduceOfReservoirsBinding.mainFunctionTv.setText(dataBean.getMainFunction()+"");
-        activityIntroduceOfReservoirsBinding.reservoirAddressTv.setText(dataBean.getReservoirAddress()+"");
+        binding.damTypeTv.setText("大坝类型："+ map_Damtype.get(dataBean.getDamType())+"");
+        binding.damCrestElevationTv.setText("坝顶高程："+dataBean.getDamCrestElevation()+"m");
+        binding.damBotmMaxWidthTv.setText("坝底最大宽度："+dataBean.getDamBotmMaxWidth()+"m");
+        binding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient()+"");
+        String mainFunctionStr = dataBean.getMainFunction();
+        if (TextUtils.isEmpty(mainFunctionStr)) {
+            mainFunctionStr = getString(R.string.setting_t_null);
+        }
+        binding.mainFunctionTv.setText(mainFunctionStr + "");
+        binding.reservoirAddressTv.setText(dataBean.getReservoirAddress()+"");
         LogUtil.e("经度："+dataBean.getReservoirLongitude()+"，纬度："+dataBean.getReservoirLatitude());
-       /* Point point = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
-                Double.parseDouble(dataBean.getReservoirLatitude())
-        );*/
 
         Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
                 Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));

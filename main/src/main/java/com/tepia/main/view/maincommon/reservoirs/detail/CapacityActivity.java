@@ -35,7 +35,7 @@ import java.util.List;
  * @author :       ly(from Center Of Wuhan)
  * Date            :       2018-9-18
  * Version         :       1.0
- * 功能描述         :       水库库容曲线页面
+ * 功能描述         :       水位库容曲线页面
  **/
 public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<CapacityBean>  {
     private LineChart mLineChart;
@@ -53,7 +53,7 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         setCenterTitle("水库库容曲线");
         showBack();
         mLineChart = findViewById(R.id.line_chart);
-        lineChartEntity = new LineChartEntity(mLineChart,"水位");
+        lineChartEntity = new LineChartEntity(mLineChart,"库容(万m³)");
 //        mLineChart.setOnChartGestureListener(this);
 //        mLineChart.setOnChartValueSelectedListener(this);
         if (mLineChart != null) {
@@ -100,8 +100,11 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
     private void refreshChart(List<HomeGetReservoirInfoBean.StorageCapacityBean> dataBeans) {
         float granularity = 1.0f;
         int size = dataBeans.size();
-
-        granularity = 1.0f;
+        if(size > 100){
+            granularity = 10.0f;
+        }else {
+            granularity = 3.0f;
+        }
         lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
     }
 

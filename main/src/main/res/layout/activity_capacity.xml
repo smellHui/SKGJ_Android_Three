@@ -25,17 +25,23 @@
             android:layout_marginTop="@dimen/textviewtop"
             android:drawableLeft="@drawable/jianjiejuxing"
             android:drawablePadding="@dimen/textviewpadding"
-            android:text="水库库容曲线"
+            android:text="水位库容曲线"
             android:textColor="@color/black"
             android:textSize="@dimen/basetextsize"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/text_color"
+            android:textSize="12sp"
+            android:text="水位(m)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/line_chart"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             />

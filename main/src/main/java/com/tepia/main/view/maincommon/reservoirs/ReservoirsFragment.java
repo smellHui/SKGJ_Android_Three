@@ -86,7 +86,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         tv_reservoir_name = findView(R.id.tv_reservoir_name);
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
-        setResviorRec("水库库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
+        setResviorRec("水位库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
         setResviorRec("水库配套设施", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
         setResviorRec("防汛物资", "FLOOD-FIGHTING MATERIALS", R.drawable.jianjie5);
         setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);

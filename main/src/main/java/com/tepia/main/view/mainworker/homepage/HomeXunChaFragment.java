@@ -7,9 +7,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +23,10 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.Gson;
 import com.just.library.AgentWeb;
 import com.tepia.base.AppRoutePath;
@@ -47,7 +53,7 @@ import java.util.List;
  **/
 
 @Route(path = AppRoutePath.app_main_fragment_home_xuncha)
-public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View, HomeXunChaPresenter> implements HomeXunChaContract.View {
+public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View, HomeXunChaPresenter> implements HomeXunChaContract.View,OnChartGestureListener, OnChartValueSelectedListener {
     private TextView tvReservoirName;
     private com.github.mikephil.charting.charts.LineChart lcReservoirCapacity;
     FragmentHomeXunjianBinding mBinding;
@@ -56,6 +62,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private ReservoirBean selectedResrvoir;
     private HomeGetReservoirInfoBean homeGetReservoirInfoBean;
     private LineChartEntity lineChartEntity;
+    private NestedScrollView nestedsv;
 
 
     public HomeXunChaFragment() {
@@ -293,7 +300,20 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private void initLineChart() {
 
 //        ChartUtils.initChart(lcReservoirCapacity);
-        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "水位");
+        lcReservoirCapacity.setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                //允许ScrollView截断点击事件，ScrollView可滑动
+                mBinding.nestedsv.requestDisallowInterceptTouchEvent(false);
+            } else {
+                //不允许ScrollView截断点击事件，点击事件由子View处理
+                mBinding.nestedsv.requestDisallowInterceptTouchEvent(true);
+            }
+//
+            return false;
+        });
+        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "库容(万m³)");
+        lcReservoirCapacity.setOnChartGestureListener(this);
+        lcReservoirCapacity.setOnChartValueSelectedListener(this);
         if (lcReservoirCapacity != null) {
             lcReservoirCapacity.clear();
             //重设所有缩放和拖动，使图表完全适合它的边界（完全缩小）。
@@ -449,8 +469,11 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private void refreshChart(List<HomeGetReservoirInfoBean.StorageCapacityBean> dataBeans) {
         float granularity = 1.0f;
         int size = dataBeans.size();
-
-        granularity = 1.0f;
+        if(size > 100){
+            granularity = 10.0f;
+        }else {
+            granularity = 3.0f;
+        }
         lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
     }
 
@@ -497,4 +520,57 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     }
 
 
+    @Override
+    public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+
+    }
+
+    @Override
+    public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+        // un-highlight values after the gesture is finished and no single-tap
+        if (lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP) {
+            // or highlightTouch(null) for callback to onNothingSelected(...)
+            lcReservoirCapacity.highlightValues(null);
+        }
+    }
+
+    @Override
+    public void onChartLongPressed(MotionEvent me) {
+
+    }
+
+    @Override
+    public void onChartDoubleTapped(MotionEvent me) {
+
+    }
+
+    @Override
+    public void onChartSingleTapped(MotionEvent me) {
+
+    }
+
+    @Override
+    public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+
+    }
+
+    @Override
+    public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+
+    }
+
+    @Override
+    public void onChartTranslate(MotionEvent me, float dX, float dY) {
+
+    }
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+
+    }
 }

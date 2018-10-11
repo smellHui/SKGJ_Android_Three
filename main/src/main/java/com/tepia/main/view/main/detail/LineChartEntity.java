@@ -34,6 +34,7 @@ import com.tepia.main.model.map.RainfallResponse;
 import com.tepia.main.model.reserviros.CapacityBean;
 import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -349,20 +350,22 @@ public class LineChartEntity {
         data1 = new float[listCount];
 
         data3 = new String[listCount];
-        MyMarkerView mv = new MyMarkerView(Utils.getContext(), R.layout.custom_marker_view, xVals);
-        mv.setChartView(mLineChart);
-        mLineChart.setMarker(mv);
+
 
         for (int i = 0; i < listCount; i++) {
 
             double qstr = databean.get(i).getStorageCapacity();
-
-            data1[i] = (float) qstr;
-            String tm = String.valueOf(databean.get(i).getWaterLevel());
+            double waterle = databean.get(i).getWaterLevel();
+            DecimalFormat df = new DecimalFormat("#.00");
+            String tm = String.valueOf(df.format(qstr));
+            data1[i] = (float) waterle;
             data3[i] = tm;
-
+            xVals.add(tm);
 
         }
+        MyMarkerViewOther mv = new MyMarkerViewOther(Utils.getContext(), R.layout.custom_marker_view, xVals);
+        mv.setChartView(mLineChart);
+        mLineChart.setMarker(mv);
         setDataNew();
 
     }
@@ -445,6 +448,9 @@ public class LineChartEntity {
         }
     }
 
+    /**
+     * 水位库容曲线
+     */
     private void setDataNew() {
 //
         YAxis leftAxis = mLineChart.getAxisLeft();
@@ -501,6 +507,8 @@ public class LineChartEntity {
 
             // set data
             mLineChart.setData(data);
+            List<ILineDataSet> sets = mLineChart.getData()
+                    .getDataSets();
 
         }
     }

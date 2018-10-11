@@ -25,7 +25,7 @@ import java.util.List;
  * Date            :       2018-09-17
  * Time            :       14:56
  * Version         :       1.0
- * 功能描述        :       水库库容曲线 图标 工具类
+ * 功能描述        :       水位库容曲线 图标 工具类
  **/
 public class ChartUtils {
 
