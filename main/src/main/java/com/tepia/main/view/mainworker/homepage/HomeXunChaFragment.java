@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.just.library.AgentWeb;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
@@ -113,6 +114,17 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
 
     private void initListener() {
+        mBinding.loHeader.tvVr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
+                ARouter.getInstance().build(AppRoutePath.app_reservoir_vr)
+                        .withString("vrUrl",UserManager.getInstance().getDefaultReservoir().getVrUrl())
+                        .navigation();
+            }
+        });
         mBinding.loHeader.switchTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -342,6 +354,11 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                     mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
                     UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId());
+                    if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
+                        mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
+                    } else {
+                        mBinding.loHeader.tvVr.setVisibility(View.GONE);
+                    }
                     dialog.dismiss();
                 }
             });
@@ -359,6 +376,11 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         if (UserManager.getInstance().getDefaultReservoir() != null) {
             tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
             mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
+            if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
+                mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
+            } else {
+                mBinding.loHeader.tvVr.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -377,9 +399,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
         homeGetReservoirInfoBean = data;
         adapterWorker.setNewData(data.getPersonDuty());
-        if (data.getPersonDuty() != null && data.getPersonDuty().size() != 0){
-            mBinding.tvWorkerNum.setText("（共 "+data.getPersonDuty().size()+" 人）");
-        }else {
+        if (data.getPersonDuty() != null && data.getPersonDuty().size() != 0) {
+            mBinding.tvWorkerNum.setText("（共 " + data.getPersonDuty().size() + " 人）");
+        } else {
             mBinding.tvWorkerNum.setText("");
         }
 

@@ -163,4 +163,5 @@ public class AppRoutePath {
 
     public final static String app_select_reservor = "/app/select/reservor";
     public final static String app_work_order_question_list = "/app/work/order/question/list";
+    public final static String app_reservoir_vr = "/app/reservoir/vr";
 }

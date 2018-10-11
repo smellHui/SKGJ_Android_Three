@@ -118,6 +118,16 @@ public class ReservoirBean extends BaseResponse {
     private String updateBy;
     private String updateDate;
     private String areaName;
+    private String vrUrl;
+
+    public String getVrUrl() {
+        return vrUrl;
+    }
+
+    public void setVrUrl(String vrUrl) {
+        this.vrUrl = vrUrl;
+    }
+
     /**
      * reservoirId : 66fb3d579d084daf8a7d35d9d9612213
      * reservoir : 绿竹坝水库
