@@ -93,7 +93,6 @@ public class ThreePointListFragment extends BaseCommonFragment {
             @Override
             public void failure(String msg) {
                 rainListAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
-                ToastUtils.shortToast(msg);
                 srl.setRefreshing(false);
             }
 
@@ -123,7 +122,6 @@ public class ThreePointListFragment extends BaseCommonFragment {
             @Override
             public void failure(String msg) {
                 waterListAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
-                ToastUtils.shortToast(msg);
                 srl.setRefreshing(false);
             }
 

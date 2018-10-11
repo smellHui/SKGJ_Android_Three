@@ -20,7 +20,7 @@
         android:drawablePadding="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="--"
+        android:text="请选择时间"
         android:textColor="#191c21"
         android:textSize="12sp" />
 

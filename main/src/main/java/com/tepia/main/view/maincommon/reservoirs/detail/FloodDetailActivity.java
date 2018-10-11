@@ -66,11 +66,11 @@ public class FloodDetailActivity extends BaseActivity {
                                 activityFloodDetailBinding.contentLy.setVisibility(View.VISIBLE);
                                 activityFloodDetailBinding.includeEmpty.setVisibility(View.GONE);
                                 FloodBeanDetailBean.DataBean dataBean = floodBean.getData();
-                                activityFloodDetailBinding.meNameTv.setText("名称：" + dataBean.getMeName());
-                                activityFloodDetailBinding.meTotalsTv.setText("数量：" + dataBean.getMeTotals());
-                                activityFloodDetailBinding.positionTv.setText("位置：" + dataBean.getPosition());
-                                activityFloodDetailBinding.manageNameTv.setText("管理人员：" + dataBean.getManageName()+"");
-                                activityFloodDetailBinding.phoneNumTv.setText("联系方式：" + dataBean.getPhoneNum()+"");
+                                activityFloodDetailBinding.meNameTv.setText( dataBean.getMeName());
+                                activityFloodDetailBinding.meTotalsTv.setText(dataBean.getMeTotals());
+                                activityFloodDetailBinding.positionTv.setText(dataBean.getPosition());
+                                activityFloodDetailBinding.manageNameTv.setText(dataBean.getManageName()+"");
+                                activityFloodDetailBinding.phoneNumTv.setText(dataBean.getPhoneNum()+"");
                                 if(dataBean.getFileInfo() != null) {
                                     for (FloodBeanDetailBean.DataBean.FileInfoBean fileInfoBean : dataBean.getFileInfo()) {
                                         if (fileInfoBean != null) {

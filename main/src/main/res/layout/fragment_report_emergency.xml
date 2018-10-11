@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view.mainworker.report.WaterLevelFragment">
 
-    <include layout="@layout/toolbar"
-        android:visibility="gone"
-        />
-    <include layout="@layout/fragment_shuiwei_common_time"/>
+    <include
+        layout="@layout/toolbar"
+        android:visibility="gone" />
+
+    <include layout="@layout/fragment_shuiwei_common_time" />
 
     <View
-        android:background="@color/background_common"
         android:layout_width="match_parent"
-        android:layout_height="3dp"/>
+        android:layout_height="3dp"
+        android:background="@color/background_common" />
 
-    <include layout="@layout/fragment_shuiwei_common_current"/>
+    <include layout="@layout/fragment_shuiwei_common_current" />
 
-
-    <LinearLayout
-        android:layout_margin="@dimen/shangbaopadding"
-        android:orientation="vertical"
-        android:background="@drawable/bg_worker_item"
+    <FrameLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <include layout="@layout/fragment_shuiwei_yingji_head_new_layout"/>
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/srfl_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/yingjiRec"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
-            />
-        </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
+            android:layout_margin="@dimen/shangbaopadding"
+            android:background="@drawable/bg_worker_item"
+            android:orientation="vertical">
 
+
+            <include layout="@layout/fragment_shuiwei_yingji_head_new_layout" />
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/srfl_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/yingjiRec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

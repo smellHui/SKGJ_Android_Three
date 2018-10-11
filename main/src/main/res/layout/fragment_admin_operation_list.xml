@@ -25,31 +25,34 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:paddingLeft="3dp"
                 android:text="水库名称 :"
                 android:textColor="#464b57"
-                android:paddingLeft="3dp"
                 android:textSize="13sp" />
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
                 <TextView
                     android:id="@+id/tv_select_month"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:paddingLeft="3dp"
                     android:text="开始日期 :"
                     android:textColor="#464b57"
-                    android:paddingLeft="3dp"
                     android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_clean_month"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:paddingLeft="3dp"
                     android:text="重置"
                     android:textColor="@color/blue_user"
-                    android:paddingLeft="3dp"
                     android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
@@ -74,8 +77,8 @@
                     android:background="@android:color/white"
                     android:overlapAnchor="false"
                     android:popupBackground="@android:color/white"
-                    android:spinnerMode="dropdown"
-                    />
+                    android:spinnerMode="dropdown" />
+
                 <TextView
                     android:id="@+id/tv_reservoir"
                     android:layout_width="match_parent"
@@ -86,8 +89,8 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
                     android:paddingRight="20dp"
-                    android:text="全部"
                     android:singleLine="true"
+                    android:text="全部"
                     android:textColor="#191c21"
                     android:textSize="13sp" />
             </FrameLayout>
@@ -100,12 +103,12 @@
                 android:background="@drawable/bg_operation_tv"
                 android:drawableRight="@mipmap/icon_arrow_down"
                 android:gravity="center_vertical"
+                android:hint="请选择月份"
                 android:paddingLeft="15dp"
                 android:paddingRight="20dp"
-                android:text=""
                 android:singleLine="true"
+                android:text=""
                 android:textColor="#191c21"
-                android:hint="请选择月份"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -128,76 +131,82 @@
             android:background="#eff1f3" />
 
         <LinearLayout
-            android:id="@+id/rootLy"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_worker_item_header"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="年月"
-                android:textColor="#434952"
-                android:textSize="12dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="水库"
-                android:textColor="#434952"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/tv_title_done"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="完成任务数"
-                android:textColor="#434952"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/tv_title_totals"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="任务数"
-                android:textColor="#434952"
-                android:textSize="12dp" />
-
-
-            <TextView
-                android:id="@+id/tv_title_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:gravity="center"
-                android:text="完成率"
-                android:textColor="#434952"
-                android:textSize="12dp"
-                android:visibility="visible" />
-
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:scrollbars="vertical"
-            android:id="@+id/rv_operation_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingBottom="0dp"
-            />
+            android:background="@drawable/bg_worker_item"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:id="@+id/rootLy"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_worker_item_header"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="年月"
+                    android:textColor="#434952"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="水库"
+                    android:textColor="#434952"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_title_done"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="完成任务数"
+                    android:textColor="#434952"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_title_totals"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="任务数"
+                    android:textColor="#434952"
+                    android:textSize="12dp" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:text="完成率"
+                    android:textColor="#434952"
+                    android:textSize="12dp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_operation_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:paddingBottom="0dp"
+                android:scrollbars="vertical" />
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
