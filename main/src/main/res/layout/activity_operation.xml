@@ -10,6 +10,10 @@
 
     <include layout="@layout/toolbar" />
     <include layout="@layout/reserviros_title_layout"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+    <include layout="@layout/common_office_layout"/>
 
     <WebView
         android:layout_margin="@dimen/lymargin"

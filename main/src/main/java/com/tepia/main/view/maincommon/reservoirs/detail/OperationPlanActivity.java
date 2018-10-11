@@ -1,5 +1,6 @@
 package com.tepia.main.view.maincommon.reservoirs.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
@@ -26,6 +29,7 @@ import com.tepia.main.utils.ShowPDFUtils;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
+import com.tepia.main.view.maincommon.setting.DownLoadActivity;
 
 import org.w3c.dom.Text;
 
@@ -53,6 +57,10 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     private static final String value_two = "2";
     public static final String value_preview = "100";
     public static final String PREVIEW_PATH = "PREVIEW_PATH";
+    private ImageView officeIv;
+    private TextView officeTitleTv;
+    private ImageView officePreviewTv;
+    private ImageView officeDownloadTv;
 
     @Override
     public int getLayoutId() {
@@ -77,6 +85,11 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
         rootEmptyLy = findViewById(R.id.rootEmptyLy);
         pdfView = findViewById(R.id.pdfview);
         tv_empty_view_text = findViewById(R.id.tv_empty_view_text);
+        officeIv = findViewById(R.id.officeIv);
+        officeTitleTv = findViewById(R.id.officeTitleTv);
+        officePreviewTv = findViewById(R.id.officePreviewTv);
+        officePreviewTv.setVisibility(View.GONE);
+        officeDownloadTv = findViewById(R.id.officeDownloadTv);
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
         String reservoirName = reservoirBean.getReservoir();
         nameTv.setText(reservoirName);
@@ -131,8 +144,26 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
             return;
         }
         showFile(downloadUrl);
-
-
+        OperationPlanBean.DataBean dataBean = data.getData();
+        if(!TextUtils.isEmpty(downloadUrl)){
+            if (downloadUrl.endsWith(".doc") || downloadUrl.endsWith(".docx")) {
+                officeIv.setImageResource(R.drawable.jianjie_word);
+            }else if (downloadUrl.endsWith(".xls") || downloadUrl.endsWith(".xlsx")) {
+                officeIv.setImageResource(R.drawable.jianjie_excel);
+            }else if (downloadUrl.endsWith(".ppt") || downloadUrl.endsWith(".pptx")) {
+                officeIv.setImageResource(R.drawable.jianjie_ppt);
+            }else if (downloadUrl.endsWith(".pdf") ) {
+                officeIv.setImageResource(R.drawable.jianjie_ppt);
+            }
+        }
+        officeTitleTv.setText(dataBean.getFileName());
+        officeDownloadTv.setOnClickListener(v -> {
+            if (!DoubleClickUtil.isFastDoubleClick()){
+                Intent intent = new Intent(OperationPlanActivity.this, DownLoadActivity.class);
+                DownLoadActivity.setIntent(intent,dataBean.getFileName(),dataBean.getFilePath());
+                startActivity(intent);
+            }
+        });
 
     }
 
