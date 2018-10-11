@@ -282,6 +282,7 @@
         <activity android:name=".view.maintechnology.threekeypoint.HistoryDataActivity"></activity>
         <activity android:name=".view.mainworker.yunwei.workorderquestionlist.WorkOrderQuestionListActivity" />
         <activity android:name=".view.mainworker.homepage.ReservoirVrActivity" />
+        <activity android:name=".view.maincommon.reservoirs.dvrapp.VideoActivity"/>
     </application>
 
 </manifest>

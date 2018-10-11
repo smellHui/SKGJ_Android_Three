@@ -38,4 +38,6 @@
     <color name="tab_unselect">#97a2ae</color>
     <color name="reportitem">#eaeff9</color>
     <color name="channelstatus">#838383</color>
+
+    <color name="factor_value_color">#585858</color>
 </resources>

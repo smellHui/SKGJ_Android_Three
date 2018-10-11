@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1e2228"
+    >
+
+    <include layout="@layout/toolbar"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#3096dd"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            >
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/back"
+                android:text="返回" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
+            >
+
+            <TextView
+                android:id="@+id/deviceName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:text=""
+                android:maxLines="1"
+                android:ellipsize = "end"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:gravity="right"
+            android:layout_weight="1"
+            >
+
+            <ImageButton
+                android:id="@+id/imagebutton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="#67ABFE"
+
+                android:text="设置" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/SurfaceViewAndLoading"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <SurfaceView
+            android:id="@+id/SurfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <ImageView
+
+            android:id="@+id/ItemImageBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/item_image_bottom"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <com.tepia.main.view.maincommon.reservoirs.dvrapp.RadioGroupEx
+            android:id="@+id/video_channel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+            <RadioButton
+                android:id="@+id/channel1"
+                style="@style/RbStyle"
+                android:textSize="15sp"
+                android:text="@string/channel_1_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="true"
+                android:tag="0"
+
+                />
+            <RadioButton
+                android:id="@+id/channel2"
+                style="@style/RbStyle"
+                android:textSize="15sp"
+                android:text="@string/channel_2_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="1"
+
+                />
+            <RadioButton
+                android:id="@+id/channel3"
+                style="@style/RbStyle"
+                android:text="@string/channel_3_text"
+                android:textSize="15sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="2"
+
+                />
+            <RadioButton
+                android:id="@+id/channel4"
+                style="@style/RbStyle"
+                android:textSize="15sp"
+                android:text="@string/channel_4_text"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:drawablePadding="5dp"
+                android:tag="3"
+
+                />
+            <RadioButton
+                android:id="@+id/channel5"
+                style="@style/RbStyle"
+                android:textSize="15sp"
+                android:text="@string/channel_5_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="false"
+                android:tag="4"
+
+                />
+            <RadioButton
+                android:id="@+id/channel6"
+                style="@style/RbStyle"
+                android:textSize="15sp"
+                android:text="@string/channel_6_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="5"
+
+                />
+            <RadioButton
+                android:id="@+id/channel7"
+                style="@style/RbStyle"
+                android:text="@string/channel_7_text"
+                android:textSize="15sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="6"
+
+                />
+            <RadioButton
+                android:id="@+id/channel8"
+                style="@style/RbStyle"
+                android:textSize="15sp"
+                android:text="@string/channel_8_text"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:drawableLeft="@drawable/sixin_radio_group_selector"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:drawablePadding="5dp"
+                android:tag="7"
+
+                />
+
+
+        </com.tepia.main.view.maincommon.reservoirs.dvrapp.RadioGroupEx>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+<!--
+    android:layout_width="82dp"
+-->
