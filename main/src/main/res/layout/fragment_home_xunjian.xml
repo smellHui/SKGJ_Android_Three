@@ -120,11 +120,21 @@
                                         android:src="@drawable/icon_home_page_worker" />
 
                                     <TextView
-                                        android:layout_width="match_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="8dp"
                                         android:lineSpacingExtra="0dp"
                                         android:text="水库人员"
+                                        android:textColor="#2e3748"
+                                        android:textSize="14dp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_worker_num"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="8dp"
+                                        android:lineSpacingExtra="0dp"
+                                        android:text=""
                                         android:textColor="#2e3748"
                                         android:textSize="14dp" />
                                 </LinearLayout>

@@ -357,6 +357,12 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
         homeGetReservoirInfoBean = data;
         adapterWorker.setNewData(data.getPersonDuty());
+        if (data.getPersonDuty() != null && data.getPersonDuty().size() != 0){
+            mBinding.tvWorkerNum.setText("（共 "+data.getPersonDuty().size()+" 人）");
+        }else {
+            mBinding.tvWorkerNum.setText("");
+        }
+
         if (data.getMaterial() != null && data.getMaterial().size() > 4) {
             adapterFloodControlMaterialList.setNewData(data.getMaterial().subList(0, 3));
             mBinding.tvShowMore.setVisibility(View.VISIBLE);
