@@ -46,7 +46,7 @@
                         <TextView
                             android:id="@+id/tv_left_text"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="8dp"
                             android:drawableLeft="@drawable/come_back"
@@ -104,7 +104,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="0dp"
-                            android:text="17"
+                            android:text="--"
                             android:textColor="@color/white"
                             android:textSize="80dp" />
 
@@ -123,7 +123,7 @@
                         android:id="@+id/tv_temp_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="多云"
+                        android:text="--"
                         android:textColor="@color/white"
                         android:textSize="24dp" />
 
@@ -138,7 +138,7 @@
                             android:id="@+id/tv_temp_max"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="19℃"
+                            android:text="~℃"
                             android:textColor="@color/white"
                             android:textSize="20dp" />
 
@@ -153,7 +153,7 @@
                             android:id="@+id/tv_temp_min"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="14℃"
+                            android:text="~℃"
                             android:textColor="#dddddd"
                             android:textSize="18dp" />
                     </LinearLayout>
@@ -163,7 +163,7 @@
                         android:id="@+id/tv_quality"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="空气优"
+                        android:text="~"
                         android:textColor="#dddddd"
                         android:textSize="16dp" />
 

@@ -14,6 +14,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWeatherForecastBinding;
@@ -76,6 +77,8 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
             public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
                 if (mPresenter != null) {
                     if (aMapLocation.getCity() != null) {
+                        setCenterTitle(aMapLocation.getCity());
+                        showBack();
                         mPresenter.getWeatherbyArea(aMapLocation.getCity());
                         gaodeEntity.closeLocation();
                     }
@@ -133,6 +136,7 @@ public class WeatherForecastActivity extends MVPBaseActivity<WeatherForecastCont
 
     @Override
     public void getWeatherfail() {
+        ToastUtils.shortToast("请求天气出错");
         if (simpleLoadDialog != null) {
             simpleLoadDialog.dismiss();
         }

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.SPUtils;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.model.weather.WeahterBean;
 import com.tepia.main.model.weather.Weather2Response;
@@ -45,7 +46,7 @@ public class WeatherForecastPresenter extends BasePresenterImpl<WeatherForecastC
 
                 @Override
                 public void onError(Throwable e) {
-
+                    ToastUtils.shortToast("请求天气出错");
                 }
 
                 @Override
