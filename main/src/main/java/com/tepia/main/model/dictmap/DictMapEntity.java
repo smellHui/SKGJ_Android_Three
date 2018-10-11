@@ -49,6 +49,15 @@ public class DictMapEntity {
         private List<NameValueBean> problem_source;
         private List<NameValueBean> procedure_type;
         private List<NameValueBean> report_type;
+        private List<NameValueBean> de_type;
+
+        public List<NameValueBean> getDe_type() {
+            return de_type;
+        }
+
+        public void setDe_type(List<NameValueBean> de_type) {
+            this.de_type = de_type;
+        }
 
         public List<NameValueBean> getSys_code() {
             return sys_code;
@@ -287,6 +296,18 @@ public class DictMapEntity {
         private Map<String,String> isSys;
         private Map<String,String> status;
         private Map<String,String> report_type;
+        /**
+         * 设施类型
+         */
+        private Map<String,String> de_type;
+
+        public Map<String, String> getDe_type() {
+            return de_type;
+        }
+
+        public void setDe_type(Map<String, String> de_type) {
+            this.de_type = de_type;
+        }
 
         public Map<String, String> getSys_code() {
             return sys_code;

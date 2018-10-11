@@ -2,6 +2,8 @@ package com.tepia.base.mvp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -9,6 +11,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -45,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,12 +143,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                             return;
                         }
                         ARouter.getInstance().build(AppRoutePath.app_speak)
-                                .withBoolean("isAudio",true)
+                                .withBoolean("isAudio", true)
                                 .navigation();
                     }
                 }
             });
-        }else {
+        } else {
             FloatUtil.getInstance().hideFloatView(this);
             FloatUtil.getInstance().stopHandler(this);
         }
@@ -203,7 +207,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * 标题在左
      *
@@ -230,6 +233,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    /**
+     * 设置app不跟随系统变化
+     * @return
+     */
+    @Override
+    public Resources getResources() {
+        Resources resources = super.getResources();
+        Configuration newConfig = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        if (newConfig.fontScale != 1) {
+            newConfig.fontScale = 1;
+            if (Build.VERSION.SDK_INT >= 17) {
+                Context configurationContext = createConfigurationContext(newConfig);
+                resources = configurationContext.getResources();
+                displayMetrics.scaledDensity = displayMetrics.density * newConfig.fontScale;
+            } else {
+                resources.updateConfiguration(newConfig, displayMetrics);
+            }
+        }
+        return resources;
+    }
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

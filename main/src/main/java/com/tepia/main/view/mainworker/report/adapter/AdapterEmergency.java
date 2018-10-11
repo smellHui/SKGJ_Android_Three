@@ -1,6 +1,7 @@
 package com.tepia.main.view.mainworker.report.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
@@ -38,6 +39,13 @@ public class AdapterEmergency extends BaseQuickAdapter<EmergenceListBean.DataBea
         DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
         Map<String, String> mapProblemStatus = dictMapEntity.getObject().getProblemStatus();
         view.setText(R.id.stateTv, mapProblemStatus.get(item.getProblemStatus()));
+        if("4".equals(item.getProblemStatus())){
+            //待反馈
+            view.setTextColor(R.id.stateTv,Color.parseColor("#e3654d"));
+        }else if("5".equals(item.getProblemStatus())){
+            //待反馈
+            view.setTextColor(R.id.stateTv, Color.parseColor("#46c189"));
+        }
         int position = view.getAdapterPosition();
         if( position%2 == 0 ) {
             view.setBackgroundColor(R.id.rootLy, ContextCompat.getColor(mContext, R.color.white));

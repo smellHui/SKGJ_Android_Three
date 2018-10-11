@@ -349,7 +349,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
                 timePickerDialogUtil.builder.setCurrentMillseconds(last_millseconds_start);
             }
             timePickerDialogUtil.builder.setMaxMillseconds(System.currentTimeMillis()) ;
-            timePickerDialogUtil.builder.setTitleStringId(getContext().getString(R.string.endtimeTitle));
+            timePickerDialogUtil.builder.setTitleStringId("请选择查询月份");
             timePickerDialogUtil.startDialog = timePickerDialogUtil.builder.build();
             timePickerDialogUtil.startDialog.show(getFragmentManager(), "all");
         }

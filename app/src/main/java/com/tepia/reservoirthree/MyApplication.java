@@ -1,5 +1,9 @@
 package com.tepia.reservoirthree;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+
 import com.example.gaodelibrary.UtilsContextOfGaode;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.tepia.base.BaseApplication;
@@ -22,7 +26,15 @@ public class MyApplication extends BaseApplication {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
 
-
+        // 加载系统默认设置，字体不随用户设置变化
+        /*Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            createConfigurationContext(config);
+        } else {
+            res.updateConfiguration(config, res.getDisplayMetrics());
+        }*/
 
     }
 

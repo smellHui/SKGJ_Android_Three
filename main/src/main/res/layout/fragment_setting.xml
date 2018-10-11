@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_common"
+    android:paddingBottom="20dp"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
@@ -149,6 +150,7 @@
                 android:layout_height="wrap_content" />
 
             <View
+                android:visibility="gone"
                 style="@style/LineH"
                 android:layout_marginLeft="@dimen/autodimen_setting"
                 android:layout_marginRight="@dimen/autodimen_setting" />
@@ -163,10 +165,7 @@
                 android:layout_marginLeft="@dimen/autodimen_setting"
                 android:layout_marginRight="@dimen/autodimen_setting" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="@color/background_common" />
+
 
         </LinearLayout>
 

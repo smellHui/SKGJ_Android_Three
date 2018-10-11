@@ -1,46 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data></data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/background_common"
+        android:orientation="vertical"
         tools:context=".view.maincommon.reservoirs.detail.SupportingDetailActivity">
-        <include layout="@layout/toolbar"/>
 
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/nameTv"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <include layout="@layout/toolbar" />
 
-        <TextView
-            android:layout_margin="10dp"
-            android:id="@+id/functionTv"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:padding="10dp"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/bizRy"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="名称:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="用途:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/functionTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="位置:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/positionTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="设施类型:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/typeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="设施数量:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="投入使用时间:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/timeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imageLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="设施图片:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="10dp"
+                android:visibility="visible">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/bizRy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 </layout>

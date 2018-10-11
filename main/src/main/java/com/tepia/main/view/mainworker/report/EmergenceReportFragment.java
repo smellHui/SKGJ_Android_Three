@@ -14,8 +14,10 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,15 +54,14 @@ import static android.app.Activity.RESULT_OK;
 
 
 /**
-  * Created by      Android studio
-  *
-  * @author :ly (from Center Of Wuhan)
-  * Date    :2018-9-29
-  * Version :1.0
-  * 功能描述 :应急上报fragment
+ * Created by      Android studio
+ *
+ * @author :ly (from Center Of Wuhan)
+ * Date    :2018-9-29
+ * Version :1.0
+ * 功能描述 :应急上报fragment
  **/
-public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View,ReportPresenter> implements View.OnClickListener, View.OnTouchListener {
-
+public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View, ReportPresenter> implements View.OnClickListener, View.OnTouchListener {
 
 
     private EditText titleEv;
@@ -82,14 +83,14 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
     private RecyclerView recycleChangyong;
     private AdapterEmergenceReport adapterQuestion;
     //标签个数
-    private static int labelcount= 8;
-    private static int REQUEST_VIDEO_CODE= 100;
-    private static int REQUEST_DELETE_CODE= 200;
+    private static int labelcount = 8;
+    private static int REQUEST_VIDEO_CODE = 100;
+    private static int REQUEST_DELETE_CODE = 200;
     private ImageView videoIcon;
     // 视频路径
     public static String videoPath = "";
     private Bitmap addBitmap;
-    private int flag ;
+    private int flag;
 
     private EmergenceListBean.DataBean.ListBean listBean;
 
@@ -103,12 +104,11 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
     }
 
 
-
     @Override
     protected void initView(View view) {
         setCenterTitle("应急上报");
         showBack();
-        addBitmap = ((BitmapDrawable) ContextCompat.getDrawable(getContext(),R.drawable.newplay)
+        addBitmap = ((BitmapDrawable) ContextCompat.getDrawable(getContext(), R.drawable.newplay)
         ).getBitmap();
 
         reservoirId = getArguments().getString("reservoirId");
@@ -144,6 +144,16 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         });
 
         contentEv = findView(R.id.contentEv);
+        //设置EditText的显示方式为多行文本输入
+        contentEv.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        //文本显示的位置在EditText的最上方
+        contentEv.setGravity(Gravity.TOP);
+        //改变默认的单行模式
+        contentEv.setSingleLine(false);
+         //水平滚动设置为False
+        contentEv.setHorizontallyScrolling(false);
+
+
         contentEv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -194,19 +204,18 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
     }
 
 
-
     /**
      * 保存数据
      */
-    private void getSP(){
-            questionTitle = SPUtils.getInstance().getString(EmergencyReportActivity.key_Title,"");
-            LogUtil.e("questionTitle",questionTitle+"--");
+    private void getSP() {
+        questionTitle = SPUtils.getInstance().getString(EmergencyReportActivity.key_Title, "");
+        LogUtil.e("questionTitle", questionTitle + "--");
 
-            titleEv.setText(questionTitle);
-            questionContent = SPUtils.getInstance().getString(EmergencyReportActivity.key_Content,"");
-            LogUtil.e("questionContent",questionContent);
+        titleEv.setText(questionTitle);
+        questionContent = SPUtils.getInstance().getString(EmergencyReportActivity.key_Content, "");
+        LogUtil.e("questionContent", questionContent);
 
-            contentEv.setText(questionContent);
+        contentEv.setText(questionContent);
 
     }
 
@@ -231,7 +240,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 photoAdapter.notifyDataSetChanged();
             }
             photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
-        }else if (requestCode == REQUEST_VIDEO_CODE) {
+        } else if (requestCode == REQUEST_VIDEO_CODE) {
             if (resultCode == RESULT_OK) {
                 Uri uri = data.getData();
                 // 视频路径
@@ -245,7 +254,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 }
                 LogUtil.e("videoPath== " + videoPath + " videoSize== " + videoSize);
                 //转换文件大小类型
-                if (videoSize > 20*1024*1024) {
+                if (videoSize > 20 * 1024 * 1024) {
                     ToastUtils.shortToast("大小超出限制，最大20MB");
                     videoPath = "";
                     return;
@@ -255,7 +264,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
                 Bitmap bmpVedio = CanvasnewBitmap.doodle(bitmap,
                         addBitmap);
-                if(bitmap != null){
+                if (bitmap != null) {
                     bitmap.recycle();
                 }
 
@@ -264,16 +273,14 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 //显示到控件上
                 videoIcon.setImageBitmap(bmpVedio);
             }
-        }else if(requestCode == REQUEST_DELETE_CODE){
-            if(TextUtils.isEmpty(videoPath)){
-                videoIcon.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.vedio));
+        } else if (requestCode == REQUEST_DELETE_CODE) {
+            if (TextUtils.isEmpty(videoPath)) {
+                videoIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.vedio));
             }
         }
 
 
     }
-
-
 
 
     /**
@@ -383,34 +390,34 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                     videoPath = "";
                     ToastUtils.shortToast("提交成功");
                     Intent intent = new Intent();
-                    getBaseActivity().setResult(200,intent);
+                    getBaseActivity().setResult(200, intent);
                     getBaseActivity().finish();
                 }
 
                 @Override
                 public void failure(String msg) {
-                    LogUtil.e("EmergenceReportFragment",msg+"---");
+                    LogUtil.e("EmergenceReportFragment", msg + "---");
 
                 }
             });
 
-            mPresenter.reportProblem(reservoirId,questionTitle, questionContent, "",
-                    "", selectedPhotos,videoPath);
+            mPresenter.reportProblem(reservoirId, questionTitle, questionContent, "",
+                    "", selectedPhotos, videoPath);
 
 
         } else if (viewID == R.id.resviorTv) {
             if (dateBeanList != null && dateBeanList.size() > 0) {
 //                showRiverDialog(dateBeanList);
             }
-        }else if(viewID == R.id.videoIcon){
-            if(TextUtils.isEmpty(videoPath)) {
+        } else if (viewID == R.id.videoIcon) {
+            if (TextUtils.isEmpty(videoPath)) {
                 getVedio();
-            }else{
+            } else {
                 Intent intent = new Intent();
-                intent.setClass(getBaseActivity(),PlayLocalVedioActivity.class);
+                intent.setClass(getBaseActivity(), PlayLocalVedioActivity.class);
                 Bundle bundle = new Bundle();
 
-                bundle.putString("urllocalvedio",videoPath);
+                bundle.putString("urllocalvedio", videoPath);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, REQUEST_DELETE_CODE);
 
@@ -450,7 +457,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
     }
 
-    private void getVedio(){
+    private void getVedio() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("video/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -463,8 +470,8 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         super.onDestroyView();
 
         clear();
-        SPUtils.getInstance().putString(EmergencyReportActivity.key_Title,questionTitle);
-        SPUtils.getInstance().putString(EmergencyReportActivity.key_Content,questionContent);
+        SPUtils.getInstance().putString(EmergencyReportActivity.key_Title, questionTitle);
+        SPUtils.getInstance().putString(EmergencyReportActivity.key_Content, questionContent);
         if (dateBeanList != null) {
             dateBeanList.clear();
         }

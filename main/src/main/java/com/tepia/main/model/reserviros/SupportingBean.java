@@ -39,13 +39,37 @@ public class SupportingBean extends BaseResponse{
          */
         private String deName;
         /**
+         * 设备类型
+         */
+        private String deType;
+        /**
          * 设备功能
          */
         private String deFunction;
         /**
+         * 投入使用时间
+         */
+        private String beginUseDate;
+        /**
+         * 位置
+         */
+        private String position;
+        /**
+         * 数量
+         */
+        private String deTotals;
+        /**
          * 文件信息list
          */
         private List<FileInfoBean> fileInfo;
+
+        public String getDeTotals() {
+            return deTotals;
+        }
+
+        public void setDeTotals(String deTotals) {
+            this.deTotals = deTotals;
+        }
 
         public String getDeName() {
             return deName;
@@ -69,6 +93,30 @@ public class SupportingBean extends BaseResponse{
 
         public void setFileInfo(List<FileInfoBean> fileInfo) {
             this.fileInfo = fileInfo;
+        }
+
+        public String getDeType() {
+            return deType;
+        }
+
+        public void setDeType(String deType) {
+            this.deType = deType;
+        }
+
+        public String getBeginUseDate() {
+            return beginUseDate;
+        }
+
+        public void setBeginUseDate(String beginUseDate) {
+            this.beginUseDate = beginUseDate;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public void setPosition(String position) {
+            this.position = position;
         }
 
         public static class FileInfoBean implements Serializable{

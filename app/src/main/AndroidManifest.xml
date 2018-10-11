@@ -13,9 +13,9 @@
     <application
         android:name="com.tepia.reservoirthree.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/logo_white"
         android:label="@string/appkongname"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/logo_white"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:theme,android:name,android:label">
