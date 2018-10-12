@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -13,9 +14,12 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.tepia.base.utils.ResUtils;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -62,7 +66,7 @@ public class ChartUtils {
         xAxis.setDrawAxisLine(true);
         // 设置x轴数据的位置
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
+        xAxis.setTextColor(Color.parseColor("#999999"));
         xAxis.setTextSize(12);
         xAxis.setGridColor(Color.parseColor("#30000000"));
         // 设置x轴数据偏移量
@@ -76,7 +80,8 @@ public class ChartUtils {
         yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         // 不从y轴发出横向直线
         yAxis.setDrawGridLines(true);
-        yAxis.setTextColor(Color.BLACK);
+
+        yAxis.setTextColor(Color.parseColor("#999999"));
         yAxis.setTextSize(12);
         // 设置y轴数据偏移量
         yAxis.setXOffset(30);
@@ -93,7 +98,6 @@ public class ChartUtils {
         chart.invalidate();
         return chart;
     }
-
 
 
     /**
@@ -144,12 +148,28 @@ public class ChartUtils {
         chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-//                return xValuesProcess(valueType)[(int) value];
+//                if (valueType == 4) {
+//                    return xValuesProcess(values)[(int) value];
+//                }
 
-                return "";
+
+                return "" + (int) value;
             }
         });
 
+        ArrayList<Float> xlist = new ArrayList<Float>();
+        ArrayList<Float> ylist = new ArrayList<Float>();
+        for (Entry entry:values){
+            xlist.add(entry.getX());
+            ylist.add(entry.getY());
+        }
+        YAxis yAxis = chart.getAxisLeft();
+        XAxis xAxis = chart.getXAxis();
+        yAxis.setAxisMaximum(Collections.max(ylist));//y轴最大值
+        yAxis.setAxisMinimum(Collections.min(ylist));//y轴最小值
+
+        xAxis.setAxisMaximum(Collections.max(xlist));//y轴最大值
+        xAxis.setAxisMinimum(0);//y轴最小值
         chart.invalidate();
         setChartData(chart, values);
     }
@@ -197,5 +217,14 @@ public class ChartUtils {
             return monthValues;
         }
         return new String[]{};
+    }
+
+    public static void setDesc(LineChart mLineChart, String xUnitStr) {
+        // 数据描述
+        Description description = new Description();
+        description.setText(xUnitStr);
+        description.setTextColor(ConfigConsts.colortext);
+
+        mLineChart.setDescription(description);
     }
 }

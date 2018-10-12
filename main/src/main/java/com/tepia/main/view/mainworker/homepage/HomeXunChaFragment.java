@@ -311,19 +311,21 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     private void initLineChart() {
 
-//        ChartUtils.initChart(lcReservoirCapacity);
-        lcReservoirCapacity.setOnTouchListener((view, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                //允许ScrollView截断点击事件，ScrollView可滑动
-                mBinding.nestedsv.requestDisallowInterceptTouchEvent(false);
-            } else {
-                //不允许ScrollView截断点击事件，点击事件由子View处理
-                mBinding.nestedsv.requestDisallowInterceptTouchEvent(true);
-            }
+        ChartUtils.initChart(lcReservoirCapacity);
+//        lcReservoirCapacity.setOnTouchListener((view, event) -> {
+//            if (event.getAction() == MotionEvent.ACTION_UP) {
+//                //允许ScrollView截断点击事件，ScrollView可滑动
+//                mBinding.nestedsv.requestDisallowInterceptTouchEvent(false);
+//            } else {
+//                //不允许ScrollView截断点击事件，点击事件由子View处理
+//                mBinding.nestedsv.requestDisallowInterceptTouchEvent(true);
+//            }
+////
+//            return false;
+//        });
+////        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "库容(万m³)");
 //
-            return false;
-        });
-        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "库容(万m³)");
+        ChartUtils.setDesc(lcReservoirCapacity,"库容(万m³)");
         lcReservoirCapacity.setOnChartGestureListener(this);
         lcReservoirCapacity.setOnChartValueSelectedListener(this);
         if (lcReservoirCapacity != null) {
@@ -331,6 +333,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             //重设所有缩放和拖动，使图表完全适合它的边界（完全缩小）。
             lcReservoirCapacity.fitScreen();
         }
+
     }
 
     private void showSelectReservoir() {
@@ -387,7 +390,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private List<Entry> getData(List<HomeGetReservoirInfoBean.StorageCapacityBean> storageCapacity) {
         List<Entry> values = new ArrayList<>();
         for (HomeGetReservoirInfoBean.StorageCapacityBean bean : storageCapacity) {
-            values.add(new Entry(bean.getWaterLevel(), bean.getStorageCapacity()));
+            values.add(new Entry(bean.getStorageCapacity(),bean.getWaterLevel() ));
         }
         return values;
     }
@@ -496,7 +499,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         }else {
             granularity = 3.0f;
         }
-        lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
+//        lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
+        ChartUtils.notifyDataSetChanged(lcReservoirCapacity,getData(dataBeans),4);
+
     }
 
     private void refreshViewWaterLevelStorageCapacity(HomeGetReservoirInfoBean.ReservoirWaterLevelBean reservoirWaterLevel) {

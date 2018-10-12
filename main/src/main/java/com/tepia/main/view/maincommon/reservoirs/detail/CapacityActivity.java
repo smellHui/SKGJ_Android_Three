@@ -55,6 +55,8 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         mLineChart = findViewById(R.id.line_chart);
         mLineChart.setOnChartGestureListener(this);
         mLineChart.setOnChartValueSelectedListener(this);
+        ChartUtils.initChart(mLineChart);
+        ChartUtils.setDesc(mLineChart,"库容(万m³)");
         lineChartEntity = new LineChartEntity(mLineChart,"库容(万m³)");
 //        mLineChart.setOnChartGestureListener(this);
 //        mLineChart.setOnChartValueSelectedListener(this);
@@ -107,13 +109,14 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View,Res
         }else {
             granularity = 3.0f;
         }
-        lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
+//        lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
+        ChartUtils.notifyDataSetChanged(mLineChart,getData(dataBeans),4);
     }
 
     private List<Entry> getData(List<HomeGetReservoirInfoBean.StorageCapacityBean> storageCapacity) {
         List<Entry> values = new ArrayList<>();
         for (HomeGetReservoirInfoBean.StorageCapacityBean bean : storageCapacity) {
-            values.add(new Entry(bean.getWaterLevel(), bean.getStorageCapacity()));
+            values.add(new Entry( bean.getStorageCapacity(),bean.getWaterLevel()));
         }
         return values;
     }
