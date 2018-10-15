@@ -62,6 +62,7 @@ public class VideoResponse extends BaseResponse{
         private String isOnline;
         private String ip;
         private int port;
+        private int appPort;
         private String channelId;
         private String defaultDvrId;
         private String localMode;
@@ -166,6 +167,14 @@ public class VideoResponse extends BaseResponse{
 
         public void setPort(int port) {
             this.port = port;
+        }
+
+        public int getAppPort() {
+            return appPort;
+        }
+
+        public void setAppPort(int appPort) {
+            this.appPort = appPort;
         }
 
         public String getChannelId() {

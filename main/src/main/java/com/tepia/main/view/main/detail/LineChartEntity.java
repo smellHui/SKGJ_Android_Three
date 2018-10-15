@@ -51,6 +51,7 @@ public class LineChartEntity {
     // 时间点
     private float[] data1;
     private String[] data3;
+    private float[] data_float3;
     // 时间点总数
     private int listCount;
     public LineChartEntity(LineChart lineChart){
@@ -193,6 +194,10 @@ public class LineChartEntity {
                         return " ";
                     }
                     return formatvalue;
+                }
+                if (data_float3 != null && data_float3.length > 0) {
+                    float formatvalue = data_float3[(Math.abs((int) value) % data_float3.length)];
+                    return String.valueOf(formatvalue);
                 }
                 return "";
             }
@@ -349,8 +354,8 @@ public class LineChartEntity {
         listCount = databean.size();
         data1 = new float[listCount];
 
-        data3 = new String[listCount];
-
+//        data3 = new String[listCount];
+        data_float3 = new float[listCount];
 
         for (int i = 0; i < listCount; i++) {
 
@@ -360,6 +365,7 @@ public class LineChartEntity {
             String tm = String.valueOf(df.format(qstr));
             data1[i] = (float) waterle;
             data3[i] = tm;
+//            data_float3[i] = Float.valueOf(df.format(qstr));
             xVals.add(tm);
 
         }

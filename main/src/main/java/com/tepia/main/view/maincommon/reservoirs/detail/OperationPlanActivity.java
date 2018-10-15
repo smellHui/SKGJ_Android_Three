@@ -156,7 +156,10 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
             }else if (downloadUrl.endsWith(".ppt") || downloadUrl.endsWith(".pptx")) {
                 officeIv.setImageResource(R.drawable.jianjie_ppt);
             }else if (downloadUrl.endsWith(".pdf") ) {
-                officeIv.setImageResource(R.drawable.jianjie_ppt);
+                officeIv.setImageResource(R.drawable.jianjie_pdf);
+            }else if(downloadUrl.endsWith(".txt")){
+                officeIv.setImageResource(R.drawable.jianjie_txt);
+                webview.setVisibility(View.GONE);
             }
         }
         officeTitleTv.setText(dataBean.getFileName());
@@ -171,6 +174,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     }
 
     private void showFile(String downloadUrl){
+
         if (downloadUrl.endsWith(".pdf")) {
             SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), "正在加载pdf文件", true);
             simpleLoadDialog.show();
@@ -185,9 +189,18 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
                 }
             }).start();
 
-        }else {
+        }
+        boolean contains_office = downloadUrl.endsWith(".doc")
+                || downloadUrl.endsWith(".ppt")
+                || downloadUrl.endsWith(".xls")
+                || downloadUrl.endsWith(".docx")
+                || downloadUrl.endsWith(".pptx")
+                || downloadUrl.endsWith(".xlsx");
+        if(contains_office){
             ShowOfficeFileUtils.showOffice(webview,downloadUrl);
         }
+
+
     }
 
     @Override

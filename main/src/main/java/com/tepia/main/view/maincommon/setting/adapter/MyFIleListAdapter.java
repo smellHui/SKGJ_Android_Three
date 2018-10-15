@@ -52,8 +52,12 @@ public class MyFIleListAdapter extends BaseQuickAdapter<TrainDetailResponse.Data
             }else if (filepath.endsWith(".ppt") || filepath.endsWith(".pptx")) {
                 helper.setImageResource(R.id.officeIv,R.drawable.jianjie_ppt);
             }else if (filepath.endsWith(".pdf") ) {
-                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_ppt);
+                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_pdf);
+            }else if(filepath.endsWith(".txt")){
+                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_txt);
+
             }
+
         }
         helper.getView(R.id.officeDownloadTv).setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DownLoadActivity.class);

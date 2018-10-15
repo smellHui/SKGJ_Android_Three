@@ -118,7 +118,10 @@ public class DownLoadActivity extends BaseActivity {
             } else if (filePath.endsWith(".ppt") || filePath.endsWith(".pptx")) {
                 ivTitle.setImageResource(R.drawable.jianjie_ppt);
             } else if (filePath.endsWith(".pdf")) {
-                ivTitle.setImageResource(R.drawable.jianjie_ppt);
+                ivTitle.setImageResource(R.drawable.jianjie_pdf);
+            } else if(filePath.endsWith(".txt")){
+                ivTitle.setImageResource(R.drawable.jianjie_txt);
+
             }
             target = Aria.download(this).load(filePath);
             long fileSize = target.getFileSize();

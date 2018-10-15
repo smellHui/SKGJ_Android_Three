@@ -42,6 +42,7 @@ import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.report.adapter.AdapterWaterLevelReservoirs;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -285,10 +286,14 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
             @Override
             public void onClick(View v) {
                 String rz = selectShuiweiEv.getText().toString();
+                DecimalFormat df = new DecimalFormat("#.00");
+                rz = df.format(rz);
+                LogUtil.e("水位值:"+rz);
                 if(TextUtils.isEmpty(rz)){
                     ToastUtils.shortToast("请填写水位值");
                     return;
                 }
+
                 mPresenter.uploadingStRsvr(reservoirId,rz);
             }
         });

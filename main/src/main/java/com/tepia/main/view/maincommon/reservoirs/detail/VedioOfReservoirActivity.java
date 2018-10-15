@@ -223,7 +223,11 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                 User = dataBean.getAccount();
                 Psd = dataBean.getPwd();
                 accessType = dataBean.getAccessType();
+            }else {
+                videoListAdapter.setEmptyView(EmptyLayoutUtil.show("返回视频数据为空"));
+                return;
             }
+            LogUtil.e("视频类型accessType"+accessType);
             if ("0".equals(accessType)) {
                 //海康视频
                 initLogin(dataBean);
@@ -233,12 +237,13 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("weburl", dataBean.getIp());
                 editor.putString("serverurl", dataBean.getIp());
-                /**
-                 * 默认是9000
-                 */
-                editor.putString("webport", 9000 + "");
-                editor.putString("serverport", dataBean.getPort() + "");
+
+                editor.putString("webport", dataBean.getPort() + "");
+                editor.putString("serverport", dataBean.getAppPort() + "");
                 editor.commit();
+
+                LogUtil.e("平台IP(weburl)："+dataBean.getIp()+"平台端口号"+dataBean.getPort()+"服务weburl："+dataBean.getIp()+"服务端口号"+dataBean.getAppPort());
+
                 mQueue = Volley.newRequestQueue(this);
                 sixin_account = dataBean.getAccount();
                 sixin_pwd = dataBean.getPwd();
@@ -603,7 +608,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                     @Override
                     public void onErrorResponse(VolleyError arg0) {
                         simpleLoadDialog.dismiss();
-                        Toast.makeText(VedioOfReservoirActivity.this, arg0.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(VedioOfReservoirActivity.this, "登录失败，请检查返回的端口号", Toast.LENGTH_LONG).show();
                         LogUtil.e("四信登录post请求失败:" + arg0.getMessage());
                         //失败
                     }
