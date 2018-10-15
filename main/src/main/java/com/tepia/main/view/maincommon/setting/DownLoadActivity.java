@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,10 +27,13 @@ import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.HorizontalProgressBar.HorizontalProgressBarWithNumber;
 import com.tepia.main.R;
+import com.tepia.main.utils.OpenFileUtils;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,6 +63,7 @@ public class DownLoadActivity extends BaseActivity {
     private SharedPreferences sharedPreferences;
     private Map<String, Boolean> downloadMap;
     private String downloadMapStr;
+    private int downloadStatus;
 
     public static Intent setIntent(Intent intent, String fileName, String filePath) {
         intent.putExtra("fileName", fileName);
@@ -97,11 +102,19 @@ public class DownLoadActivity extends BaseActivity {
         });
         tvDownloadPreview.setOnClickListener(v -> {
             if (isLoadComplete) {
-                Intent oIntent = new Intent();
-                oIntent.setClass(DownLoadActivity.this, OperationPlanActivity.class);
-                oIntent.putExtra("select", OperationPlanActivity.value_preview);
-                oIntent.putExtra(OperationPlanActivity.PREVIEW_PATH, filePath);
-                startActivity(oIntent);
+//                Intent oIntent = new Intent();
+//                oIntent.setClass(DownLoadActivity.this, OperationPlanActivity.class);
+//                oIntent.putExtra("select", OperationPlanActivity.value_preview);
+//                oIntent.putExtra(OperationPlanActivity.PREVIEW_PATH, filePath);
+//                startActivity(oIntent);
+                  String localPath = parentPath+"/"+fileName;
+                Intent fileIntent = OpenFileUtils.openFile(localPath, OpenFileUtils.getUri(getApplicationContext(),localPath));
+                if (null==fileIntent){
+                    ToastUtils.longToast("附件不能打开，请下载相关软件！");
+                }else {
+                    fileIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(fileIntent);
+                }
             } else {
                 tvDownloadPreview.setVisibility(View.GONE);
                 initPermission();
@@ -121,7 +134,6 @@ public class DownLoadActivity extends BaseActivity {
                 ivTitle.setImageResource(R.drawable.jianjie_pdf);
             } else if(filePath.endsWith(".txt")){
                 ivTitle.setImageResource(R.drawable.jianjie_txt);
-
             }
             target = Aria.download(this).load(filePath);
             long fileSize = target.getFileSize();
@@ -197,6 +209,7 @@ public class DownLoadActivity extends BaseActivity {
     }
 
     private void downLoad() {
+        new Thread(() -> checkDownloadUri(filePath)).start();
         File file = new File(Environment.getExternalStorageDirectory().getPath() + "SKGJDownloads");
         if (!file.exists() && !file.isDirectory()) {
             boolean mkdir = file.mkdir();
@@ -206,6 +219,25 @@ public class DownLoadActivity extends BaseActivity {
                 .load(filePath)
                 .setFilePath(path)
                 .start();
+    }
+
+    /**
+     * 判断下载资源是否存在
+     * @param filePath
+     */
+    private void checkDownloadUri(String filePath) {
+        try {
+            URL url = new URL(filePath);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(10*1000);
+            int code = conn.getResponseCode();
+            downloadStatus = code;
+            Log.i("code","code:"+code);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -238,6 +270,12 @@ public class DownLoadActivity extends BaseActivity {
         if (task.getKey().equals(filePath)) {
 //            Log.d(TAG, "onPre ==> " + task.getDownloadEntity().getFileName());
             LogUtil.i("onPre ==> " + task.getDownloadEntity().getFileName());
+            LogUtil.i("downloadStatus:"+downloadStatus);
+            if (downloadStatus==404){
+//                Aria.download(this).load(filePath).cancel(true);
+                task.cancel();
+                ToastUtils.longToast("服务器文件不存在！");
+            }
         }
     }
 
@@ -295,7 +333,7 @@ public class DownLoadActivity extends BaseActivity {
     @Download.onTaskCancel
     void taskCancel(DownloadTask task) {
         if (task.getKey().equals(filePath)) {
-            Toast.makeText(DownLoadActivity.this, "取消下载", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(DownLoadActivity.this, "取消下载", Toast.LENGTH_SHORT).show();
             LogUtil.i("cancel");
             progressBar.setProgress(0);
         }

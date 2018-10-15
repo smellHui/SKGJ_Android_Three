@@ -162,7 +162,7 @@ public class AddTrainActivity extends BaseActivity {
                     .withActivity(AddTrainActivity.this)
                     .withRequestCode(100)
                     .withMutilyMode(true)
-                    .withFileFilter(new String[]{".doc", ".ppt", ".xls", ".docx", ".pptx", ".xlsx",".pdf"})
+                    .withFileFilter(new String[]{".doc", ".ppt", ".xls", ".docx", ".pptx", ".xlsx",".pdf",".txt"})
                     .start();
         });
         fileAdapter.setOnAddDeleteClickListener((view, position) -> {
