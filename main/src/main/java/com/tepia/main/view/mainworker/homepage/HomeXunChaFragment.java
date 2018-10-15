@@ -54,7 +54,7 @@ import java.util.List;
  **/
 
 @Route(path = AppRoutePath.app_main_fragment_home_xuncha)
-public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View, HomeXunChaPresenter> implements HomeXunChaContract.View,OnChartGestureListener, OnChartValueSelectedListener {
+public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View, HomeXunChaPresenter> implements HomeXunChaContract.View, OnChartGestureListener, OnChartValueSelectedListener {
     private TextView tvReservoirName;
     private com.github.mikephil.charting.charts.LineChart lcReservoirCapacity;
     FragmentHomeXunjianBinding mBinding;
@@ -117,11 +117,11 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loHeader.tvVr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_reservoir_vr)
-                        .withString("vrUrl",UserManager.getInstance().getDefaultReservoir().getVrUrl())
+                        .withString("vrUrl", UserManager.getInstance().getDefaultReservoir().getVrUrl())
                         .navigation();
             }
         });
@@ -325,7 +325,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 //        });
 ////        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "库容(万m³)");
 //
-        ChartUtils.setDesc(lcReservoirCapacity,"库容(万m³)");
+        ChartUtils.setDesc(lcReservoirCapacity, "库容(万m³)");
         lcReservoirCapacity.setOnChartGestureListener(this);
         lcReservoirCapacity.setOnChartValueSelectedListener(this);
         if (lcReservoirCapacity != null) {
@@ -390,7 +390,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private List<Entry> getData(List<HomeGetReservoirInfoBean.StorageCapacityBean> storageCapacity) {
         List<Entry> values = new ArrayList<>();
         for (HomeGetReservoirInfoBean.StorageCapacityBean bean : storageCapacity) {
-            values.add(new Entry(bean.getStorageCapacity(),bean.getWaterLevel() ));
+            values.add(new Entry(bean.getStorageCapacity(), bean.getWaterLevel()));
         }
         return values;
     }
@@ -481,8 +481,12 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             }
         }
 
-        if (data.getStorageCapacity() != null) {
+        if (data.getStorageCapacity() != null && data.getStorageCapacity().size() != 0) {
+            mBinding.tvUnit.setVisibility(View.VISIBLE);
             refreshChart(data.getStorageCapacity());
+        } else {
+            mBinding.tvUnit.setVisibility(View.GONE);
+            ChartUtils.clearData(lcReservoirCapacity);
         }
     }
 
@@ -494,13 +498,14 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private void refreshChart(List<HomeGetReservoirInfoBean.StorageCapacityBean> dataBeans) {
         float granularity = 1.0f;
         int size = dataBeans.size();
-        if(size > 100){
+        if (size > 100) {
             granularity = 10.0f;
-        }else {
+        } else {
             granularity = 3.0f;
         }
 //        lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
-        ChartUtils.notifyDataSetChanged(lcReservoirCapacity,getData(dataBeans),4);
+//        ChartUtils.notifyDataSetChanged(lcReservoirCapacity,getData(dataBeans),4);
+        ChartUtils.notifyDataSetChanged(lcReservoirCapacity, getData(dataBeans), 4);
 
     }
 

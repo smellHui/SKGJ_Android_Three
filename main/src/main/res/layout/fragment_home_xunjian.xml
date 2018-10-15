@@ -285,9 +285,12 @@
 
 
                                 <FrameLayout
-                                    android:layout_marginTop="10dp"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/bg_worker_item"
+                                    android:paddingBottom="10dp"
+                                    android:paddingTop="10dp">
 
                                     <com.github.mikephil.charting.charts.LineChart
                                         android:layout_width="match_parent"
@@ -295,6 +298,7 @@
                                         android:tag="lc_reservoir_capacity" />
 
                                     <TextView
+                                        android:id="@+id/tv_unit"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="15dp"

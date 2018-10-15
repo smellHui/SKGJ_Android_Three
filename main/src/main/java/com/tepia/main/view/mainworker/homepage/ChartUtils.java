@@ -107,9 +107,10 @@ public class ChartUtils {
      * @param values 数据
      */
     public static void setChartData(LineChart chart, List<Entry> values) {
+
         LineDataSet lineDataSet;
 
-        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0 && values != null && values.size() != 0) {
             lineDataSet = (LineDataSet) chart.getData().getDataSetByIndex(0);
             lineDataSet.setValues(values);
             chart.getData().notifyDataChanged();
@@ -156,22 +157,37 @@ public class ChartUtils {
                 return "" + (int) value;
             }
         });
-
-        ArrayList<Float> xlist = new ArrayList<Float>();
-        ArrayList<Float> ylist = new ArrayList<Float>();
-        for (Entry entry:values){
-            xlist.add(entry.getX());
-            ylist.add(entry.getY());
+        if (chart.getLineData() != null) {
+            chart.getLineData().clearValues();
+            chart.clear();
+            chart.invalidate();
         }
-        YAxis yAxis = chart.getAxisLeft();
-        XAxis xAxis = chart.getXAxis();
-        yAxis.setAxisMaximum(Collections.max(ylist));//y轴最大值
-        yAxis.setAxisMinimum(Collections.min(ylist));//y轴最小值
+        if (values != null && values.size() > 0) {
+            ArrayList<Float> xlist = new ArrayList<Float>();
+            ArrayList<Float> ylist = new ArrayList<Float>();
+            for (Entry entry : values) {
+                xlist.add(entry.getX());
+                ylist.add(entry.getY());
+            }
 
-        xAxis.setAxisMaximum(Collections.max(xlist));//y轴最大值
-        xAxis.setAxisMinimum(0);//y轴最小值
-        chart.invalidate();
-        setChartData(chart, values);
+            YAxis yAxis = chart.getAxisLeft();
+            XAxis xAxis = chart.getXAxis();
+
+            yAxis.setAxisMaximum(Collections.max(ylist));//y轴最大值
+            yAxis.setAxisMinimum(Collections.min(ylist));//y轴最小值
+
+            xAxis.setAxisMaximum(Collections.max(xlist));//y轴最大值
+            xAxis.setAxisMinimum(0);//y轴最小值
+            chart.invalidate();
+            setChartData(chart, values);
+        } else {
+            if (chart.getLineData() != null) {
+                chart.getLineData().clearValues();
+                chart.clear();
+                chart.invalidate();
+            }
+        }
+
     }
 
     /**
@@ -226,5 +242,13 @@ public class ChartUtils {
         description.setTextColor(ConfigConsts.colortext);
 
         mLineChart.setDescription(description);
+    }
+
+    public static void clearData(LineChart chart) {
+        if (chart.getLineData() != null) {
+            chart.getLineData().clearValues();
+            chart.clear();
+            chart.invalidate();
+        }
     }
 }
