@@ -229,7 +229,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
 
     private void updateData() {
-        UserManager.getInstance().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>() {
+        UserManager.getInstance_ADMIN().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>() {
             @Override
             protected void _onNext(ReservoirListResponse response) {
                 if (response.getCode() == 0) {
