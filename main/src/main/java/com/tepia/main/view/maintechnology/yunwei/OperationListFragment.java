@@ -1,6 +1,8 @@
 package com.tepia.main.view.maintechnology.yunwei;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -31,6 +33,8 @@ import com.tepia.main.model.jishu.yunwei.WorkOrderNumResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
+import com.tepia.main.view.maincommon.setting.worknotification.addworknotification.SelectReservorsActivity;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
@@ -43,6 +47,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
   * Created by      Android studio
@@ -210,7 +215,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
         tvStartDate = findView(R.id.tv_start_date);
 //        tvEndDate = findView(R.id.tv_end_date);
         tvReservoir = findView(R.id.tv_reservoir);
-        tvReservoir.setOnClickListener(v -> showSelectReservoir());
+        tvReservoir.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class),ChoiceReservoirActivity.resultCode));
 //        initStartDate();
 //        initEndDate();
         initMonthDate();
@@ -504,6 +509,22 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                     dialog.dismiss();
                 }
             });
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                if (!reservoirId.equals(defaultReservoir.getReservoirId())){
+                    tvReservoir.setText(defaultReservoir.getReservoir());
+                    reservoirId = defaultReservoir.getReservoirId();
+                }
+                break;
+            default:
+                break;
         }
     }
 }
