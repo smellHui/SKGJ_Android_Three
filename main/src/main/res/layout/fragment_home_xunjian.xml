@@ -239,12 +239,23 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="8dp"
+                                        android:layout_weight="1"
                                         android:text="实时水位库容"
                                         android:textColor="@color/black"
                                         android:textSize="14dp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_show_big"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:text="查看大图"
+                                        android:textColor="#bec5d2"
+                                        android:textSize="12dp" />
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/lo_real_time_water_level_storage_capacity"
                                     android:layout_width="match_parent"
                                     android:layout_height="228dp"
                                     android:orientation="vertical"

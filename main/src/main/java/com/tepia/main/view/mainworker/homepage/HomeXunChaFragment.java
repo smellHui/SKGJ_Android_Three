@@ -57,7 +57,7 @@ import java.util.List;
  **/
 
 @Route(path = AppRoutePath.app_main_fragment_home_xuncha)
-public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View, HomeXunChaPresenter> implements HomeXunChaContract.View, OnChartGestureListener, OnChartValueSelectedListener {
+public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View, HomeXunChaPresenter> implements HomeXunChaContract.View {
     private TextView tvReservoirName;
     private com.github.mikephil.charting.charts.LineChart lcReservoirCapacity;
     FragmentHomeXunjianBinding mBinding;
@@ -65,8 +65,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private AdapterFloodControlMaterialList adapterFloodControlMaterialList;
     private ReservoirBean selectedResrvoir;
     private HomeGetReservoirInfoBean homeGetReservoirInfoBean;
-    private LineChartEntity lineChartEntity;
-    private NestedScrollView nestedsv;
+    private String url;
 
 
     public HomeXunChaFragment() {
@@ -118,17 +117,18 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     private void initListener() {
 
-        mBinding.wvRealTimeWaterLevelStorageCapacity.setOnTouchListener(new View.OnTouchListener() {
+        mBinding.tvShowBig.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    //允许ScrollView截断点击事件，ScrollView可滑动
-                    mBinding.nestedsv.requestDisallowInterceptTouchEvent(false);
-                } else {
-                    //不允许ScrollView截断点击事件，点击事件由子View处理
-                    mBinding.nestedsv.requestDisallowInterceptTouchEvent(true);
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
                 }
-                return false;
+                if (TextUtils.isEmpty(url)){
+                    return;
+                }
+                ARouter.getInstance().build(AppRoutePath.app_RealTime_WaterLevel_StorageCapacity)
+                        .withString("laodUrl",url)
+                        .navigation();
             }
         });
 
@@ -186,12 +186,6 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 ARouter.getInstance().build(AppRoutePath.app_flood_detail)
                         .withString("floodid", new Gson().toJson(adapterFloodControlMaterialList.getData().get(position)))
                         .navigation();
-//                Intent intent = new Intent();
-//                intent.setClass(getBaseActivity(),FloodDetailActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("floodid",adapterFloodControlMaterialList.getData().get(position));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
             }
         });
 
@@ -343,11 +337,8 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         });
 
 
-////        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "库容(万m³)");
-//
         ChartUtils.setDesc(lcReservoirCapacity, "库容(万m³)");
-        lcReservoirCapacity.setOnChartGestureListener(this);
-        lcReservoirCapacity.setOnChartValueSelectedListener(this);
+
         if (lcReservoirCapacity != null) {
             lcReservoirCapacity.clear();
             //重设所有缩放和拖动，使图表完全适合它的边界（完全缩小）。
@@ -372,8 +363,6 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 @Override
                 public void onOpenItemClick(AdapterView<?> parent, View view, int position, long id) {
                     selectedResrvoir = reservoirBeans.get(position);
-//                    mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
-//                    selectFinish(selectedYunWeiType, selectedResrvoir);
                     mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
                     UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
                     mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId());
@@ -516,15 +505,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
      * @param dataBeans
      */
     private void refreshChart(List<HomeGetReservoirInfoBean.StorageCapacityBean> dataBeans) {
-        float granularity = 1.0f;
-        int size = dataBeans.size();
-        if (size > 100) {
-            granularity = 10.0f;
-        } else {
-            granularity = 3.0f;
-        }
-//        lineChartEntity.setDataOfCapacity("", dataBeans, granularity);
-//        ChartUtils.notifyDataSetChanged(lcReservoirCapacity,getData(dataBeans),4);
+
         ChartUtils.notifyDataSetChanged(lcReservoirCapacity, getData(dataBeans), 4);
 
     }
@@ -564,90 +545,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             prarm += "dataTime=" + reservoirWaterLevel.getTm();
         }
 
-
+        url  = host + prarm;
         AgentWeb.with(this)
                 .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
                 .setIndicatorColorWithHeight(-1, 2)
-                .setAgentWebWebSettings(new AgentWebSettings() {
-                    @Override
-                    public AgentWebSettings toSetting(WebView web) {
-
-//支持javascript
-                        web.getSettings().setJavaScriptEnabled(true);
-// 设置可以支持缩放
-                        web.getSettings().setSupportZoom(true);
-// 设置出现缩放工具
-//                        web.getSettings().setBuiltInZoomControls(true);
-//扩大比例的缩放
-                        web.getSettings().setUseWideViewPort(true);
-//自适应屏幕
-                        web.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-                        web.getSettings().setLoadWithOverviewMode(true);
-                        return null;
-                    }
-
-                    @Override
-                    public WebSettings getWebSettings() {
-                        return null;
-                    }
-                })
                 .createAgentWeb()
                 .ready()
                 .go(host + prarm);
     }
 
 
-    @Override
-    public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
 
-    }
-
-    @Override
-    public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-        // un-highlight values after the gesture is finished and no single-tap
-        if (lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP) {
-            // or highlightTouch(null) for callback to onNothingSelected(...)
-            lcReservoirCapacity.highlightValues(null);
-        }
-    }
-
-    @Override
-    public void onChartLongPressed(MotionEvent me) {
-
-    }
-
-    @Override
-    public void onChartDoubleTapped(MotionEvent me) {
-
-    }
-
-    @Override
-    public void onChartSingleTapped(MotionEvent me) {
-
-    }
-
-    @Override
-    public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-
-    }
-
-    @Override
-    public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-
-    }
-
-    @Override
-    public void onChartTranslate(MotionEvent me, float dX, float dY) {
-
-    }
-
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-    }
-
-    @Override
-    public void onNothingSelected() {
-
-    }
 }
