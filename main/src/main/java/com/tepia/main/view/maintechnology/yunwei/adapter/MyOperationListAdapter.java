@@ -14,6 +14,7 @@ import com.tepia.main.R;
 import com.tepia.main.model.jishu.yunwei.WorkOrderListResponse;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
   * Created by      Android studio
@@ -37,11 +38,11 @@ public class MyOperationListAdapter extends BaseQuickAdapter<WorkOrderListRespon
         ImageView ivComplete = helper.getView(R.id.iv_complete);
         String operationType = item.getOperationType();
         String typeName = "执行";
-        if (operationType.equals("1")) {
+        if ("1".equals(operationType)) {
             typeName = "巡检";
-        } else if (operationType.equals("2")) {
+        } else if ("2".equals(operationType)) {
             typeName = "维护";
-        } else if (operationType.equals("3")) {
+        } else if ("3".equals(operationType)) {
             typeName = "保洁";
         }
         name.setText(typeName + "人:" + item.getExecutorName());

@@ -149,7 +149,7 @@ public class DownLoadActivity extends BaseActivity {
             } else {
                 //文件存在
                 String spDownloadStr = SPUtils.getInstance().getString(downloadSpName, "");
-                if (spDownloadStr == null || "".equals(spDownloadStr)) {
+                if (null == spDownloadStr || "".equals(spDownloadStr)) {
                     //文件没有下载完全  开始下载
                     isLoadComplete = false;
                     initPermission();
@@ -362,7 +362,7 @@ public class DownLoadActivity extends BaseActivity {
             isLoadComplete = true;
             //拿到首选项中的map
             String spDownloadMapStr = SPUtils.getInstance().getString("downloadMap", "");
-            if (spDownloadMapStr == null || spDownloadMapStr.equals("")) {
+            if (null == spDownloadMapStr || "".equals(spDownloadMapStr)) {
                 //没有下载数据  保存数据
                 downloadMap.put(fileName, true);
             } else {
