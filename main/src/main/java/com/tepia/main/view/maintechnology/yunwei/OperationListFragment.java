@@ -107,6 +107,14 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                     } else {
                         dataList.clear();
                         dataList.addAll(data);
+                        if (null!=dataList&&dataList.size()>0){
+                            for (int i = 0; i < dataList.size(); i++) {
+                                String operationType1 = dataList.get(i).getOperationType();
+                                if (null==operationType1||"".equals(operationType1)){
+                                    dataList.get(i).setOperationType(operationType);
+                                }
+                            }
+                        }
                         rvAdapter.notifyDataSetChanged();
                         first = false;
                     }
@@ -118,6 +126,14 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                     }
                 } else if (isloadmore) {
                     dataList.addAll(data);
+                    if (null!=dataList&&dataList.size()>0){
+                        for (int i = 0; i < dataList.size(); i++) {
+                            String operationType1 = dataList.get(i).getOperationType();
+                            if (null==operationType1||"".equals(operationType1)){
+                                dataList.get(i).setOperationType(operationType);
+                            }
+                        }
+                    }
                     rvAdapter.notifyDataSetChanged();
                     mCurrentCounter = rvAdapter.getData().size();
                     if (mCurrentCounter >= totalSize) {
@@ -212,6 +228,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
         //设置时间为当前时间
         ca.setTime(new Date());
         Date lastDate = ca.getTime();
+//        LogUtil.i("初始日期:"+sf.format(lastDate));
         tvStartDate.setText(sf.format(lastDate));
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
@@ -278,7 +295,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 currentPage = 1;
                 isloadmore = false;
                 first = true;
-                tvStartDate.setText("");
+                getStartAndEndOfMonth();
                 if (mPresenter != null&&yunWeiJiShuPresenter!=null) {
                     mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
                     yunWeiJiShuPresenter.getWorkOrderNumByJs(reservoirId,operationType,startDate,endDate);

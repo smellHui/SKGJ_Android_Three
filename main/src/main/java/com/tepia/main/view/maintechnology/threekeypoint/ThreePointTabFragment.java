@@ -169,7 +169,7 @@ public class ThreePointTabFragment extends BaseCommonFragment{
         rvList.setAdapter(listAdapter);
         listAdapter.setOnPreviewTvClickListener((v, adapterPosition, item) -> {
             String defaultReservoirId = UserManager.getInstance().getDefaultReservoir().getReservoirId();
-            if (!defaultReservoirId.equals(reservoirId)){
+            if (null!=defaultReservoirId&&!defaultReservoirId.equals(reservoirId)){
                 UserManager.getInstance().saveDefaultReservoir(localReservoirList.get(reservoirPosition));
             }
             Intent intent = new Intent();
