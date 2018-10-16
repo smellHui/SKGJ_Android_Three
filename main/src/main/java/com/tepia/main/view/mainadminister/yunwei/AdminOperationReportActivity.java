@@ -96,6 +96,7 @@ public class AdminOperationReportActivity extends BaseActivity {
         return dayOfMonth;
     }
 
+
     private void initRequestResponse() {
         if (item!=null){
             tvReservoir.setText(item.getReservoirName());
