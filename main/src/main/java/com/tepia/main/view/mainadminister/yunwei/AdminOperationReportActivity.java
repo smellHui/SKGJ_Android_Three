@@ -88,6 +88,7 @@ public class AdminOperationReportActivity extends BaseActivity {
         initRequestResponse();
     }
 
+
     private int getDayOfMonth(int year,int month){
         Calendar c = Calendar.getInstance();
         c.set(year, month, 0); //输入类型为int类型
