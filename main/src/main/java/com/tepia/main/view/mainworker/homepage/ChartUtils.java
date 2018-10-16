@@ -51,7 +51,7 @@ public class ChartUtils {
         // 不显示表格颜色
         chart.setDrawGridBackground(false);
         // 不可以缩放
-        chart.setScaleEnabled(false);
+        chart.setScaleEnabled(true);
         // 不显示y轴右边的值
         chart.getAxisRight().setEnabled(false);
         // 不显示图例

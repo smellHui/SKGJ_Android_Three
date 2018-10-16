@@ -14,6 +14,8 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.Gson;
 import com.just.library.AgentWeb;
+import com.just.library.AgentWebSettings;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
@@ -114,6 +117,21 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
 
     private void initListener() {
+
+        mBinding.wvRealTimeWaterLevelStorageCapacity.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    //允许ScrollView截断点击事件，ScrollView可滑动
+                    mBinding.nestedsv.requestDisallowInterceptTouchEvent(false);
+                } else {
+                    //不允许ScrollView截断点击事件，点击事件由子View处理
+                    mBinding.nestedsv.requestDisallowInterceptTouchEvent(true);
+                }
+                return false;
+            }
+        });
+
         mBinding.loHeader.tvVr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,7 +157,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                         adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial());
                         mBinding.tvShowMore.setText("收起");
                     } else {
-                        adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial().subList(0, 3));
+                        adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial().subList(0, 4));
                         mBinding.tvShowMore.setText("查看更多");
                     }
                 } else {
@@ -312,17 +330,19 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     private void initLineChart() {
 
         ChartUtils.initChart(lcReservoirCapacity);
-//        lcReservoirCapacity.setOnTouchListener((view, event) -> {
-//            if (event.getAction() == MotionEvent.ACTION_UP) {
-//                //允许ScrollView截断点击事件，ScrollView可滑动
-//                mBinding.nestedsv.requestDisallowInterceptTouchEvent(false);
-//            } else {
-//                //不允许ScrollView截断点击事件，点击事件由子View处理
-//                mBinding.nestedsv.requestDisallowInterceptTouchEvent(true);
-//            }
-////
-//            return false;
-//        });
+        lcReservoirCapacity.setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                //允许ScrollView截断点击事件，ScrollView可滑动
+                mBinding.nestedsv.requestDisallowInterceptTouchEvent(false);
+            } else {
+                //不允许ScrollView截断点击事件，点击事件由子View处理
+                mBinding.nestedsv.requestDisallowInterceptTouchEvent(true);
+            }
+//
+            return false;
+        });
+
+
 ////        lineChartEntity = new LineChartEntity(lcReservoirCapacity, "库容(万m³)");
 //
         ChartUtils.setDesc(lcReservoirCapacity, "库容(万m³)");
@@ -409,7 +429,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         }
 
         if (data.getMaterial() != null && data.getMaterial().size() > 4) {
-            adapterFloodControlMaterialList.setNewData(data.getMaterial().subList(0, 3));
+            adapterFloodControlMaterialList.setNewData(data.getMaterial().subList(0, 4));
             mBinding.tvShowMore.setVisibility(View.VISIBLE);
         } else {
             adapterFloodControlMaterialList.setNewData(data.getMaterial());
@@ -543,9 +563,34 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         if (reservoirWaterLevel.getTm() != null) {
             prarm += "dataTime=" + reservoirWaterLevel.getTm();
         }
+
+
         AgentWeb.with(this)
                 .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
                 .setIndicatorColorWithHeight(-1, 2)
+                .setAgentWebWebSettings(new AgentWebSettings() {
+                    @Override
+                    public AgentWebSettings toSetting(WebView web) {
+
+//支持javascript
+                        web.getSettings().setJavaScriptEnabled(true);
+// 设置可以支持缩放
+                        web.getSettings().setSupportZoom(true);
+// 设置出现缩放工具
+//                        web.getSettings().setBuiltInZoomControls(true);
+//扩大比例的缩放
+                        web.getSettings().setUseWideViewPort(true);
+//自适应屏幕
+                        web.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+                        web.getSettings().setLoadWithOverviewMode(true);
+                        return null;
+                    }
+
+                    @Override
+                    public WebSettings getWebSettings() {
+                        return null;
+                    }
+                })
                 .createAgentWeb()
                 .ready()
                 .go(host + prarm);
