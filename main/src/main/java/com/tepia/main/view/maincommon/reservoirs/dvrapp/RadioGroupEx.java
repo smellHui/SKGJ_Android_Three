@@ -54,7 +54,7 @@ public class RadioGroupEx extends RadioGroup
         int oldHeight;
         int oldWidth;
 
-        int count = VideoActivity.iChannelAmt;//getChildCount();
+        int count = VideoSixinActivity.iChannelAmt;//getChildCount();
         //假设 widthMode和heightMode都是AT_MOST
         for (int i = 0; i < count; i++)
         {
@@ -110,7 +110,7 @@ public class RadioGroupEx extends RadioGroup
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b)
     {
-        int count = VideoActivity.iChannelAmt;//getChildCount();
+        int count = VideoSixinActivity.iChannelAmt;//getChildCount();
         //pre为前面所有的child的相加后的位置
         int preLeft = getPaddingLeft();
         int preTop = getPaddingTop();

@@ -44,7 +44,7 @@ public class MyApplication extends BaseApplication {
          * 正式发布apk时请关闭，避免某些地方 java.lang.NullPointerException: println needs a message
          * at com.tepia.base.utils.LogUtil.i(LogUtil.java:43)
          */
-        LogUtil.isDebug = true;
+        LogUtil.isDebug = false;
         UtilsContextOfGaode.init(this);
 
     }

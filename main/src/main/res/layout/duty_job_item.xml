@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bgLy"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@drawable/selector_dutytextview_blue_bg"
+    android:padding="5dp"
+    >
+
+    <ImageView
+        android:id="@+id/ivIv"
+        android:src="@drawable/duty_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:maxLines="1"
+        android:id="@+id/reserviorJobNameTv"
+        android:text="-- "
+        android:textSize="12sp"
+        android:textColor="@color/duty_textview"
+        android:layout_toLeftOf="@+id/rightIv"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

@@ -139,6 +139,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     public void success(OperationPlanBean data) {
         if(data.getData() == null){
             showEmpty();
+            officeLy.setVisibility(View.GONE);
             return;
         }
         String downloadUrl = data.getData().getFilePath();

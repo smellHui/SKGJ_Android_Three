@@ -282,8 +282,9 @@
         <activity android:name=".view.mainworker.yunwei.workorderquestionlist.WorkOrderQuestionListActivity" />
         <!-- VR -->
         <activity android:name=".view.mainworker.homepage.ReservoirVrActivity" />
+        <activity android:name=".view.maincommon.reservoirs.dvrapp.VideoSixinActivity"/>
 
-        <activity android:name=".view.maincommon.reservoirs.dvrapp.VideoActivity"/>
+
         <!-- 实时水位库容曲线 -->
         <activity android:name=".view.mainworker.homepage.RealTimeWaterLevelStorageCapacityActivity" />
         <activity android:name=".view.maincommon.setting.ChoiceReservoirActivity"></activity>

@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +40,7 @@ import com.tepia.main.view.main.detail.vedio.Constant;
 import com.tepia.main.view.main.detail.vedio.VideoInfo;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.VideoListAdapter;
-import com.tepia.main.view.maincommon.reservoirs.dvrapp.VideoActivity;
+import com.tepia.main.view.maincommon.reservoirs.dvrapp.VideoSixinActivity;
 import com.tepia.main.view.maincommon.reservoirs.dvrapp.po.HttpPacketReq;
 import com.tepia.main.view.maincommon.reservoirs.dvrapp.po.ObjectDevices;
 import com.tepia.main.view.maincommon.reservoirs.dvrapp.po.ObjectPayload;
@@ -54,7 +53,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -155,7 +153,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                     for (int i = 0; i < lstDevice.size(); i++) {
                         ObjectDevices objectDevices = lstDevice.get(i);
                         if(defaultDvrId.equals(objectDevices.deviceId)){
-                            Intent intent = new Intent(VedioOfReservoirActivity.this, VideoActivity.class);
+                            Intent intent = new Intent(VedioOfReservoirActivity.this, VideoSixinActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("deviceId", objectDevices.deviceId);
                             bundle.putString("sRemark", objectDevices.deviceName);
@@ -242,7 +240,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                 editor.putString("serverport", dataBean.getAppPort() + "");
                 editor.commit();
 
-                LogUtil.e("平台IP(weburl)："+dataBean.getIp()+"平台端口号"+dataBean.getPort()+"服务weburl："+dataBean.getIp()+"服务端口号"+dataBean.getAppPort());
+                LogUtil.e("平台IP(weburl)："+dataBean.getIp()+"\n平台端口号webport："+dataBean.getPort()+"\n服务serverurl："+dataBean.getIp()+"\n服务端口号serverport："+dataBean.getAppPort());
 
                 mQueue = Volley.newRequestQueue(this);
                 sixin_account = dataBean.getAccount();
@@ -853,7 +851,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
             }
             String deviceId = lstDevice.get(position).deviceId;
 
-            Intent intent = new Intent(VedioOfReservoirActivity.this, VideoActivity.class);
+            Intent intent = new Intent(VedioOfReservoirActivity.this, VideoSixinActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("deviceId", deviceId);
             bundle.putString("sRemark", lstDevice.get(position).deviceName);
