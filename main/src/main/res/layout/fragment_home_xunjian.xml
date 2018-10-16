@@ -270,6 +270,7 @@
                                     <View
                                         android:id="@+id/lo_real_time_water_level_storage_capacity1"
                                         android:layout_width="match_parent"
+                                        android:clickable="true"
                                         android:layout_height="match_parent" />
                                 </FrameLayout>
                             </LinearLayout>

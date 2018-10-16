@@ -117,7 +117,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     private void initListener() {
 
-        mBinding.loRealTimeWaterLevelStorageCapacity.setOnClickListener(new View.OnClickListener() {
+        mBinding.loRealTimeWaterLevelStorageCapacity1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (DoubleClickUtil.isFastDoubleClick()){
