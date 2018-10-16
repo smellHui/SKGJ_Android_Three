@@ -30,6 +30,7 @@ import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
@@ -96,7 +97,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         initMonthDate();
 //        initSpinner();
         tvReservoir = findView(R.id.tv_reservoir);
-        tvReservoir.setOnClickListener(v -> showSelectReservoir());
+        tvReservoir.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode));
         initRecyclerView();
         initSearch();
     }
@@ -113,7 +114,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
             long currentLong = 0;
-            if (current!=null&&current.length()>0){
+            if (current != null && current.length() > 0) {
                 currentLong = strToLong(current);
             }
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
@@ -362,7 +363,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         if (!isFirstLoad) {
             ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
             String defaultReservoirId = defaultReservoir.getReservoirId();
-            if (defaultReservoirId!=reservoirId){
+            if (defaultReservoirId != reservoirId) {
                 reservoirId = defaultReservoir.getReservoirId();
                 tvReservoir.setText(defaultReservoir.getReservoir());
                 rvAdapter.setEnableLoadMore(false);
@@ -378,10 +379,10 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         }
     }
 
-    public void initRequestResponse(){
+    public void initRequestResponse() {
         ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
         String defaultReservoirId = defaultReservoir.getReservoirId();
-        if (defaultReservoirId!=reservoirId) {
+        if (defaultReservoirId != reservoirId) {
             reservoirId = defaultReservoir.getReservoirId();
             tvReservoir.setText(defaultReservoir.getReservoir());
             rvAdapter.setEnableLoadMore(false);
@@ -395,17 +396,17 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         }
     }
 
-    private void getStartAndEndOfMonth(){
+    private void getStartAndEndOfMonth() {
         String date = tvStartDate.getText().toString();
         String[] split = date.split("-");
-        if (split.length==2){
+        if (split.length == 2) {
             int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
-            startDate = date+"-01 00:00:00";
-            endDate = date+"-"+dayOfMonth+" 23:59:59";
+            startDate = date + "-01 00:00:00";
+            endDate = date + "-" + dayOfMonth + " 23:59:59";
         }
     }
 
-    private int getDayOfMonth(int year,int month){
+    private int getDayOfMonth(int year, int month) {
         Calendar c = Calendar.getInstance();
         c.set(year, month, 0); //输入类型为int类型
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
@@ -447,7 +448,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         switch (requestCode) {
             case 1:
                 //添加计划返回
-                if (data!=null){
+                if (data != null) {
                     Bundle extras = data.getExtras();
                     if (extras != null) {
                         boolean isSubmit = extras.getBoolean("isSubmit");
@@ -456,6 +457,13 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                             search();
                         }
                     }
+                }
+                break;
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                if (!reservoirId.equals(defaultReservoir.getReservoirId())) {
+                    tvReservoir.setText(defaultReservoir.getReservoir());
+                    reservoirId = defaultReservoir.getReservoirId();
                 }
                 break;
             default:

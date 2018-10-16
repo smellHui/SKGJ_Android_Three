@@ -27,6 +27,7 @@ import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.tepia.main.view.maintechnology.threekeypoint.adapter.MyTabListAdapter;
 
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class ThreePointTabFragment extends BaseCommonFragment{
         });
         tvSelectReservoir.setOnClickListener(v -> {
 //            setAnchorView : 设置下拉列表的参照控件。下拉列表在显示时将展现在参照控件的下方，注意：如果不设置参照控件就直接调用show函数，系统不知道要把下拉列表在何处展示，只能是异常退出了。
-           showSelectReservoir();
+            startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode);
         });
     }
 
@@ -232,4 +233,23 @@ public class ThreePointTabFragment extends BaseCommonFragment{
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                if (!reservoirId.equals(defaultReservoir.getReservoirId())){
+                    tvReservoirName.setText(defaultReservoir.getReservoir());
+                    reservoirId = defaultReservoir.getReservoirId();
+                    srl.setRefreshing(true);
+                    Handler handler = new Handler();
+                    //半秒后执行runnable中的run方法commonRequestDatuaFn
+                    handler.postDelayed(() -> commonRequestDataFun(), 500);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }

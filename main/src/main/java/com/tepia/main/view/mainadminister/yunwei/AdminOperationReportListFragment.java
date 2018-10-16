@@ -27,6 +27,7 @@ import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
 import com.tepia.main.view.mainadminister.yunwei.adapter.MyAdminOperationListAdapter;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 
@@ -163,7 +164,7 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
             tvStartDate.setText("");
         });
         tvReservoir = findView(R.id.tv_reservoir);
-        tvReservoir.setOnClickListener(v -> showSelectReservoir());
+        tvReservoir.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode));
         initStartDate();
 //        initSpinner();
         initRecyclerView();
@@ -173,12 +174,18 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
 
     private void initRequestResponse() {
         if (!isFirstLoad) {
-            rvAdapter.setEnableLoadMore(false);
-            currentPage = 1;
-            isloadmore = false;
-            first = true;
-            if (mPresenter != null) {
-                mPresenter.getAdminProblemList(reservoirId ,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
+            ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+            String defaultReservoirId = defaultReservoir.getReservoirId();
+            if (defaultReservoirId!=reservoirId) {
+                reservoirId = defaultReservoir.getReservoirId();
+                tvReservoir.setText(defaultReservoir.getReservoir());
+                rvAdapter.setEnableLoadMore(false);
+                currentPage = 1;
+                isloadmore = false;
+                first = true;
+                if (mPresenter != null) {
+                    mPresenter.getAdminProblemList(reservoirId, startDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
+                }
             }
         }
     }
@@ -187,11 +194,6 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         Button btConfirm = findView(R.id.bt_confirm);
         btConfirm.setOnClickListener(v -> {
             dataList.clear();
-            if (spinnerPosition==0){
-                reservoirId = "";
-            }else {
-                reservoirId = localReservoirList.get(spinnerPosition-1).getReservoirId();
-            }
             startDate = tvStartDate.getText().toString();
 //            LogUtil.i("查询时间:"+startDate);
             rvAdapter.setEnableLoadMore(false);
@@ -367,6 +369,22 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
                     dialog.dismiss();
                 }
             });
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                if (!reservoirId.equals(defaultReservoir.getReservoirId())){
+                    tvReservoir.setText(defaultReservoir.getReservoir());
+                    reservoirId = defaultReservoir.getReservoirId();
+                }
+                break;
+            default:
+                break;
         }
     }
 }
