@@ -38,4 +38,6 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.design
     implementation rootProject.ext.dependencies.recyclerview
+    //状态栏
+    implementation rootProject.ext.dependencies.statusbaruitl
 }

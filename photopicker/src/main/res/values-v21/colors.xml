@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="picker_common_primary">#e1e1e1</color>
+    <color name="picker_colorPrimary">#ffffff</color>
+    <color name="picker_colorPrimaryDark">#4c000000</color>
+    <color name="picker_colorAccent">#59abf1</color>
 </resources>

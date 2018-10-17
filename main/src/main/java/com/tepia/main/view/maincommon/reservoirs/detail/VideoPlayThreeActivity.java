@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -20,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.jaeger.library.StatusBarUtil;
+import com.githang.statusbar.StatusBarCompat;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.ScreenUtil;
@@ -35,13 +39,15 @@ import org.MediaPlayer.PlayM4.Player;
 
 import java.util.List;
 
+import static com.tepia.base.utils.ScreenUtil.getStatusBarHeight;
+
 /**
-  * Created by      Android studio
-  *
-  * @author :ly (from Center Of Wuhan)
-  * Date    :2018-10-17
-  * Version :1.2.4
-  * 功能描述 :海康视频播放
+ * Created by      Android studio
+ *
+ * @author :ly (from Center Of Wuhan)
+ * Date    :2018-10-17
+ * Version :1.2.4
+ * 功能描述 :海康视频播放
  **/
 public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -50,7 +56,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
     private int m_iPort = -1;
     private int m_iPlayID = -1;
     private static PlaySurfaceView[] playView = new PlaySurfaceView[1];
-//    private PlaySurfaceView playsurfaceView;
+    //    private PlaySurfaceView playsurfaceView;
     private int screenWidth = 0;
     private int screenHeight = 0;
     private int m_iLogID;
@@ -92,11 +98,11 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
     private TextView tvStatus;
     private TextView tvName;
     private ImageView fullScreenIv;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_video_three_play;
     }
-
 
 
     @Override
@@ -127,7 +133,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-                if(isFull){
+                if (isFull) {
                     isFull = false;
                     changeFull();
                     if (m_bMultiPlay) {
@@ -140,7 +146,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
                         startPlay(position_first);
 
                     }
-                }else {
+                } else {
                     isFull = true;
                     changeFull();
                     // 设置当前activity为横屏
@@ -160,20 +166,20 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
     /**
      * 初始化相关控件
      */
-    private void initVedioview(){
+    private void initVedioview() {
 
-        tvStatus.setTextColor(ContextCompat.getColor(this,R.color.color_load_blue));
-        tvName.setTextColor(ContextCompat.getColor(this,R.color.color_load_blue));
+        tvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_load_blue));
+        tvName.setTextColor(ContextCompat.getColor(this, R.color.color_load_blue));
         VideoInfo video = data.get(0);
-        if(video.getChaStatus() != null && video.getChaStatus().equalsIgnoreCase("ok")) {
+        if (video.getChaStatus() != null && video.getChaStatus().equalsIgnoreCase("ok")) {
             tvStatus.setText("连接状态:正常");
-        }else {
+        } else {
             tvStatus.setText("连接状态:不正常");
             tvStatus.setTextColor(Color.RED);
         }
-        if(TextUtils.isEmpty(video.getChaName())){
+        if (TextUtils.isEmpty(video.getChaName())) {
             tvName.setText("--");
-        }else {
+        } else {
             tvName.setText(video.getChaName().trim());
         }
 
@@ -193,7 +199,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
                     public void run() {
                         liveProgressBar.setVisibility(View.GONE);
                         loading.setVisibility(View.GONE);
-                         binding.fullScreenIv.setVisibility(View.VISIBLE);
+                        binding.fullScreenIv.setVisibility(View.VISIBLE);
                     }
                 }, 2000);
             } else {
@@ -206,7 +212,6 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
             Toast.makeText(VideoPlayThreeActivity.this, "加载失败，请重新加载", Toast.LENGTH_SHORT).show();
 
         }
-
 
 
         mRadioGroup.setOnCheckedChangeListener(this);
@@ -264,8 +269,6 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
     }
 
 
-
-
     /**
      * 停在播放
      */
@@ -290,7 +293,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         screenWidth = displayMetrics.widthPixels;
         screenHeight = displayMetrics.heightPixels;*/
-       for (int position = 0; position < 1; position++) {
+        for (int position = 0; position < 1; position++) {
             if (playView[position] == null) {
                 playView[position] = new PlaySurfaceView(this);
                 playView[position].setLayoutParams(videoView.getLayoutParams());
@@ -302,19 +305,41 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
     }
 
 
-    private void changeFull(){
+    private void changeFull() {
         if (isFull) {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 
-//            video_rel.setLayoutParams(params);
             videoView.setLayoutParams(params);
-            StatusBarUtil.setTransparent(VideoPlayThreeActivity.this);
+            if (Build.VERSION.SDK_INT >= 19) {
+                View decorView = getWindow().getDecorView();
+                decorView.setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+            }
+
         } else {
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
-            params.height = ScreenUtil.dp2px(VideoPlayThreeActivity.this,220);
-//            video_rel.setLayoutParams(params);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+            params.height = ScreenUtil.dp2px(VideoPlayThreeActivity.this, 220);
             videoView.setLayoutParams(params);
-            StatusBarUtil.setColor(VideoPlayThreeActivity.this, ContextCompat.getColor(this,R.color.colorPrimary));
+            if (Build.VERSION.SDK_INT >= 19) {
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                );
+                StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimary), true);
+            }
+             else {
+                StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimary), true);
+
+            }
+
+
         }
     }
 
@@ -377,7 +402,6 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
         m_iPort = -1;
         super.onDestroy();
     }
-
 
 
 }

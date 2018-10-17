@@ -12,9 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnErrorListener;
-import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.DoubleClickUtil;
@@ -24,8 +21,6 @@ import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.reserviros.OperationPlanBean;
-import com.tepia.main.utils.ShowOfficeFileUtils;
-import com.tepia.main.utils.ShowPDFUtils;
 import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
@@ -50,7 +45,6 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
 
     private WebView webview;
     private LinearLayout rootEmptyLy;
-    private PDFView pdfView;
     private TextView tv_empty_view_text;
     private TextView nameTv;
     private static final String value_one = "1";
@@ -86,7 +80,6 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
         nameTv = findViewById(R.id.nameTv);
         webview = findViewById(R.id.webview);
         rootEmptyLy = findViewById(R.id.rootEmptyLy);
-        pdfView = findViewById(R.id.pdfview);
         tv_empty_view_text = findViewById(R.id.tv_empty_view_text);
         officeIv = findViewById(R.id.officeIv);
         officeTitleTv = findViewById(R.id.officeTitleTv);
@@ -108,7 +101,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
                 showEmpty();
                 return;
             }
-            showFile(filepathstr);
+//            showFile(filepathstr);
         }
     }
 
@@ -147,7 +140,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
             showEmpty();
             return;
         }
-        showFile(downloadUrl);
+//        showFile(downloadUrl);
         OperationPlanBean.DataBean dataBean = data.getData();
         if(!TextUtils.isEmpty(downloadUrl)){
             if (downloadUrl.endsWith(".doc") || downloadUrl.endsWith(".docx")) {
@@ -164,7 +157,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
             }
         }
         officeTitleTv.setText(dataBean.getFileName());
-        officeDownloadTv.setOnClickListener(v -> {
+        officeLy.setOnClickListener(v -> {
             if (!DoubleClickUtil.isFastDoubleClick()){
                 Intent intent = new Intent(OperationPlanActivity.this, DownLoadActivity.class);
                 DownLoadActivity.setIntent(intent,dataBean.getFileName(),dataBean.getFilePath());
@@ -174,35 +167,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
 
     }
 
-    private void showFile(String downloadUrl){
 
-        if (downloadUrl.endsWith(".pdf")) {
-            SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), "正在加载pdf文件", true);
-            simpleLoadDialog.show();
-            pdfView.setVisibility(View.VISIBLE);
-            webview.setVisibility(View.GONE);
-            String finalDownloadUrl = downloadUrl;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    ShowPDFUtils.showPDF(pdfView,simpleLoadDialog,finalDownloadUrl);
-
-                }
-            }).start();
-
-        }
-        boolean contains_office = downloadUrl.endsWith(".doc")
-                || downloadUrl.endsWith(".ppt")
-                || downloadUrl.endsWith(".xls")
-                || downloadUrl.endsWith(".docx")
-                || downloadUrl.endsWith(".pptx")
-                || downloadUrl.endsWith(".xlsx");
-        if(contains_office){
-            ShowOfficeFileUtils.showOffice(webview,downloadUrl);
-        }
-
-
-    }
 
     @Override
     public void failure(String msg) {
@@ -212,6 +177,5 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     private void showEmpty(){
         rootEmptyLy.setVisibility(View.VISIBLE);
         webview.setVisibility(View.GONE);
-        pdfView.setVisibility(View.GONE);
     }
 }

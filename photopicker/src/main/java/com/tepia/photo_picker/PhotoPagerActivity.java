@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.tepia.photo_picker.fragment.ImagePagerFragment;
 
 import java.util.List;
@@ -48,6 +50,8 @@ public class PhotoPagerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.picker_activity_photo_pager);
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.picker_colorPrimary), true);
+
         int currentItem = getIntent().getIntExtra(EXTRA_CURRENT_ITEM, 0);
         List<String> paths = getIntent().getStringArrayListExtra(EXTRA_PHOTOS);
         showDelete = getIntent().getBooleanExtra(EXTRA_SHOW_DELETE, true);
