@@ -3,6 +3,7 @@ package com.tepia.main.view.maincommon.reservoirs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +35,7 @@ import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SafeRunningActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SupportingActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -153,7 +155,8 @@ public class ReservoirsFragment extends BaseCommonFragment {
         switchTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSelectReservoir();
+//                showSelectReservoir();
+                startActivityForResult(new Intent(getBaseActivity(),ChoiceReservoirActivity.class),ChoiceReservoirActivity.resultCode);
             }
         });
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
@@ -276,6 +279,24 @@ public class ReservoirsFragment extends BaseCommonFragment {
                     dialog.dismiss();
                 }
             });
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                if (!oldReserviorId.equals(defaultReservoir.getReservoirId())){
+                    tv_reservoir_name.setText(defaultReservoir.getReservoir());
+                    oldReserviorId = defaultReservoir.getReservoirId();
+                    startBanner(defaultReservoir);
+
+                }
+                break;
+            default:
+                break;
         }
     }
 

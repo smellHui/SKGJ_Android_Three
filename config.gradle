@@ -115,5 +115,6 @@ ext {
 
             //选择附件
             iFileSelected                : 'com.leon:lfilepickerlibrary:1.8.0',
+            statusbaruitl                : 'com.jaeger.statusbaruitl:library:1.3.6',
     ]
 }

@@ -111,6 +111,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
                         adapterShuiweiReservoirs.notifyDataSetChanged();
                     }
                     adapterShuiweiReservoirs.setEnableLoadMore(true);
+                    adapterShuiweiReservoirs.loadMoreComplete();
                 } else if (isloadmore) {
                     adapterShuiweiReservoirs.addData(data);
                     mCurrentCounter = adapterShuiweiReservoirs.getData().size();

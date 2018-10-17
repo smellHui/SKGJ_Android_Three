@@ -131,6 +131,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
                         adapterShuiweiReservoirs.notifyDataSetChanged();
                     }
                     adapterShuiweiReservoirs.setEnableLoadMore(true);
+                    adapterShuiweiReservoirs.loadMoreComplete();
                 } else if (isloadmore) {
                     adapterShuiweiReservoirs.addData(data);
                     mCurrentCounter = adapterShuiweiReservoirs.getData().size();
@@ -227,7 +228,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
         LogUtil.e("当前默认水库id--------------"+reservoirId);
 
         selectReserviorTv.setText(reservoirBean.getReservoir());
-        currentResvoirTv.setText("当前水库："+reservoirBean.getReservoir());
+//        currentResvoirTv.setText("当前水库："+reservoirBean.getReservoir());
 
     }
 
@@ -264,7 +265,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     private EditText selectShuiweiEv;
 
     private void initDialog() {
-        LayoutInflater inflater = (LayoutInflater) getBaseActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
         final ViewGroup nullparent = null;
         View layout = inflater.inflate(R.layout.fragment_shangbao_dailog, nullparent);
         selectReserviorTv = layout.findViewById(R.id.selectReserviorTv);
@@ -272,10 +273,10 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
         Button cancelBtn = layout.findViewById(R.id.cancelBtn);
         Button suerBtn = layout.findViewById(R.id.suerBtn);
 
-        dialog_show = new Dialog(getBaseActivity(), R.style.Transparent);
+        dialog_show = new Dialog(getActivity(), R.style.Transparent);
         dialog_show.setCanceledOnTouchOutside(true);
         dialog_show.setContentView(layout);
-        WindowManager windowManager = getBaseActivity().getWindowManager();
+        WindowManager windowManager = getActivity().getWindowManager();
         DisplayMetrics metric = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metric);
         // 屏幕宽度（像素）
@@ -344,8 +345,12 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.shangbaoTv) {
-            getReservoirId();
-            dialog_show.show();
+
+            initDialog();
+            if(!getBaseActivity().isFinishing()) {
+                dialog_show.show();
+                getReservoirId();
+            }
 
         } else if (v.getId() == R.id.sureSearchTv) {
             search(true);

@@ -179,4 +179,6 @@ dependencies {
 
     //文件选择
     implementation rootProject.ext.dependencies.iFileSelected
+    //状态栏
+    implementation rootProject.ext.dependencies.statusbaruitl
 }

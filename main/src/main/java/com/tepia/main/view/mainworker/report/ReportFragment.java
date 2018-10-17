@@ -2,6 +2,7 @@ package com.tepia.main.view.mainworker.report;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +26,7 @@ import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.yunwei.startyunwei.StartYunWeiFragment;
 import com.tepia.main.view.mainworker.yunwei.yunweilist.YunWeiListFragment;
@@ -84,7 +86,9 @@ public class ReportFragment extends BaseCommonFragment{
         switchTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSelectReservoir();
+//                showSelectReservoir();
+                startActivityForResult(new Intent(getBaseActivity(),ChoiceReservoirActivity.class),ChoiceReservoirActivity.resultCode);
+
             }
         });
 
@@ -115,6 +119,22 @@ public class ReportFragment extends BaseCommonFragment{
                     refreshPage();
                 }
             });
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                if (!oldReserviorId.equals(defaultReservoir.getReservoirId())){
+                    tv_reservoir_name.setText(defaultReservoir.getReservoir());
+                    oldReserviorId = defaultReservoir.getReservoirId();
+                }
+                break;
+            default:
+                break;
         }
     }
 
