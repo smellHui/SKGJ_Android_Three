@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -46,6 +47,7 @@ import com.tepia.main.model.user.homepageinfo.HomeGetReservoirInfoBean;
 import com.tepia.main.view.main.detail.LineChartEntity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodDetailActivity;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +86,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     @Override
     protected void initView(View view) {
+        selectedResrvoir = UserManager.getInstance().getDefaultReservoir();
         lcReservoirCapacity = (LineChart) view.findViewWithTag("lc_reservoir_capacity");
         tvReservoirName = view.findViewById(R.id.tv_reservoir_name);
         mBinding = DataBindingUtil.bind(view);
@@ -120,28 +123,28 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loRealTimeWaterLevelStorageCapacity1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-                if (TextUtils.isEmpty(url)){
+                if (TextUtils.isEmpty(url)) {
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_RealTime_WaterLevel_StorageCapacity)
-                        .withString("laodUrl",url)
+                        .withString("laodUrl", url)
                         .navigation();
             }
         });
         mBinding.tvShowBig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-                if (TextUtils.isEmpty(url)){
+                if (TextUtils.isEmpty(url)) {
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_RealTime_WaterLevel_StorageCapacity)
-                        .withString("laodUrl",url)
+                        .withString("laodUrl", url)
                         .navigation();
             }
         });
@@ -160,7 +163,8 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loHeader.switchTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showSelectReservoir();
+//                showSelectReservoir();
+                startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode);
             }
         });
         mBinding.tvShowMore.setOnClickListener(new View.OnClickListener() {
@@ -559,7 +563,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             prarm += "dataTime=" + reservoirWaterLevel.getTm();
         }
 
-        url  = host + prarm;
+        url = host + prarm;
         AgentWeb.with(this)
                 .setAgentWebParent(mBinding.wvRealTimeWaterLevelStorageCapacity, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))//
                 .setIndicatorColorWithHeight(-1, 2)
@@ -568,6 +572,28 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 .go(host + prarm);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
 
+                if (!selectedResrvoir.getReservoirId().equals(defaultReservoir.getReservoirId())) {
+                    tvReservoirName.setText(defaultReservoir.getReservoir());
+                    selectedResrvoir = defaultReservoir;
+                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId());
+                    if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
+                        mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
+                    } else {
+                        mBinding.loHeader.tvVr.setVisibility(View.GONE);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
 }

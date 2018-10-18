@@ -234,9 +234,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             protected void _onNext(ReservoirListResponse response) {
                 if (response.getCode() == 0) {
                     UserManager.getInstance().saveReservoirList(response.getData());
-                   /* if (response.getData() != null && response.getData().size() > 0) {
-                        UserManager.getInstance().saveDefaultReservoir(response.getData().get(0));
-                    }*/
 
                 } else {
 

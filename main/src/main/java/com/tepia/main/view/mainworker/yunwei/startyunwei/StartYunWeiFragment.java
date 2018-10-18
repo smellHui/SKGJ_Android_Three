@@ -3,6 +3,7 @@ package com.tepia.main.view.mainworker.yunwei.startyunwei;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import com.tepia.main.model.task.bean.TaskItemBean;
 import com.tepia.main.model.task.bean.WorkOrderNumBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.work.task.taskdetail.AdapterTaskItemList;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
 
     @Override
     protected void initData() {
+
         Map<String, String> map = UserManager.getInstance().getYunWeiTypeList();
         if (map != null) {
             yunweiTypeStrs = new ArrayList<>();
@@ -119,11 +122,29 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+
+                selectedResrvoir = defaultReservoir;
+                mBinding.tvReservoir.setText(selectedResrvoir.getReservoir());
+                selectFinish(selectedYunWeiType, selectedResrvoir);
+
+                break;
+            default:
+                break;
+        }
+    }
+
     private void initListener() {
         mBinding.loSelectReservoir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showSelectReservoir();
+//                showSelectReservoir();
+                startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode);
             }
         });
         mBinding.loSelectYunweiType.setOnClickListener(new View.OnClickListener() {
@@ -266,7 +287,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
     @Override
     public void getItemListByReservoirIdSuccess(List<TaskItemBean> data) {
         adapterTaskItemList.setNewData(data);
-        if (data == null && data.size() == 0){
+        if (data == null && data.size() == 0) {
             adapterTaskItemList.getData().clear();
             adapterTaskItemList.notifyDataSetChanged();
             View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);

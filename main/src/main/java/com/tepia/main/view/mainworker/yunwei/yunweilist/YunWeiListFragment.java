@@ -1,6 +1,7 @@
 package com.tepia.main.view.mainworker.yunwei.yunweilist;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.response.TaskListResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.TimePickerDialogUtil;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -125,6 +127,28 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         return lTime;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case ChoiceReservoirActivity.resultCode:
+                if (null != data) {
+                    boolean isSelectAll = data.getBooleanExtra(ChoiceReservoirActivity.isAllReservoir, false);
+                    if (isSelectAll) {
+                        mBinding.tvReservoir.setText("全部");
+                        selectedResrvoir = null;
+                        return;
+                    }
+                }
+                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+                mBinding.tvReservoir.setText(defaultReservoir.getReservoir());
+                break;
+            default:
+                break;
+        }
+    }
+
+
     private void initListener() {
         mBinding.srflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -168,7 +192,10 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         mBinding.loSelectReservoir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showSelectReservoir();
+//                showSelectReservoir();
+                Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
+                ChoiceReservoirActivity.setIntent(intent, true);
+                startActivityForResult(intent, ChoiceReservoirActivity.resultCode);
             }
         });
         adapterPatrolWorkOrderList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

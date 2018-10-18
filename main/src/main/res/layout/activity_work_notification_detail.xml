@@ -280,7 +280,7 @@
                             android:layout_marginLeft="50dp"
                             android:layout_marginRight="50dp"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_bt_next_item"
+                            android:background="@drawable/selector_loginout_btn"
                             android:gravity="center"
                             android:padding="8dp"
                             android:text="反馈"

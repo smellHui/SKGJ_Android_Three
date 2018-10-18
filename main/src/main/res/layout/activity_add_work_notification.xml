@@ -260,7 +260,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="30dp"
-                                android:background="@drawable/bg_bt_next_item"
+                                android:background="@drawable/selector_loginout_btn"
                                 android:gravity="center"
                                 android:padding="@dimen/dp_10"
                                 android:text="发布"
