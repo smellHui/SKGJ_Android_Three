@@ -3,6 +3,7 @@ package com.tepia.photo_picker;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.tepia.photo_picker.entity.Photo;
 import com.tepia.photo_picker.event.OnItemCheckListener;
 import com.tepia.photo_picker.fragment.ImagePagerFragment;
@@ -54,11 +56,14 @@ public class PhotoPickerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
         boolean showGif = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
         boolean previewEnabled = getIntent().getBooleanExtra(EXTRA_PREVIEW_ENABLED, true);
         setShowGif(showGif);
         setContentView(R.layout.picker_activity_photo_picker);
+//        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.picker_colorPrimary), true);
+
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setTitle(R.string.picker_title);

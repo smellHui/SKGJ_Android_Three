@@ -32,7 +32,9 @@ public class AdapterFloodReservoirs extends BaseQuickAdapter<FloodBean.DataBean,
         view.setText(R.id.middletitleResnameTv, item.getPosition());
         view.setText(R.id.numTv, item.getMeTotals());
         int postition = view.getAdapterPosition();
+        ++postition;
         if (postition < 10) {
+
             view.setText(R.id.serrialTv, "0"+postition);
 
         }else{

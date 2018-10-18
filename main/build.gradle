@@ -170,7 +170,6 @@ dependencies {
 
     implementation rootProject.ext.dependencies.jpush
     implementation rootProject.ext.dependencies.jcore
-    implementation rootProject.ext.dependencies.pdfview
 
     //下载
     implementation rootProject.ext.dependencies.aria
@@ -179,4 +178,6 @@ dependencies {
 
     //文件选择
     implementation rootProject.ext.dependencies.iFileSelected
+    //状态栏
+    implementation rootProject.ext.dependencies.statusbaruitl
 }

@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -40,6 +41,7 @@ import java.util.List;
 public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View, ReserviorPresent> implements ReserviorContract.View<CapacityBean>, OnChartGestureListener, OnChartValueSelectedListener {
     private LineChart mLineChart;
     private LineChartEntity lineChartEntity;
+    private TextView waterleverunitTv;
 
 
     @Override
@@ -53,6 +55,8 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View, Re
         setCenterTitle("水库库容曲线");
         showBack();
         mLineChart = findViewById(R.id.line_chart);
+        waterleverunitTv = findViewById(R.id.waterleverunitTv);
+        waterleverunitTv.setVisibility(View.GONE);
         mLineChart.setOnChartGestureListener(this);
         mLineChart.setOnChartValueSelectedListener(this);
         ChartUtils.initChart(mLineChart);
@@ -125,7 +129,10 @@ public class CapacityActivity extends MVPBaseActivity<ReserviorContract.View, Re
 
     @Override
     public void success(CapacityBean data) {
-        refreshChart(data.getData());
+        if (data.getData() != null && data.getData().size() > 0) {
+            waterleverunitTv.setVisibility(View.VISIBLE);
+            refreshChart(data.getData());
+        }
 //        ChartUtils.notifyDataSetChanged(mLineChart, getData(data.getData().getData()), ChartUtils.dayValue);
     }
 

@@ -162,7 +162,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
                     TabMainFragmentFactory.getInstance().clearFragment();
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
-                    getBaseActivity().finish();
+                    getActivity().finish();
                 }
             });
             builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

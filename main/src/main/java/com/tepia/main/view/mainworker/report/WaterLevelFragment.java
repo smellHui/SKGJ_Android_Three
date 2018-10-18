@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
+import com.tepia.main.common.DecimalInputTextWatcher;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
@@ -128,6 +131,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
                         adapterShuiweiReservoirs.notifyDataSetChanged();
                     }
                     adapterShuiweiReservoirs.setEnableLoadMore(true);
+                    adapterShuiweiReservoirs.loadMoreComplete();
                 } else if (isloadmore) {
                     adapterShuiweiReservoirs.addData(data);
                     mCurrentCounter = adapterShuiweiReservoirs.getData().size();
@@ -224,7 +228,7 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
         LogUtil.e("当前默认水库id--------------"+reservoirId);
 
         selectReserviorTv.setText(reservoirBean.getReservoir());
-        currentResvoirTv.setText("当前水库："+reservoirBean.getReservoir());
+//        currentResvoirTv.setText("当前水库："+reservoirBean.getReservoir());
 
     }
 
@@ -258,10 +262,10 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
 
     private Dialog dialog_show;
     private TextView selectReserviorTv;
-    private TextView selectShuiweiEv;
+    private EditText selectShuiweiEv;
 
     private void initDialog() {
-        LayoutInflater inflater = (LayoutInflater) getBaseActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
         final ViewGroup nullparent = null;
         View layout = inflater.inflate(R.layout.fragment_shangbao_dailog, nullparent);
         selectReserviorTv = layout.findViewById(R.id.selectReserviorTv);
@@ -269,10 +273,10 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
         Button cancelBtn = layout.findViewById(R.id.cancelBtn);
         Button suerBtn = layout.findViewById(R.id.suerBtn);
 
-        dialog_show = new Dialog(getBaseActivity(), R.style.Transparent);
+        dialog_show = new Dialog(getActivity(), R.style.Transparent);
         dialog_show.setCanceledOnTouchOutside(true);
         dialog_show.setContentView(layout);
-        WindowManager windowManager = getBaseActivity().getWindowManager();
+        WindowManager windowManager = getActivity().getWindowManager();
         DisplayMetrics metric = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metric);
         // 屏幕宽度（像素）
@@ -281,13 +285,14 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
         WindowManager.LayoutParams lp = dialog_show.getWindow().getAttributes();
         lp.width = width;
         dialog_show.getWindow().setAttributes(lp);
-
+        //限制输入位数：整数3位，小数点后两位
+        selectShuiweiEv.addTextChangedListener(new DecimalInputTextWatcher(selectShuiweiEv, 4, 3));
         suerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String rz = selectShuiweiEv.getText().toString();
-                DecimalFormat df = new DecimalFormat("#.00");
-                rz = df.format(rz);
+               /* DecimalFormat df = new DecimalFormat("#.00");
+                String rz = df.format(Double.parseDouble(waterleverValue));*/
                 LogUtil.e("水位值:"+rz);
                 if(TextUtils.isEmpty(rz)){
                     ToastUtils.shortToast("请填写水位值");
@@ -340,8 +345,12 @@ public class WaterLevelFragment extends MVPBaseFragment<ReportContract.View, Rep
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.shangbaoTv) {
-            getReservoirId();
-            dialog_show.show();
+
+            initDialog();
+            if(!getBaseActivity().isFinishing()) {
+                dialog_show.show();
+                getReservoirId();
+            }
 
         } else if (v.getId() == R.id.sureSearchTv) {
             search(true);

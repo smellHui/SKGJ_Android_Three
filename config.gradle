@@ -10,8 +10,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 17,
             targetSdkVersion : 27,
-            versionCode      : 123,
-            versionName      : "1.2.3"
+            versionCode      : 124,
+            versionName      : "1.2.4"
     ]
 
     libsVersion = [
@@ -105,8 +105,6 @@ ext {
             //极光推送相关
             jpush                        : 'cn.jiguang.sdk:jpush:3.1.1',
             jcore                        : 'cn.jiguang.sdk:jcore:1.1.9',
-            //pdf在线加载
-            pdfview                      : 'com.github.barteksc:android-pdf-viewer:2.8.2',
 
             //下载
             aria                         : 'com.arialyy.aria:aria-core:3.5',
@@ -115,5 +113,6 @@ ext {
 
             //选择附件
             iFileSelected                : 'com.leon:lfilepickerlibrary:1.8.0',
+            statusbaruitl                : 'com.githang:status-bar-compat:latest.integration'
     ]
 }

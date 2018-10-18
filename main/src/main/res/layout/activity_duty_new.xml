@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_common"
+        android:orientation="vertical"
+        tools:context=".view.maincommon.setting.DutyActivity">
+
+        <include layout="@layout/toolbar" />
+
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/left_15"
+                android:drawableLeft="@drawable/duty_name"
+                android:drawablePadding="10dp"
+                android:text="工作职责"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                 />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/dutyNameTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:layout_marginRight="@dimen/left_15"
+                android:text="--"
+                android:textColor="#2e3748"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="@dimen/left_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/left_15"
+                android:text="选择职位查看工作内容"
+                android:textColor="#999999"
+                android:textSize="14sp"
+                 />
+            <android.support.v7.widget.RecyclerView
+
+                android:layout_marginLeft="@dimen/left_15"
+                android:layout_marginRight="@dimen/left_15"
+                android:id="@+id/jobRec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginRight="@dimen/left_15"
+            android:layout_marginLeft="@dimen/left_15"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/left_15"
+                android:text="工作内容描述"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                 />
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="@dimen/left_15"
+                android:layout_marginRight="@dimen/left_15"
+                android:id="@+id/workContentTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/left_15"
+                android:drawableLeft="@drawable/duty_reservior"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:text="负责水库"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+            <!--<TextView
+                android:drawableLeft="@drawable/zhize_1"
+                android:drawablePadding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/left_15"
+                android:layout_marginTop="10dp"
+                android:text="负责水库"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                 />-->
+
+            <android.support.v7.widget.RecyclerView
+
+                android:layout_margin="@dimen/left_15"
+                android:id="@+id/reserviorRec"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

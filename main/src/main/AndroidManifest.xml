@@ -194,6 +194,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.reservoirs.detail.VideoPlayThreeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.setting.EditUserInfoActivity"
@@ -282,8 +283,11 @@
         <activity android:name=".view.mainworker.yunwei.workorderquestionlist.WorkOrderQuestionListActivity" />
         <!-- VR -->
         <activity android:name=".view.mainworker.homepage.ReservoirVrActivity" />
+        <activity android:name=".view.maincommon.reservoirs.dvrapp.VideoSixinActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            />
 
-        <activity android:name=".view.maincommon.reservoirs.dvrapp.VideoActivity"/>
+
         <!-- 实时水位库容曲线 -->
         <activity android:name=".view.mainworker.homepage.RealTimeWaterLevelStorageCapacityActivity" />
         <activity android:name=".view.maincommon.setting.ChoiceReservoirActivity"></activity>

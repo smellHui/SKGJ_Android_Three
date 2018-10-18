@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1e2228"
+    android:background="@color/background_common"
     >
 
     <include layout="@layout/toolbar"/>
@@ -79,7 +79,7 @@
     <RelativeLayout
         android:id="@+id/SurfaceViewAndLoading"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical" >
@@ -87,17 +87,25 @@
         <SurfaceView
             android:id="@+id/SurfaceView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="220dp"
             android:layout_gravity="center" />
 
         <ImageView
-
+            android:visibility="gone"
             android:id="@+id/ItemImageBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@mipmap/item_image_bottom"
             android:layout_alignParentBottom="true"
             />
+        <ImageView
+
+            android:id="@+id/fullScreenIv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/full_vedio" />
 
     </RelativeLayout>
 
@@ -110,7 +118,9 @@
         >
 
         <com.tepia.main.view.maincommon.reservoirs.dvrapp.RadioGroupEx
+            android:visibility="gone"
             android:id="@+id/video_channel"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"

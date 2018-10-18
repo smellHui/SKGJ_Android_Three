@@ -155,6 +155,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    public Toolbar getLoToolbarCommon() {
+        return loToolbarCommon;
+    }
+
+    public void setLoToolbarCommon(Toolbar loToolbarCommon) {
+        this.loToolbarCommon = loToolbarCommon;
+    }
+
     public abstract int getLayoutId();
 
     public abstract void initView();

@@ -39,7 +39,7 @@ public abstract class LoadingSubject<T extends BaseResponse> implements io.react
         if (isShow) {
             try {
                 simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), msg, true);
-                if (simpleLoadDialog != null) {
+                if (simpleLoadDialog != null && !AppManager.getInstance().getCurrentActivity().isFinishing()) {
                     simpleLoadDialog.show();
                 }
             } catch (Exception e) {
@@ -57,7 +57,7 @@ public abstract class LoadingSubject<T extends BaseResponse> implements io.react
             return;
         }
         if (isShow) {
-            if (simpleLoadDialog != null) {
+            if (simpleLoadDialog != null && !AppManager.getInstance().getCurrentActivity().isFinishing()) {
                 simpleLoadDialog.dismiss();
             }
         }

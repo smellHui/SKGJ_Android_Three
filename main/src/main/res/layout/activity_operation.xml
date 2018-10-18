@@ -17,17 +17,13 @@
 
     <WebView
         android:layout_margin="@dimen/lymargin"
+        android:visibility="gone"
 
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:layout_margin="@dimen/lymargin"
-        android:visibility="gone"
-        android:id="@+id/pdfview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
 
     <include
         android:visibility="gone"

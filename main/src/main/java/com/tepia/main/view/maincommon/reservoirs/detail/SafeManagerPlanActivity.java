@@ -7,7 +7,6 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.barteksc.pdfviewer.PDFView;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.main.R;
@@ -29,7 +28,6 @@ public class SafeManagerPlanActivity extends MVPBaseActivity<ReserviorContract.V
 
     private WebView webview;
     private LinearLayout rootEmptyLy;
-    private PDFView pdfView;
     private TextView tv_empty_view_text;
     @Override
     public int getLayoutId() {
