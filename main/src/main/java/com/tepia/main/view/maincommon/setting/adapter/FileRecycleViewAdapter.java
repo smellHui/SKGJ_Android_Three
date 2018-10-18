@@ -80,6 +80,22 @@ public class FileRecycleViewAdapter extends RecyclerView.Adapter<FileRecycleView
     public void onBindViewHolder(FileViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_FILE){
             holder.tvName.setText(filePaths.get(position).fileName);
+            if (filePaths.get(position).fileName.endsWith(".doc") || filePaths.get(position).fileName.endsWith(".docx")) {
+//                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_word);
+                holder.ivFile.setImageResource(R.drawable.jianjie_word);
+            }else if (filePaths.get(position).fileName.endsWith(".xls") || filePaths.get(position).fileName.endsWith(".xlsx")) {
+//                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_excel);
+                holder.ivFile.setImageResource(R.drawable.jianjie_excel);
+            }else if (filePaths.get(position).fileName.endsWith(".ppt") || filePaths.get(position).fileName.endsWith(".pptx")) {
+//                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_ppt);
+                holder.ivFile.setImageResource(R.drawable.jianjie_ppt);
+            }else if (filePaths.get(position).fileName.endsWith(".pdf") ) {
+//                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_pdf);
+                holder.ivFile.setImageResource(R.drawable.jianjie_ppt);
+            }else if(filePaths.get(position).fileName.endsWith(".txt")){
+//                helper.setImageResource(R.id.officeIv,R.drawable.jianjie_txt);
+                holder.ivFile.setImageResource(R.drawable.jianjie_txt);
+            }
             holder.itemView.setOnClickListener(v -> {
                 if (onItemDeleteClickListener!=null){
                     onItemDeleteClickListener.onItemClick(v,position);

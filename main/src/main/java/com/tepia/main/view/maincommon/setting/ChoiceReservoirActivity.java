@@ -1,5 +1,6 @@
 package com.tepia.main.view.maincommon.setting;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -29,12 +30,20 @@ import java.util.ArrayList;
 
 public class ChoiceReservoirActivity extends BaseActivity {
     public static final int resultCode = 1001;
+    public static String isAllReservoir = "isAllReservoir";
 
     private EditText etSearch;
     private RecyclerView rvSelectReservoir;
     private ArrayList<ReservoirBean> localReservoirList;
+    private ArrayList<ReservoirBean> reservoirList = new ArrayList<>();
     private ArrayList<ReservoirBean> searchReservoirList = new ArrayList<>();
     private MySelectReservoirAdapter mySelectReservoirAdapter;
+    private boolean isSelectAll;
+
+    public static Intent setIntent(Intent intent, boolean isSelectAll) {
+        intent.putExtra("isSelectAll", isSelectAll);
+        return intent;
+    }
 
     @Override
     public int getLayoutId() {
@@ -45,6 +54,7 @@ public class ChoiceReservoirActivity extends BaseActivity {
     public void initView() {
         setCenterTitle("选择水库");
         showBack();
+        isSelectAll = getIntent().getBooleanExtra("isSelectAll", false);
         etSearch = findViewById(R.id.et_search);
         rvSelectReservoir = findViewById(R.id.rv_select_reservoir);
         initRecyclerView();
@@ -61,12 +71,12 @@ public class ChoiceReservoirActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchStr = s.toString().replaceAll(" ", "");
-                if (null!=localReservoirList&&localReservoirList.size()>0){
+                if (null!=reservoirList&&reservoirList.size()>0){
                     searchReservoirList.clear();
-                    for (int i = 0; i < localReservoirList.size(); i++) {
-                        String reservoir = localReservoirList.get(i).getReservoir();
+                    for (int i = 0; i < reservoirList.size(); i++) {
+                        String reservoir =  reservoirList.get(i).getReservoir();
                         if (reservoir.contains(searchStr)){
-                            searchReservoirList.add(localReservoirList.get(i));
+                            searchReservoirList.add(reservoirList.get(i));
                         }
                     }
                     if (null!=searchReservoirList&&searchReservoirList.size()>0){
@@ -94,12 +104,25 @@ public class ChoiceReservoirActivity extends BaseActivity {
         mySelectReservoirAdapter = new MySelectReservoirAdapter(R.layout.lv_select_reservoir_item, searchReservoirList);
         rvSelectReservoir.setAdapter(mySelectReservoirAdapter);
         if (null!=localReservoirList){
+            if (isSelectAll){
+                ReservoirBean reservoirBean = new ReservoirBean();
+                reservoirBean.setReservoir("全部");
+                searchReservoirList.add(reservoirBean);
+            }
             searchReservoirList.addAll(localReservoirList);
+            reservoirList.addAll(searchReservoirList);
             mySelectReservoirAdapter.notifyDataSetChanged();
         }
         mySelectReservoirAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (null!=searchReservoirList&&searchReservoirList.size()>=(position)){
                 ReservoirBean reservoirBean = searchReservoirList.get(position);
+                if ("全部".equals(reservoirBean.getReservoir())){
+                    Intent intent = new Intent();
+                    intent.putExtra(isAllReservoir,true);
+                    ChoiceReservoirActivity.this.setResult(resultCode,intent);
+                    finish();
+                    return;
+                }
                 UserManager.getInstance().saveDefaultReservoir(reservoirBean);
                 ChoiceReservoirActivity.this.setResult(resultCode);
                 finish();

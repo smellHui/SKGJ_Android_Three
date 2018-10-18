@@ -164,7 +164,11 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
             tvStartDate.setText("");
         });
         tvReservoir = findView(R.id.tv_reservoir);
-        tvReservoir.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode));
+        tvReservoir.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
+            ChoiceReservoirActivity.setIntent(intent, true);
+            startActivityForResult(intent,ChoiceReservoirActivity.resultCode);
+        });
         initStartDate();
 //        initSpinner();
         initRecyclerView();
@@ -177,8 +181,10 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
             ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
             String defaultReservoirId = defaultReservoir.getReservoirId();
             if (defaultReservoirId!=reservoirId) {
-                reservoirId = defaultReservoir.getReservoirId();
-                tvReservoir.setText(defaultReservoir.getReservoir());
+//                reservoirId = defaultReservoir.getReservoirId();
+//                tvReservoir.setText(defaultReservoir.getReservoir());
+                reservoirId = "";
+                tvReservoir.setText("全部");
                 rvAdapter.setEnableLoadMore(false);
                 currentPage = 1;
                 isloadmore = false;
@@ -377,6 +383,14 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
+                if (null!=data){
+                    boolean isSelectAll = data.getBooleanExtra(ChoiceReservoirActivity.isAllReservoir, false);
+                    if (isSelectAll){
+                        tvReservoir.setText("全部");
+                        reservoirId = "";
+                        return;
+                    }
+                }
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
                 if (!reservoirId.equals(defaultReservoir.getReservoirId())){
                     tvReservoir.setText(defaultReservoir.getReservoir());

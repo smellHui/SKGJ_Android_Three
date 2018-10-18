@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
@@ -172,7 +173,12 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         tvCleanMonth.setOnClickListener(v -> {
             tvStartDate.setText("");
         });
-        tvReservoir.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode));
+        tvReservoir.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
+            ChoiceReservoirActivity.setIntent(intent, true);
+            startActivityForResult(intent,ChoiceReservoirActivity.resultCode);
+//            startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode)
+        });
         initStartDate();
 //        initSpinner();
         initRecyclerView();
@@ -185,8 +191,10 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
             ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
             String defaultReservoirId = defaultReservoir.getReservoirId();
             if (defaultReservoirId!=reservoirId) {
-                reservoirId = defaultReservoir.getReservoirId();
-                tvReservoir.setText(defaultReservoir.getReservoir());
+//                reservoirId = defaultReservoir.getReservoirId();
+//                tvReservoir.setText(defaultReservoir.getReservoir());
+                reservoirId = "";
+                tvReservoir.setText("全部");
                 rvAdapter.setEnableLoadMore(false);
                 currentPage = 1;
                 isloadmore = false;
@@ -390,6 +398,14 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
+                if (null!=data){
+                    boolean isSelectAll = data.getBooleanExtra(ChoiceReservoirActivity.isAllReservoir, false);
+                    if (isSelectAll){
+                        tvReservoir.setText("全部");
+                        reservoirId = "";
+                        return;
+                    }
+                }
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
                 if (!reservoirId.equals(defaultReservoir.getReservoirId())){
                     tvReservoir.setText(defaultReservoir.getReservoir());

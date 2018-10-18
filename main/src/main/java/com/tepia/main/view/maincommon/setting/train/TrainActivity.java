@@ -236,7 +236,7 @@ public class TrainActivity extends BaseActivity {
             case 1:
                 //新增培训返回
                 Bundle extras = data.getExtras();
-                if (extras!=null){
+                if (null!=extras){
                     boolean isAddPlan =extras.getBoolean("isAddPlan");
 //                    LogUtil.i("isAddPlan:"+isAddPlan);
                     if (isAddPlan){
