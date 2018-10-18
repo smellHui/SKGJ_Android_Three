@@ -175,7 +175,11 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                 if (TextUtils.isEmpty(data.getRemarks())) {
                     bindings.feedbackTv.setText(getString(R.string.setting_t_null));
                 }else{
-                    bindings.feedbackTv.setText(data.getRemarks());
+                    String feedbackUserName = data.getFeedbackUserName();
+                    if (TextUtils.isEmpty(feedbackUserName)) {
+                        feedbackUserName = getString(R.string.setting_t_null);
+                    }
+                    bindings.feedbackTv.setText("上报人："+feedbackUserName+"\n"+"上报时间："+data.getUpdateDate()+"\n"+"上报内容："+data.getRemarks());
 
                 }
                 //图片

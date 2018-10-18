@@ -34,6 +34,7 @@ import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ScreenUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.view.maincommon.reservoirs.detail.VideoPlayThreeActivity;

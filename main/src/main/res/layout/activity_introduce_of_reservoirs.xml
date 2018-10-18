@@ -91,6 +91,37 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+                            android:layout_marginLeft="@dimen/jianjiemarginleft"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/jianjie_circle"
+                                android:drawablePadding="5dp"
+                                android:gravity="center"
+                                android:text="主要功能："
+                                android:textColor="@color/text_color"
+                                android:textSize="@dimen/jianjietextsize" />
+
+                            <TextView
+                                android:id="@+id/mainFunctionTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/jianjietextsize"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
                         <TextView
                             android:id="@+id/reservoirTypeTv"
                             android:layout_width="wrap_content"
@@ -318,7 +349,7 @@
                         android:layout_marginTop="@dimen/textviewtop"
                         android:drawableLeft="@drawable/jianjiejuxing"
                         android:drawablePadding="@dimen/textviewpadding"
-                        android:text="主要功能"
+                        android:text="水库简介"
                         android:textColor="@color/black"
                         android:textSize="@dimen/basetextsize"
                         android:textStyle="bold" />
@@ -330,7 +361,7 @@
                         android:background="@color/text_color" />
 
                     <TextView
-                        android:id="@+id/mainFunctionTv"
+                        android:id="@+id/reservoirProduceTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="22dp"

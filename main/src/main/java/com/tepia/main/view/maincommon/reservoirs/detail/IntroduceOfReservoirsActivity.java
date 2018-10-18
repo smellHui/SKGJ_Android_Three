@@ -1,8 +1,10 @@
 package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -209,11 +211,18 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
         binding.damCrestElevationTv.setText("坝顶高程："+dataBean.getDamCrestElevation()+"m");
         binding.damBotmMaxWidthTv.setText("坝底最大宽度："+dataBean.getDamBotmMaxWidth()+"m");
         binding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient()+"");
+
         String mainFunctionStr = dataBean.getMainFunction();
         if (TextUtils.isEmpty(mainFunctionStr)) {
             mainFunctionStr = getString(R.string.setting_t_null);
         }
-        binding.mainFunctionTv.setText(mainFunctionStr + "");
+        binding.mainFunctionTv.setText(mainFunctionStr);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.reservoirProduceTv.setText(Html.fromHtml(dataBean.getReservoirProduce(),0));
+        }else{
+            binding.reservoirProduceTv.setText(Html.fromHtml(dataBean.getReservoirProduce()));
+
+        }
         binding.reservoirAddressTv.setText(dataBean.getReservoirAddress()+"");
         LogUtil.e("经度："+dataBean.getReservoirLongitude()+"，纬度："+dataBean.getReservoirLatitude());
 

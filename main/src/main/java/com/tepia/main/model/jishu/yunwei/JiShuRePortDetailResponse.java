@@ -71,10 +71,26 @@ public class JiShuRePortDetailResponse extends BaseResponse{
         private String reservoirName;
         private String userName;
         private String isVerify;
+        /**
+         * 反馈人
+         */
+        private String feedbackUserName;
+        /**
+         * 反馈时间
+         */
+        private String updateDate;
         private List<ISysFileUploadsBean> images;
         private List<ISysFileUploadsBean> videos;
         private List<?> bizProblemFlows;
         private String remarks;
+
+        public String getUpdateDate() {
+            return updateDate;
+        }
+
+        public void setUpdateDate(String updateDate) {
+            this.updateDate = updateDate;
+        }
 
         public String getProblemId() {
             return problemId;
@@ -250,6 +266,14 @@ public class JiShuRePortDetailResponse extends BaseResponse{
 
         public void setRemarks(String remarks) {
             this.remarks = remarks;
+        }
+
+        public String getFeedbackUserName() {
+            return feedbackUserName;
+        }
+
+        public void setFeedbackUserName(String feedbackUserName) {
+            this.feedbackUserName = feedbackUserName;
         }
 
         public static class ISysFileUploadsBean {

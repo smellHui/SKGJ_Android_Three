@@ -51,6 +51,7 @@ public class IntroduceOfReservoirsBean extends BaseResponse{
          * 水库名
          */
         private String reservoir;
+        private String reservoirProduce;
         private String reservoirType;
         private String areaName;
         /**
@@ -103,6 +104,14 @@ public class IntroduceOfReservoirsBean extends BaseResponse{
          * 库容系数
          */
         private double capacityCoefficient;
+
+        public String getReservoirProduce() {
+            return reservoirProduce;
+        }
+
+        public void setReservoirProduce(String reservoirProduce) {
+            this.reservoirProduce = reservoirProduce;
+        }
 
         public String getReservoir() {
             return reservoir;

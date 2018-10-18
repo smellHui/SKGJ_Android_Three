@@ -103,6 +103,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
                     //首次加载
                     if (data == null || data.size() == 0) {
 //                        showEmptyView();
+
                         adapterShuiweiReservoirs.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
                     } else {
                         dataList.clear();

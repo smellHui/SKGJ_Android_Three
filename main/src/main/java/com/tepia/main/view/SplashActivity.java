@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.view.dialog.permissiondialog.PromptDialog;
@@ -40,7 +42,6 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         // 设置全屏
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        isFirst = SPUtils.getInstance(UIUtils.getContext()).getBoolean("isFirst", true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //            //获取权限
             AndPermission.with(this)
@@ -76,6 +77,22 @@ public class SplashActivity extends Activity {
             }
         }, 1000);
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && Build.VERSION.SDK_INT >= 19) {
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
 
     @Override
     protected void onStart() {

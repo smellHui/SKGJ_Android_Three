@@ -98,7 +98,7 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
         }else if(value_preview.equals(selectstr)){
             String  filepathstr = getIntent().getStringExtra(PREVIEW_PATH);
             if(TextUtils.isEmpty(filepathstr)){
-                showEmpty();
+                showEmpty("文件路径为空");
                 return;
             }
 //            showFile(filepathstr);
@@ -131,13 +131,13 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
     @Override
     public void success(OperationPlanBean data) {
         if(data.getData() == null){
-            showEmpty();
-            officeLy.setVisibility(View.GONE);
+            showEmpty("暂无数据");
+
             return;
         }
         String downloadUrl = data.getData().getFilePath();
         if(TextUtils.isEmpty(downloadUrl)){
-            showEmpty();
+            showEmpty("文件路径为空");
             return;
         }
 //        showFile(downloadUrl);
@@ -171,11 +171,13 @@ public class OperationPlanActivity extends MVPBaseActivity<ReserviorContract.Vie
 
     @Override
     public void failure(String msg) {
-        showEmpty();
+        showEmpty(msg);
     }
 
-    private void showEmpty(){
+    private void showEmpty(String msg){
+        officeLy.setVisibility(View.GONE);
         rootEmptyLy.setVisibility(View.VISIBLE);
+        tv_empty_view_text.setText(msg);
         webview.setVisibility(View.GONE);
     }
 }
