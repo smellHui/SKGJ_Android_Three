@@ -127,11 +127,7 @@ public class ReportFragment extends BaseCommonFragment{
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
-                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (!oldReserviorId.equals(defaultReservoir.getReservoirId())){
-                    tv_reservoir_name.setText(defaultReservoir.getReservoir());
-                    oldReserviorId = defaultReservoir.getReservoirId();
-                }
+                refreshPage();
                 break;
             default:
                 break;

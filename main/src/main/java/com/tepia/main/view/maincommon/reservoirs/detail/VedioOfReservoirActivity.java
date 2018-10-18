@@ -111,11 +111,12 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                 intent.putExtras(bundle);
                 startActivity(intent);*/
 
+                VideoResponse.DataBean dataBean = dataBeanList.get(position);
 
-                channelId = dataBeanList.get(position).getChannelId();
-                int channelReally = Integer.valueOf(channelId) - 1;
-                LogUtil.e(TAG, "channeId为" + channelId);
                 if ("0".equals(accessType)) {
+                    channelId = dataBean.getChannelId();
+                    int channelReally = Integer.valueOf(channelId) - 1;
+                    LogUtil.e(TAG, "channeId为" + channelId);
                     //海康视频
                     List<VideoInfo> videoInfos = new ArrayList<>();
 
@@ -144,13 +145,13 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                     }
                 } else if("1".equals(accessType)){
                     //四信视频
-                    if (lstDevice.size() == 0) {
+                    /*if (lstDevice.size() == 0) {
                         Toast.makeText(VedioOfReservoirActivity.this, getResources().getString(R.string.not_device_online), Toast.LENGTH_LONG).show();
                         return;
-                    }
+                    }*/
 
-                    String defaultDvrId = dataBeanList.get(position).getDefaultDvrId();
-                    for (int i = 0; i < lstDevice.size(); i++) {
+                    String defaultDvrId = dataBean.getDefaultDvrId();
+                    /*for (int i = 0; i < lstDevice.size(); i++) {
                         ObjectDevices objectDevices = lstDevice.get(i);
                         if(defaultDvrId.equals(objectDevices.deviceId)){
                             Intent intent = new Intent(VedioOfReservoirActivity.this, VideoSixinActivity.class);
@@ -168,6 +169,21 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                             }
                             break;
                         }
+                    }*/
+                    Intent intent = new Intent(VedioOfReservoirActivity.this, VideoSixinActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("deviceId", defaultDvrId);
+                    bundle.putString("sRemark", dataBean.getVsnm());
+                    bundle.putInt("iChannelAmt", Integer.valueOf(dataBean.getChannelId()));
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                    try {
+                        if(thDeviceListThread != null) {
+                            thDeviceListThread.interrupt();
+                            thDeviceListThread = null;
+                        }
+                    } catch (Exception e) {
                     }
 
 
@@ -528,7 +544,9 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
 
                 //成功，在这里写处理内容的代码
                 ToastUtils.shortToast("登录成功");
-
+                if(simpleLoadDialog != null){
+                    simpleLoadDialog.dismiss();
+                }
                 LogUtil.e("arg0:" + arg0);
                 Gson gson = new Gson();
                 HttpPacketReq oHttpPacketReq = null;
@@ -552,22 +570,14 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                     String webIP = sharedPreferences.getString("weburl", "");
                     String webPort = sharedPreferences.getString("webport", "");
 
-                    if (valid(webIP, webPort)) {
-                        /*Intent intent = new Intent();
-                        intent.setClass(VedioOfReservoirActivity.this, VedioOfReservoirActivity.class);
-                        Bundle bundle = new Bundle();
-                        //bundle.putString("surl", tempurl);
-                        bundle.putInt("userId", oObjectUser.userId );
-                        intent.putExtras(bundle);
-
-                        startActivity(intent);*/
+                    /*if (valid(webIP, webPort)) {
                         LogUtil.e("---------------userId:" + userId);
                         userId = oObjectUser.userId;
                         getSixinVedio();
                     } else {
                         Toast.makeText(VedioOfReservoirActivity.this, getResources().getString(R.string.ip_port_config), Toast.LENGTH_SHORT).show();
                         return;
-                    }
+                    }*/
 
 
                 } else {
