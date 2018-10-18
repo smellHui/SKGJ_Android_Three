@@ -11,10 +11,7 @@
     <!-- Base application theme. -->
     <style name="picker_toolbar_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/picker_colorPrimary</item>
-        <item name="colorPrimaryDark">@color/picker_colorPrimaryDark</item>
-        <item name="colorAccent">@color/picker_colorAccent</item>
-        <item name="android:windowContentOverlay">@null</item>
+
         <item name="android:homeAsUpIndicator">@drawable/come_back_blue</item>
         <item name="actionMenuTextColor">#59abf1</item>
         <item name="titleTextColor">#000000</item>

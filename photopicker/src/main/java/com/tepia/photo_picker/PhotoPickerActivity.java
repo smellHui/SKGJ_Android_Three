@@ -62,7 +62,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
         boolean previewEnabled = getIntent().getBooleanExtra(EXTRA_PREVIEW_ENABLED, true);
         setShowGif(showGif);
         setContentView(R.layout.picker_activity_photo_picker);
-//        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.picker_colorPrimary), true);
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, R.color.picker_colorPrimary), true);
 
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
