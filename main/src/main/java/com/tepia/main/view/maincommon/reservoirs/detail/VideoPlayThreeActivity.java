@@ -171,7 +171,7 @@ public class VideoPlayThreeActivity extends BaseActivity implements RadioGroup.O
         tvStatus.setTextColor(ContextCompat.getColor(this, R.color.color_load_blue));
         tvName.setTextColor(ContextCompat.getColor(this, R.color.color_load_blue));
         VideoInfo video = data.get(0);
-        if (video.getChaStatus() != null && video.getChaStatus().equalsIgnoreCase("ok")) {
+        if (video.getChaStatus() != null && "ok".equalsIgnoreCase(video.getChaStatus())) {
             tvStatus.setText("连接状态:正常");
         } else {
             tvStatus.setText("连接状态:不正常");

@@ -57,7 +57,7 @@ public class VideoAdapter extends android.widget.BaseAdapter {
 		}else {
 			holder.tvName.setText(video.getChaName().trim());
 		}
-        if(video.getChaStatus() != null && video.getChaStatus().equalsIgnoreCase("ok")) {
+        if(video.getChaStatus() != null && "ok".equalsIgnoreCase(video.getChaStatus())) {
             holder.tvStatus.setText("连接状态:正常");
         }else {
             holder.tvStatus.setText("连接状态:不正常");

@@ -186,7 +186,7 @@ public class TabTaskListFragment extends MVPBaseFragment<TabTaskListContract.Vie
         adapterTaskList.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                if (adapterTaskList.getData().get(position).getExecuteStatus().equals("0")) {
+                if ("0".equals(adapterTaskList.getData().get(position).getExecuteStatus())) {
                     new AlertDialog.Builder(getBaseActivity())
                             .setMessage("确定要删除这条工单吗？")
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {

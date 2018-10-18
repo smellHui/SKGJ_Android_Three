@@ -72,7 +72,7 @@ public class PlayLocalVedioActivity extends BaseActivity {
 
 		vv_player = findViewById(R.id.vv_player_local);
 		delBtnVedio = findViewById(R.id.delBtnVedio);
-        if(!TextUtils.isEmpty(flag) && flag.equals("1")){
+        if(!TextUtils.isEmpty(flag) && "1".equals(flag)){
         	delBtnVedio.setVisibility(View.GONE);
 		}
 		imageVediopause = (ImageView) findViewById(R.id.pause_vedio_imageview);

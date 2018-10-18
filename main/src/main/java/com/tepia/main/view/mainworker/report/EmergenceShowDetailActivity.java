@@ -169,7 +169,11 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                 JiShuRePortDetailResponse.DataBean data = jiShuRePortDetailResponse.getData();
                 bindings.titleTv.setText(data.getProblemTitle());
                 bindings.rerserviorNameTv.setText("水库名称："+ data.getReservoirName());
-                bindings.nameTv.setText("上报人："+ data.getUserName());
+                String username = data.getUserName();
+                if (TextUtils.isEmpty(username)) {
+                    username = getString(R.string.setting_t_null);
+                }
+                bindings.nameTv.setText("上报人："+ username);
                 bindings.timeTv.setText("上报时间："+ data.getCreateDate());
                 bindings.descriptionTv.setText(data.getProblemDescription());
                 if (TextUtils.isEmpty(data.getRemarks())) {
@@ -179,7 +183,8 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                     if (TextUtils.isEmpty(feedbackUserName)) {
                         feedbackUserName = getString(R.string.setting_t_null);
                     }
-                    bindings.feedbackTv.setText("上报人："+feedbackUserName+"\n"+"上报时间："+data.getUpdateDate()+"\n"+"上报内容："+data.getRemarks());
+
+                    bindings.feedbackTv.setText("反馈人："+feedbackUserName+"\n"+"反馈时间："+data.getUpdateDate()+"\n"+"反馈内容："+data.getRemarks());
 
                 }
                 //图片
@@ -219,6 +224,7 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                         bindings.videoIcon.setImageBitmap(bmpVedio);
                     }else{
                         bindings.videoIcon.setImageBitmap(addBitmap);
+
                     }
 
                     bindings.videoIcon.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +239,9 @@ public class EmergenceShowDetailActivity extends BaseActivity {
                             startActivity(intent);
                         }
                     });
+                }else{
+//                    bindings.videoIcon.
+                    bindings.vedioLy.setVisibility(View.GONE);
                 }
 
 

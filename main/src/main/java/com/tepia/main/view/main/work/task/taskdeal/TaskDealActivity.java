@@ -112,7 +112,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                 if (drawStatus == DrawStatus.COMPLETED) {
                     if (isFirstInitMap) {
                         if (currentPoint != null) {
-                            if (taskBean.getExecuteStatus().equals("2")) {
+                            if ("2".equals(taskBean.getExecuteStatus())) {
                                 mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale).addDoneListener(() -> {
                                     moveMap(true);
                                 });

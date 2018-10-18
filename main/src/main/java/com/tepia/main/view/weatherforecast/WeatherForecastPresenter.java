@@ -38,7 +38,7 @@ public class WeatherForecastPresenter extends BasePresenterImpl<WeatherForecastC
 
                 @Override
                 public void onNext(WeatherResponse weatherResponse) {
-                    if (weatherResponse.getStatus().equals("0")) {
+                    if ("0".equals(weatherResponse.getStatus())) {
                         mView.getWeatherSuccess(weatherResponse.getResult());
                         SPUtils.getInstance(Utils.getContext()).putString("WEATHERBEAN", new Gson().toJson(weatherResponse.getResult()));
                     }

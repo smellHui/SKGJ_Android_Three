@@ -79,12 +79,12 @@ public class DecimalInputTextWatcher implements TextWatcher {
             }
 
         }
-        if (s.trim().equals(".")) {//小数点开头，小数点前补0
+        if (".".equals(s.trim())) {//小数点开头，小数点前补0
             s = "0" + s;
             editable.replace(0, editable.length(), s.trim());
         }
         if (s.startsWith("0") && s.trim().length() > 1) {//多个0开头，只输入一个0
-            if (!s.substring(1, 2).equals(".")) {
+            if (!".".equals(s.substring(1, 2))) {
                 editable.replace(0, editable.length(), "0");
             }
         }

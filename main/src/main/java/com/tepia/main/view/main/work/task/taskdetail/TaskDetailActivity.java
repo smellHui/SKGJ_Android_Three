@@ -156,7 +156,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 if (drawStatus == DrawStatus.COMPLETED) {
                     if (isFirstInitMap) {
                         if (currentPoint != null) {
-                            if (taskBean.getExecuteStatus().equals("2")) {
+                            if ("2".equals(taskBean.getExecuteStatus())) {
                                 mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale);
                             } else {
                                 if (positionPoint != null) {
@@ -492,7 +492,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                             }
                             LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
-                            if (taskBean.getIsProcess() != null && taskBean.getIsProcess().equals("1")) {
+                            if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
                                 mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
                             } else {
                                 mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
