@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
@@ -28,6 +29,7 @@ import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
 import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
+import com.tepia.main.view.maincommon.setting.DownLoadActivity;
 import com.tepia.main.view.maintechnology.threekeypoint.adapter.MyTabListAdapter;
 
 import java.util.ArrayList;
@@ -177,6 +179,13 @@ public class ThreePointTabFragment extends BaseCommonFragment{
             intent.setClass(getContext(), OperationPlanActivity.class);
             intent.putExtra("select",OperationPlanActivity.value_preview);
             intent.putExtra(OperationPlanActivity.PREVIEW_PATH,item.getFilePath());
+            startActivity(intent);
+        });
+        listAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Intent intent = new Intent(getActivity(), DownLoadActivity.class);
+//            DownLoadActivity.setIntent(intent,"ggsg8.apk","http://rs.0.gaoshouyou.com/d/04/1e/400423a7551e1f3f0eb1812afa1f9b44.apk");
+//            DownLoadActivity.setIntent(intent,"CloudMusic_official_5.5.2.826166.apk","http://d1.music.126.net/dmusic/CloudMusic_official_5.5.2.826166.apk");
+            DownLoadActivity.setIntent(intent,dataList.get(position).getFileName(),dataList.get(position).getFilePath());
             startActivity(intent);
         });
     }

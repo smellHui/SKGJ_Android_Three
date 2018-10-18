@@ -294,6 +294,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
                 if (!reservoirId.equals(defaultReservoir.getReservoirId())){
                     tvReservoirName.setText(defaultReservoir.getReservoir());
+                    reservoirName = defaultReservoir.getReservoir();
                     reservoirId = defaultReservoir.getReservoirId();
                     srl.setRefreshing(true);
                     Handler handler = new Handler();
