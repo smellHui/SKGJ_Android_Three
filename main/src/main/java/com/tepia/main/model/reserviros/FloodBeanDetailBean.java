@@ -48,7 +48,7 @@ public class FloodBeanDetailBean extends BaseResponse {
         private String meTotals;
         private String position;
         private String manageName;
-        private String phoneNum;
+        private String phoneNum ;
         private String remark;
         private String meTypeName;
         private List<FileInfoBean> fileInfo;

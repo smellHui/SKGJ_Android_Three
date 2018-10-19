@@ -66,11 +66,24 @@ public class FloodDetailActivity extends BaseActivity {
                                 activityFloodDetailBinding.contentLy.setVisibility(View.VISIBLE);
                                 activityFloodDetailBinding.includeEmpty.setVisibility(View.GONE);
                                 FloodBeanDetailBean.DataBean dataBean = floodBean.getData();
-                                activityFloodDetailBinding.meNameTv.setText( dataBean.getMeName());
-                                activityFloodDetailBinding.meTotalsTv.setText(dataBean.getMeTotals());
-                                activityFloodDetailBinding.positionTv.setText(dataBean.getPosition());
-                                activityFloodDetailBinding.manageNameTv.setText(dataBean.getManageName()+"");
-                                activityFloodDetailBinding.phoneNumTv.setText(dataBean.getPhoneNum()+"");
+                                if (!TextUtils.isEmpty(dataBean.getMeName())) {
+                                    activityFloodDetailBinding.meNameTv.setText( dataBean.getMeName());
+                                }
+                                if (!TextUtils.isEmpty(dataBean.getMeTotals())) {
+                                    activityFloodDetailBinding.meTotalsTv.setText(dataBean.getMeTotals());
+
+                                }
+                                if (!TextUtils.isEmpty(dataBean.getPosition())) {
+                                    activityFloodDetailBinding.positionTv.setText(dataBean.getPosition());
+
+                                }
+                                if (!TextUtils.isEmpty(dataBean.getManageName())) {
+                                    activityFloodDetailBinding.manageNameTv.setText(dataBean.getManageName() + "");
+                                }
+
+                                if (!TextUtils.isEmpty(dataBean.getPhoneNum())) {
+                                    activityFloodDetailBinding.phoneNumTv.setText(dataBean.getPhoneNum() + "");
+                                }
                                 if(dataBean.getFileInfo() != null) {
                                     for (FloodBeanDetailBean.DataBean.FileInfoBean fileInfoBean : dataBean.getFileInfo()) {
                                         if (fileInfoBean != null) {

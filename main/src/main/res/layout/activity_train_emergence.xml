@@ -22,7 +22,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="13dp"
+                android:layout_margin="@dimen/alldetailly_dimen"
                 android:background="@drawable/bg_btn_green"
                 android:orientation="vertical">
 

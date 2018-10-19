@@ -34,4 +34,5 @@
     <dimen name="left_15">15dp</dimen>
     <dimen name="main_marginleft">10dp</dimen>
     <dimen name="shangbaopadding">12dp</dimen>
+    <dimen name="alldetailly_dimen">10dp</dimen>
 </resources>
