@@ -14,6 +14,6 @@
         android:layout_marginTop="10dp"
         android:text="kfjdsdjfksjdkf"
         android:textColor="#ffffff"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:gravity="right" />
 </LinearLayout>

@@ -16,7 +16,7 @@
             android:paddingTop="10dp"
             android:text="flasykdfl"
             android:textColor="@color/color_333"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <View
             android:layout_width="wrap_content"

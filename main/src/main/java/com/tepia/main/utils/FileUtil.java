@@ -173,7 +173,7 @@ public class FileUtil {
      * @param imagename
      */
     public static String saveBitmapToSDCard(Bitmap bitmap, String imagename) {
-        String path = "/sdcard/" + "img_" + imagename + ".jpg";
+        String path = Environment.getExternalStorageDirectory().getPath() + "img_" + imagename + ".jpg";
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(path);

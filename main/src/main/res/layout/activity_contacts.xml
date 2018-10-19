@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:hint="@string/text_et_search_hint"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
                 <ImageView
                     android:id="@+id/iv_search"

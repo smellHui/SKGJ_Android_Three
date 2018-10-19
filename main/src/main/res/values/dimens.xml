@@ -13,7 +13,7 @@
 
     <!--综合监控-基础信息相关字号-->
     <dimen name="base_river_title">16dp</dimen>
-    <dimen name="base_river_left">14dp</dimen>
+    <dimen name="base_river_left">14sp</dimen>
     <dimen name="base_river_more">12dp</dimen>
     <dimen name="base_river_paddingRight">5dp</dimen>
     <dimen name="indicatorHeight">3dp</dimen>

@@ -285,7 +285,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
                 oos.writeObject(menuBean);
                 String temp = new String(Base64.encode(baos.toByteArray(), Base64.DEFAULT));
                 editor.putString(key, temp);
-                editor.commit();
+                editor.apply();
             } catch (IOException e) {
                 e.printStackTrace();
             }

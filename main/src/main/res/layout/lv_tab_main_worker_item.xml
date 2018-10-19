@@ -27,7 +27,7 @@
                 android:drawablePadding="8dp"
                 android:text="fjkasjfdkasjd"
                 android:textColor="#8993a9"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:layout_marginTop="12dp"
                 android:text="fksdfkjkas"
                 android:textColor="#373f50"
-                android:textSize="12dp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_tel"
@@ -59,7 +59,7 @@
                 android:layout_marginTop="7dp"
                 android:text="fksdfkjkas"
                 android:textColor="#e69ea4b2"
-                android:textSize="10dp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 

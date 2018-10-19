@@ -88,7 +88,7 @@
                             android:gravity="center"
                             android:text="矢量"
                             android:textColor="@android:color/white"
-                            android:textSize="15dp"/>
+                            android:textSize="15sp"/>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
@@ -146,7 +146,7 @@
                             android:gravity="center"
                             android:text="影像"
                             android:textColor="@android:color/white"
-                            android:textSize="15dp"/>
+                            android:textSize="15sp"/>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 

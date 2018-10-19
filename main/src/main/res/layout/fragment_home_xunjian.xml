@@ -125,7 +125,7 @@
                                         android:lineSpacingExtra="0dp"
                                         android:text="水库人员"
                                         android:textColor="#2e3748"
-                                        android:textSize="14dp" />
+                                        android:textSize="14sp" />
 
                                     <TextView
                                         android:id="@+id/tv_worker_num"
@@ -135,7 +135,7 @@
                                         android:lineSpacingExtra="0dp"
                                         android:text=""
                                         android:textColor="#2e3748"
-                                        android:textSize="14dp" />
+                                        android:textSize="14sp" />
                                 </LinearLayout>
 
                                 <android.support.v7.widget.RecyclerView
@@ -195,7 +195,7 @@
                                         android:layout_weight="1"
                                         android:text="防汛物资"
                                         android:textColor="#2e3748"
-                                        android:textSize="14dp" />
+                                        android:textSize="14sp" />
 
                                     <TextView
                                         android:id="@+id/tv_show_more"
@@ -204,7 +204,7 @@
                                         android:gravity="right"
                                         android:text="查看更多"
                                         android:textColor="#bec5d2"
-                                        android:textSize="12dp" />
+                                        android:textSize="12sp" />
 
 
                                 </LinearLayout>
@@ -242,7 +242,7 @@
                                         android:layout_weight="1"
                                         android:text="实时水位库容"
                                         android:textColor="@color/black"
-                                        android:textSize="14dp" />
+                                        android:textSize="14sp" />
 
                                     <TextView
                                         android:id="@+id/tv_show_big"
@@ -251,7 +251,7 @@
                                         android:gravity="right"
                                         android:text="查看大图"
                                         android:textColor="#bec5d2"
-                                        android:textSize="12dp" />
+                                        android:textSize="12sp" />
                                 </LinearLayout>
 
                                 <FrameLayout
@@ -271,6 +271,7 @@
                                         android:id="@+id/lo_real_time_water_level_storage_capacity1"
                                         android:layout_width="match_parent"
                                         android:clickable="true"
+                                        android:focusable="true"
                                         android:layout_height="match_parent" />
                                 </FrameLayout>
                             </LinearLayout>
@@ -297,7 +298,7 @@
                                         android:layout_marginLeft="8dp"
                                         android:text="水位库容曲线"
                                         android:textColor="@color/black"
-                                        android:textSize="14dp" />
+                                        android:textSize="14sp" />
                                 </LinearLayout>
 
 

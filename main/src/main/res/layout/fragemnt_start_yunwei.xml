@@ -129,7 +129,7 @@
                         android:drawableLeft="@drawable/operation_solid2"
                         android:drawablePadding="7dp"
                         android:text="巡检任务:"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         android:textColor="#373737" />
 
                     <TextView
@@ -137,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20次"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         android:textColor="#f05620" />
 
 
@@ -149,7 +149,7 @@
                         android:drawableLeft="@drawable/operation_solid2"
                         android:drawablePadding="7dp"
                         android:text="完成巡检:"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         android:textColor="#373737" />
 
                     <TextView
@@ -157,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20次"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         android:textColor="#f05620" />
 
                     <TextView
@@ -167,7 +167,7 @@
                         android:layout_marginLeft="10dp"
                         android:drawableLeft="@drawable/operation_solid2"
                         android:drawablePadding="7dp"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         android:text="完成率:"
                         android:textColor="#373737" />
 
@@ -176,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="90%"
-                        android:textSize="13dp"
+                        android:textSize="13sp"
                         android:textColor="#f05620" />
                 </LinearLayout>
 

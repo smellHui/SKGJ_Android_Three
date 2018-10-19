@@ -101,7 +101,7 @@
                                     android:drawablePadding="8dp"
                                     android:text="fkdsjfk"
                                     android:textColor="#888888"
-                                    android:textSize="12dp"
+                                    android:textSize="12sp"
                                     android:visibility="gone" />
 
 
@@ -114,7 +114,7 @@
                                     android:drawablePadding="8dp"
                                     android:text="jfkdsjfk"
                                     android:textColor="#888888"
-                                    android:textSize="12dp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>

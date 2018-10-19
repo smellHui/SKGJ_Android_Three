@@ -98,7 +98,6 @@
                     android:drawableRight="@drawable/s_right"
                     android:gravity="center_vertical"
                     android:hint="请选择培训时间"
-                    android:inputType="text"
                     android:lines="1"
                     android:maxLines="1"
                     android:paddingLeft="10dp"

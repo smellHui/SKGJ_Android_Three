@@ -48,7 +48,7 @@
                     android:lineSpacingExtra="0dp"
                     android:text="水库人员"
                     android:textColor="#2e3748"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_worker"
@@ -76,7 +76,7 @@
                     android:lineSpacingExtra="0dp"
                     android:text="巡检频率"
                     android:textColor="#2e3748"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,14 +107,14 @@
                                 android:layout_weight="1"
                                 android:text="fdasd"
                                 android:textColor="#232a39"
-                                android:textSize="14dp" />
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="日常频率(次)"
                                 android:textColor="#979eab"
-                                android:textSize="12dp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
 
 
@@ -143,14 +143,14 @@
                                 android:layout_weight="1"
                                 android:text="fdasd"
                                 android:textColor="#232a39"
-                                android:textSize="14dp" />
+                                android:textSize="14sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="汛期频率(次)  "
                                 android:textColor="#979eab"
-                                android:textSize="12dp" />
+                                android:textSize="12sp" />
                         </LinearLayout>
 
 
@@ -189,7 +189,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="巡检统计"
                         android:textColor="#2e3748"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -266,7 +266,7 @@
                             android:layout_marginTop="8dp"
                             android:text="已处理"
                             android:textColor="#455067"
-                            android:textSize="10dp" />
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -287,7 +287,7 @@
                             android:layout_marginTop="8dp"
                             android:text="未处理"
                             android:textColor="#455067"
-                            android:textSize="10dp" />
+                            android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -322,7 +322,7 @@
                         android:layout_weight="1"
                         android:text="防汛物资"
                         android:textColor="#2e3748"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -330,7 +330,7 @@
                         android:gravity="right"
                         android:text="查看更多"
                         android:textColor="#bec5d2"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -367,7 +367,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="实时水位库容"
                         android:textColor="@color/black"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -406,7 +406,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="水位库容曲线"
                         android:textColor="@color/black"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <com.github.mikephil.charting.charts.LineChart

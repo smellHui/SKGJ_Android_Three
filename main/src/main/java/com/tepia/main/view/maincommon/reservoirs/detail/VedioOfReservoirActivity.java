@@ -254,7 +254,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
 
                 editor.putString("webport", dataBean.getPort() + "");
                 editor.putString("serverport", dataBean.getAppPort() + "");
-                editor.commit();
+                editor.apply();
 
                 LogUtil.e("平台IP(weburl)："+dataBean.getIp()+"\n平台端口号webport："+dataBean.getPort()+"\n服务serverurl："+dataBean.getIp()+"\n服务端口号serverport："+dataBean.getAppPort());
 
@@ -688,7 +688,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
         SharedPreferences sharedPreferences = getSharedPreferences(BaseCommonConstant.sConfigIPport, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
         if (thDeviceListThread != null) {
             try {
                 thDeviceListThread.interrupt();

@@ -49,7 +49,7 @@ public class ReportFragment extends BaseCommonFragment{
 
     private LinearLayout root_dialog_shangbao;
 
-    private String oldReserviorId;
+    private String oldReserviorId = "";
     private TextView switchTv;
     private TextView tv_reservoir_name;
 
@@ -79,7 +79,9 @@ public class ReportFragment extends BaseCommonFragment{
         titles = new ArrayList<String>();
         initViewpager();
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
-        oldReserviorId =  reservoirBean.getReservoirId();
+        if(reservoirBean != null) {
+            oldReserviorId = reservoirBean.getReservoirId();
+        }
 
         switchTv = findView(R.id.switchTv);
         tv_reservoir_name = findView(R.id.tv_reservoir_name);

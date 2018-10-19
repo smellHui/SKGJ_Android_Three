@@ -25,6 +25,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="right"
             android:clickable="true"
+            android:focusable="true"
             android:paddingBottom="15dp"
             android:paddingLeft="15dp"
             android:paddingRight="5dp"
