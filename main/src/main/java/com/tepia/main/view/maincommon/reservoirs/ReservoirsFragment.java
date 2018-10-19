@@ -44,9 +44,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author :
- * Version         :       1.0
- * 功能描述        :  主页四 —— 水库页
+ * Created by      android studio
+ *
+ * @author :       ly
+ * Date            :       2018-09-21
+ * Time            :       下午6:01
+ * Version         :       1.2.4
+ * location        :       武汉研发中心
+ * 功能描述         :       主页四 —— 水库页
  **/
 @Route(path = AppRoutePath.app_main_fragment_reservoirs)
 public class ReservoirsFragment extends BaseCommonFragment {

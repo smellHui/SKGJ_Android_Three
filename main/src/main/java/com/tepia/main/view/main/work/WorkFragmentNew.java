@@ -67,7 +67,6 @@ public class WorkFragmentNew extends MVPBaseFragment<WorkContract.View, WorkPres
 
     @Override
     protected void initRequestData() {
-        // TODO: 2018/8/28 获取任务个数暂未体现
 //        mPresenter.getTaskNum();
     }
 

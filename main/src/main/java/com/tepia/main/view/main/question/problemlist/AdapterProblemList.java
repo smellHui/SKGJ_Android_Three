@@ -43,7 +43,6 @@ public class AdapterProblemList extends BaseQuickAdapter<AllproblemBean.DataBean
         tvTitle.setText(item.getProblemTitle());
         tvDescribe.setText(item.getReservoirName());
         tvTime.setText(item.getCreateDate());
-        // TODO: 2018/9/5 数据字典
         switch (item.getProblemType()){
             case "1":
                 tvType.setText(mContext.getString(R.string.question_xunjian));
@@ -67,7 +66,6 @@ public class AdapterProblemList extends BaseQuickAdapter<AllproblemBean.DataBean
                 break;
             default:
         }
-        // TODO: 2018/9/5 数据字典
 //        view.setText(R.id.problemstatusTv,item.getProblemStatusName());
         DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
         Map<String, String> map_status = dictMapEntity.getObject().getProblemStatus();

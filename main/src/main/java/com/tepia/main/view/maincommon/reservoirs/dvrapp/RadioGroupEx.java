@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
  * Created by mjc on 2016/1/20.
  * 重新对RadioGroup进行布局，可以折行
  * 默认水平开始排布
+ * @author ly
  */
 public class RadioGroupEx extends RadioGroup
 {

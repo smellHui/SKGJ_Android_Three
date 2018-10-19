@@ -95,8 +95,8 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
 
         mPresenter.attachView(new ReportContract.View<EmergenceListBean>() {
             @Override
-            public void success(EmergenceListBean waterLevelResponse) {
-                EmergenceListBean.DataBean dataBean = waterLevelResponse.getData();
+            public void success(EmergenceListBean emergenceListBean) {
+                EmergenceListBean.DataBean dataBean = emergenceListBean.getData();
                 List<EmergenceListBean.DataBean.ListBean> data = dataBean.getList();
                 int totalSize = dataBean.getTotal();
                 if (first) {

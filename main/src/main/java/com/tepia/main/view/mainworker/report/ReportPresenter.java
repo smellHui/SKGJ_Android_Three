@@ -11,6 +11,7 @@ import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.model.question.QuestionManager;
+import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.model.report.ShangbaoManager;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.FileBatchCallback;
@@ -66,15 +67,15 @@ public class ReportPresenter extends BasePresenterImpl<ReportContract.View> impl
     @Override
     public void getProblemList(String reservoirId, String workOrderId, String problemStatus, String startDate, String endDate, String currentPage, String pageSize,boolean ishowloading) {
         ShangbaoManager.getInstance().getProblemList(reservoirId, workOrderId, problemStatus, startDate, endDate, currentPage, pageSize)
-                .subscribe(new LoadingSubject<BaseResponse>(ishowloading, Utils.getContext().getString(R.string.data_loading)) {
+                .subscribe(new LoadingSubject<EmergenceListBean>(ishowloading, Utils.getContext().getString(R.string.data_loading)) {
                     @Override
-                    protected void _onNext(BaseResponse operationPlanBean) {
-                        if (operationPlanBean != null) {
-                            if (operationPlanBean.getCode() == 0) {
-                                mView.success(operationPlanBean);
+                    protected void _onNext(EmergenceListBean emergenceListBean) {
+                        if (emergenceListBean != null) {
+                            if (emergenceListBean.getCode() == 0) {
+                                mView.success(emergenceListBean);
 
                             }else{
-                                mView.failure(operationPlanBean.getMsg());
+                                mView.failure(emergenceListBean.getMsg());
                             }
                         }
                     }

@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context="com.tepia.main.view.mainworker.homepage.HomeXunChaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <include layout="@layout/toolbar"/>
     <!--  <android.support.v7.widget.Toolbar
          android:layout_width="match_parent"
