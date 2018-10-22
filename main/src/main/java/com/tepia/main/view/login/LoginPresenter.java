@@ -52,6 +52,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
     public static String key_menu = "key_menu";
     private SimpleLoadDialog simpleLoadDialog;
 
+
     /**
      * 登录
      *
@@ -304,6 +305,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             ObjectInputStream ois = new ObjectInputStream(bais);
             menuBean = (MenuBean) ois.readObject();
         } catch (IOException e) {
+            LogUtil.e(e.getMessage());
         } catch (ClassNotFoundException e1) {
 
         }

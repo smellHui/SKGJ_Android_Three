@@ -40,7 +40,6 @@ interface TaskHttpService {
      * @param workOrderName 工单名称
      * @param executeStatus 执行状态( 1-待执行，2-执行中，3-已提交，4-运维已审核，5-已生成报告)
      * @param planType
-     * @param planPeriod
      * @param startTime     开始时间
      * @param endTime       结束时间
      * @param currentPage   当前页
