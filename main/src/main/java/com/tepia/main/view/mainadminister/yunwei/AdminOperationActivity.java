@@ -87,10 +87,10 @@ public class AdminOperationActivity extends BaseActivity {
                 mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), false);
             }
         });
-        srl.setColorSchemeResources(android.R.color.holo_blue_bright,
+        /*srl.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light,
-                android.R.color.holo_orange_light);
+                android.R.color.holo_orange_light);*/
         initRequestResponse();
     }
 

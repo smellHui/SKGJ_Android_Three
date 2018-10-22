@@ -136,10 +136,10 @@ public class TrainActivity extends BaseActivity {
     }
 
     private void initSwipeRefreshLayout() {
-        srl.setColorSchemeResources(android.R.color.holo_blue_bright,
+        /*srl.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light,
-                android.R.color.holo_orange_light);
+                android.R.color.holo_orange_light);*/
         srl.setOnRefreshListener(() -> {
             srl.postDelayed(() -> {
                 search();

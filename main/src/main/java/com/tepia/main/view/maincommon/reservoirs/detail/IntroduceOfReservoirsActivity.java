@@ -227,11 +227,16 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
         LogUtil.e("经度："+dataBean.getReservoirLongitude()+"，纬度："+dataBean.getReservoirLatitude());
 
         if(!TextUtils.isEmpty(dataBean.getReservoirLongitude()) && !TextUtils.isEmpty(dataBean.getReservoirLatitude())) {
-            Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
-                    Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));
-            Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
-            arcgisLayout.addPic(R.drawable.map_ku, point);
-            arcgisLayout.setCenterPoint(point, arcgisLayout.groupScale);
+            try{
+                Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
+                        Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));
+                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+                arcgisLayout.addPic(R.drawable.map_ku, point);
+                arcgisLayout.setCenterPoint(point, arcgisLayout.groupScale);
+            }catch (NumberFormatException e){
+                LogUtil.e(e.getMessage());
+            }
+
         }
 
 

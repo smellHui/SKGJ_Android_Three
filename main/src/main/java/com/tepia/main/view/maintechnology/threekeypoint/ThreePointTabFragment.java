@@ -102,10 +102,10 @@ public class ThreePointTabFragment extends BaseCommonFragment{
         tvReservoirName = findView(R.id.tv_reservoir_name);
         tvSelectReservoir = findView(R.id.tv_select_reservoir);
         srl = (SwipeRefreshLayout) findView(R.id.srl);
-        srl.setColorSchemeResources(android.R.color.holo_blue_bright,
+        /*srl.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light,
-                android.R.color.holo_orange_light);
+                android.R.color.holo_orange_light);*/
         srl.setOnRefreshListener(this::commonRequestDataFun);
         rvList = findView(R.id.rv_list);
         initRecycleView();

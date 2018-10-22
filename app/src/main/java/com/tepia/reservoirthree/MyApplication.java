@@ -22,19 +22,12 @@ public class MyApplication extends BaseApplication {
         appInit();
         //添加异常收集
         PgyCrashManager.register(this);
+        // TODO: 2018/10/22 以下代码是和视频会议连接在一起的极光推送。请不要删除
         //极光推送
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
+        /*JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);*/
 
-        // 加载系统默认设置，字体不随用户设置变化
-        /*Resources res = super.getResources();
-        Configuration config = new Configuration();
-        config.setToDefaults();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            createConfigurationContext(config);
-        } else {
-            res.updateConfiguration(config, res.getDisplayMetrics());
-        }*/
+
 
     }
 

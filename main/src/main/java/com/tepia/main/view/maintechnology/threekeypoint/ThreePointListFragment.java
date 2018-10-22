@@ -137,10 +137,10 @@ public class ThreePointListFragment extends BaseCommonFragment {
     protected void initView(View view) {
         srl = (SwipeRefreshLayout) findView(R.id.srl);
         srl.setOnRefreshListener(this::commonRequestDataFun);
-        srl.setColorSchemeResources(android.R.color.holo_blue_bright,
+        /*srl.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_red_light,
-                android.R.color.holo_orange_light);
+                android.R.color.holo_orange_light);*/
         tvReservoirName = findView(R.id.tv_reservoir_name);
         tvSelectReservoir = findView(R.id.tv_select_reservoir);
         rvWater = findView(R.id.rv_water);
