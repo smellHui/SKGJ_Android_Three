@@ -207,10 +207,14 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
 
 
         Map<String, String> map_Damtype = dictMapEntity.getObject().getDam_type();
-        binding.damTypeTv.setText("大坝类型："+ map_Damtype.get(dataBean.getDamType())+"");
+        if(map_Damtype.containsKey(dataBean.getDamType())) {
+            binding.damTypeTv.setText("大坝类型：" + map_Damtype.get(dataBean.getDamType()));
+        }else{
+            binding.damTypeTv.setText("大坝类型：--");
+        }
         binding.damCrestElevationTv.setText("坝顶高程："+dataBean.getDamCrestElevation()+"m");
         binding.damBotmMaxWidthTv.setText("坝底最大宽度："+dataBean.getDamBotmMaxWidth()+"m");
-        binding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient()+"");
+        binding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient());
 
         String mainFunctionStr = dataBean.getMainFunction();
         if (TextUtils.isEmpty(mainFunctionStr)) {

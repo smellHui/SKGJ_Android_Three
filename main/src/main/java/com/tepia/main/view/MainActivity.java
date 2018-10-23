@@ -352,8 +352,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO: 2018/10/22 以下代码是和视频会议连接在一起的极光推送。请不要删除
-        /*LogUtil.e("MainActivity", "极光推送before onresum状态getConnectionState：" + JPushInterface.getConnectionState(Utils.getContext()));
+        // TODO: 2018/10/22 和视频会议连接在一起的极光推送。不要删除
+        LogUtil.e("MainActivity", "极光推送before onresum状态getConnectionState：" + JPushInterface.getConnectionState(Utils.getContext()));
         LogUtil.e("MainActivity", "极光推送before onresum状态isPushStopped：" + JPushInterface.isPushStopped(Utils.getContext()));
         updateData();
         if (JPushInterface.isPushStopped(Utils.getContext()) || !JPushInterface.getConnectionState(Utils.getContext())) {
@@ -366,7 +366,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         String registId = JPushInterface.getRegistrationID(Utils.getContext());
         LogUtil.e("LoginActivity", "获取极光推送注册：" + registId);
         LogUtil.e("MainActivity", "极光推送after onresum状态getConnectionState：" + JPushInterface.getConnectionState(Utils.getContext()));
-        LogUtil.e("MainActivity", "极光推送after onresum状态isPushStopped：" + JPushInterface.isPushStopped(Utils.getContext()));*/
+        LogUtil.e("MainActivity", "极光推送after onresum状态isPushStopped：" + JPushInterface.isPushStopped(Utils.getContext()));
     }
 
     @Override
