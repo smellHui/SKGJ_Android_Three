@@ -2,9 +2,11 @@ package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.tepia.base.mvp.MVPBaseActivity;
@@ -23,6 +25,8 @@ import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterVisitLog;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.VisitLogContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.VisitLogPresenter;
+import com.tepia.main.view.maincommon.setting.train.AddTrainActivity;
+import com.tepia.main.view.maincommon.setting.train.TrainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +52,7 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
     private int mCurrentCounter = 0;
     private boolean first;
     private boolean isloadmore;
+    public static int REQUEST_DELETE_CODE = 200;
 
 
     @Override
@@ -62,6 +67,18 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
 
         setCenterTitle("到访日志");
         showBack();
+        getRithtTv().setVisibility(View.VISIBLE);
+        getRithtTv().setTextColor(Color.BLACK);
+        getRithtTv().setText("新增到访");
+        getRithtTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (DoubleClickUtil.isFastDoubleClick()){
+                    return;
+                }
+                startActivityForResult(new Intent(VisitLogActivity.this, VisitLogAddActivity.class), REQUEST_DELETE_CODE);
+            }
+        });
         initRec();
         reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
         String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
@@ -71,8 +88,15 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
     }
 
     @Override
-    public void initView() {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_DELETE_CODE) {
+            search(true);
+        }
+    }
 
+    @Override
+    public void initView() {
 
     }
 

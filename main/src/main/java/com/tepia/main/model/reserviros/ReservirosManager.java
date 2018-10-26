@@ -1,5 +1,6 @@
 package com.tepia.main.model.reserviros;
 
+import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.detai.DetailManager;
@@ -8,9 +9,17 @@ import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.question.AllproblemBean;
 import com.tepia.main.model.user.UserManager;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by      android studio
@@ -58,6 +67,43 @@ public class ReservirosManager {
         return mRetrofitService.detail(token,id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
+     * 新增到访日志
+     * @param reservoirId
+     * @param visitCause
+     * @param workContent
+     * @param remark
+     * @param visitTime
+     * @param selectPhotos
+     * @return
+     */
+    public Observable<BaseResponse> insert(String reservoirId, String visitCause, String workContent, String remark, String visitTime,
+                                                  ArrayList<String> selectPhotos) {
+
+        Map<String, RequestBody> params = new HashMap<>();
+        params.put("reservoirId", RetrofitManager.convertToRequestBody(reservoirId));
+        params.put("visitCause", RetrofitManager.convertToRequestBody(visitCause));
+        params.put("workContent", RetrofitManager.convertToRequestBody(workContent));
+        params.put("remark", RetrofitManager.convertToRequestBody(remark));
+        params.put("visitTime", RetrofitManager.convertToRequestBody(visitTime));
+        List<File> fileList = new ArrayList<>();
+        for (int i = 0; i < selectPhotos.size(); i++) {
+            File file = new File(selectPhotos.get(i));
+            fileList.add(file);
+
+        }
+        List<MultipartBody.Part> pathList = RetrofitManager.filesToMultipartBodyParts("files", fileList);
+
+        String token = UserManager.getInstance().getToken();
+
+        return mRetrofitService.insert(token, params, pathList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+
     }
 
     /**

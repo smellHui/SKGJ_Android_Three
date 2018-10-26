@@ -3,6 +3,8 @@ package com.tepia.main.view.maincommon.reservoirs.mvpreservoir;
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
 
+import java.util.ArrayList;
+
 /**
  * Created by      android studio
  *
@@ -22,6 +24,23 @@ public class VisitLogContract {
     interface  Presenter extends BasePresenter<View> {
         void getPageList(String reservoirId,String currentPage, String pageSize,boolean isshowloading);
         void detail(String id);
+        /**
+         * 新增到访日志
+         * @param reservoirId
+         * @param visitCause
+         * @param workContent
+         * @param remark
+         * @param visitTime
+         * @param selectPhotos
+         */
+        void insert(String reservoirId,
+                    String visitCause,
+                    String workContent,
+                    String remark,
+                    String visitTime,
+                    ArrayList<String> selectPhotos
+
+                    );
 
     }
 }

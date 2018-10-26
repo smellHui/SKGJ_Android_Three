@@ -1,5 +1,6 @@
 package com.tepia.main.model.reserviros;
 
+import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.detai.DetailManager;
@@ -7,9 +8,18 @@ import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.question.AllproblemBean;
 
+import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 /**
@@ -52,6 +62,20 @@ public interface ReserviorsService {
     );
 
     /**
+     * 新增到访日志
+     * @param token
+     * @param parts
+     * @param pathList
+     * @return
+     */
+    @Multipart
+    @POST("app/appReservoirVisit/insert")
+    Observable<BaseResponse> insert(@Header("Authorization") String token,
+                                           @PartMap Map<String, RequestBody> parts,
+                                           @Part List<MultipartBody.Part> pathList
+    );
+
+     /**
      * 获取配套设施
      * @param token
      * @param reservoirId
@@ -59,7 +83,7 @@ public interface ReserviorsService {
      */
     @GET("app/reservoir/getDeviceByReservoir")
     Observable<SupportingBean> getDeviceByReservoir(@Header("Authorization") String token,
-                                          @Query("reservoirId") String reservoirId
+                                           @Query("reservoirId") String reservoirId
 
     );
 
