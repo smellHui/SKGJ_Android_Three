@@ -241,9 +241,13 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.SafeRunningActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.setting.DutyActivity" />
+        <activity android:name=".view.maincommon.setting.DutyActivity"
+            android:screenOrientation="portrait"
+            />
         <!-- 通信录页面 -->
-        <activity android:name=".view.maincommon.setting.contacts.ContactsActivity" />
+        <activity android:name=".view.maincommon.setting.contacts.ContactsActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".view.maincommon.setting.train.TrainActivity" />
         <activity android:name=".view.maincommon.reservoirs.detail.SafeRunningDetailActivity" />
         <activity

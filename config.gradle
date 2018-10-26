@@ -6,7 +6,7 @@ ext {
 
     android = [
             applicationId: "com.tepia.reservoirthree",
-            compileSdkVersion: 26,
+            compileSdkVersion: 27,
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 17,
             targetSdkVersion : 27,
@@ -15,7 +15,7 @@ ext {
     ]
 
     libsVersion = [
-            supportLibraryVersion = "26.1.0",
+            supportLibraryVersion = "27.0.0",
             arouter_api = "1.3.1"
     ]
 
@@ -89,8 +89,8 @@ ext {
 
             BadgeView                    : "q.rorbin:badgeview:1.1.2",
 
-            Arouter                      : "com.alibaba:arouter-api:1.2.1.1",
-            Arouter_compiler             : "com.alibaba:arouter-compiler:1.1.2.1",
+            Arouter                      : "com.alibaba:arouter-api:1.4.0",
+            Arouter_compiler             : "com.alibaba:arouter-compiler:1.2.1",
 
             // stepview
             StepView                     : "com.github.baoyachi:StepView:1.9",
