@@ -210,13 +210,27 @@
                 android:text="在 线 帮 助"
                 android:textColor="@color/commmon_blue"
                 android:textSize="18sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:layout_gravity="center|bottom"
-                android:text="技术支持：400-800666666"
-                android:textColor="#687b9b"
-                android:textSize="13sp" />
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="技术支持："
+                    android:textColor="#687b9b"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/telTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="@color/commmon_blue"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -27,6 +27,7 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.view.floatview.FloatUtil;
+import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.MainActivity;
@@ -50,6 +51,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     private TextView bt_login;
     private TextView helpTv;
     private TextView foggetTv;
+    private TextView telTv;
 
     @Override
     public int getLayoutId() {
@@ -104,8 +106,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         bt_login = findViewById(R.id.bt_login);
         foggetTv = findViewById(R.id.foggetTv);
         helpTv = findViewById(R.id.helpTv);
+        telTv = findViewById(R.id.telTv);
         foggetTv.setOnClickListener(this);
         helpTv.setOnClickListener(this);
+        telTv.setOnClickListener(this);
+        telTv.setText(ConfigConsts.Telphone);
 
         bt_login.setOnClickListener(view -> {
             if (DoubleClickUtil.isFastDoubleClick()) {
@@ -196,6 +201,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         }else if(v.getId() == R.id.foggetTv){
             ToastUtils.shortToast("忘记密码");
 
+        }else if(v.getId() == R.id.telTv){
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            Uri data = Uri.parse("tel:" + ConfigConsts.Telphone);
+            intent.setData(data);
+            startActivity(intent);
         }
     }
 }

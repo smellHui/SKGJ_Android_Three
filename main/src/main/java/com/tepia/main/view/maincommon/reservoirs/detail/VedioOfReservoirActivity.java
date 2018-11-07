@@ -120,7 +120,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                     //海康视频
                     List<VideoInfo> videoInfos = new ArrayList<>();
 
-                    if (channelReally < data_video.size()) {
+                    if (channelReally < data_video.size() && channelReally > 0) {
                         videoInfos.add(data_video.get(channelReally));
                     } else {
                         ToastUtils.shortToast("暂无指定视频接入");

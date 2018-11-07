@@ -171,8 +171,8 @@ public class VedioComunicationActivity extends AppCompatActivity implements View
             ToastUtils.shortToast(R.string.no_network);
             return;
         }
-        LoginManager.getInstance().enterRoom(this,serverAddress,port,userName,password,roomId);
-        /*Intent intent = new Intent(VedioComunicationActivity.this, StartTheMiddleTierActivity.class);
+        /*LoginManager.getInstance().enterRoom(this,serverAddress,port,userName,password,roomId);
+        Intent intent = new Intent(VedioComunicationActivity.this, StartTheMiddleTierActivity.class);
         intent.setAction(Constant.INTENT_APP_ACTION_ACCOUNT_PASSWORD_ROOMID);
         Bundle bundle = new Bundle();
         bundle.putString(ThirdLoginConstant.BUNDLE_USERNAME,userName);
