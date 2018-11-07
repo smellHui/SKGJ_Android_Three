@@ -61,12 +61,12 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
      */
     @Override
     public void login(String username, String password, String registId) {
-        Boolean isShow = false;
+        Boolean isShow = true;
         String msg = "正在登陆中";
-        simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), msg, true);
+        /*simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), msg, true);
         if (simpleLoadDialog != null) {
             simpleLoadDialog.show();
-        }
+        }*/
         UserManager.getInstance().login(username, password, registId).subscribe(new LoadingSubject<UserLoginResponse>(isShow, msg) {
             @Override
             protected void _onNext(UserLoginResponse userLoginResponse) {

@@ -32,21 +32,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-  * Created by      Android studio
-  *
-  * @author :ly (from Center Of Wuhan)
-  * Date    :
-  * Version :1.0
-  * 功能描述 : 到访日志
+ * Created by      Android studio
+ *
+ * @author :ly (from Center Of Wuhan)
+ * Date    :
+ * Version :1.0
+ * 功能描述 : 到访日志
  **/
-public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,VisitLogPresenter> implements VisitLogContract.View<VisitLogBean>{
+public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View, VisitLogPresenter> implements VisitLogContract.View<VisitLogBean> {
     public static String key_visit_log = "key_visit_log";
 
     private ActivityVisitLogBinding activityVisitLogBinding;
     private AdapterVisitLog adapterVisitLog;
     private List<VisitLogBean.DataBean.ListBean> dataList = new ArrayList<>();
     private String reservoirId;
-    
+
     private int pageSize = 10;
     private int currentPage = 1;
     private int mCurrentCounter = 0;
@@ -73,7 +73,7 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
         getRithtTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
                 startActivityForResult(new Intent(VisitLogActivity.this, VisitLogAddActivity.class), REQUEST_DELETE_CODE);
@@ -118,16 +118,16 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
     /**
      * 初始化recycleview
      */
-    private void initRec(){
+    private void initRec() {
         activityVisitLogBinding.visitlogRec.setLayoutManager(new LinearLayoutManager(this));
-        adapterVisitLog = new AdapterVisitLog(this,R.layout.activity_visit_log_item,dataList);
+        adapterVisitLog = new AdapterVisitLog(this, R.layout.activity_visit_log_item, dataList);
         activityVisitLogBinding.visitlogRec.setAdapter(adapterVisitLog);
         adapterVisitLog.setOnItemClickListener((adapter, view, position) -> {
             if (!NetUtil.isNetworkConnected(Utils.getContext())) {
                 ToastUtils.shortToast(R.string.no_network);
                 return;
             }
-            if(DoubleClickUtil.isFastDoubleClick()){
+            if (DoubleClickUtil.isFastDoubleClick()) {
                 return;
             }
 
@@ -143,7 +143,7 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
                 currentPage++;
                 first = false;
                 isloadmore = true;
-                mPresenter.getPageList(reservoirId,String.valueOf(currentPage), String.valueOf(pageSize), false);
+                mPresenter.getPageList(reservoirId, String.valueOf(currentPage), String.valueOf(pageSize), false);
 
 
             }, 1000);
@@ -158,7 +158,7 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
         first = true;
         isloadmore = false;
         if (mPresenter != null) {
-            mPresenter.getPageList(reservoirId,String.valueOf(currentPage), String.valueOf(pageSize), isshowloadiing);
+            mPresenter.getPageList(reservoirId, String.valueOf(currentPage), String.valueOf(pageSize), isshowloadiing);
 
         }
     }
@@ -182,6 +182,7 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
             }
             adapterVisitLog.setEnableLoadMore(true);
         } else if (isloadmore) {
+
             adapterVisitLog.addData(data);
             mCurrentCounter = adapterVisitLog.getData().size();
             if (mCurrentCounter >= totalSize) {
@@ -190,6 +191,7 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View,Visi
                 return;
             }
             adapterVisitLog.loadMoreComplete();
+
         }
     }
 
