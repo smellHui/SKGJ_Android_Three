@@ -46,6 +46,7 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.BadgeView;
 import com.tepia.main.R;
+import com.tepia.main.TabFragmentHost;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
 import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.user.UserManager;
@@ -72,8 +73,8 @@ import cn.jpush.android.api.JPushInterface;
 @Route(path = AppRoutePath.appMain)
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
-    //    private TabFragmentHost mTabHost;
-    private FragmentTabHost mTabHost;
+        private TabFragmentHost mTabHost;
+//    private FragmentTabHost mTabHost;
 
     /**
      * 锁屏相关
@@ -107,7 +108,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     private void setNewBottom() {
 
-        mTabHost = findViewById(android.R.id.tabhost);
+        mTabHost = findViewById(R.id.maintabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
 
         if (UserManager.getInstance().getMenuList() != null) {

@@ -19,8 +19,8 @@
          android:background="#eeeeee" />-->
 
 
-    <android.support.v4.app.FragmentTabHost
-        android:id="@android:id/tabhost"
+    <com.tepia.main.TabFragmentHost
+        android:id="@+id/maintabhost"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -88,7 +88,7 @@
 
         </RelativeLayout>
 
-    </android.support.v4.app.FragmentTabHost>
+    </com.tepia.main.TabFragmentHost>>
 
 
 </LinearLayout>
