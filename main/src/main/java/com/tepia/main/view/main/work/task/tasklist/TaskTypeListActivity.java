@@ -60,7 +60,11 @@ public class TaskTypeListActivity extends BaseActivity {
         taskTypeFragment = TaskTypeFragment.newInstance(typekey, pagerCount);
         transaction.replace(R.id.fl_container, taskTypeFragment);
         transaction.show(taskTypeFragment);
-        transaction.commitAllowingStateLoss();
+        // TODO: 2018/11/9 避免 java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
+        if (!isFinishing()) {
+            transaction.commitAllowingStateLoss();
+
+        }
         if ("全部".equals(typekey) && !TextUtils.isEmpty(SearchKey)) {
             new Handler().postDelayed(new Runnable() {
                 @Override

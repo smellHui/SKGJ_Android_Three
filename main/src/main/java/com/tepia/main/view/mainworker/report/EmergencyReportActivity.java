@@ -62,7 +62,10 @@ public class EmergencyReportActivity extends BaseActivity {
 
         transaction.replace(R.id.fl_container, emergenceReportFragment);
         transaction.show(emergenceReportFragment);
-        transaction.commitAllowingStateLoss();
+
+        if (!isFinishing()) {
+            transaction.commitAllowingStateLoss();
+        }
     }
 
     @Override

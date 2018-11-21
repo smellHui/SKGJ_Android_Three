@@ -39,6 +39,8 @@ public class TabMainIconManager {
         imageIconMap.put("300", R.drawable.selector_tabbar_home_page);
         imageIconMap.put("310", R.drawable.selector_tabbar_yunwei);
         imageIconMap.put("320", R.drawable.selector_tabbar_threepoint);
+        //综合监控
+        imageIconMap.put("321", R.drawable.selector_tabbar_look);
     }
 
     public Integer getIcon(String menuIcon) {

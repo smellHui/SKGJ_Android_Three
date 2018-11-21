@@ -41,6 +41,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
@@ -65,6 +66,7 @@ import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.google.gson.Gson;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
@@ -120,10 +122,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * 地图界面
- *
- * @author 44822
- */
+  * Created by      Android studio
+  *
+  * @author :ly (from Center Of Wuhan)
+  * Date    :
+  * Version :1.0
+  * 功能描述 : 综合监控
+ **/
+@Route(path = AppRoutePath.app_main_fragment_look)
 public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, MainMapPresenter> {
 
     public static int status = 0;

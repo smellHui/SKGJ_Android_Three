@@ -73,8 +73,13 @@ public class AppRoutePath {
     /**
      * 行政责任人 三个重点页（第三页）
      */
-//    public final static String app_main_fragment_threekey_xingzheng = "/app/main/fragment/threekey/xingzheng";
     public final static String app_main_fragment_threekey_xingzheng = "/app/main/fragment/threekey";
+
+    /**
+     * 综合监控
+     */
+    public final static String app_main_fragment_look = "/app/main/fragment/look";
+
 
     /**
      * 水库页（第四页）

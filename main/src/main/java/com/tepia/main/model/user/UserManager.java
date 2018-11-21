@@ -228,6 +228,13 @@ public class UserManager {
      * @param data
      */
     public void saveMenuList(ArrayList<MenuItemBean> data) {
+       /* MenuItemBean menuItemBean = new MenuItemBean();
+        menuItemBean.setMenuCode("1111111");
+        menuItemBean.setMenuIcon("100");
+        menuItemBean.setMenuName("综合监控");
+        menuItemBean.setMenuHref("/app/main/fragment/mine");
+        menuItemBean.setMenuType("1");
+        data.add(menuItemBean);*/
         SPUtils.getInstance().putString("MENULIST", new Gson().toJson(data));
     }
 

@@ -55,11 +55,14 @@ public class VisitLogAddActivity extends BaseActivity {
      * 事件上报
      */
     private void initQuestionFragment() {
-        transaction = getSupportFragmentManager().beginTransaction();
-        visitLogAddFragment = new VisitLogAddFragment();
-        transaction.replace(R.id.fl_container, visitLogAddFragment);
-        transaction.show(visitLogAddFragment);
-        transaction.commitAllowingStateLoss();
+        if (!isFinishing()) {
+            transaction = getSupportFragmentManager().beginTransaction();
+            visitLogAddFragment = new VisitLogAddFragment();
+            transaction.replace(R.id.fl_container, visitLogAddFragment);
+            transaction.show(visitLogAddFragment);
+            transaction.commitAllowingStateLoss();
+        }
+
     }
 
     @Override

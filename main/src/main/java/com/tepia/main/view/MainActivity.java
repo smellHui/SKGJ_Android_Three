@@ -46,7 +46,6 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.BadgeView;
 import com.tepia.main.R;
-import com.tepia.main.TabFragmentHost;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
 import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.user.UserManager;
