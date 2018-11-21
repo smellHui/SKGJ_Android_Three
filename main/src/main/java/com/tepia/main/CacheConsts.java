@@ -11,4 +11,6 @@ package com.tepia.main;
  * 功能描述         :       缓存相关变量
  **/
 public class CacheConsts {
+    public static final String haslook = "haslook";
+
 }

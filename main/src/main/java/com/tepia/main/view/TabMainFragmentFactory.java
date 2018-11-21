@@ -4,6 +4,8 @@ package com.tepia.main.view;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.utils.SPUtils;
+import com.tepia.main.CacheConsts;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.view.main.map.MapArcgisFragment;
@@ -232,7 +234,12 @@ public class TabMainFragmentFactory {
                         if (TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()) == null) {
                             imageIds.add(R.drawable.selector_tabbar_bus);
                         } else {
-                            imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
+                            String menuIcon = menuData.get(i).getMenuIcon();
+                            if("321".equals(menuIcon)){
+                                //表示有综合监控页面存在
+                                SPUtils.getInstance().putBoolean(CacheConsts.haslook,true);
+                            }
+                            imageIds.add(TabMainIconManager.getInstance().getIcon(menuIcon));
                         }
                     }
                 } else {
@@ -241,7 +248,13 @@ public class TabMainFragmentFactory {
                     if (TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()) == null) {
                         imageIds.add(R.drawable.selector_tabbar_bus);
                     } else {
-                        imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
+                        String menuIcon = menuData.get(i).getMenuIcon();
+                        if("321".equals(menuIcon)){
+                            //表示有综合监控页面存在
+                            SPUtils.getInstance().putBoolean(CacheConsts.haslook,true);
+                        }
+                        imageIds.add(TabMainIconManager.getInstance().getIcon(menuIcon));
+//                        imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
                     }
                 }
             } else if (fragment != null) {
@@ -250,7 +263,13 @@ public class TabMainFragmentFactory {
                 if (TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()) == null) {
                     imageIds.add(R.drawable.selector_tabbar_bus);
                 } else {
-                    imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
+                    String menuIcon = menuData.get(i).getMenuIcon();
+                    if("321".equals(menuIcon)){
+                        //表示有综合监控页面存在
+                        SPUtils.getInstance().putBoolean(CacheConsts.haslook,true);
+                    }
+                    imageIds.add(TabMainIconManager.getInstance().getIcon(menuIcon));
+//                    imageIds.add(TabMainIconManager.getInstance().getIcon(menuData.get(i).getMenuIcon()));
                 }
             }
 

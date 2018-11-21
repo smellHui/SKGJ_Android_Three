@@ -9,6 +9,7 @@ import com.tepia.base.http.RetrofitManager;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.APPCostant;
+import com.tepia.main.CacheConsts;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.ReservoirListResponse;
@@ -208,7 +209,8 @@ public class UserManager {
         SPUtils.getInstance(Utils.getContext()).remove(TOKEN);
         SPUtils.getInstance(Utils.getContext()).remove(LoginPresenter.prefence_menu);
         JPushInterface.stopPush(Utils.getContext());
-
+        //综合监控标志为置空
+        SPUtils.getInstance(Utils.getContext()).putBoolean(CacheConsts.haslook,false);
 
     }
 
