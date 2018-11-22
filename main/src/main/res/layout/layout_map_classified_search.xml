@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="vertical"
-                android:background="@color/colorPrimary"
+                android:background="@color/white"
                 app:layout_collapseMode="pin"
                 >
                 <LinearLayout
@@ -157,7 +157,7 @@
                         android:gravity="center"
                         android:layout_gravity="center_vertical"
                         android:text="分类搜索"
-                        android:textColor="@color/white"
+                        android:textColor="#4c4c4c"
                         android:lines="1"
                         android:ellipsize="end"
                         android:textSize="22sp" />

@@ -39,6 +39,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+  * Created by      Android studio
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/11/21
+  * Version :1.0
+  * 功能描述 :  地图搜索
+ **/
+
 public class MapSearchFragment extends MVPBaseFragment<MainMapContract.View, MainMapPresenter> {
     private Spinner spinner;
     private ArrayAdapter adapter;
