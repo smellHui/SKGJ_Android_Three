@@ -105,7 +105,9 @@ public class DutyActivity extends BaseActivity {
                             }
 
                             adapterDutyjob.notifyDataSetChanged();
-                            workContentTv.setText(list.get(0).get("jobFunction"));
+                            if(list.size() > 0) {
+                                workContentTv.setText(list.get(0).get("jobFunction"));
+                            }
                         }
 
                         adapterDutyjob.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
