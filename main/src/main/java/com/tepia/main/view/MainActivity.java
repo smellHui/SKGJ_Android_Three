@@ -42,9 +42,11 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.BadgeView;
+import com.tepia.main.CacheConsts;
 import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
 import com.tepia.main.broadcastreceiver.WakeLockScreenReceiverOfMain;
@@ -319,7 +321,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mTabHost.getCurrentTab() == 1) {
+            boolean isShowMap = SPUtils.getInstance().getBoolean(CacheConsts.haslook, false);
+            if (mTabHost.getCurrentTab() == 0&&true==isShowMap) {
                 //当前显示地图界面
                 if (MapArcgisFragment.status == 1) {
                     EventBus.getDefault().post(1);
