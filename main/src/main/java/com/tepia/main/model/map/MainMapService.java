@@ -1,5 +1,7 @@
 package com.tepia.main.model.map;
 
+import com.tepia.main.view.main.map.adapter.near.NearReservoirResponse;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -124,4 +126,17 @@ interface MainMapService {
     Observable<ReservoirListResponse> findAppAllReservoir(@Header("Authorization") String token,
                                                           @Query("reservoirName") String reservoirName,
                                                           @Query("areaCode") String areaCode);
+
+    /**
+     * 附近的水库
+     * @param token
+     * @param longitude
+     * @param latitude
+     * @return
+     */
+    @GET("app/reservoirBase/getNearbyReservoir")
+    Observable<NearReservoirResponse> getNearbyReservoir(@Header("Authorization") String token,
+                                                         @Query("longitude") String longitude,
+                                                         @Query("latitude") String latitude);
+
 }

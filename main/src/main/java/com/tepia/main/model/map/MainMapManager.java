@@ -4,6 +4,7 @@ package com.tepia.main.model.map;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.main.map.adapter.near.NearReservoirResponse;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -77,6 +78,14 @@ public class MainMapManager {
         String token = UserManager.getInstance().getToken();
 //        MainMapService mainMapService = RetrofitManager.getRetrofit(SERVER_URL + APPCostant.API_SERVER_MONITOR_AREA).create(MainMapService.class);
         return mRetrofitService.findAppAllReservoir(token,reservoirName,areaCode).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<NearReservoirResponse> getNearbyReservoir(String longitude, String latitude){
+//        String token = UserManager.getInstance().getToken();
+        MainMapService mainMapService = RetrofitManager.getRetrofit("http://192.168.30.220:8765/" + APPCostant.API_SERVER_USER_ADMIN).create(MainMapService.class);
+        String token = "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJib3pob3VhZG1pbiIsInVzZXJJZCI6IjQ3NGRkY2Y1ZGYxMTQ2ZDRiNjgzMTY3ZjQ4MmQ3YTdkIiwibmFtZSI6IuaSreW3nueuoeeQhuWRmCIsImxvZ2luU2NvcGUiOiIxIiwiZXhwIjoxNTQ1NDY0NjAyfQ.k7IcjzE2Jdsd-bBmdvJQko7wAVI1c4sqSgUJ7z_p6sDrSk5CT9rJcJ8rgkxM_5z43C4BjzuTgsEvTPVXw4BCkpkSj7jCdWkapHolhxn_Sv5nOghP9-CBZH3xXkc3TTKDVQt6oRtgf_N0Nm_l0TalBrS-zFPVDZ7eSgBY4Zr1VGU";
+        return mainMapService.getNearbyReservoir(token,longitude,latitude).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

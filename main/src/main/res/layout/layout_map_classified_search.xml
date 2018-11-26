@@ -141,10 +141,10 @@
                     <ImageView
                         android:id="@+id/iv_search_back"
                         android:layout_width="0dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="0.5"
                         android:gravity="center_vertical"
-                        android:layout_gravity="center_vertical"
                         android:src="@drawable/come_back_blue"
                         android:visibility="visible" />
 

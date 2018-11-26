@@ -263,6 +263,58 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         //默认加载水库
         initReservoirData();
         initSearchLayout();
+        initNearReservoir();
+    }
+
+
+    private NearReservoirFragment nearReservoirFragment = null;
+    private void initNearReservoir() {
+        ImageView nearImgSearch = findView(R.id.near_img_search);
+        nearImgSearch.setOnClickListener(v -> {
+//            if (null == nearReservoirFragment) {
+            Point position = mLocationDisplay.getLocation().getPosition();
+            LogUtil.i("position:"+position.toString());
+            transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                nearReservoirFragment = NearReservoirFragment.newInstance(position.getX(),position.getY());
+                nearReservoirFragment.setOnAddBackClickListener(() -> {
+                    setSearchLayoutHide();
+                });
+                nearReservoirFragment.setOnSearchListClickListener(searchModel -> {
+                    setSearchListAdapterClick(searchModel);
+                });
+                transaction.replace(R.id.fl_search_layout, nearReservoirFragment);
+                transaction.show(nearReservoirFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+//                ObjectAnimator animator = ObjectAnimator.ofFloat(flSearchLayout, "alpha", 0, 1);
+//                animator.addListener(new Animator.AnimatorListener() {
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                        flSearchLayout.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onAnimationCancel(Animator animation) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animator animation) {
+//
+//                    }
+//                });
+//                animator.setDuration(300);
+//                animator.start();
+//            }else {
+                setSearchLayoutVisible();
+//            }
+            MapArcgisFragment.status = 1;
+        });
     }
 
     private MapSearchFragment detailFragment = null;
@@ -272,7 +324,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         flSearchLayout = findView(R.id.fl_search_layout);
         flSearchLayout.setPadding(0, ScreenUtil.getStatusBarHeight(), 0, 0);
         imgSearch.setOnClickListener(v -> {
-            if (null == detailFragment) {
+//            if (null == detailFragment) {
                 transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 detailFragment = new MapSearchFragment();
                 detailFragment.setOnAddBackClickListener(() -> {
@@ -285,7 +337,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 transaction.show(detailFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
-                ObjectAnimator animator = ObjectAnimator.ofFloat(flSearchLayout, "alpha", 0, 1);
+            /*    ObjectAnimator animator = ObjectAnimator.ofFloat(flSearchLayout, "alpha", 0, 1);
                 animator.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -308,10 +360,10 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                     }
                 });
                 animator.setDuration(300);
-                animator.start();
-            }else {
+                animator.start();*/
+//            }else {
                 setSearchLayoutVisible();
-            }
+//            }
             MapArcgisFragment.status = 1;
         });
     }
@@ -395,7 +447,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     }
 
     //是否是从搜索界面到的详情界面
-    boolean isSearchToDetail = false;
+   public static boolean isSearchToDetail = false;
 
     /**
      * 搜索列表的点击事件
@@ -403,7 +455,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * @param searchModel
      */
     private void setSearchListAdapterClick(SearchModel searchModel) {
-        isSearchToDetail = true;
+       MapArcgisFragment.isSearchToDetail = true;
         Gson gson = new Gson();
         Map<Integer, SparseBooleanArray> map = dHotelEntityAdapter.getMap();
         SparseBooleanArray sparseBooleanArray = map.get(0);
@@ -415,7 +467,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         for (int i = 0; i < overlayList.size(); i++) {
             overlayList.get(i).setVisible(false);
         }
-        //情况搜索图层
+        //清空搜索图层
         searchOverlay.getGraphics().clear();
         searchOverlay.setVisible(true);
         flSearchLayout.setVisibility(View.GONE);
@@ -583,7 +635,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private void setListAdapterClick() {
         //列表点击事件
         mAdapter.setmOnRecyclerviewItemClickListener((v, section, position) -> {
-            isSearchToDetail = false;
+            MapArcgisFragment.isSearchToDetail = false;
             hideListShowDetail();
             mAdapterItemClick(section, position);
             String name = dataList.get(section).list.get(position);
@@ -1533,7 +1585,6 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 
     /**
      * 地图坐标转换
-     *
      * @param lgtd
      * @param lttd
      * @return
@@ -1916,16 +1967,16 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 }
             }
         } else if (id == R.id.iv_arrow_back) {
-            if (isSearchToDetail){
-                isSearchToDetail=false;
+            if (MapArcgisFragment.isSearchToDetail){
+                MapArcgisFragment.isSearchToDetail=false;
                 setSearchLayoutVisible();
             }else {
                 backClickFun();
             }
 //            backClickFun();
         } else if (id == R.id.iv_ll_arrow_back) {
-            if (isSearchToDetail){
-                isSearchToDetail=false;
+            if (MapArcgisFragment.isSearchToDetail){
+                MapArcgisFragment.isSearchToDetail=false;
                 setSearchLayoutVisible();
             }else {
                 backClickFun();
@@ -2314,7 +2365,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 if (graphics != null && graphics.size() > 0) {
                     Map<String, Object> attributes = graphics.get(0).getAttributes();
                     if (attributes != null) {
-                        isSearchToDetail = false;
+                        MapArcgisFragment.isSearchToDetail = false;
                         int position = (int) attributes.get("id");
                         int groupId = (int) attributes.get("groupId");
 //                        LogUtil.i("id:" + position + "groupId:" + groupId);
@@ -2607,8 +2658,8 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 }
             }else {
                 if (scroll_item_layout.getVisibility() == View.VISIBLE) {
-                    if (isSearchToDetail){
-                        isSearchToDetail=false;
+                    if (MapArcgisFragment.isSearchToDetail){
+                        MapArcgisFragment.isSearchToDetail=false;
                         setSearchLayoutVisible();
                     }else {
                         backClickFun();

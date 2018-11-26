@@ -22,6 +22,7 @@ public class MainMapContract {
         void findAllVsVideo(String vsnm);
         void getStStbprpBByType(String stnm, String type, String areaCode);
         void findAppAllReservoir(String reservoirName, String areaCode);
+        void getNearbyReservoir(String longitude,String latitude);
     }
 
 }

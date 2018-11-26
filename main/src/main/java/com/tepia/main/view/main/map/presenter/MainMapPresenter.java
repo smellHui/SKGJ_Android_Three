@@ -12,6 +12,7 @@ import com.tepia.main.model.map.StRiverResponse;
 import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.map.WaterLevelResponse;
 import com.tepia.main.model.map.WaterQualityResponse;
+import com.tepia.main.view.main.map.adapter.near.NearReservoirResponse;
 
 /**
  * 主页地图Presenter
@@ -208,5 +209,24 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         });
     }
 
+    @Override
+    public void getNearbyReservoir(String longitude, String latitude) {
+        MainMapManager.getInstance().getNearbyReservoir(longitude,latitude).subscribe(new LoadingSubject<NearReservoirResponse>(true,"正在加载中...") {
+            @Override
+            protected void _onNext(NearReservoirResponse nearReservoirResponse) {
+                if (nearReservoirResponse.getCode()==0){
+                    mView.success(nearReservoirResponse);
+                }else {
+                    if (nearReservoirResponse.getMsg()!=null && nearReservoirResponse.getMsg().length()>0){
+                        mView.failure(nearReservoirResponse.getMsg());
+                    }
+                }
+            }
 
+            @Override
+            protected void _onError(String message) {
+                mView.failure(message);
+            }
+        });
+    }
 }
