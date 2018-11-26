@@ -123,7 +123,6 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
   * Created by      Android studio
-  *
   * @author :ly (from Center Of Wuhan)
   * Date    :
   * Version :1.0

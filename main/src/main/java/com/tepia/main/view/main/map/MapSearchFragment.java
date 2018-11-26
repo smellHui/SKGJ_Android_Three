@@ -46,7 +46,6 @@ import java.util.List;
   * Version :1.0
   * 功能描述 :  地图搜索
  **/
-
 public class MapSearchFragment extends MVPBaseFragment<MainMapContract.View, MainMapPresenter> {
     private Spinner spinner;
     private ArrayAdapter adapter;

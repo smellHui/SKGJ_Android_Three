@@ -11,7 +11,6 @@ import java.util.List;
   * Version :1.0
   * 功能描述 :
  **/
-
 public class NearReservoirResponse extends BaseResponse {
 
     private List<DataBean> data;

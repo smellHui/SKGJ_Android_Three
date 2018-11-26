@@ -4,8 +4,13 @@ import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
 
 /**
- * @author 44822
- */
+  * Created by      Android studio
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/11/26
+  * Version :1.0
+  * 功能描述 :
+ **/
+
 public class MainMapContract {
     public interface View<T> extends BaseView {
         void success(T data);

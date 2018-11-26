@@ -400,5 +400,6 @@
             android:visibility="gone"></FrameLayout>
     </FrameLayout>
 
+
     <include layout="@layout/drawer_right" />
 </android.support.v4.widget.DrawerLayout>

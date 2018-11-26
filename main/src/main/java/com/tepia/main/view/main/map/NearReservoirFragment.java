@@ -165,6 +165,7 @@ public class NearReservoirFragment extends BaseCommonFragment {
         mAdapter = new MyNearReservoirAdapter(R.layout.search_item_rv, dataList);
         //添加Android自带的分割线
         rv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        mAdapter.setEmptyView(EmptyLayoutUtil.show("暂无数据"));
         rv.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (null != dataList && dataList.size() > 0) {

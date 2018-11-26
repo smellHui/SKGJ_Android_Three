@@ -8,10 +8,12 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
- * 主页地图
- *
- * @author 44822
- */
+  * Created by      Android studio
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/11/26
+  * Version :1.0
+  * 功能描述 : 主页地图
+ **/
 interface MainMapService {
 
     /**

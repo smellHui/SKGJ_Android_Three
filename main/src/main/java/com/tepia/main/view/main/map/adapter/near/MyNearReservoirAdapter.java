@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.main.R;
-import com.tepia.main.view.main.map.adapter.search.SearchModel;
 
 import java.util.List;
 

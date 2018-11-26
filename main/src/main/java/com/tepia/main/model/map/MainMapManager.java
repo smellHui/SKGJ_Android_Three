@@ -11,8 +11,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * @author 44822
- */
+  * Created by      Android studio
+  * @author :wwj (from Center Of Wuhan)
+  * Date    :2018/11/26
+  * Version :1.0
+  * 功能描述 :
+ **/
 public class MainMapManager {
     private MainMapService mRetrofitService;
     private static final MainMapManager ourInstance = new MainMapManager();

@@ -211,7 +211,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
     @Override
     public void getNearbyReservoir(String longitude, String latitude) {
-        MainMapManager.getInstance().getNearbyReservoir(longitude,latitude).subscribe(new LoadingSubject<NearReservoirResponse>(true,"正在加载中...") {
+        MainMapManager.getInstance().getNearbyReservoir(longitude,latitude).subscribe(new LoadingSubject<NearReservoirResponse>(true,"正在搜索中...") {
             @Override
             protected void _onNext(NearReservoirResponse nearReservoirResponse) {
                 if (nearReservoirResponse.getCode()==0){
