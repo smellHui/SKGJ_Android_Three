@@ -3,6 +3,7 @@ package com.tepia.main.view;
 import com.tepia.main.model.user.ChildrenBean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class MenuItemBean implements Serializable {
     private String menuType;
     private String menuHref;
     private String menuIcon;
-    private List<MenuItemBean> children;
+    private List<MenuItemBean> children = new ArrayList<>();
 
     public String getMenuCode() {
         return menuCode;

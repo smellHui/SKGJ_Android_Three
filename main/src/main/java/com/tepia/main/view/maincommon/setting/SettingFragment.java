@@ -122,11 +122,11 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             intent = new Intent(getBaseActivity(), EditUserInfoActivity.class);
             startActivity(intent);
         } else if (view.getId() == R.id.worknotificationMv) {
-            if (UserManager.getInstance().getMenuList().size() == 5) {
-                if (UserManager.getInstance().getMenuList().get(4).getChildren() != null && UserManager.getInstance().getMenuList().get(4).getChildren().size() != 0) {
-                    MenuItemBean bean = UserManager.getInstance().getMenuList().get(4).getChildren().get(0);
-                    ARouter.getInstance().build(bean.getMenuHref()).navigation();
-                }
+
+            if (UserManager.getInstance().getMenuItemBean("工作通知") != null) {
+                ARouter.getInstance().build(UserManager.getInstance().getMenuItemBean("工作通知").getMenuHref()).navigation();
+            }else {
+                ToastUtils.shortToast("服务器没有配置工作通知路径");
             }
 
         } else if (view.getId() == R.id.personinfoMv) {

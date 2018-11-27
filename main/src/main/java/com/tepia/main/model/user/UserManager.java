@@ -20,8 +20,10 @@ import com.tepia.main.view.login.LoginPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.Observable;
@@ -254,22 +256,46 @@ public class UserManager {
     }
 
     /**
-     * 判断是否是正式环境
+     * 根据目录名称 在目录树中拿目录实体
+     * @param menuName
      * @return
      */
-    public boolean isTechnology(){
+    public MenuItemBean getMenuItemBean(String menuName) {
+        Queue<MenuItemBean> queue = new LinkedList<MenuItemBean>();
+        MenuItemBean res = null;
+        for (MenuItemBean bean : getMenuList()) {
+            queue.add(bean);
+        }
+        while (!queue.isEmpty()) {
+            MenuItemBean temp = queue.poll();
+            for (MenuItemBean bean : temp.getChildren()) {
+                queue.add(bean);
+            }
+            if (temp.getMenuName().equals(menuName)) {
+                res = temp;
+                break;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * 判断是否是正式环境
+     *
+     * @return
+     */
+    public boolean isTechnology() {
         ArrayList<MenuItemBean> menuItemList = getMenuList();
 
-        if(menuItemList != null && menuItemList.size() > 0){
-            if(ConfigConsts.TECHNOLOGRROLE.equals(menuItemList.get(1).getMenuIcon())){
+        if (menuItemList != null && menuItemList.size() > 0) {
+            if (ConfigConsts.TECHNOLOGRROLE.equals(menuItemList.get(1).getMenuIcon())) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
         return false;
     }
-
 
 
     /**
