@@ -357,7 +357,7 @@
                 <ImageView
                     android:id="@+id/iv_ll_arrow_back"
                     android:layout_width="0dp"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="0.5"
                     android:gravity="center_vertical"
@@ -375,8 +375,8 @@
                     android:gravity="center"
                     android:lines="1"
                     android:text="地图"
-                    android:textColor="@color/white"
-                    android:textSize="22sp" />
+                    android:textColor="#4c4c4c"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:layout_width="0dp"

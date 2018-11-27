@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.ToastUtils;
@@ -106,9 +107,12 @@ public class NearReservoirFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View view) {
+//        setCenterTitle("附近水库");
         etSearch = findView(R.id.et_search);
         ImageView ivSearchBack = findView(R.id.iv_search_back);
         ivSearchBack.setOnClickListener(v -> onAddBackClickListener.onCilck());
+//        TextView leftBack = findView(R.id.tv_left_text);
+//        leftBack.setOnClickListener(v -> onAddBackClickListener.onCilck());
         rv = findView(R.id.rv_near_reservoir);
         initRecycleView();
         initSearch();
