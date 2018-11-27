@@ -61,7 +61,7 @@
                     android:layout_marginRight="12dp"
                     android:background="@drawable/bg_map_shape_1"
                     android:padding="8dp"
-                    android:src="@drawable/detail_search" />
+                    android:src="@drawable/detail_resorvior" />
 
                 <LinearLayout
                     android:id="@+id/ll_zoom"
