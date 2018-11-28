@@ -322,7 +322,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             boolean isShowMap = SPUtils.getInstance().getBoolean(CacheConsts.haslook, false);
-            if (mTabHost.getCurrentTab() == 0&&true==isShowMap) {
+            if (mTabHost.getCurrentTab() == 2&&isShowMap==true) {
                 //当前显示地图界面
                 if (MapArcgisFragment.status == 1) {
                     EventBus.getDefault().post(1);

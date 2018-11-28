@@ -474,6 +474,8 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         if (scroll_item_layout.getVisibility() != View.VISIBLE) {
             hideListShowDetail();
         }
+        String name = searchModel.getName().trim();
+        String scrollItemTitleName = "";
         if (searchModel.getTypeId() == 0) {
             //点击的是水库
 //            String searchString = searchModel.getSearchString();
@@ -482,10 +484,12 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //                ReservoirResponse.DataBean dataBean = gson.fromJson(searchString, ReservoirResponse.DataBean.class);
                 initReservoirDetailFragment(stcd);
             }
+            scrollItemTitleName = name+"详情";
         } else if (searchModel.getTypeId() == 1) {
             //点击的是流量站
             String stcd = searchModel.getStcd();
             initStRiverDetailFragment(stcd);
+            scrollItemTitleName = name+"流量站详情";
         } else if (searchModel.getTypeId() == 2) {
             //点击的是水质站
             String searchString = searchModel.getSearchString();
@@ -494,6 +498,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //                WaterQualityResponse.DataBean bean = gson.fromJson(searchString, WaterQualityResponse.DataBean.class);
                 initWaterQualityDetailFragment(stcd);
             }
+            scrollItemTitleName = name+"水质站详情";
         } else if (searchModel.getTypeId() == 3) {
             //点击的是雨量站
             String searchString = searchModel.getSearchString();
@@ -501,6 +506,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 String stcd = searchModel.getStcd();
                 initRainfallDetailFragment(stcd);
             }
+            scrollItemTitleName = name+"雨量站详情";
         } else if (searchModel.getTypeId() == 4) {
             //点击的是水位站
             String searchString = searchModel.getSearchString();
@@ -509,10 +515,12 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 WaterLevelResponse.DataBean.StStbprpBBean stStbprpB = gson.fromJson(searchString, WaterLevelResponse.DataBean.class).getStStbprpB();
                 initWaterLevelDetailFragment(stcd);
             }
+            scrollItemTitleName = name+"水位站详情";
         } else if (searchModel.getTypeId() == 5) {
             //点击的是图像站
             String stcd = searchModel.getStcd();
             initPicDetailFragment(stcd);
+            scrollItemTitleName = name+"图像站详情";
         } else if (searchModel.getTypeId() == 6) {
             //点击的是视频站
             String searchString = searchModel.getSearchString();
@@ -520,12 +528,12 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 VideoResponse.DataBean dataBean = gson.fromJson(searchString, VideoResponse.DataBean.class);
                 initVedioDetailFragment(dataBean);
             }
+            scrollItemTitleName = name+"视频站详情";
         }
         double lgtd = searchModel.getLgtd();
         double lttd = searchModel.getLttd();
         Point point = transformationPoint(lgtd, lttd);
         addPic(searchOverlay, picMap.get(0)[searchModel.getTypeId()], point);
-        String name = searchModel.getName();
         if (73.66 < lgtd && lgtd < 135.05 && lttd > 3.86 && lttd < 53.55) {
             mapView.setViewpointCenterAsync(transformationPoint(lgtd, lttd), itemScale).addDoneListener(() -> {
                 if (scroll_item_layout.getCurrentStatus() != ScrollLayout.Status.EXIT) {
@@ -537,7 +545,8 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         ivArrowBack.setVisibility(View.VISIBLE);
         tvMapTitle.setText(name);
         tvLlMapTitle.setText(name);
-        scrollItemTitle.setText(name + "详情");
+
+        scrollItemTitle.setText(scrollItemTitleName);
         if (callout.isShowing()) {
             callout.dismiss();
         }
