@@ -19,8 +19,7 @@ public class MyApplication extends BaseApplication {
 
     private void appInit() {
         ARouter.openLog();     // 打印日志
-        // TODO: 2018/11/26 上线时记得关闭
-        ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+//        ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         ARouter.init( this ); // 尽可能早，推荐在Application中初始化
 
 

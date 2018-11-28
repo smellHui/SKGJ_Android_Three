@@ -40,4 +40,5 @@
     <color name="channelstatus">#838383</color>
 
     <color name="factor_value_color">#585858</color>
+    <color name="theme_trans_30">#33000000</color>
 </resources>

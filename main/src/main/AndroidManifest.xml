@@ -351,6 +351,10 @@
         <activity android:name=".view.maincommon.setting.ChoiceReservoirActivity"
             android:screenOrientation="portrait"
             />
+        <!--综合监控-图像站-图片详情-->
+        <activity android:name=".view.main.detail.imageshow.ImageShowActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

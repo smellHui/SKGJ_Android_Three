@@ -2,6 +2,7 @@ package com.tepia.main.view.main.detail.imageshow;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +55,7 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
 
     private RecyclerView baseinfoRecV;
 
-    private List<ImageBean.DataBean.PicturesBean.ListBean> dataList = new ArrayList<>();
+    private ArrayList<ImageBean.DataBean.PicturesBean.ListBean> dataList = new ArrayList<>();
     private AdapterPatrolLoggerList adapterPatrolLoggerList;
     private OnItemCilckListener onItemCilckListener;
 
@@ -291,11 +292,16 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
             ArrayList<String> pathlist = new ArrayList<>();
             pathlist.add(adapterPatrolLoggerList.getFileServerUrl() + dataList.get(position).getPicpath());
             LogUtil.e("图片地址",pathlist.get(0));
-            PhotoPreview.builder()
+            /*PhotoPreview.builder()
                     .setPhotos(pathlist)
                     .setShowDeleteButton(false)
                     .setCurrentItem(position)
-                    .start(getBaseActivity(), ImageFragment.this);
+                    .start(getBaseActivity(), ImageFragment.this);*/
+            Intent intent = new Intent();
+            intent.setClass(getContext(),ImageShowActivity.class);
+            intent.putParcelableArrayListExtra("girls",dataList);
+            intent.putExtra("current",position);
+            startActivity(intent);
         });
         adapterPatrolLoggerList.setOnLoadMoreListener(() -> {
             baseinfoRecV.postDelayed(() -> {

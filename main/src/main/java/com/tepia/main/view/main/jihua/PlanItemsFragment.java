@@ -24,7 +24,6 @@ import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.EasySwipeMenuLayout.EasySwipeMenuLayout;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
-import com.tepia.main.MyApplication;
 import com.tepia.main.R;
 import com.tepia.main.model.plan.PlanListResponse;
 import com.tepia.main.utils.EmptyLayoutUtil;

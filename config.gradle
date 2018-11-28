@@ -10,8 +10,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 17,
             targetSdkVersion : 27,
-            versionCode      : 125,
-            versionName      : "1.2.5"
+            versionCode      : 126,
+            versionName      : "1.2.6"
     ]
 
     libsVersion = [
@@ -113,6 +113,6 @@ ext {
 
             //选择附件
             iFileSelected                : 'com.leon:lfilepickerlibrary:1.8.0',
-            statusbaruitl                : 'com.githang:status-bar-compat:latest.integration'
+            statusbaruitl                : 'com.githang:status-bar-compat:0.7'
     ]
 }

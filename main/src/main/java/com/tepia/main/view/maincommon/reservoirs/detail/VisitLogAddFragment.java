@@ -321,7 +321,7 @@ public class VisitLogAddFragment extends MVPBaseFragment<VisitLogContract.View,V
                 return;
             }
             if (TextUtils.isEmpty(visitCause)) {
-                ToastUtils.shortToast("请输入" + getString(R.string.titlestr));
+                ToastUtils.shortToast("请输入到访原因");
                 return;
             }
 
@@ -335,7 +335,7 @@ public class VisitLogAddFragment extends MVPBaseFragment<VisitLogContract.View,V
                 return;
             }
             if (TextUtils.isEmpty(workContent)) {
-                ToastUtils.shortToast("请输入事件内容");
+                ToastUtils.shortToast("请输入工作内容");
                 return;
             }
 
