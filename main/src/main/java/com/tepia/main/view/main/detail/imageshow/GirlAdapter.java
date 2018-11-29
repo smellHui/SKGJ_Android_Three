@@ -6,13 +6,14 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.tepia.main.APPCostant;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
-import com.tepia.main.common.PinchImageView;
 import com.tepia.main.model.detai.ImageBean;
+import com.tepia.photo_picker.widget.TouchImageView;
 
 import java.util.ArrayList;
 
@@ -56,7 +57,7 @@ public class GirlAdapter extends PagerAdapter {
 
             view = LayoutInflater.from(this.mContext).inflate(R.layout.item_girl_detail, container, false);
             view.setTag(position);
-        PinchImageView imageView = (PinchImageView) view.findViewById(R.id.img);
+            final ImageView imageView =  view.findViewById(R.id.img);
 //        PhotoView imageView = new PhotoView(mContext);
 //            PhotoView imageView = view.findViewById(R.id.img);
 

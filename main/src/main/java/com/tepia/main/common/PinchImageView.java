@@ -16,6 +16,7 @@ import android.view.MotionEvent;
  * 手势图片控件
  *
  * @author clifford
+ * by liying
  */
 @SuppressLint("AppCompatCustomView")
 public class PinchImageView extends AppCompatImageView {
