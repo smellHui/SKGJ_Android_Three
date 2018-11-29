@@ -121,7 +121,8 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_map_title"
             android:orientation="horizontal"
-            android:padding="2dp">
+            android:padding="2dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_arrow_back"

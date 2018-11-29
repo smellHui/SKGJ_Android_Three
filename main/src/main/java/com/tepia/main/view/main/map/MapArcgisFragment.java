@@ -279,6 +279,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                     setSearchLayoutHide();
                 });
                 nearReservoirFragment.setOnSearchListClickListener(searchModel -> {
+                    if (llTitleMap.getVisibility()!= View.VISIBLE){
+                        llTitleMap.setVisibility(View.VISIBLE);
+                    }
                     setSearchListAdapterClick(searchModel);
                 });
                 transaction.replace(R.id.fl_search_layout, nearReservoirFragment);
@@ -330,6 +333,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                     setSearchLayoutHide();
                 });
                 detailFragment.setOnSearchListClickListener(searchModel -> {
+                    if (llTitleMap.getVisibility()!= View.VISIBLE){
+                        llTitleMap.setVisibility(View.VISIBLE);
+                    }
                     setSearchListAdapterClick(searchModel);
                 });
                 transaction.replace(R.id.fl_search_layout, detailFragment);
@@ -643,6 +649,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private void setListAdapterClick() {
         //列表点击事件
         mAdapter.setmOnRecyclerviewItemClickListener((v, section, position) -> {
+            if (llTitleMap.getVisibility()!= View.VISIBLE){
+                llTitleMap.setVisibility(View.VISIBLE);
+            }
             MapArcgisFragment.isSearchToDetail = false;
             hideListShowDetail();
             mAdapterItemClick(section, position);
@@ -1706,6 +1715,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * 隐藏列表，显示详情
      */
     public void hideListShowDetail() {
+        if (llTitleMap.getVisibility()!= View.VISIBLE){
+            llTitleMap.setVisibility(View.VISIBLE);
+        }
         status = 1;
 //        ObjectAnimator objectAnimator2 = objectAnimation(scroll_item_layout, 0f, 1f, 100);
         ObjectAnimator objectAnimator1 = objectAnimation(scroll_down_layout, 1f, 0f, 100);
@@ -1745,6 +1757,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * 隐藏详情，显示列表
      */
     public void hideDetailShowList() {
+        if (llTitleMap.getVisibility()== View.VISIBLE){
+            llTitleMap.setVisibility(View.GONE);
+        }
 //        LogUtil.i("scrollView当前滑动的位置:"+itemScrollView.getScrollY());
         if (itemScrollView.getScrollY() != 0) {
             //如果itemScrollView不在顶部，设置itemScrollView定位到顶部
