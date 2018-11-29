@@ -79,7 +79,7 @@ interface MainMapService {
 
     /**
      * 查找所有图像站
-     *
+     * 待删除接口
      * @param token
      * @param stnm
      * @param reservoir

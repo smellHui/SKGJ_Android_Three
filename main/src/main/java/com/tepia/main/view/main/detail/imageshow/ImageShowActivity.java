@@ -24,6 +24,7 @@ public class ImageShowActivity extends BaseActivity implements ViewPager.OnPageC
     private ArrayList<ImageBean.DataBean.PicturesBean.ListBean> datas;
     private int current;
     private int total;
+    private String fileurl;
 
     @Override
     public int getLayoutId() {
@@ -39,12 +40,13 @@ public class ImageShowActivity extends BaseActivity implements ViewPager.OnPageC
             datas = getIntent().getParcelableArrayListExtra("girls");
             total = datas.size();
             current = getIntent().getIntExtra("current",0);
+            fileurl = getIntent().getStringExtra("fileurl");
             int position = current + 1;
             setCenterTitle(position + "/" + total);
             showBack();
         }
 
-        mAdapter = new GirlAdapter(this, datas);
+        mAdapter = new GirlAdapter(this, datas,fileurl);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(current);
         mViewPager.setOnPageChangeListener(this);
