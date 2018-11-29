@@ -34,7 +34,7 @@ import java.util.List;
  * 功能描述 :  附近水库
  **/
 public class NearReservoirFragment extends BaseCommonFragment {
-    private static final String[] name = {"水库", "流量站", "水质站", "雨量站", "水位监测点", "图像站", "视频站"};
+    private static final String[] name = {"水库", "流量站", "水质站", "雨量站", "水位站", "图像站", "视频站"};
     private EditText etSearch;
     private MainMapPresenter mPresenter;
     private MapSearchFragment.OnAddBackClickListener onAddBackClickListener;

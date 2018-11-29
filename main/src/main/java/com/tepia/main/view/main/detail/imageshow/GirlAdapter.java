@@ -27,11 +27,13 @@ public class GirlAdapter extends PagerAdapter {
     private ArrayList<ImageBean.DataBean.PicturesBean.ListBean> mDatas;
     private View mCurrentView;
     private SparseArray<View> cacheView;
+    private String fileurl;
 
-    public GirlAdapter(Context context, ArrayList<ImageBean.DataBean.PicturesBean.ListBean> datas) {
+    public GirlAdapter(Context context, ArrayList<ImageBean.DataBean.PicturesBean.ListBean> datas,String fileurl) {
         mContext = context;
         mDatas = datas;
         cacheView = new SparseArray<>(datas.size());
+        this.fileurl = fileurl;
     }
 
     @Override
@@ -51,7 +53,7 @@ public class GirlAdapter extends PagerAdapter {
 
     @Override
     public View instantiateItem(ViewGroup container, int position) {
-        final String imageUrl = "http://119.1.151.132:3003/" + mDatas.get(position).getPicpath();
+        final String imageUrl = fileurl + mDatas.get(position).getPicpath();
         View view = cacheView.get(position);
         if (view == null) {
 
