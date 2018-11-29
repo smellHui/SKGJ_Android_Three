@@ -499,28 +499,25 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         } else if (searchModel.getTypeId() == 2) {
             //点击的是水质站
             String searchString = searchModel.getSearchString();
-            if (null != searchString) {
+//            if (null != searchString) {
                 String stcd = searchModel.getStcd();
 //                WaterQualityResponse.DataBean bean = gson.fromJson(searchString, WaterQualityResponse.DataBean.class);
                 initWaterQualityDetailFragment(stcd);
-            }
+//            }
             scrollItemTitleName = name+"水质站详情";
         } else if (searchModel.getTypeId() == 3) {
             //点击的是雨量站
             String searchString = searchModel.getSearchString();
-            if (null != searchString) {
                 String stcd = searchModel.getStcd();
                 initRainfallDetailFragment(stcd);
-            }
             scrollItemTitleName = name+"雨量站详情";
         } else if (searchModel.getTypeId() == 4) {
             //点击的是水位站
             String searchString = searchModel.getSearchString();
-            if (null != searchString) {
-                String stcd = searchModel.getStcd();
-                WaterLevelResponse.DataBean.StStbprpBBean stStbprpB = gson.fromJson(searchString, WaterLevelResponse.DataBean.class).getStStbprpB();
-                initWaterLevelDetailFragment(stcd);
-            }
+            String stcd = searchModel.getStcd();
+            LogUtil.i("stcd:"+stcd);
+//            WaterLevelResponse.DataBean.StStbprpBBean stStbprpB = gson.fromJson(searchString, WaterLevelResponse.DataBean.class).getStStbprpB();
+            initWaterLevelDetailFragment(stcd);//initWaterLevelDetailFragment
             scrollItemTitleName = name+"水位站详情";
         } else if (searchModel.getTypeId() == 5) {
             //点击的是图像站
