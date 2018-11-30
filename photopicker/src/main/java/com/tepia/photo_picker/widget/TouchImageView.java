@@ -50,7 +50,7 @@ import android.widget.Scroller;
  * 版权:个人版权所有                                         *
  * 版本号:1.1.0                                              *
  *************************************************************/
-public class TouchImageView extends ImageView {
+public class TouchImageView extends android.support.v7.widget.AppCompatImageView {
 
     private static final String DEBUG = "DEBUG";
     private static final float SUPER_MIN_MULTIPLIER = .75f;

@@ -2,6 +2,7 @@ package com.tepia.main.view.main.detail.imageshow;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +55,7 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
 
     private RecyclerView baseinfoRecV;
 
-    private List<ImageBean.DataBean.PicturesBean.ListBean> dataList = new ArrayList<>();
+    private ArrayList<ImageBean.DataBean.PicturesBean.ListBean> dataList = new ArrayList<>();
     private AdapterPatrolLoggerList adapterPatrolLoggerList;
     private OnItemCilckListener onItemCilckListener;
 
@@ -76,6 +77,7 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
     private List<StationDetailResponse> baseinfo_list_new = new ArrayList<>();
     private ImageDetailBean.DataBean imageDataBean;
 
+    private ArrayList<String> selectedPhotos = new ArrayList<>();
 
     private static ImageFragment f;
     public ImageFragment() {
@@ -288,14 +290,27 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
 
 
             }
-            ArrayList<String> pathlist = new ArrayList<>();
-            pathlist.add(adapterPatrolLoggerList.getFileServerUrl() + dataList.get(position).getPicpath());
+           /* ArrayList<String> pathlist = new ArrayList<>();
+            pathlist.add(adapterPatrolLoggerList.getFileServerUrl() + dataList.get(position).getPicpath());*/
+
+          /*  for(int i = 0;i < dataList.size(); i++){
+                pathlist.add(adapterPatrolLoggerList.getFileServerUrl() + dataList.get(i).getPicpath());
+            }
             LogUtil.e("图片地址",pathlist.get(0));
             PhotoPreview.builder()
                     .setPhotos(pathlist)
                     .setShowDeleteButton(false)
                     .setCurrentItem(position)
-                    .start(getBaseActivity(), ImageFragment.this);
+                    .start(getBaseActivity(), ImageFragment.this);*/
+
+
+
+            Intent intent = new Intent();
+            intent.setClass(getContext(),ImageShowActivity.class);
+            intent.putParcelableArrayListExtra("girls",dataList);
+            intent.putExtra("current",position);
+            intent.putExtra("fileurl",adapterPatrolLoggerList.getFileServerUrl());
+            startActivity(intent);
         });
         adapterPatrolLoggerList.setOnLoadMoreListener(() -> {
             baseinfoRecV.postDelayed(() -> {

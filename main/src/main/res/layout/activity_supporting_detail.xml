@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/alldetailly_dimen"
-            android:background="@drawable/bg_btn_green"
+            android:background="@drawable/bg_btn_detail_white"
             android:orientation="vertical">
 
             <LinearLayout

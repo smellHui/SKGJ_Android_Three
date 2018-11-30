@@ -171,7 +171,6 @@ public class BadgeView extends TextView {
 
         } else {
 
-            // TODO verify that parent is indeed a ViewGroup
             ViewGroup group = (ViewGroup) parent;
             int index = group.indexOfChild(target);
 

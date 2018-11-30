@@ -1,5 +1,8 @@
 package com.tepia.main.model.detai;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.tepia.base.http.BaseResponse;
 
 import java.io.Serializable;
@@ -257,7 +260,7 @@ public class ImageBean extends BaseResponse{
                 this.navigatepageNums = navigatepageNums;
             }
 
-            public static class ListBean {
+            public static class ListBean implements Parcelable {
                 /**
                  * stcd : 10170406
                  * tm : 2018-04-11 00:03:49
@@ -269,6 +272,25 @@ public class ImageBean extends BaseResponse{
                 private String tm;
                 private String pictm;
                 private String picpath;
+
+                protected ListBean(Parcel in) {
+                    stcd = in.readString();
+                    tm = in.readString();
+                    pictm = in.readString();
+                    picpath = in.readString();
+                }
+
+                public static final Creator<ListBean> CREATOR = new Creator<ListBean>() {
+                    @Override
+                    public ListBean createFromParcel(Parcel in) {
+                        return new ListBean(in);
+                    }
+
+                    @Override
+                    public ListBean[] newArray(int size) {
+                        return new ListBean[size];
+                    }
+                };
 
                 public String getStcd() {
                     return stcd;
@@ -300,6 +322,19 @@ public class ImageBean extends BaseResponse{
 
                 public void setPicpath(String picpath) {
                     this.picpath = picpath;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int i) {
+                    dest.writeString(stcd);
+                    dest.writeString(tm);
+                    dest.writeString(pictm);
+                    dest.writeString(picpath);
                 }
             }
         }

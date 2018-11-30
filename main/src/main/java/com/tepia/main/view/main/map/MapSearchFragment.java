@@ -49,7 +49,7 @@ import java.util.List;
 public class MapSearchFragment extends MVPBaseFragment<MainMapContract.View, MainMapPresenter> {
     private Spinner spinner;
     private ArrayAdapter adapter;
-    private static final String[] name = {"水库", "流量站", "水质站", "雨量站", "水位监测点", "图像站", "视频站"};
+    private static final String[] name = {"水库", "流量站", "水质站", "雨量站", "水位站", "图像站", "视频站"};
     private int position = 0;
     private RecyclerView rvSearchView;
     private MapSearchAdapter mapSearchAdapter;

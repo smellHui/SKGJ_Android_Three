@@ -21,8 +21,8 @@ public class VideoAdapter extends android.widget.BaseAdapter {
 	private int selectItem = -1;
 
 	public VideoAdapter(Context context, List<VideoInfo> data) {
-		this.context=context;
-		this.data=data;
+		this.context = context;
+		this.data = data;
 	}
 
 
@@ -47,8 +47,8 @@ public class VideoAdapter extends android.widget.BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if(convertView==null){
-			convertView=View.inflate(context, R.layout.adapter_video_item, null);
+		if(convertView == null){
+			convertView = View.inflate(context, R.layout.adapter_video_item, null);
 		}
 		ViewHolder holder = ViewHolder.getHolder(convertView);
         VideoInfo video = data.get(position);
@@ -91,7 +91,7 @@ public class VideoAdapter extends android.widget.BaseAdapter {
         }
 
         public static ViewHolder getHolder(View convertView) {
-            ViewHolder holder = (ViewHolder) convertView.getTag();
+            ViewHolder holder = null;
             if (holder == null) {
                 holder = new ViewHolder(convertView);
                 convertView.setTag(holder);

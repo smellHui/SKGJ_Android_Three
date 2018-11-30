@@ -55,7 +55,7 @@ public class SectionData {
         dataType.add("流量站");
         dataType.add("水质站");
         dataType.add("雨量站");
-        dataType.add("水位监测点");
+        dataType.add("水位站");
         dataType.add("图像站");
         dataType.add("视频站");
         ArrayList<String> dataType2 = new ArrayList<>();

@@ -125,6 +125,13 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         });
     }
 
+
+    /**
+     * 待删除接口
+     * @param stnm
+     * @param reservoir
+     * @param areaCode
+     */
     @Override
     public void findAllStPicture(String stnm, String reservoir, String areaCode) {
         MainMapManager.getInstance().findAllStPicture(stnm,reservoir,areaCode).subscribe(new LoadingSubject<PictureResponse>(true,"正在加载中...") {

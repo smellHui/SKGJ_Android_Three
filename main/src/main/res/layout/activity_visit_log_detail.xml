@@ -9,100 +9,107 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/background_common"
-        >
+        android:orientation="vertical">
 
         <include layout="@layout/toolbar" />
 
         <include layout="@layout/reserviros_title_layout" />
 
-
         <LinearLayout
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="到访原因："
-                android:textColor="@color/color_333"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/causeTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="--"
-                android:textColor="@color/text_color"
-
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="工作内容："
-                android:textColor="@color/color_333"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/contentTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="--"
-                android:textColor="@color/text_color"
-
-                android:textSize="18sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="到访人员："
-                android:textColor="@color/color_333"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/usernameTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="--"
-                android:textColor="@color/text_color"
-
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:padding="10dp"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/alldetailly_dimen"
+            android:background="@drawable/bg_btn_detail_white"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/bizRy"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到访原因："
+                    android:textColor="@color/color_333"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/causeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="--"
+                    android:textColor="@color/text_color"
+
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="工作内容："
+                    android:textColor="@color/color_333"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/contentTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="--"
+                    android:textColor="@color/text_color"
+
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到访人员："
+                    android:textColor="@color/color_333"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/usernameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="--"
+                    android:textColor="@color/text_color"
+
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="10dp"
+                android:visibility="visible">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/bizRy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </layout>

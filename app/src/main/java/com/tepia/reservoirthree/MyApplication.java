@@ -19,26 +19,16 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        appInit();
         //添加异常收集
         PgyCrashManager.register(this);
         // TODO: 2018/10/22 以下代码是和视频会议连接在一起的极光推送。请不要删除
         //极光推送
         /*JPushInterface.setDebugMode(true);
         JPushInterface.init(this);*/
-
-
-
-    }
-
-    private void appInit() {
-        // TODO: 2018/9/20 正式发布apk时请关闭
-        /**
-         * 正式发布apk时请关闭，避免某些地方 java.lang.NullPointerException: println needs a message
-         * at com.tepia.base.utils.LogUtil.i(LogUtil.java:43)
-         */
-        LogUtil.isDebug = true;
         UtilsContextOfGaode.init(this);
 
+
+
     }
+
 }
