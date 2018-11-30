@@ -1,6 +1,7 @@
 package com.tepia.main.view.maincommon.setting;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -113,7 +114,11 @@ public class DownLoadActivity extends BaseActivity {
                     ToastUtils.longToast("附件不能打开，请下载相关软件！");
                 }else {
                     fileIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(fileIntent);
+                    try {
+                        startActivity(fileIntent);
+                    }catch (ActivityNotFoundException e){
+                        ToastUtils.longToast("附件不能打开，请下载相关软件！");
+                    }
                 }
             } else {
                 tvDownloadPreview.setVisibility(View.GONE);
