@@ -39,7 +39,7 @@ public class RealTimeWaterLevelStorageCapacityActivity extends BaseActivity{
     public void initView() {
         mBinding = DataBindingUtil.bind(mRootView);
 
-        setCenterTitle("实时水位库容曲线");
+        setCenterTitle("实时水位库容");
         showBack();
     }
 
