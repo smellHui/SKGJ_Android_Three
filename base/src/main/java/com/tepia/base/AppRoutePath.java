@@ -8,10 +8,10 @@ public class AppRoutePath {
 
     /**
      * ------------------------------------------
-     *
+     * <p>
      * 任何路径名称改动需要告知后台，否则无法正确显示或进入相关页面
      * 并注释上具体跳转页面
-     *
+     * <p>
      * ------------------------------------------
      */
 
@@ -162,12 +162,13 @@ public class AppRoutePath {
      */
     public final static String app_work_notification_leader = "/app/work/notification/leader";
     public final static String app_work_notification_worker = "/app/work/notification/woeker";
-    public  final static String app_work_notification_leader_detail = "/app/work/notification/leader/detail";
-    public  final static String app_work_notification_worker_detail = "/app/work/notification/worker/detail";
-    public final static String  app_add_work_notification = "/app/add/work/notification";
+    public final static String app_work_notification_leader_detail = "/app/work/notification/leader/detail";
+    public final static String app_work_notification_worker_detail = "/app/work/notification/worker/detail";
+    public final static String app_add_work_notification = "/app/add/work/notification";
 
     public final static String app_select_reservor = "/app/select/reservor";
     public final static String app_work_order_question_list = "/app/work/order/question/list";
     public final static String app_reservoir_vr = "/app/reservoir/vr";
     public final static String app_RealTime_WaterLevel_StorageCapacity = "/app/RealTime/WaterLevel/StorageCapacity";
+    public final static String app_task_work_report = "/app/task/work/report";
 }

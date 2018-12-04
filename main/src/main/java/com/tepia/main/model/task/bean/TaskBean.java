@@ -39,12 +39,21 @@ public  class TaskBean  implements Serializable{
     private String executeStatus;
     private String remarks;
     private String workOrderRoute;
+    private String workReportUrl;
     private String status;
     private String createBy;
     private String createDate;
     private BizPlanInfoBean bizPlanInfo;
     private String reservoirName;
     private List<TaskItemBean> bizReservoirWorkOrderItems;
+
+    public String getWorkReportUrl() {
+        return workReportUrl;
+    }
+
+    public void setWorkReportUrl(String workReportUrl) {
+        this.workReportUrl = workReportUrl;
+    }
 
     public String getExecutorId() {
         return executorId;

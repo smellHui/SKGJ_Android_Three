@@ -171,19 +171,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.setting.voiceassistant.SpeakActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
-        <activity android:name=".view.maincommon.setting.voiceassistant.VoiceAssistantReadMeActivity"
-            android:screenOrientation="portrait"
-            />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.voiceassistant.VoiceAssistantReadMeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.setting.SuggestionActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.setting.ChangeKeyWordActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.main.question.problemlist.ProblemListActivity"
             android:launchMode="singleTop"
@@ -225,9 +225,9 @@
             android:name=".view.main.question.problemconfigure.ProblemConfigureListActivity"
             android:screenOrientation="portrait" />
         <!-- 天气预报 -->
-        <activity android:name=".view.weatherforecast.WeatherForecastActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.weatherforecast.WeatherForecastActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.reservoirs.detail.IntroduceOfReservoirsActivity"
             android:screenOrientation="portrait" />
@@ -252,26 +252,26 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.SafeRunningActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.setting.DutyActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.maincommon.setting.DutyActivity"
+            android:screenOrientation="portrait" />
         <!-- 通信录页面 -->
-        <activity android:name=".view.maincommon.setting.contacts.ContactsActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.train.TrainActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.reservoirs.detail.SafeRunningDetailActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.maincommon.setting.contacts.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.train.TrainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.SafeRunningDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.mainworker.report.EmergencyReportActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.mainworker.report.EmergenceShowDetailActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".view.mainworker.report.PlayLocalVedioActivity"
             android:screenOrientation="portrait" />
@@ -281,80 +281,84 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.VisitLogDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.reservoirs.detail.SupportingDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.reservoirs.detail.FloodDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maintechnology.yunwei.JiShuReportDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.reservoirs.detail.VedioListActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.SupportingDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.FloodDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maintechnology.yunwei.JiShuReportDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.VedioListActivity"
+            android:screenOrientation="portrait" />
         <!-- 工作通知列表页 -->
-        <activity android:name=".view.maincommon.setting.worknotification.worknotificationdetail.leader.WorkNotificationDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.worknotification.worknotificationlist.worker.WorkNotificatoinListWorkerActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.worknotification.worknotificationdetail.worker.WorkNotificationDetailWorkerActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.worknotification.worknotificationlist.leader.WorkNotificationListLeaderActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.train.TrainDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.mainadminister.yunwei.AdminOperationActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.mainadminister.yunwei.AdminOperationReportActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.worknotification.addworknotification.AddWorkNotificationActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.DownLoadActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.train.AddTrainActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.maincommon.setting.worknotification.worknotificationdetail.leader.WorkNotificationDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.worknotification.worknotificationlist.worker.WorkNotificatoinListWorkerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.worknotification.worknotificationdetail.worker.WorkNotificationDetailWorkerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.worknotification.worknotificationlist.leader.WorkNotificationListLeaderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.train.TrainDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mainadminister.yunwei.AdminOperationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mainadminister.yunwei.AdminOperationReportActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.worknotification.addworknotification.AddWorkNotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.DownLoadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.train.AddTrainActivity"
+            android:screenOrientation="portrait" />
         <!-- 多选水库 -->
-        <activity android:name=".view.maincommon.setting.worknotification.addworknotification.SelectReservorsActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maintechnology.threekeypoint.HistoryDataActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.mainworker.yunwei.workorderquestionlist.WorkOrderQuestionListActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.maincommon.setting.worknotification.addworknotification.SelectReservorsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maintechnology.threekeypoint.HistoryDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.mainworker.yunwei.workorderquestionlist.WorkOrderQuestionListActivity"
+            android:screenOrientation="portrait" />
         <!-- VR -->
-        <activity android:name=".view.mainworker.homepage.ReservoirVrActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.reservoirs.dvrapp.VideoSixinActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".view.mainworker.homepage.ReservoirVrActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.reservoirs.dvrapp.VideoSixinActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            />
+            android:screenOrientation="portrait" />
 
 
         <!-- 实时水位库容曲线 -->
-        <activity android:name=".view.mainworker.homepage.RealTimeWaterLevelStorageCapacityActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.maincommon.setting.ChoiceReservoirActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.mainworker.homepage.RealTimeWaterLevelStorageCapacityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maincommon.setting.ChoiceReservoirActivity"
+            android:screenOrientation="portrait" />
         <!--综合监控-图像站-图片详情-->
-        <activity android:name=".view.main.detail.imageshow.ImageShowActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.main.detail.imageshow.ImageShowActivity"
+            android:screenOrientation="portrait" />
+        <!--工单报告-->
+        <activity
+            android:name=".view.main.work.task.taskdetail.TaskWorkReportActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

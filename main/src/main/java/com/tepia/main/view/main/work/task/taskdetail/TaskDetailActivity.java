@@ -1,9 +1,12 @@
 package com.tepia.main.view.main.work.task.taskdetail;
 
 
+import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.UserManager;
 import android.support.annotation.Nullable;
@@ -11,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -49,11 +53,14 @@ import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
 import com.tepia.main.utils.PhoneTypeUtil;
 import com.tepia.main.utils.XiaomiDeviceUtil;
+import com.tepia.main.view.maincommon.setting.DownLoadActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.wbtech.ums.util.GetInfoFromFile.context;
 
 
 /**
@@ -157,10 +164,10 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     if (isFirstInitMap) {
                         if (currentPoint != null) {
                             if ("2".equals(taskBean.getExecuteStatus())) {
-                                mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale);
+                                mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale/4);
                             } else {
                                 if (positionPoint != null) {
-                                    mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale);
+                                    mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale/4);
                                 }
                             }
                         }
@@ -524,7 +531,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 mBinding.tvDoTask.setVisibility(View.VISIBLE);
                 if (taskBean.getExecuteId() != null && taskBean.getExecuteId().equals(com.tepia.main.model.user.UserManager.getInstance().getUserBean().getData().getUserCode())) {
                     mBinding.tvDoTask.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     mBinding.tvDoTask.setVisibility(View.GONE);
                 }
                 break;
@@ -537,6 +544,47 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 mBinding.tvTaskExecStatus.setText(ResUtils.getString(R.string.text_task_status_ysh));
                 mBinding.tvDoTask.setVisibility(View.GONE);
                 mBinding.loEditAndSend.setVisibility(View.GONE);
+                break;
+            case "5":
+                mBinding.tvTaskExecStatus.setText("已生成报告");
+                mBinding.tvDoTask.setVisibility(View.GONE);
+                mBinding.loEditAndSend.setVisibility(View.GONE);
+                if (!TextUtils.isEmpty(taskBean.getWorkReportUrl())) {
+                    mBinding.tvLookWorkReport.setVisibility(View.VISIBLE);
+                    mBinding.tvLookWorkReport.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (DoubleClickUtil.isFastDoubleClick()) {
+                                return;
+                            }
+//                            ARouter.getInstance()
+//                                    .build(AppRoutePath.app_task_work_report)
+//                                    .withString("workReportUrl",taskBean.getWorkReportUrl())
+//                                    .navigation();
+
+//                            final Intent intent = new Intent();
+//                            intent.setAction(Intent.ACTION_VIEW);
+//                            intent.setData(Uri.parse(taskBean.getWorkReportUrl()));
+//                            // 注意此处的判断intent.resolveActivity()可以返回显示该Intent的Activity对应的组件名
+//                            // 官方解释 : Name of the component implementing an activity that can display the intent
+//                            if (intent.resolveActivity(context.getPackageManager()) != null) {
+//                                final ComponentName componentName = intent.resolveActivity(context.getPackageManager());
+//                                // 打印Log   ComponentName到底是什么
+//
+//                                context.startActivity(Intent.createChooser(intent, "请选择浏览器"));
+//                            } else {
+//                                Toast.makeText(context.getApplicationContext(), "请下载浏览器", Toast.LENGTH_SHORT).show();
+//                            }
+
+//
+                            Intent intent = new Intent(getContext(), DownLoadActivity.class);
+                            DownLoadActivity.setIntent(intent,taskBean.getWorkReportUrl(),taskBean.getWorkReportUrl());
+                            getContext().startActivity(intent);
+                        }
+                    });
+                } else {
+                    mBinding.tvLookWorkReport.setVisibility(View.GONE);
+                }
                 break;
             case "0":
                 mBinding.tvTaskExecStatus.setText("未下发");

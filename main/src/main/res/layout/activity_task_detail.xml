@@ -27,10 +27,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingBottom="10dp"
                     android:paddingLeft="32dp"
-                    android:paddingRight="32dp"
                     android:paddingTop="10dp"
+                    android:paddingRight="32dp"
+                    android:paddingBottom="10dp"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="22sp" />
@@ -70,7 +70,7 @@
 
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <FrameLayout
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -81,10 +81,10 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="16dp"
                                 android:layout_marginLeft="32dp"
-                                android:layout_marginRight="32dp"
                                 android:layout_marginTop="5dp"
+                                android:layout_marginRight="32dp"
+                                android:layout_marginBottom="16dp"
                                 android:orientation="vertical">
 
 
@@ -148,10 +148,10 @@
                                             android:layout_marginLeft="8dp"
 
                                             android:background="@drawable/bg_lv_item_bt_rb"
-                                            android:paddingBottom="1dp"
                                             android:paddingLeft="5dp"
-                                            android:paddingRight="5dp"
                                             android:paddingTop="1dp"
+                                            android:paddingRight="5dp"
+                                            android:paddingBottom="1dp"
                                             android:text=""
                                             android:textColor="@color/white"
                                             android:textSize="12sp" />
@@ -171,7 +171,24 @@
                                 </LinearLayout>
                             </LinearLayout>
 
-                        </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_look_work_report"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right|bottom"
+                                android:layout_marginRight="32dp"
+                                android:layout_marginBottom="16dp"
+                                android:background="@drawable/bg_lv_item_bt_rb"
+                                android:paddingLeft="8dp"
+                                android:paddingTop="3dp"
+                                android:paddingRight="8dp"
+                                android:paddingBottom="3dp"
+                                android:text="查看报告"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:visibility="gone" />
+
+                        </FrameLayout>
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_task_item_list"
@@ -227,8 +244,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:gravity="center"
-                android:visibility="gone"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="3">
 
                 <TextView
