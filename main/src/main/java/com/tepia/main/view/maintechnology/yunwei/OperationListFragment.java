@@ -40,6 +40,7 @@ import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.yunwei.xunjian.YunWeiXunJianFragment;
 
+import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -460,13 +461,14 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
     }
 
     private void setSpanned(int doneNum,int totals){
-        int percent=0;
+        float percent=0;
         if (doneNum!=0&&totals!=0){
-            percent = doneNum*100/totals;
+            percent = (float)doneNum*100/totals;
         }
+        DecimalFormat df = new DecimalFormat("0.0");
         String str="当月"+typeName+"任务:<font color='#e3654d'>"+totals+"次</font>";
         String totalStr="完成"+typeName+":<font color='#e3654d'>"+doneNum+"次</font>";
-        String percentStr = "完成率:<font color='#e3654d'>"+percent+"%</font>";
+        String percentStr = "完成率:<font color='#e3654d'>"+df.format(percent)+"%</font>";
         Spanned result;
         Spanned complete;
         Spanned percentSd;
