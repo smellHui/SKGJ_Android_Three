@@ -41,4 +41,5 @@
 
     <color name="factor_value_color">#585858</color>
     <color name="theme_trans_30">#33000000</color>
+    <color name="theme_trans_30_share">#33000000</color>
 </resources>

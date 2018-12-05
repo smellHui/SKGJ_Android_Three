@@ -1,254 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/login_bg"
-    android:gravity="center"
-    android:orientation="vertical">
-
-
-    <!--    <include layout="@layout/toolbar" />-->
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo_head"
-             />
 
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
+        <!--    <include layout="@layout/toolbar" />-->
 
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="@string/main_name"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-             />
-
-        <TextView
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="水库安全管理三个责任人的好帮手"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-             />
-
-
-    </LinearLayout>
-
-
-    <!--  <View
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_weight="0.8" />-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/login_ly"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="center"
-            android:text="账号："
-            android:textColor="#273440"
-            android:textSize="@dimen/textsizeloginuser" />
 
         <LinearLayout
-
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="@dimen/margintop"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/bg_operation_tv"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/login_user_new" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo_head" />
 
-
-            <EditText
-                android:id="@+id/usernameEt"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="@string/hintstr"
-                android:text=""
+                android:layout_height="wrap_content"
 
-                android:textColor="@color/commmon_blue"
-                android:textColorHint="@color/text_color"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/main_name"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="水库安全管理三个责任人的好帮手"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
 
 
-                android:textSize="@dimen/textsizeloginuser" />
-            <!--ZYSYWZXGCXJ1-->
         </LinearLayout>
 
-        <FrameLayout
-            android:orientation="horizontal"
+
+        <!--  <View
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="0.8" />-->
+
+        <LinearLayout
+            android:visibility="visible"
+            android:id="@+id/allLy"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/login_ly"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="密码："
+                android:text="账号："
                 android:textColor="#273440"
                 android:textSize="@dimen/textsizeloginuser" />
 
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/margintop"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_operation_tv"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/login_user_new" />
+
+
+                <EditText
+                    android:id="@+id/usernameEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hintstr"
+                    android:text=""
+
+                    android:textColor="@color/commmon_blue"
+                    android:textColorHint="@color/text_color"
+
+
+                    android:textSize="@dimen/textsizeloginuser" />
+                <!--ZYSYWZXGCXJ1-->
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center"
+                    android:text="密码："
+                    android:textColor="#273440"
+                    android:textSize="@dimen/textsizeloginuser" />
+
+                <TextView
+                    android:id="@+id/foggetTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="忘记密码?"
+                    android:textColor="#259afd"
+                    android:textSize="@dimen/textsizeloginuser"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/margintop"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_operation_tv"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/login_ps_new" />
+
+
+                <EditText
+                    android:id="@+id/psEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hintps"
+                    android:inputType="textPassword"
+                    android:text=""
+                    android:textColor="@color/commmon_blue"
+                    android:textColorHint="@color/text_color"
+                    android:textSize="@dimen/textsizeloginuser" />
+                <!--123456-->
+            </LinearLayout>
+
             <TextView
-                android:visibility="gone"
-                android:id="@+id/foggetTv"
-                android:layout_gravity="right"
+                android:id="@+id/bt_login"
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/margintop"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_bt_start_yunwei"
+                android:gravity="center"
+                android:letterSpacing="0.5"
+                android:text="@string/text_login_bt_tip"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="25dp">
+
+                <LinearLayout
+                    android:id="@+id/lyhelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/helpTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:layout_marginBottom="10dp"
+                        android:text="在 线 帮 助"
+                        android:textColor="@color/commmon_blue"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="技术支持："
+                            android:textColor="#687b9b"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/telTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textColor="@color/commmon_blue"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/shareIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/lyhelp"
+                    android:src="@mipmap/threedownload_pic" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-                android:text="忘记密码?"
-                android:textColor="#259afd"
-                android:textSize="@dimen/textsizeloginuser" />
-
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="@string/design_company_name"
+                android:textColor="#b3ffffff"
+                android:textSize="14sp" />
         </FrameLayout>
 
 
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="@dimen/margintop"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/bg_operation_tv"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/login_ps_new" />
-
-
-            <EditText
-                android:id="@+id/psEt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="@string/hintps"
-                android:inputType="textPassword"
-                android:text=""
-                android:textColor="@color/commmon_blue"
-                android:textColorHint="@color/text_color"
-                android:textSize="@dimen/textsizeloginuser" />
-            <!--123456-->
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/bt_login"
-
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="@dimen/margintop"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_bt_start_yunwei"
-            android:gravity="center"
-            android:letterSpacing="0.5"
-            android:text="@string/text_login_bt_tip"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/helpTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_marginBottom="10dp"
-                android:text="在 线 帮 助"
-                android:textColor="@color/commmon_blue"
-                android:textSize="18sp" />
-            <LinearLayout
-                android:layout_gravity="center|bottom"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="技术支持："
-                    android:textColor="#687b9b"
-                    android:textSize="13sp" />
-                <TextView
-                    android:id="@+id/telTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="--"
-                    android:textColor="@color/commmon_blue"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
     </LinearLayout>
 
-    <FrameLayout
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible"
+        android:background="@color/theme_trans_30_share"
+        android:id="@+id/showShareFy"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/threedownload_pic" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="@string/design_company_name"
-            android:textColor="#b3ffffff"
-            android:textSize="14sp" />
-    </FrameLayout>
-
-
-</LinearLayout>
+            android:gravity="center"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:text="@string/downloadstr"
+            android:textColor="#ffffff"
+            android:textSize="22sp" />
+    </LinearLayout>
+</FrameLayout>

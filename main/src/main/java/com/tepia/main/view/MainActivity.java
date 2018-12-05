@@ -128,14 +128,15 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         }
 
 
-        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        /*mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onTabChanged(String tabId) {
                 LogUtil.e("-------------切换fragment--------");
-                updateData();
             }
-        });
+        });*/
+        updateData();
+
 
 
     }
@@ -231,6 +232,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     }
 
 
+    /**
+     * 更新水库信息
+     */
     private void updateData() {
         UserManager.getInstance_ADMIN().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>() {
             @Override
@@ -246,6 +250,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             @Override
             protected void _onError(String message) {
 //                ToastUtils.shortToast(message);
+                LogUtil.e("水库信息更新失败");
 
             }
         });

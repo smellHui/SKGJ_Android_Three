@@ -9,10 +9,13 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -52,6 +55,9 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     private TextView helpTv;
     private TextView foggetTv;
     private TextView telTv;
+    private ImageView shareIv;
+    private View showShareFy;
+    private View allLy;
 
     @Override
     public int getLayoutId() {
@@ -107,9 +113,23 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         foggetTv = findViewById(R.id.foggetTv);
         helpTv = findViewById(R.id.helpTv);
         telTv = findViewById(R.id.telTv);
+        shareIv = findViewById(R.id.shareIv);
+        showShareFy = findViewById(R.id.showShareFy);
+        showShareFy.setVisibility(View.GONE);
+        allLy = findViewById(R.id.allLy);
         foggetTv.setOnClickListener(this);
         helpTv.setOnClickListener(this);
         telTv.setOnClickListener(this);
+        shareIv.setOnClickListener(this);
+        showShareFy.setOnClickListener(this);
+        showShareFy.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                showShareFy.setVisibility(View.GONE);
+                allLy.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
         telTv.setText(ConfigConsts.Telphone);
 
         bt_login.setOnClickListener(view -> {
@@ -206,6 +226,10 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             Uri data = Uri.parse("tel:" + ConfigConsts.Telphone);
             intent.setData(data);
             startActivity(intent);
+        }else if(v.getId() == R.id.shareIv){
+            showShareFy.setVisibility(View.VISIBLE);
+            allLy.setVisibility(View.INVISIBLE);
+
         }
     }
 }
