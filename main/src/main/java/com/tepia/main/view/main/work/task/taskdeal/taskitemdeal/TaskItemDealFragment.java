@@ -518,8 +518,8 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
         ArrayList<String> selectPhotosAfter1= new ArrayList<>();
         selectPhotosAfter1.addAll(selectPhotosAfter);
         selectPhotosBefore1.addAll(selectPhotosBefore);
-        returnData.setFiles(selectPhotosBefore);
-        returnData.setEndfiles(selectPhotosAfter);
+        returnData.setFiles(selectPhotosBefore1);
+        returnData.setEndfiles(selectPhotosAfter1);
         return returnData;
     }
 
