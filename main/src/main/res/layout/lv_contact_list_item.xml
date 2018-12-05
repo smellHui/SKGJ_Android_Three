@@ -14,7 +14,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -26,8 +26,9 @@
                     android:src="@drawable/icon_worker_head_default" />
 
                 <LinearLayout
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="12dp"
                     android:orientation="vertical">
 
@@ -41,7 +42,7 @@
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="fdjasjsd"
+                            android:text="--"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
@@ -56,8 +57,43 @@
                             android:paddingRight="8dp"
                             android:paddingTop="2dp"
                             android:text="县级负责人"
-                            android:textColor="#2ba5ff"
-                            android:textSize="10dp" />
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textColor="#747a86"
+                        android:textSize="14sp" />
+
+                   <!-- <TextView
+                        android:id="@+id/tv_positoin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:background="@drawable/bg_contacts_positoin"
+                        android:paddingBottom="2dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:text="县级负责人"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />-->
 
                         <TextView
                             android:id="@+id/tv_positoin"
@@ -70,19 +106,9 @@
                             android:paddingRight="8dp"
                             android:paddingTop="2dp"
                             android:text="县级负责人"
-                            android:textColor="#2ba5ff"
-                            android:textSize="10dp" />
-
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tv_mobile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="fkajsdfjkas"
-                        android:textColor="#747a86"
-                        android:textSize="14dp" />
 
                 </LinearLayout>
             </LinearLayout>

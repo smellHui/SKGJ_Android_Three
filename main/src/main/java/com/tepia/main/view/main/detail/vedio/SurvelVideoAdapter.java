@@ -45,7 +45,7 @@ public class SurvelVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder view, VideoInfo item) {
-        view.setImageResource(R.id.iv_finish,R.drawable.jianjie_vedio);
+//        view.setImageResource(R.id.iv_finish,R.drawable.jianjie_vedio);
         if(TextUtils.isEmpty(item.getChaName().trim())){
             view.setText(R.id.tv_video_channelname, "--");
         }else {

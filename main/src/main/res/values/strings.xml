@@ -237,6 +237,9 @@
 
     <!--LHotelEntityAdapter中item setTag的key-->
     <item name="tag_groupItemIndex" type="id">groupItemIndex</item>
+    <string name="connection_is_false">连接失败,请返回 </string>
+    <string name="prompt">提示</string>
+    <string name="affirm_text">确认</string>
 
 
     <!--四信相关-->

@@ -196,6 +196,8 @@
         <activity
             android:name=".view.main.detail.vedio.VideoPlayActivity"
             android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".view.maincommon.reservoirs.detail.VideoPlayThreeActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"

@@ -60,7 +60,7 @@ import java.util.Locale;
  **/
 public class VideoSixinActivity extends BaseActivity {
     String ipAddr = "";
-    int port = 0;
+    int port = 10000;
     String deviceId = "";
     //String surl ="";
     String sRemark = "";
@@ -119,11 +119,16 @@ public class VideoSixinActivity extends BaseActivity {
 
             SharedPreferences sharedPreferences = getSharedPreferences(BaseCommonConstant.sConfigIPport, Context.MODE_PRIVATE);
             String serverIP = sharedPreferences.getString("weburl", "");
-            String serverPort = sharedPreferences.getString("serverport", "");
+//            String serverPort = sharedPreferences.getString("serverport", "");
+
+            if (extras.containsKey("serverurl")) {
+                serverIP = extras.getString("serverurl");
+            }
             //String webIP = sharedPreferences.getString("weburl","");
             //String webPort = sharedPreferences.getString("webport","");
             ipAddr = serverIP;
             port = 10000;
+
 
             deviceId = extras.getString("deviceId");
             //surl = extras.getString("surl");

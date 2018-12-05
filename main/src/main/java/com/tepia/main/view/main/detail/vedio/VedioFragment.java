@@ -1,14 +1,20 @@
 package com.tepia.main.view.main.detail.vedio;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hikvision.netsdk.HCNetSDK;
 import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
 import com.hikvision.netsdk.NET_DVR_IPPARACFG_V40;
@@ -21,10 +27,14 @@ import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.utils.EmptyLayoutUtil;
+import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.VideoPlayThreeActivity;
+import com.tepia.main.view.maincommon.reservoirs.dvrapp.VideoSixinActivity;
 
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +69,22 @@ public class VedioFragment extends BaseCommonFragment {
      */
     private String User = "admin";
     private String Psd = "tepia@com";
+    /**
+     * 0表示海康
+     * 1表示四信
+     * */
     private String accessType;
+    /**
+     * 四信相关信息
+     */
+    private String vedioname;
+    private String deviceId;
+
+    public static String iChannelAmt;
+    private String sRemark;
+    private String serverurl;
+    private String serverport = "10000";
+
 
     private NET_DVR_DEVICEINFO_V30 m_oNetDvrDeviceInfoV30 = null;
     private int iLogID;
@@ -89,34 +114,32 @@ public class VedioFragment extends BaseCommonFragment {
 
     @Override
     protected void initView(View mview) {
-        /*for (int i = 0; i < 6; i++) {
-            VideoInfo videoshuiwus = new VideoInfo(channel, "水库大坝"+i, "ok");
-            data_video.add(videoshuiwus);
-        }*/
-
-
         if (getArguments() != null && getArguments().containsKey(typekey_detail)) {
             VideoResponse.DataBean dataBean = (VideoResponse.DataBean) getArguments().getSerializable(typekey_detail);
             Ip = dataBean.getIp();
             User = dataBean.getAccount();
             Psd = dataBean.getPwd();
             accessType = dataBean.getAccessType();
+            vedioname = dataBean.getVsnm();
+            deviceId = dataBean.getDefaultDvrId();
+            iChannelAmt = dataBean.getChannelId();
+            serverurl = dataBean.getIp();
+//            serverport = String.valueOf(dataBean.getPort());
         }
-        /*Ip = "114.135.11.80";
-        User = "admin";
-        Psd = "tepia@com";
-        Port = 8019;
-        accessType = "0";*/
+//        Ip = "218.201.210.189";
+//        User = "admin";
+//        Psd = "tepia@com";
+
         if (!initSdk()) {
             return;
         }
         video_list_view = findView(R.id.video_list_view);
-        video_list_view.setLayoutManager(new LinearLayoutManager(getBaseActivity()));
+        video_list_view.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new SurvelVideoAdapter(getBaseActivity(), R.layout.adapter_video_items, data_video);
         video_list_view.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter, view, position) -> {
             if( "0".equals(accessType)) {
-                Intent intent = new Intent();
+                /*Intent intent = new Intent();
                 intent.setClass(getBaseActivity(), VideoPlayActivity.class);
                 intent.putExtra("m_iLogID", m_iLogID);
                 intent.putExtra("m_iStartChan", m_iStartChan);
@@ -125,18 +148,54 @@ public class VedioFragment extends BaseCommonFragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("video_list", (Serializable) data_video);
                 intent.putExtras(bundle);
+                startActivity(intent);*/
+
+                Intent intent = new Intent();
+                intent.setClass(getBaseActivity(), VideoPlayThreeActivity.class);
+                intent.putExtra("m_iLogID", m_iLogID);
+                intent.putExtra("m_iStartChan", m_iStartChan);
+                intent.putExtra("m_iChanNum", data_video.get(position).getId());
+                intent.putExtra("position", position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("video_list", (Serializable) data_video);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }else if("1".equals(accessType)){
+              /*  Intent intent = new Intent();
+                intent.setClass(getBaseActivity(), VideoOfFourFaithActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("deviceId", deviceId);
+                bundle.putString("sRemark", "");
+                bundle.putString("serverurl", serverurl);
+                bundle.putString("serverport", serverport);
+                bundle.putInt("iChannelAmt", Integer.valueOf(iChannelAmt));
+                intent.putExtras(bundle);
+                startActivity(intent);*/
+
+                Intent intent = new Intent(getBaseActivity(), VideoSixinActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("deviceId", deviceId);
+                bundle.putString("sRemark", vedioname);
+                bundle.putInt("iChannelAmt", Integer.valueOf(iChannelAmt));
+                bundle.putString("serverurl", serverurl);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }else{
-                // TODO: 2018/8/2 解锁
-                ToastUtils.longToast("视频正在接入中");
+                ToastUtils.longToast("该视频类型正在接入中");
+
             }
         });
         if("0".equals(accessType)) {
             simpleLoadDialog = new SimpleLoadDialog(getBaseActivity(), getString(R.string.data_loading), true);
             simpleLoadDialog.show();
             new LoadDataTask().execute(Constant.Video.LOAD_SUCCESS);
+        }else if("1".equals(accessType)){
+            videoshuiwus = new VideoInfo(Integer.valueOf(iChannelAmt), vedioname, "ok");
+            data_video.add(videoshuiwus);
+            adapter.notifyDataSetChanged();
         }else{
-            adapter.setEmptyView(EmptyLayoutUtil.show("视频正在接入中"));
+            adapter.setEmptyView(EmptyLayoutUtil.show("该视频类型正在接入中"));
         }
     }
 
@@ -155,7 +214,7 @@ public class VedioFragment extends BaseCommonFragment {
         if (data != null) {
             adapter.notifyDataSetChanged();
         }else{
-            adapter.setEmptyView(EmptyLayoutUtil.show("视频正在接入中"));
+            adapter.setEmptyView(EmptyLayoutUtil.show("该视频类型正在接入中"));
         }
 
     }
@@ -310,12 +369,9 @@ public class VedioFragment extends BaseCommonFragment {
             int w = HCNetSDK.getInstance().NET_DVR_GetLastError();
             try {
                 String s = new String(DVR_Piccfg.sChanName, "GB2312");
-                if(!TextUtils.isEmpty(s.trim())){
-                    videoshuiwus = new VideoInfo(channel, s, "ok");
-                    data_video.add(videoshuiwus);
-                    channel++;
-
-                }
+                videoshuiwus = new VideoInfo(channel, s, "ok");
+                channel++;
+                data_video.add(videoshuiwus);
 
 
             } catch (UnsupportedEncodingException e) {
@@ -325,18 +381,19 @@ public class VedioFragment extends BaseCommonFragment {
                 }
             }
         }
+        if (data_video.size() == 15) {
+            getBaseActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
 
-        getBaseActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                showData(data_video);
-                if (simpleLoadDialog != null) {
-                    simpleLoadDialog.dismiss();
+                    showData(data_video);
+                    if (simpleLoadDialog != null) {
+                        simpleLoadDialog.dismiss();
+                    }
                 }
-            }
 
-        });
+            });
+        }
 
     }
 }

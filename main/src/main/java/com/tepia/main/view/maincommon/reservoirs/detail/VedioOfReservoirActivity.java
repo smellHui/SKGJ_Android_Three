@@ -850,7 +850,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
     }*/
 
     // 当AdapterView被单击(触摸屏或者键盘)，则返回的Item单击事件
-    class ItemClickListener implements AdapterView.OnItemClickListener {
+    /*class ItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -875,7 +875,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
             } catch (Exception e) {
             }
         }
-    }
+    }*/
 
     //写个内部类，Post里面放一些服务器需要的参数
     class PostResquest extends com.android.volley.toolbox.StringRequest {

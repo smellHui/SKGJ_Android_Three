@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1e2228"
+    >
+
+    <include layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/SurfaceViewAndLoading"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <SurfaceView
+            android:id="@+id/SurfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:id="@+id/ItemImageBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <com.tepia.main.view.maincommon.reservoirs.dvrapp.RadioGroupEx
+            android:id="@+id/video_channel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+            <RadioButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/channel1"
+                android:textSize="15sp"
+                android:text="@string/channel_1_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="true"
+                android:tag="0"
+
+                 />
+            <RadioButton
+
+                android:id="@+id/channel2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/channel_2_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="1"
+
+                />
+            <RadioButton
+                android:id="@+id/channel3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/channel_3_text"
+                android:textSize="15sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="2"
+
+                />
+            <RadioButton
+                android:id="@+id/channel4"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/channel_4_text"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:drawablePadding="5dp"
+                android:tag="3"
+
+                />
+            <RadioButton
+                android:id="@+id/channel5"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/channel_5_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="false"
+                android:tag="4"
+
+                />
+            <RadioButton
+                android:id="@+id/channel6"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/channel_6_text"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="5"
+
+                />
+            <RadioButton
+                android:id="@+id/channel7"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/channel_7_text"
+                android:textSize="15sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:tag="6"
+
+                />
+            <RadioButton
+                android:id="@+id/channel8"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/channel_8_text"
+                android:textColor="@color/factor_value_color"
+                android:button="@null"
+                android:checked="false"
+                android:paddingLeft="15dp"
+                android:drawablePadding="5dp"
+                android:tag="7"
+
+                />
+
+
+        </com.tepia.main.view.maincommon.reservoirs.dvrapp.RadioGroupEx>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+<!--
+    android:layout_width="82dp"
+-->

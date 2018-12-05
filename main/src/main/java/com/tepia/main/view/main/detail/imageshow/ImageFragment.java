@@ -290,27 +290,24 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
 
 
             }
-           /* ArrayList<String> pathlist = new ArrayList<>();
-            pathlist.add(adapterPatrolLoggerList.getFileServerUrl() + dataList.get(position).getPicpath());*/
-
-          /*  for(int i = 0;i < dataList.size(); i++){
+            ArrayList<String> pathlist = new ArrayList<>();
+            for(int i = 0;i < dataList.size(); i++){
                 pathlist.add(adapterPatrolLoggerList.getFileServerUrl() + dataList.get(i).getPicpath());
             }
-            LogUtil.e("图片地址",pathlist.get(0));
             PhotoPreview.builder()
                     .setPhotos(pathlist)
                     .setShowDeleteButton(false)
                     .setCurrentItem(position)
-                    .start(getBaseActivity(), ImageFragment.this);*/
+                    .start(getBaseActivity(), ImageFragment.this);
 
 
 
-            Intent intent = new Intent();
+          /*  Intent intent = new Intent();
             intent.setClass(getContext(),ImageShowActivity.class);
             intent.putParcelableArrayListExtra("girls",dataList);
             intent.putExtra("current",position);
             intent.putExtra("fileurl",adapterPatrolLoggerList.getFileServerUrl());
-            startActivity(intent);
+            startActivity(intent);*/
         });
         adapterPatrolLoggerList.setOnLoadMoreListener(() -> {
             baseinfoRecV.postDelayed(() -> {

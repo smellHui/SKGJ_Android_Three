@@ -98,7 +98,7 @@ android {
     //配置自定义打包名
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "水库管家_v${defaultConfig.versionName}_${releaseTime()}.apk"
+            outputFileName = "水库管家三个责任人_v${defaultConfig.versionName}_${releaseTime()}.apk"
         }
     }
     repositories {

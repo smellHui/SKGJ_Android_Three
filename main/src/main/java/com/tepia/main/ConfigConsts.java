@@ -21,7 +21,6 @@ public class ConfigConsts {
      * glide参数配置
      */
     public static final RequestOptions options = new RequestOptions()
-            .override(800,800)
             .placeholder(R.mipmap.icon_empty)
             .error(R.mipmap.icon_empty)
             .priority(Priority.HIGH)
