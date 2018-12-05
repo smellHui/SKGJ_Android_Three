@@ -171,6 +171,8 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                     TaskItemDealFragment.ReturnData data = taskItemDealFragment.getDealContent();
                     if (data.isFinish()) {
                         if (currentPoint != null) {
+                            taskItemDealFragment.selectPhotosBefore.clear();
+                            taskItemDealFragment.selectPhotosAfter.clear();
                             LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), currentPoint.getX() + "",

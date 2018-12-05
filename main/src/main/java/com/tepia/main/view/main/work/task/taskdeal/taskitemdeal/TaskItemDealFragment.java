@@ -55,10 +55,10 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
     private String etDescStr;
 
     private PhotoSelectAdapter photoRecycleViewAdapterBefore;
-    private ArrayList<String> selectPhotosBefore = new ArrayList<>();
+    public ArrayList<String> selectPhotosBefore = new ArrayList<>();
     private boolean isBefore = true;
     private PhotoSelectAdapter photoRecycleViewAdapterAfter;
-    private ArrayList<String> selectPhotosAfter = new ArrayList<>();
+    public ArrayList<String> selectPhotosAfter = new ArrayList<>();
     private List<ImageInfoBean> imagListBefore = new ArrayList<>();
     private List<ImageInfoBean> imagListAfter = new ArrayList<>();
     private TaskBean taskBean;
@@ -333,13 +333,13 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                                 .setShowCamera(true)
                                 .setPreviewEnabled(true)
                                 .setSelected(selectPhotosBefore)
-                                .start(getBaseActivity(), TaskItemDealFragment.this);
+                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
                     } else {
                         PhotoPreview.builder()
                                 .setPhotos(photoRecycleViewAdapterBefore.getPhotoPaths())
                                 .setCurrentItem(position)
                                 .setShowDeleteButton(false)
-                                .start(getBaseActivity(), TaskItemDealFragment.this);
+                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
                     }
                 }
             });
@@ -391,12 +391,12 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                                 .setShowCamera(true)
                                 .setPreviewEnabled(true)
                                 .setSelected(selectPhotosAfter)
-                                .start(getBaseActivity(), TaskItemDealFragment.this);
+                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
                     } else {
                         PhotoPreview.builder()
                                 .setPhotos(photoRecycleViewAdapterAfter.getPhotoPaths())
                                 .setCurrentItem(position)
-                                .start(getBaseActivity(), TaskItemDealFragment.this);
+                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
                     }
 
                 }
@@ -409,7 +409,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
-        if (resultCode == RESULT_OK && (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+        if (resultCode == RESULT_OK && (requestCode == taskItemBean.getReservoirSuperviseSequence() || requestCode == taskItemBean.getReservoirSuperviseSequence())) {
             List<String> photos = null;
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
@@ -514,6 +514,10 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
         returnData.setExDesc(etDescStr);
         returnData.setLgtd("12");
         returnData.setLttd("12");
+        ArrayList<String> selectPhotosBefore1= new ArrayList<>();
+        ArrayList<String> selectPhotosAfter1= new ArrayList<>();
+        selectPhotosAfter1.addAll(selectPhotosAfter);
+        selectPhotosBefore1.addAll(selectPhotosBefore);
         returnData.setFiles(selectPhotosBefore);
         returnData.setEndfiles(selectPhotosAfter);
         return returnData;
