@@ -122,12 +122,19 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         telTv.setOnClickListener(this);
         shareIv.setOnClickListener(this);
         showShareFy.setOnClickListener(this);
-        showShareFy.setOnTouchListener(new View.OnTouchListener() {
+        /*showShareFy.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 showShareFy.setVisibility(View.GONE);
                 allLy.setVisibility(View.VISIBLE);
                 return false;
+            }
+        });*/
+        showShareFy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showShareFy.setVisibility(View.GONE);
+                allLy.setVisibility(View.VISIBLE);
             }
         });
         telTv.setText(ConfigConsts.Telphone);

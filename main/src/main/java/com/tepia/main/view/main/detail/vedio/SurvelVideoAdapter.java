@@ -52,8 +52,7 @@ public class SurvelVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHold
             LogUtil.e("视频名称："+item.getChaName());
             view.setText(R.id.tv_video_channelname, item.getChaName().toString());
         }
-        int position = view.getAdapterPosition()+ 1;
-        view.setText(R.id.nameOfreservoirTv, "第"+ position +"组");
+        view.setText(R.id.nameOfreservoirTv, "--");
 
 
     }

@@ -1,20 +1,13 @@
 package com.tepia.main.view.main.detail.vedio;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hikvision.netsdk.HCNetSDK;
 import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
 import com.hikvision.netsdk.NET_DVR_IPPARACFG_V40;
@@ -27,14 +20,12 @@ import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.utils.EmptyLayoutUtil;
-import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VideoPlayThreeActivity;
 import com.tepia.main.view.maincommon.reservoirs.dvrapp.VideoSixinActivity;
 
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +71,7 @@ public class VedioFragment extends BaseCommonFragment {
     private String vedioname;
     private String deviceId;
 
-    public static String iChannelAmt;
+    public static String currentChannelId;
     private String sRemark;
     private String serverurl;
     private String serverport = "10000";
@@ -90,7 +81,6 @@ public class VedioFragment extends BaseCommonFragment {
     private int iLogID;
     private VideoInfo videoshuiwus;
     private String result;
-    private int channel = 0;
 
 
     private SimpleLoadDialog simpleLoadDialog;
@@ -122,7 +112,7 @@ public class VedioFragment extends BaseCommonFragment {
             accessType = dataBean.getAccessType();
             vedioname = dataBean.getVsnm();
             deviceId = dataBean.getDefaultDvrId();
-            iChannelAmt = dataBean.getChannelId();
+            currentChannelId = dataBean.getChannelId();
             serverurl = dataBean.getIp();
 //            serverport = String.valueOf(dataBean.getPort());
         }
@@ -151,11 +141,12 @@ public class VedioFragment extends BaseCommonFragment {
                 startActivity(intent);*/
 
                 Intent intent = new Intent();
+                int channelReally = data_video.get(position).getId();
                 intent.setClass(getBaseActivity(), VideoPlayThreeActivity.class);
                 intent.putExtra("m_iLogID", m_iLogID);
                 intent.putExtra("m_iStartChan", m_iStartChan);
-                intent.putExtra("m_iChanNum", data_video.get(position).getId());
-                intent.putExtra("position", position);
+                intent.putExtra("m_iChanNum", channelReally);
+                intent.putExtra("position", channelReally);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("video_list", (Serializable) data_video);
                 intent.putExtras(bundle);
@@ -169,7 +160,7 @@ public class VedioFragment extends BaseCommonFragment {
                 bundle.putString("sRemark", "");
                 bundle.putString("serverurl", serverurl);
                 bundle.putString("serverport", serverport);
-                bundle.putInt("iChannelAmt", Integer.valueOf(iChannelAmt));
+                bundle.putInt("currentChannelId", Integer.valueOf(currentChannelId));
                 intent.putExtras(bundle);
                 startActivity(intent);*/
 
@@ -177,7 +168,7 @@ public class VedioFragment extends BaseCommonFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("deviceId", deviceId);
                 bundle.putString("sRemark", vedioname);
-                bundle.putInt("iChannelAmt", Integer.valueOf(iChannelAmt));
+                bundle.putInt("currentChannelId", Integer.valueOf(currentChannelId));
                 bundle.putString("serverurl", serverurl);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -191,7 +182,7 @@ public class VedioFragment extends BaseCommonFragment {
             simpleLoadDialog.show();
             new LoadDataTask().execute(Constant.Video.LOAD_SUCCESS);
         }else if("1".equals(accessType)){
-            videoshuiwus = new VideoInfo(Integer.valueOf(iChannelAmt), vedioname, "ok");
+            videoshuiwus = new VideoInfo(Integer.valueOf(currentChannelId), vedioname, "ok");
             data_video.add(videoshuiwus);
             adapter.notifyDataSetChanged();
         }else{
@@ -362,16 +353,19 @@ public class VedioFragment extends BaseCommonFragment {
         NET_DVR_IPPARACFG_V40 DVR_Config = new NET_DVR_IPPARACFG_V40();
         Boolean bb = HCNetSDK.getInstance().NET_DVR_GetDVRConfig(iLogID, HCNetSDK.NET_DVR_GET_IPPARACFG_V40, 0,
                 DVR_Config);
-        for (int i = 0; i < 15; i++) {
+        /*for (int i = 0; i < 15; i++) {
             NET_DVR_PICCFG_V30 DVR_Piccfg = new NET_DVR_PICCFG_V30();
             Boolean cc = HCNetSDK.getInstance().NET_DVR_GetDVRConfig(iLogID, HCNetSDK.NET_DVR_GET_PICCFG_V30,
                     DVR_Config.dwStartDChan + i, DVR_Piccfg);
             int w = HCNetSDK.getInstance().NET_DVR_GetLastError();
             try {
-                String s = new String(DVR_Piccfg.sChanName, "GB2312");
-                videoshuiwus = new VideoInfo(channel, s, "ok");
+                if(channel == Integer.valueOf(currentChannelId)) {
+                    String s = new String(DVR_Piccfg.sChanName, "GB2312");
+                    videoshuiwus = new VideoInfo(Integer.valueOf(currentChannelId), s, "ok");
+                    data_video.add(videoshuiwus);
+                }
                 channel++;
-                data_video.add(videoshuiwus);
+
 
 
             } catch (UnsupportedEncodingException e) {
@@ -380,20 +374,34 @@ public class VedioFragment extends BaseCommonFragment {
                     simpleLoadDialog.dismiss();
                 }
             }
-        }
-        if (data_video.size() == 15) {
-            getBaseActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+        }*/
+        int channel_id  = Integer.valueOf(currentChannelId);
+        NET_DVR_PICCFG_V30 DVR_Piccfg = new NET_DVR_PICCFG_V30();
+        Boolean cc = HCNetSDK.getInstance().NET_DVR_GetDVRConfig(iLogID, HCNetSDK.NET_DVR_GET_PICCFG_V30,
+                DVR_Config.dwStartDChan + channel_id, DVR_Piccfg);
+        int w = HCNetSDK.getInstance().NET_DVR_GetLastError();
+        try {
+                String s = new String(DVR_Piccfg.sChanName, "GB2312");
+                videoshuiwus = new VideoInfo(channel_id, vedioname, "ok");
+                data_video.add(videoshuiwus);
 
-                    showData(data_video);
-                    if (simpleLoadDialog != null) {
-                        simpleLoadDialog.dismiss();
-                    }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            if (simpleLoadDialog != null) {
+                simpleLoadDialog.dismiss();
+            }
+        }
+        getBaseActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                showData(data_video);
+                if (simpleLoadDialog != null) {
+                    simpleLoadDialog.dismiss();
                 }
+            }
 
-            });
-        }
+        });
 
     }
 }

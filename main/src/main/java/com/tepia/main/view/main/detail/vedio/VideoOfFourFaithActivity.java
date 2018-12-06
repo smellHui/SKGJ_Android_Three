@@ -108,13 +108,13 @@ public class VideoOfFourFaithActivity extends BaseActivity
 
             deviceId = extras.getString("deviceId");
             sRemark = extras.getString("sRemark");
-            iChannelAmt = extras.getInt("iChannelAmt");
+            iChannelAmt = extras.getInt("currentChannelId");
             setCenterTitle(sRemark);
             showBack();
 
             if (iChannelAmt == 8)
             {
-                System.out.println("[VideoActivity.onCreate]iChannelAmt == 8  " + iChannelAmt);
+                System.out.println("[VideoActivity.onCreate]currentChannelId == 8  " + iChannelAmt);
             }
             VideoAPI oVideoActivity = new VideoAPI();
             iViewChannel = 0;
@@ -123,7 +123,7 @@ public class VideoOfFourFaithActivity extends BaseActivity
             System.out.println("[VideoActivity.onCreate]port  " + port);
             System.out.println("[VideoActivity.onCreate]deviceId  " + deviceId);
             System.out.println("[VideoActivity.onCreate]sRemark  " + sRemark);
-            System.out.println("[VideoActivity.onCreate]iChannelAmt  " + iChannelAmt);
+            System.out.println("[VideoActivity.onCreate]currentChannelId  " + iChannelAmt);
 
 
             oVideoActivity.initCreate(ipAddr, port, deviceId, iViewChannel);

@@ -133,14 +133,14 @@ public class VideoSixinActivity extends BaseActivity {
             deviceId = extras.getString("deviceId");
             //surl = extras.getString("surl");
             sRemark = extras.getString("sRemark");
-            iChannelAmt = extras.getInt("iChannelAmt");
+            iChannelAmt = extras.getInt("currentChannelId");
 
             deviceName.setText(sRemark);
             setCenterTitle(sRemark);
             showBack();
 
             if (iChannelAmt == 8) {
-                LogUtil.e("[VideoSixinActivity.onCreate]iChannelAmt == 8  " + iChannelAmt);
+                LogUtil.e("[VideoSixinActivity.onCreate]currentChannelId == 8  " + iChannelAmt);
             } else {
             }
             VideoAPI oVideoActivity = new VideoAPI();
@@ -152,7 +152,7 @@ public class VideoSixinActivity extends BaseActivity {
             LogUtil.e("[VideoSixinActivity.onCreate]port  " + port);
             LogUtil.e("[VideoSixinActivity.onCreate]deviceId  " + deviceId);
             LogUtil.e("[VideoSixinActivity.onCreate]sRemark  " + sRemark);
-            LogUtil.e("[VideoSixinActivity.onCreate]iChannelAmt  " + iChannelAmt);
+            LogUtil.e("[VideoSixinActivity.onCreate]currentChannelId  " + iChannelAmt);
 
 
             oVideoActivity.initCreate(ipAddr, port, deviceId, iViewChannel);

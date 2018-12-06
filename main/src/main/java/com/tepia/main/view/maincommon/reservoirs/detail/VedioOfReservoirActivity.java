@@ -115,18 +115,20 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
 
                 if ("0".equals(accessType)) {
                     channelId = dataBean.getChannelId();
-                    int channelReally = Integer.valueOf(channelId) - 1;
+                    int channelReally = Integer.valueOf(channelId);
                     LogUtil.e(TAG, "channeId为" + channelId);
                     //海康视频
                     List<VideoInfo> videoInfos = new ArrayList<>();
 
-                    if (channelReally < data_video.size() && channelReally > 0) {
+                    /*if (channelReally < data_video.size() && channelReally > 0) {
                         videoInfos.add(data_video.get(channelReally));
                     } else {
                         ToastUtils.shortToast("暂无指定视频接入");
                         return;
-                    }
+                    }*/
 
+                    VideoInfo videoInfo = new VideoInfo(channelReally,dataBean.getVsnm(),"ok");
+                    videoInfos.add(videoInfo);
 
                     if (videoInfos != null && videoInfos.size() > 0) {
                         Intent intent = new Intent();
@@ -158,7 +160,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                             Bundle bundle = new Bundle();
                             bundle.putString("deviceId", objectDevices.deviceId);
                             bundle.putString("sRemark", objectDevices.deviceName);
-                            bundle.putInt("iChannelAmt", objectDevices.channelAmt);
+                            bundle.putInt("currentChannelId", objectDevices.channelAmt);
                             intent.putExtras(bundle);
                             startActivity(intent);
 
@@ -174,7 +176,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                     Bundle bundle = new Bundle();
                     bundle.putString("deviceId", defaultDvrId);
                     bundle.putString("sRemark", dataBean.getVsnm());
-                    bundle.putInt("iChannelAmt", Integer.valueOf(dataBean.getChannelId()));
+                    bundle.putInt("currentChannelId", Integer.valueOf(dataBean.getChannelId()));
                     intent.putExtras(bundle);
                     startActivity(intent);
 
@@ -306,7 +308,6 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
     private int iLogID;
     private VideoInfo videoshuiwus;
     private String result;
-    private int channel = 0;
 
 
     private SimpleLoadDialog simpleLoadDialog;
@@ -467,16 +468,15 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
         NET_DVR_IPPARACFG_V40 DVR_Config = new NET_DVR_IPPARACFG_V40();
         Boolean bb = HCNetSDK.getInstance().NET_DVR_GetDVRConfig(iLogID, HCNetSDK.NET_DVR_GET_IPPARACFG_V40, 0,
                 DVR_Config);
-        for (int i = 0; i < 15; i++) {
+        for (int i = 1; i < 16; i++) {
             NET_DVR_PICCFG_V30 DVR_Piccfg = new NET_DVR_PICCFG_V30();
             Boolean cc = HCNetSDK.getInstance().NET_DVR_GetDVRConfig(iLogID, HCNetSDK.NET_DVR_GET_PICCFG_V30,
                     DVR_Config.dwStartDChan + i, DVR_Piccfg);
             int w = HCNetSDK.getInstance().NET_DVR_GetLastError();
             try {
                 String s = new String(DVR_Piccfg.sChanName, "GB2312");
-                videoshuiwus = new VideoInfo(channel, s, "ok");
+                videoshuiwus = new VideoInfo(i, s, "ok");
                 data_video.add(videoshuiwus);
-                channel++;
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -865,7 +865,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
             Bundle bundle = new Bundle();
             bundle.putString("deviceId", deviceId);
             bundle.putString("sRemark", lstDevice.get(position).deviceName);
-            bundle.putInt("iChannelAmt", lstDevice.get(position).channelAmt);
+            bundle.putInt("currentChannelId", lstDevice.get(position).channelAmt);
             intent.putExtras(bundle);
             startActivity(intent);
 

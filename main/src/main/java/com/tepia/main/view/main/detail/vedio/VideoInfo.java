@@ -9,13 +9,13 @@ import java.io.Serializable;
  */
 public class VideoInfo implements Serializable {
 
-	private int id;
+	private int channelID;
 	private String data;
 	private String chaName;
 	private String chaStatus;
 
-	public VideoInfo(int id, String chaName, String chaStatus) {
-		this.id = id;
+	public VideoInfo(int channelID, String chaName, String chaStatus) {
+		this.channelID = channelID;
 		this.chaName = chaName;
 		this.chaStatus = chaStatus;
 	}
@@ -29,11 +29,11 @@ public class VideoInfo implements Serializable {
 	}
 
 	public int getId() {
-		return id;
+		return channelID;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.channelID = id;
 	}
 
 	public String getChaName() {
@@ -55,7 +55,7 @@ public class VideoInfo implements Serializable {
 	@Override
 	public String toString() {
 		return "Video{" +
-				"id=" + id +
+				"id=" + channelID +
 				", chaName='" + chaName + '\'' +
 				", chaStatus='" + chaStatus + '\'' +
 				'}';
