@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.inpor.fastmeetingcloud.manager.LoginManager;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;

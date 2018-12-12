@@ -31,8 +31,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.gaodelibrary.UtilsContextOfGaode;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.inpor.fastmeetingcloud.base.BaseFragment;
-import com.inpor.fastmeetingcloud.receiver.HstApplication;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
@@ -76,7 +74,7 @@ import cn.jpush.android.api.JPushInterface;
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
         private TabFragmentHost mTabHost;
-//    private FragmentTabHost mTabHost;
+    private FragmentTabHost mTabHost1;
 
     /**
      * 锁屏相关
@@ -91,7 +89,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
      */
     private String valuestr;
     private BadgeView badgeView;
-
 
     @Override
     public int getLayoutId() {
@@ -111,7 +108,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     private void setNewBottom() {
 
         mTabHost = findViewById(R.id.maintabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
+        //给mtabHos设置父容器。设置标签页对应的内容
+        mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
         if (UserManager.getInstance().getMenuList() != null) {
             TabMainFragmentFactory.getInstance().setMenuData(UserManager.getInstance().getMenuList());
@@ -127,6 +125,10 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     fragments.get(i).getClass(), null);
         }
 
+        if(fragments.size() == 0){
+            mTabHost.addTab(null,
+                    null, null);
+        }
 
         /*mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

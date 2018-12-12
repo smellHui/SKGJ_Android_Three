@@ -292,7 +292,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (!reservoirId.equals(defaultReservoir.getReservoirId())){
+                if (reservoirId != null && !reservoirId.equals(defaultReservoir.getReservoirId())){
                     tvReservoirName.setText(defaultReservoir.getReservoir());
                     reservoirName = defaultReservoir.getReservoir();
                     reservoirId = defaultReservoir.getReservoirId();

@@ -5,20 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- <com.tepia.base.common.HorizontalViewPager
-         android:layout_above="@+id/bottom_tab_bar"
-         android:id="@+id/viewPagers"
-         android:layout_width="match_parent"
-         android:layout_height="0dp"
-         android:layout_weight="1"
-         />
- -->
-    <!-- <View
-         android:layout_width="match_parent"
-         android:layout_height="1px"
-         android:background="#eeeeee" />-->
-
-
     <com.tepia.main.TabFragmentHost
         android:id="@+id/maintabhost"
         android:layout_width="match_parent"
@@ -32,16 +18,11 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/realtabcontent"
+                android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="0" />
 
             <View
                 android:layout_width="match_parent"
@@ -77,18 +58,17 @@
                     android:layout_weight="4" />
 
                 <TextView
-                    android:layout_marginRight="10dp"
                     android:id="@+id/badgeView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity=""
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
 
         </RelativeLayout>
 
-    </com.tepia.main.TabFragmentHost>>
-
+    </com.tepia.main.TabFragmentHost>
 
 </LinearLayout>

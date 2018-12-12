@@ -2,6 +2,10 @@ package com.tepia.main;
 
 /**
  * 避免fragment重载
+ *
+ * FragmentTabHost不保存状态时因为切换Fragment时使用detach和attach来隐藏和显示Fragment的，
+ * 所以导致每次切换都会重新CreateView，我们可以重写FragmentTabHost类，
+ * 将其中的detach和attach方法替换为hide和show，这样就可以保存状态了。
  * Created by BLiYing on 2018/7/16.
  */
 

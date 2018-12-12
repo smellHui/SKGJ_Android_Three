@@ -49,7 +49,7 @@ public class ConfigConsts {
     public static String regisid_jiguang = "regisid_jiguang";
     public static String emergence = "emergence";
     public static String TECHNOLOGRROLE = "210";
-    public static final String Telphone = "400152230";
+    public static final String Telphone = "4001522300";
 
 
 }

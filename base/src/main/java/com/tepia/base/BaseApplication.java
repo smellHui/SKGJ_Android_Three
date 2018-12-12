@@ -29,7 +29,7 @@ public class BaseApplication extends LitePalApplication {
         super.onCreate();
         instance = this;
         appInit();
-        LogUtil.isDebug = true;
+        LogUtil.isDebug = false;
         //初始化全局context,不允许删除
         Utils.init(this);
 
