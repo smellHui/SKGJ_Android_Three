@@ -18,7 +18,9 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/jianjiemarginleft"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginRight="@dimen/jianjiemarginleft"
+            android:layout_marginBottom="5dp"
             android:text="历史数据"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -30,7 +32,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"

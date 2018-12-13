@@ -31,10 +31,12 @@
                 android:id="@+id/tv_train_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/jianjiemarginleft"
+                android:layout_marginLeft="@dimen/jianjiemarginleft"
+                android:layout_marginRight="@dimen/jianjiemarginleft"
                 android:text="水库安全管理技能培训"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:gravity="center"
                 android:textStyle="bold" />
 
             <TextView
@@ -96,18 +98,17 @@
 
             <View
                 android:layout_width="match_parent"
-
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/jianjiemarginleft"
+                android:layout_marginLeft="@dimen/jianjiemarginleft"
+                android:layout_marginRight="@dimen/jianjiemarginleft"
                 android:background="@color/text_color" />
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/jianjiemarginbottom"
                 android:layout_marginLeft="@dimen/jianjiemarginleft"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="培训内容"
                 android:textColor="@color/black"
@@ -129,7 +130,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_margin="@dimen/jianjiemarginleft"
+                android:layout_marginLeft="@dimen/jianjiemarginleft"
+                android:layout_marginRight="@dimen/jianjiemarginleft"
                 android:background="@color/text_color" />
 
             <TextView
@@ -138,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/jianjiemarginbottom"
                 android:layout_marginLeft="@dimen/jianjiemarginleft"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="培训附件"
                 android:textColor="@color/black"
