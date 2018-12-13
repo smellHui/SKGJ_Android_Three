@@ -139,7 +139,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         });*/
         updateData();
 
-
+        mTabHost.setOnTabChangedListener(tabId -> {
+            EventBus.getDefault().post(100);
+        });
 
     }
 

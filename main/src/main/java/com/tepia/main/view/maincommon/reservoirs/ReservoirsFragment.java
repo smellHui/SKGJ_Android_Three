@@ -40,6 +40,9 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +89,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
     protected void initView(View view) {
         setCenterTitle(getString(R.string.main_reservoirs));
         getRightTianqi().setVisibility(View.VISIBLE);
+        EventBus.getDefault().register(this);
         banner = findView(R.id.banner);
         initBanner();
         resviorRec = findView(R.id.resviorRec);
@@ -113,15 +117,15 @@ public class ReservoirsFragment extends BaseCommonFragment {
                     ToastUtils.shortToast(R.string.no_network);
                     return;
                 }
-                if(DoubleClickUtil.isFastDoubleClick()){
+                if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
                 ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
-                String reservoirId =  reservoirBean.getReservoirId();
+                String reservoirId = reservoirBean.getReservoirId();
                 String reservoirName = reservoirBean.getReservoir();
                 Intent intent = new Intent();
-                intent.putExtra(ReservoirsFragment.RESERVOIRId,reservoirId);
-                intent.putExtra(ReservoirsFragment.RESERVOIRNAME,reservoirName);
+                intent.putExtra(ReservoirsFragment.RESERVOIRId, reservoirId);
+                intent.putExtra(ReservoirsFragment.RESERVOIRNAME, reservoirName);
                 if (position == 0) {
                     intent.setClass(getBaseActivity(), IntroduceOfReservoirsActivity.class);
                     startActivity(intent);
@@ -140,12 +144,12 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 } else if (position == 5) {
                     //调度运行方案
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
-                    intent.putExtra("select","1");
+                    intent.putExtra("select", "1");
                     startActivity(intent);
                 } else if (position == 6) {
                     //水库安全管理应急预案
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
-                    intent.putExtra("select","2");
+                    intent.putExtra("select", "2");
                     startActivity(intent);
                 } else if (position == 7) {
                     intent.setClass(getBaseActivity(), SafeRunningActivity.class);
@@ -161,11 +165,11 @@ public class ReservoirsFragment extends BaseCommonFragment {
             @Override
             public void onClick(View v) {
 //                showSelectReservoir();
-                startActivityForResult(new Intent(getBaseActivity(),ChoiceReservoirActivity.class),ChoiceReservoirActivity.resultCode);
+                startActivityForResult(new Intent(getBaseActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode);
             }
         });
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
-        oldReserviorId =  reservoirBean.getReservoirId();
+        oldReserviorId = reservoirBean.getReservoirId();
         startBanner(reservoirBean);
 
 
@@ -184,25 +188,25 @@ public class ReservoirsFragment extends BaseCommonFragment {
 //        banner.setBannerTitles(titles);
 
 
-
     }
 
     /**
      * 开始循环
+     *
      * @param reservoirBean
      */
-    private void startBanner(ReservoirBean reservoirBean){
+    private void startBanner(ReservoirBean reservoirBean) {
         LogUtil.e("-----------执行轮播切换");
-        if(imagesList != null){
+        if (imagesList != null) {
             imagesList.clear();
             banner.stopAutoPlay();
         }
-        if(images != null){
+        if (images != null) {
             images.clear();
             banner.stopAutoPlay();
         }
         List<ReservoirBean.FilesBean> filesBeanList = reservoirBean.getFiles();
-        if(filesBeanList != null && filesBeanList.size() > 0) {
+        if (filesBeanList != null && filesBeanList.size() > 0) {
             for (ReservoirBean.FilesBean filesBean : reservoirBean.getFiles()) {
                 if (filesBean != null) {
                     imagesList.add(filesBean.getFilePath());
@@ -210,7 +214,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
             }
             //设置图片源
             banner.setImages(imagesList);
-        }else {
+        } else {
             images.add(R.drawable.jianjie_banner0);
             images.add(R.drawable.jianjie_banner1);
 //            images.add(R.drawable.jianjie_banner2);
@@ -232,13 +236,26 @@ public class ReservoirsFragment extends BaseCommonFragment {
     }
 
 
-
     private void setResviorRec(String title, String middle_title, int resourceImg) {
         MyReservoirsItemBean myReservoirsItemBean = new MyReservoirsItemBean();
         myReservoirsItemBean.setTitle(title);
         myReservoirsItemBean.setMiddle_title(middle_title);
         myReservoirsItemBean.setResourceImg(resourceImg);
         myReservoirsItemBeanList.add(myReservoirsItemBean);
+    }
+
+    @Subscribe
+    public void getEventBus(Integer num) {
+        if (num != null && num == 100) {
+            ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
+            tv_reservoir_name.setText(reservoirBean.getReservoir());
+            LogUtil.e("当前默认水库id--------------" + reservoirBean.getReservoirId());
+            String reservoirId = reservoirBean.getReservoirId();
+            if (!(reservoirId.equals(oldReserviorId))) {
+                oldReserviorId = reservoirId;
+                startBanner(reservoirBean);
+            }
+        }
     }
 
     @Override
@@ -248,13 +265,12 @@ public class ReservoirsFragment extends BaseCommonFragment {
 
         ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
         tv_reservoir_name.setText(reservoirBean.getReservoir());
-        LogUtil.e("当前默认水库id--------------"+reservoirBean.getReservoirId());
+        LogUtil.e("当前默认水库id--------------" + reservoirBean.getReservoirId());
         String reservoirId = reservoirBean.getReservoirId();
-        if(!reservoirId.equals(oldReserviorId)) {
+        if (!reservoirId.equals(oldReserviorId)) {
             oldReserviorId = reservoirId;
             startBanner(reservoirBean);
         }
-
 
 
     }
@@ -293,7 +309,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (!oldReserviorId.equals(defaultReservoir.getReservoirId())){
+                if (!oldReserviorId.equals(defaultReservoir.getReservoirId())) {
                     tv_reservoir_name.setText(defaultReservoir.getReservoir());
                     oldReserviorId = defaultReservoir.getReservoirId();
                     startBanner(defaultReservoir);

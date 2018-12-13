@@ -237,7 +237,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
             if (localReservoirList != null && localReservoirList.size() > 0) {
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
                 String defaultReservoirId = defaultReservoir.getReservoirId();
-                if (null!=defaultReservoirId&&!defaultReservoirId.equals(reservoirId)) {
+                if (null!=defaultReservoirId&&!(defaultReservoirId.equals(reservoirId))) {
                     reservoirId = defaultReservoir.getReservoirId();
                     srl.setRefreshing(true);
                     reservoirName = defaultReservoir.getReservoir();

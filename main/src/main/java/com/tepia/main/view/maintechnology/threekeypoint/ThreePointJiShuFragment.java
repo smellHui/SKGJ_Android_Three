@@ -18,6 +18,9 @@ import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.view.maintechnology.threekeypoint.adapter.ThreePointTabPageAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,10 +54,24 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
 
     }
 
+    @Subscribe
+    public void getEventBus(Integer num) {
+        if (num != null&&num==100) {
+            if(viewPager.getCurrentItem() == 0){
+                fragment.initRequestResponse();
+            }else if (viewPager.getCurrentItem()==1){
+                fragment2.initRequestResponse();
+            }else {
+                fragment3.initRequestResponse();
+            }
+        }
+    }
+
     @Override
     protected void initView(View view) {
         setCenterTitle(getString(R.string.main_threepoint));
         getRightTianqi().setVisibility(View.VISIBLE);
+        EventBus.getDefault().register(this);
 //        ImageView ivLeft = findView(R.id.iv_left);
 //        ivLeft.setOnClickListener(v-> ARouter.getInstance().build(AppRoutePath.app_weather_forecast).navigation());
         tabLayout = findView(R.id.tp_tabLayout);

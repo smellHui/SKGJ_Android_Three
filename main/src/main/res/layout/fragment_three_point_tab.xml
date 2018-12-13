@@ -72,6 +72,7 @@
                     android:layout_marginRight="13dp"
                     android:layout_marginTop="13dp"
                     android:paddingBottom="10dp"
+                    android:background="@drawable/bg_three_point_real_time_data"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -89,13 +90,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingBottom="13dp"
-                            android:paddingLeft="18dp"
                             android:paddingTop="13dp"
                             android:text="水情实时数据"
                             android:textColor="#000000"
                             android:textSize="15sp"
+                            android:layout_centerInParent="true"
                             android:textStyle="bold" />
 
+                        <!--android:background="@drawable/bg_bt_next_item"-->
                         <TextView
                             android:id="@+id/tv_water_search"
                             android:layout_width="wrap_content"
@@ -104,9 +106,8 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
                             android:text="历史数据"
-                            android:textColor="#ffffff"
+                            android:textColor="#000000"
                             android:textSize="13sp"
-                            android:background="@drawable/bg_bt_next_item"
                             android:paddingRight="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="5dp"
@@ -227,11 +228,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingBottom="13dp"
-                            android:paddingLeft="18dp"
                             android:paddingTop="13dp"
                             android:text="雨情实时数据"
                             android:textColor="#000000"
                             android:textSize="15sp"
+                            android:layout_centerInParent="true"
                             android:textStyle="bold" />
 
                         <TextView
@@ -242,14 +243,13 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="10dp"
                             android:text="历史数据"
-                            android:textColor="#ffffff"
+                            android:textColor="#000000"
                             android:textSize="13sp"
-                            android:background="@drawable/bg_bt_next_item"
                             android:paddingRight="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:visibility="visible"/>/>
+                            android:visibility="visible"/>
                     </RelativeLayout>
 
                     <LinearLayout

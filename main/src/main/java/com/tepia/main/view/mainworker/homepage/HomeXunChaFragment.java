@@ -36,6 +36,7 @@ import com.just.library.AgentWebSettings;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
@@ -48,6 +49,9 @@ import com.tepia.main.view.main.detail.LineChartEntity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.FloodDetailActivity;
 import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +90,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
     @Override
     protected void initView(View view) {
+        EventBus.getDefault().register(this);
         selectedResrvoir = UserManager.getInstance().getDefaultReservoir();
         lcReservoirCapacity = (LineChart) view.findViewWithTag("lc_reservoir_capacity");
         tvReservoirName = view.findViewById(R.id.tv_reservoir_name);
@@ -398,6 +403,21 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Subscribe
+    public void getEventBus(Integer num) {
+        if (num != null&&num==100) {
+            if (UserManager.getInstance().getDefaultReservoir() != null) {
+                tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
+                mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
+                if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
+                    mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
+                } else {
+                    mBinding.loHeader.tvVr.setVisibility(View.GONE);
+                }
+            }
+        }
     }
 
     @Override

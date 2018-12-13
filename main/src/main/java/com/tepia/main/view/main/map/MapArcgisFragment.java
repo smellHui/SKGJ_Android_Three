@@ -272,7 +272,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         nearImgSearch.setOnClickListener(v -> {
 //            if (null == nearReservoirFragment) {
             Point position = mLocationDisplay.getLocation().getPosition();
-            LogUtil.i("position:"+position.toString());
+//            LogUtil.i("position:"+position.toString());
             transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 nearReservoirFragment = NearReservoirFragment.newInstance(position.getX(),position.getY());
                 nearReservoirFragment.setOnAddBackClickListener(() -> {
@@ -2228,7 +2228,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         tvListTitle.setOnClickListener(v -> scroll_down_layout.scrollToOpen());
         //设置详情滑动布局
         //关闭状态时最上方预留高度
-        scroll_item_layout.setMinOffset(ScreenUtil.getStatusBarHeight() + Px2dpUtils.dip2px(mContext, 50));
+        scroll_item_layout.setMinOffset(ScreenUtil.getStatusBarHeight() + Px2dpUtils.dip2px(mContext, 48));
         //打开状态时内容显示区域的高度
         scroll_item_layout.setMaxOffset(mapHeight / 2);
         //最低部退出状态时可看到的高度，0为不可见
@@ -2668,7 +2668,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 
     @Subscribe
     public void getEventBus(Integer num) {
-        if (num != null) {
+        if (num != null&&num==1) {
 //            Log.i("num", "num" + num);
 //            Log.i("列表状态:", (scroll_item_layout.getVisibility() == View.VISIBLE) + "");
             if (flSearchLayout.getVisibility() == View.VISIBLE) {

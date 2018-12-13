@@ -418,7 +418,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, "", String.valueOf(currentPage), String.valueOf(pageSize), isShowLoading);
+            mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), isShowLoading);
         }
     }
 
