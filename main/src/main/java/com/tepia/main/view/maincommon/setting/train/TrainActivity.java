@@ -61,8 +61,9 @@ public class TrainActivity extends BaseActivity {
         setCenterTitle("我的培训");
         showBack();
         getRithtTv().setVisibility(View.VISIBLE);
-        getRithtTv().setTextColor(Color.BLACK);
-        getRithtTv().setText("新增培训");
+        getRithtTv().setTextColor(Color.GRAY);
+        getRithtTv().setText("新增");
+        getRithtTv().setTextSize(16);
         getRithtTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
