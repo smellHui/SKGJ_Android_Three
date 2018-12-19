@@ -188,23 +188,23 @@ public class ThreePointListFragment extends BaseCommonFragment {
                 reservoirs[i] = localReservoirList.get(i).getReservoir();
             }
         }
-        mPopup = new ListPopupWindow(getActivity());
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.dropdown_stytle, reservoirs);
-        mPopup.setAdapter(adapter);
-//        mPopup.setWidth(LayoutParams.WRAP_CONTENT);
-//        mPopup.setHeight(LayoutParams.WRAP_CONTENT);
-        mPopup.setModal(true);
-        mPopup.setOnItemClickListener((parent, view, position, id) -> {
-            LogUtil.i("position:" + position);
-            mPopup.dismiss();
-            reservoirPosition = position;
-            reservoirId = localReservoirList.get(position).getReservoirId();
-            tvReservoirName.setText(localReservoirList.get(position).getReservoir());
-            srl.setRefreshing(true);
-            Handler handler = new Handler();
-            //半秒后执行runnable中的run方法
-            handler.postDelayed(this::commonRequestDataFun, 500);
-        });
+//        mPopup = new ListPopupWindow(getActivity());
+//        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.dropdown_stytle, reservoirs);
+//        mPopup.setAdapter(adapter);
+////        mPopup.setWidth(LayoutParams.WRAP_CONTENT);
+////        mPopup.setHeight(LayoutParams.WRAP_CONTENT);
+//        mPopup.setModal(true);
+//        mPopup.setOnItemClickListener((parent, view, position, id) -> {
+//            LogUtil.i("position:" + position);
+//            mPopup.dismiss();
+//            reservoirPosition = position;
+//            reservoirId = localReservoirList.get(position).getReservoirId();
+//            tvReservoirName.setText(localReservoirList.get(position).getReservoir());
+//            srl.setRefreshing(true);
+//            Handler handler = new Handler();
+//            //半秒后执行runnable中的run方法
+//            handler.postDelayed(this::commonRequestDataFun, 500);
+//        });
         tvSelectReservoir.setOnClickListener(v -> {
 //            setAnchorView : 设置下拉列表的参照控件。下拉列表在显示时将展现在参照控件的下方，注意：如果不设置参照控件就直接调用show函数，系统不知道要把下拉列表在何处展示，只能是异常退出了。
 //            mPopup.setAnchorView(v);
@@ -237,13 +237,16 @@ public class ThreePointListFragment extends BaseCommonFragment {
             if (localReservoirList != null && localReservoirList.size() > 0) {
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
                 String defaultReservoirId = defaultReservoir.getReservoirId();
-                if (null!=defaultReservoirId&&!(defaultReservoirId.equals(reservoirId))) {
+                if (null != defaultReservoirId && !(defaultReservoirId.equals(reservoirId))) {
                     reservoirId = defaultReservoir.getReservoirId();
                     srl.setRefreshing(true);
                     reservoirName = defaultReservoir.getReservoir();
                     tvReservoirName.setText(defaultReservoir.getReservoir());
-                    mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
-                    waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        mPresenter.listStPpthRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                        waterPresenter.listStRsvrRRByReservoir(reservoirId, "", "", String.valueOf(currentPage), String.valueOf(pageSize), false);
+                    }, 500);
                 }
             }
         }
@@ -292,7 +295,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
                 ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (reservoirId != null && !reservoirId.equals(defaultReservoir.getReservoirId())){
+                if (reservoirId != null && !reservoirId.equals(defaultReservoir.getReservoirId())) {
                     tvReservoirName.setText(defaultReservoir.getReservoir());
                     reservoirName = defaultReservoir.getReservoir();
                     reservoirId = defaultReservoir.getReservoirId();
