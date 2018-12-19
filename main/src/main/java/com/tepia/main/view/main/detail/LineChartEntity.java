@@ -395,13 +395,41 @@ public class LineChartEntity {
         }
         int groupCount = listCount;
         ArrayList<Entry> yVals1 = new ArrayList<>();
-        ArrayList<Entry> yVals2 = new ArrayList<>();
+        /*ArrayList<Entry> yVals2 = new ArrayList<>();
 
         for (int j = 0; j < groupCount; j++) {
             float val = data1[j];
             yVals1.add(new Entry(j, val));
 
+        }*/
+
+        float maxY = 0;
+        float minY = 0;
+        float avergOfvalue = 2.00f;
+        for (int j = 0; j < groupCount; j++) {
+            float val = data1[j];
+            yVals1.add(new Entry(j, val));
+            if(j == 0){
+                minY = maxY = val;
+            }
+            if(val < minY){
+                minY = val;
+            }
+            if(val > maxY){
+                maxY = val;
+            }
+
         }
+        avergOfvalue = (maxY - minY);
+        if(avergOfvalue < 2){
+            avergOfvalue = 2.00f;
+        }
+
+        //y轴最大值
+        leftAxis.setAxisMaximum(maxY + avergOfvalue);
+        //y轴最小值
+        leftAxis.setAxisMinimum(minY - avergOfvalue);
+
         LineDataSet set1, set2;
         if (mLineChart.getData() != null &&
                 mLineChart.getData().getDataSetCount() > 0) {
