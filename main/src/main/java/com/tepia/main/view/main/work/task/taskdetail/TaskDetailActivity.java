@@ -161,22 +161,35 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             public void drawStatusChanged(DrawStatusChangedEvent drawStatusChangedEvent) {
                 DrawStatus drawStatus = drawStatusChangedEvent.getDrawStatus();
                 if (drawStatus == DrawStatus.COMPLETED) {
-                    if (isFirstInitMap) {
-                        if (currentPoint != null) {
-                            if ("2".equals(taskBean.getExecuteStatus())) {
-                                mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale/4);
-                            } else {
-                                if (positionPoint != null) {
-                                    mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale/4);
+                    mBinding.alMapview.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isFirstInitMap) {
+                                if ("2".equals(taskBean.getExecuteStatus())) {
+                                    if (currentPoint != null) {
+                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale / 4);
+                                        isFirstInitMap = false;
+                                    } else {
+                                        mBinding.alMapview.postDelayed(this, 500);
+                                    }
+                                } else {
+                                    if (positionPoint != null) {
+                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale / 4);
+                                        isFirstInitMap = false;
+                                    } else {
+                                        mBinding.alMapview.postDelayed(this, 500);
+                                    }
                                 }
                             }
                         }
-                        isFirstInitMap = false;
-                    }
+                    });
+
                 }
             }
         });
-        mBinding.alMapview.setOnAddLocationChangedListener(new ArcgisLayout.OnAddLocationChangedListener() {
+        mBinding.alMapview.setOnAddLocationChangedListener(new ArcgisLayout.OnAddLocationChangedListener()
+
+        {
             @Override
             public void getLocation(Point point) {
                 if (point == null) {
@@ -578,7 +591,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
 //
                             Intent intent = new Intent(getContext(), DownLoadActivity.class);
-                            DownLoadActivity.setIntent(intent,taskBean.getWorkReportUrl(),taskBean.getWorkReportUrl());
+                            DownLoadActivity.setIntent(intent, taskBean.getWorkReportUrl(), taskBean.getWorkReportUrl());
                             getContext().startActivity(intent);
                         }
                     });
