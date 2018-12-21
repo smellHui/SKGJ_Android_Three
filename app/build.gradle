@@ -149,9 +149,10 @@ dependencies {
             exclude group: 'com.android.support', module: 'support-v4'
         })*/
 
-        implementation(name: 'shixun-release', ext: 'aar', {
+        //好视通会议包
+       /* implementation(name: 'shixun-release', ext: 'aar', {
             exclude group: 'com.android.support', module: 'support-v4'
-        })
+        })*/
 
     }
 }

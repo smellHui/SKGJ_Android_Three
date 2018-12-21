@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -55,7 +56,6 @@ public class VersionActivity extends BaseActivity implements View.OnClickListene
         setCenterTitle(getString(R.string.setting_setting));
         showBack();
 
-
         editChangeKeyword = findViewById(R.id.edit_change_keyword);
         editziliaoMv = findViewById(R.id.editziliaoMv);
         remindMv = findViewById(R.id.remindMv);
@@ -67,6 +67,8 @@ public class VersionActivity extends BaseActivity implements View.OnClickListene
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent intent;
                 int i = view.getId();
                 if (i == R.id.editziliaoMv) {
@@ -153,19 +155,26 @@ public class VersionActivity extends BaseActivity implements View.OnClickListene
     private void initallView() {
         editChangeKeyword.setLeftTitle("修改密码");
         editChangeKeyword.getRightImageV().setVisibility(View.VISIBLE);
+        editChangeKeyword.getRightImageV().setImageResource(R.drawable.s_right);
         editziliaoMv.setLeftTitle(getString(R.string.setting_v_ziliao));
         editziliaoMv.getRightImageV().setVisibility(View.VISIBLE);
+        editziliaoMv.getRightImageV().setImageResource(R.drawable.s_right);
+
         remindMv.setLeftTitle(getString(R.string.setting_v_remind));
         remindMv.getCheckBox().setVisibility(View.VISIBLE);
         remindMv.getShortLine().setVisibility(View.INVISIBLE);
         remindMv.getLongLine().setVisibility(View.VISIBLE);
         suggestionMv.setLeftTitle(getString(R.string.setting_v_suggestion));
         suggestionMv.getRightImageV().setVisibility(View.VISIBLE);
+        suggestionMv.getRightImageV().setImageResource(R.drawable.s_right);
+
         curversionMv.setLeftTitle(getString(R.string.setting_v_curversion));
         mvVersionUpdate.setLeftTitle("版本更新");
 
         aboutusMv.setLeftTitle(getString(R.string.setting_v_about));
         aboutusMv.getRightImageV().setVisibility(View.VISIBLE);
+        aboutusMv.getRightImageV().setImageResource(R.drawable.s_right);
+
         aboutusMv.getShortLine().setVisibility(View.INVISIBLE);
         aboutusMv.getLongLine().setVisibility(View.VISIBLE);
         curversionMv.getRightTextV().setText(getVersion());

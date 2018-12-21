@@ -3,11 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tepia.reservoirthree"
     >
-    <!--tools:overrideLibrary="com.inpor.fastmeetingcloud"-->
 
-    <!--               tools:replace="android:icon,android:theme,android:allowBackup,android:label,android:name"
-
-    -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 

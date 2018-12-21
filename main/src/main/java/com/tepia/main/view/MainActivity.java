@@ -99,7 +99,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public void initView() {
         // TODO: 2018/10/22 视讯客户端初始化
         //视讯客户端初始化
-        //HstApplication.init(Utils.getContext());
+//        HstApplication.init(Utils.getContext());
         registerPowerReceiver();
         setNewBottom();
     }

@@ -33,9 +33,9 @@
                 android:drawableLeft="@drawable/jianjie_xiangqing"
                 android:drawablePadding="10dp"
                 android:text="加强水利水电建设的安全预警"
-                android:textColor="@color/text_color"
+                android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                 />
 
 
         </FrameLayout>
@@ -127,7 +127,7 @@
             android:text="附件"
             android:textColor="@color/text_color"
             android:textSize="18sp"
-            android:textStyle="bold" />
+             />
 
 
 

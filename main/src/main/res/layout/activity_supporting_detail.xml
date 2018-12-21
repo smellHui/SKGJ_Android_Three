@@ -34,7 +34,7 @@
                     android:text="名称:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/nameTv"
@@ -43,7 +43,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -58,7 +58,7 @@
                     android:text="用途:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/functionTv"
@@ -67,7 +67,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
             </LinearLayout>
 
 
@@ -83,7 +83,7 @@
                     android:text="位置:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/positionTv"
@@ -92,7 +92,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
             </LinearLayout>
 
@@ -108,7 +108,7 @@
                     android:text="设施类型:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/typeTv"
@@ -117,7 +117,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -132,7 +132,7 @@
                     android:text="设施数量:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/totalTv"
@@ -141,7 +141,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -156,7 +156,7 @@
                     android:text="投入使用时间:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/timeTv"
@@ -165,7 +165,7 @@
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
             </LinearLayout>
 
@@ -182,7 +182,7 @@
                     android:text="设施图片:"
                     android:textColor="@color/black"
                     android:textSize="@dimen/basetextsize"
-                    android:textStyle="bold" />
+                     />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

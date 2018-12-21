@@ -42,7 +42,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:background="@color/transparent"
+                        android:background="@color/trans"
                         android:gravity="center_vertical"
                         android:hint="@string/text_search"
                         android:imeOptions="actionSearch"

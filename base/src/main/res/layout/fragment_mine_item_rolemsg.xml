@@ -40,7 +40,7 @@
             android:layout_height="1dp"
             android:layout_alignLeft="@+id/titleTv"
             android:layout_alignParentBottom="true"
-            android:background="#dddddd"
+            android:background="#f6f5f5"
 
             />
 
@@ -68,7 +68,7 @@
             android:gravity="right|center"
             android:lines="1"
             android:inputType=""
-            android:text="34343433"
+            android:text="--"
             android:textColor="#333333"
             android:textSize="15sp"
             android:visibility="invisible" />
