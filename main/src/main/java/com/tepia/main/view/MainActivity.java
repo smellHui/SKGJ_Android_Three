@@ -126,8 +126,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         }
 
         if(fragments.size() == 0){
-            mTabHost.addTab(null,
-                    null, null);
+            NullFragment nullFragment = new NullFragment();
+            mTabHost.addTab(mTabHost.newTabSpec("设置").setIndicator(createIndicator(R.drawable.selector_tabbar_mine, "设置")),
+                    nullFragment.getClass(), null);
         }
 
         /*mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
@@ -386,6 +387,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         super.onDestroy();
         unregisterPowerReceiver();
         TabMainFragmentFactory.getInstance().clearFragment();
+        if (mTabHost != null) {
+            mTabHost.removeAllViews();
+        }
     }
 
 

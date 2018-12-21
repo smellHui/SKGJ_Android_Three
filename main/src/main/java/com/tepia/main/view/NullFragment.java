@@ -50,6 +50,8 @@ public class NullFragment extends BaseCommonFragment {
                 UserManager.getInstance().clearCacheAndStopPush();
                 AppManager.getInstance().finishAll();
                 TabMainFragmentFactory.getInstance().clearFragment();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
                 getActivity().finish();
             }
         });
