@@ -12,8 +12,9 @@ public class CanvasnewBitmap {
 	        Canvas canvas = new Canvas(newb);  
 	        canvas.drawBitmap(src, 0, 0, null);
 	        canvas.drawBitmap(watermark, (src.getWidth() - watermark.getWidth()) / 2, (src.getHeight() - watermark.getHeight()) / 2, null);
-	        canvas.save(Canvas.ALL_SAVE_FLAG);
-	        canvas.restore();  
+//	        canvas.save(Canvas.ALL_SAVE_FLAG);
+	        canvas.save();
+	        canvas.restore();
 
 	        return newb;  
 	    }  

@@ -6,10 +6,10 @@ ext {
 
     android = [
             applicationId: "com.tepia.reservoirthree",
-            compileSdkVersion: 27,
-            buildToolsVersion: "27.0.3",
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
             minSdkVersion    : 17,
-            targetSdkVersion : 27,
+            targetSdkVersion : 28,
             versionCode      : 130,
             versionName      : "1.3.0"
     ]
@@ -112,6 +112,7 @@ ext {
 
             //选择附件
             iFileSelected                : 'com.leon:lfilepickerlibrary:1.8.0',
+            //状态栏工具
             statusbaruitl                : 'com.githang:status-bar-compat:0.7'
     ]
 }

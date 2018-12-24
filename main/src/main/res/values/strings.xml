@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="main_name">水库管家</string>
     <!-- 登录页面 -->
     <string name="text_login_bt_tip">登 录</string>
@@ -34,8 +34,8 @@
     <string name="sendbtnstr">提\t\t交</string>
 
     <!-- 等待窗提示语 -->
-    <string name="data_loading"> 数据加载中 ... </string>
-    <string name="data_uploading"> 数据加载中 ... </string>
+    <string name="data_loading">数据加载中...</string>
+    <string name="data_uploading">数据加载中...</string>
     <string name="data_saving">请稍等...</string>
 
     <string name="question_baojie">保洁</string>
@@ -236,7 +236,7 @@
     <string name="text_search">搜索</string>
 
     <!--LHotelEntityAdapter中item setTag的key-->
-    <item name="tag_groupItemIndex" type="id">groupItemIndex</item>
+    <item name="tag_groupItemIndex" type="id"/>
     <string name="connection_is_false">连接失败,请返回 </string>
     <string name="prompt">提示</string>
     <string name="affirm_text">确认</string>
