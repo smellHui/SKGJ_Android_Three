@@ -93,21 +93,22 @@ public class EditUserInfoActivity extends BaseActivity {
         headMv.getRightImageV().setVisibility(View.VISIBLE);
         headMv.getRightHeadImageV().setVisibility(View.VISIBLE);
         headMv.getRightHeadImageV().setImageResource(R.drawable.s_head);
+
         nameMv.setLeftTitle(getString(R.string.setting_t_name));
         nameMv.getRightEditV().setVisibility(View.VISIBLE);
         nameMv.getRightEditV().setText(nameStr);
-        phoneMv.setLeftTitle(getString(R.string.setting_t_phone));
 
+        phoneMv.setLeftTitle(getString(R.string.setting_t_phone));
         phoneMv.getRightEditV().setInputType(InputType.TYPE_CLASS_PHONE);
         phoneMv.getRightEditV().setVisibility(View.VISIBLE);
         phoneMv.getRightEditV().setText(phoneStr);
-        emailMv.setLeftTitle(getString(R.string.setting_t_email));
 
+        emailMv.setLeftTitle(getString(R.string.setting_t_email));
         emailMv.getRightEditV().setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         emailMv.getRightEditV().setVisibility(View.VISIBLE);
         emailMv.getRightEditV().setText(emailStr);
-        emailMv.getShortLine().setVisibility(View.INVISIBLE);
-        emailMv.getLongLine().setVisibility(View.VISIBLE);
+//        emailMv.getShortLine().setVisibility(View.INVISIBLE);
+//        emailMv.getLongLine().setVisibility(View.VISIBLE);
         addressMv.setLeftTitle(getString(R.string.setting_t_address));
         addressMv.getRightEditV().setVisibility(View.VISIBLE);
         addressMv.getRightEditV().setText(addrStr);

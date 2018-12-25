@@ -17,19 +17,46 @@
                 android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+                <!-- <TextView
+                     android:id="@+id/nameTv"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content" />
 
-                <com.tepia.photo_picker.widget.CircleImageView
-                    android:id="@+id/iv_header"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/icon_worker_head_default" />
+                 <com.tepia.photo_picker.widget.CircleImageView
+                     android:id="@+id/iv_header"
+                     android:layout_width="48dp"
+                     android:layout_height="48dp"
+                     android:layout_marginLeft="5dp"
+                     android:src="@drawable/icon_worker_head_default" />-->
+                <FrameLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp">
+
+                    <ImageView
+                        android:id="@+id/nameIv"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_contacts_positoin_1" />
+
+                    <TextView
+                        android:id="@+id/nameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </FrameLayout>
+
 
                 <LinearLayout
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="12dp"
+                    android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -44,7 +71,7 @@
                             android:layout_height="wrap_content"
                             android:text="--"
                             android:textColor="@color/black"
-                            android:textSize="18sp" />
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/tv_reservoir"
@@ -52,61 +79,59 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="12dp"
                             android:background="@drawable/bg_contacts_positoin"
-                            android:paddingBottom="2dp"
                             android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
                             android:paddingTop="2dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="2dp"
                             android:text="县级负责人"
-                            android:textColor="@color/black"
+                            android:textColor="#0c5c97"
                             android:textSize="14sp" />
-
 
 
                     </LinearLayout>
 
 
-
                     <LinearLayout
-                        android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_mobile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="--"
-                        android:textColor="#747a86"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_mobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textColor="#747a86"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
 
-                   <!-- <TextView
-                        android:id="@+id/tv_positoin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:background="@drawable/bg_contacts_positoin"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingTop="2dp"
-                        android:text="县级负责人"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />-->
+                        <!-- <TextView
+                             android:id="@+id/tv_positoin"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_marginLeft="12dp"
+                             android:background="@drawable/bg_contacts_positoin"
+                             android:paddingBottom="2dp"
+                             android:paddingLeft="8dp"
+                             android:paddingRight="8dp"
+                             android:paddingTop="2dp"
+                             android:text="县级负责人"
+                             android:textColor="@color/black"
+                             android:textSize="16sp" />-->
 
                         <TextView
                             android:id="@+id/tv_positoin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:background="@drawable/bg_contacts_positoin"
-                            android:paddingBottom="2dp"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:paddingLeft="0dp"
                             android:paddingTop="2dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="2dp"
                             android:text="县级负责人"
-                            android:textColor="@color/black"
+                            android:textColor="#999999"
                             android:textSize="14sp" />
                     </LinearLayout>
 
