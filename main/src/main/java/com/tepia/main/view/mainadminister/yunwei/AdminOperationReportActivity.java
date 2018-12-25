@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
@@ -35,7 +37,7 @@ import java.util.List;
   * Version :1.0
   * 功能描述 :行政运维具体月份上报
  **/
-
+@Route(path = AppRoutePath.app_admin_operation_report)
 public class AdminOperationReportActivity extends BaseActivity {
     private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private YunWeiJiShuPresenter mPresenter;

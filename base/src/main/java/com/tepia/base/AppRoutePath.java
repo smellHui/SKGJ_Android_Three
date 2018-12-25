@@ -171,4 +171,12 @@ public class AppRoutePath {
     public final static String app_reservoir_vr = "/app/reservoir/vr";
     public final static String app_RealTime_WaterLevel_StorageCapacity = "/app/RealTime/WaterLevel/StorageCapacity";
     public final static String app_task_work_report = "/app/task/work/report";
+    /**
+     * 行政运维具体月份
+     */
+    public final  static String app_admin_operation = "/app/admin/operation";
+    /**
+     * 行政运维具体月份上报
+     */
+    public  final static String app_admin_operation_report = "/app/admin/operation/report";
 }

@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.main.APPCostant;
 import com.tepia.main.R;
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.yunwei.WorkOrderListResponse;
@@ -33,7 +35,7 @@ import java.util.List;
   * Version :1.0
   * 功能描述 :行政运维具体月份
  **/
-
+@Route(path = AppRoutePath.app_admin_operation)
 public class AdminOperationActivity extends BaseActivity {
     private String[] tabNames = {"巡检", "维修养护", "保洁", "上报"};
     private YunWeiJiShuPresenter mPresenter;
