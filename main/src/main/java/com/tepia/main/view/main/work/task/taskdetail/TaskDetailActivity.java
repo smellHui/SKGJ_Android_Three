@@ -61,7 +61,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 /**
  * 任务详情
  * 邮箱 784787081@qq.com
@@ -121,34 +120,36 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 //        gaodeEntity = new GaodeEntity(this, mapView.getMap(),TaskDetailActivity.class, R.mipmap.logo);
         gaodeEntity = new GaodeEntity(this, TaskDetailActivity.class, R.mipmap.logo);
 
-        gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
-            @Override
-            public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
-                if (gaodeEntity != null) {
-                    double[] temp = GPSUtil.gcj02_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                    double latitude = temp[0];//坐标经度
-                    double longitude = temp[1];//坐标纬度
-                    if (latitude == 0 || longitude == 0) {
-                        return;
-                    }
-                    currentPoint = new Point(longitude, latitude, SpatialReference.create(4326));
-                    if ("2".equals(taskBean.getExecuteStatus())) {
-                        initCount++;
-                        RoutepointDataManager.getInstance().addPoint(new RoutepointDataBean(id, longitude + "", latitude + ""));
-                        if (initCount < 3) {
-                            refreshMapView();
-                        } else {
-                            Point point1 = (Point) GeometryEngine.project(currentPoint, SpatialReferences.getWebMercator());
-                            if (exeline2 != null) {
-                                exeline2.add(point1);
-                                mBinding.alMapview.addPolyline(exeline2, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
-                                refreshMapViewPoint();
+        if (taskBean != null && !TextUtils.isEmpty(taskBean.getExecuteStatus()) && com.tepia.main.model.user.UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
+            gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
+                @Override
+                public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
+                    if (gaodeEntity != null) {
+                        double[] temp = GPSUtil.gcj02_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                        double latitude = temp[0];//坐标经度
+                        double longitude = temp[1];//坐标纬度
+                        if (latitude == 0 || longitude == 0) {
+                            return;
+                        }
+                        currentPoint = new Point(longitude, latitude, SpatialReference.create(4326));
+                        if ("2".equals(taskBean.getExecuteStatus())) {
+                            initCount++;
+                            RoutepointDataManager.getInstance().addPoint(new RoutepointDataBean(id, longitude + "", latitude + ""));
+                            if (initCount < 3) {
+                                refreshMapView();
+                            } else {
+                                Point point1 = (Point) GeometryEngine.project(currentPoint, SpatialReferences.getWebMercator());
+                                if (exeline2 != null) {
+                                    exeline2.add(point1);
+                                    mBinding.alMapview.addPolyline(exeline2, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
+                                    refreshMapViewPoint();
+                                }
                             }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
 
     }
 
@@ -431,7 +432,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         }
         if ("2".equals(taskBean.getExecuteStatus())) {
             if (!gaodeEntity.isIs_trace_started()) {
-                gaodeEntity.startTrace();
+                if (taskBean != null && !TextUtils.isEmpty(taskBean.getExecuteStatus()) && com.tepia.main.model.user.UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
+                    gaodeEntity.startTrace();
+                }
             }
         } else {
             if (gaodeEntity.isIs_trace_started()) {

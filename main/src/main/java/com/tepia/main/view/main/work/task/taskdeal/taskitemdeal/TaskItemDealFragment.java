@@ -315,7 +315,9 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
 
                 @Override
                 public void ondelete(int position) {
-                    selectPhotosBefore.remove(position);
+                    if (selectPhotosBefore.size() > 0) {
+                        selectPhotosBefore.remove(position);
+                    }
                     photoRecycleViewAdapterBefore.setLocalData(selectPhotosBefore);
                     mBinding.tvPhotoNumBefore.setText(photoRecycleViewAdapterBefore.getPhotoPaths().size() + "/5");
                 }
@@ -333,13 +335,13 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                                 .setShowCamera(true)
                                 .setPreviewEnabled(true)
                                 .setSelected(selectPhotosBefore)
-                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
+                                .start(getBaseActivity(), TaskItemDealFragment.this, taskItemBean.getReservoirSuperviseSequence());
                     } else {
                         PhotoPreview.builder()
                                 .setPhotos(photoRecycleViewAdapterBefore.getPhotoPaths())
                                 .setCurrentItem(position)
                                 .setShowDeleteButton(false)
-                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
+                                .start(getBaseActivity(), TaskItemDealFragment.this, taskItemBean.getReservoirSuperviseSequence());
                     }
                 }
             });
@@ -373,7 +375,9 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
 
                 @Override
                 public void ondelete(int position) {
-                    selectPhotosAfter.remove(position);
+                    if (selectPhotosAfter.size() > 0) {
+                        selectPhotosAfter.remove(position);
+                    }
                     photoRecycleViewAdapterAfter.setLocalData(selectPhotosAfter);
                     mBinding.tvPhotoAfterNum.setText(photoRecycleViewAdapterAfter.getPhotoPaths().size() + "/5");
                 }
@@ -391,12 +395,12 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                                 .setShowCamera(true)
                                 .setPreviewEnabled(true)
                                 .setSelected(selectPhotosAfter)
-                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
+                                .start(getBaseActivity(), TaskItemDealFragment.this, taskItemBean.getReservoirSuperviseSequence());
                     } else {
                         PhotoPreview.builder()
                                 .setPhotos(photoRecycleViewAdapterAfter.getPhotoPaths())
                                 .setCurrentItem(position)
-                                .start(getBaseActivity(), TaskItemDealFragment.this,taskItemBean.getReservoirSuperviseSequence());
+                                .start(getBaseActivity(), TaskItemDealFragment.this, taskItemBean.getReservoirSuperviseSequence());
                     }
 
                 }
@@ -514,8 +518,8 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
         returnData.setExDesc(etDescStr);
         returnData.setLgtd("12");
         returnData.setLttd("12");
-        ArrayList<String> selectPhotosBefore1= new ArrayList<>();
-        ArrayList<String> selectPhotosAfter1= new ArrayList<>();
+        ArrayList<String> selectPhotosBefore1 = new ArrayList<>();
+        ArrayList<String> selectPhotosAfter1 = new ArrayList<>();
         selectPhotosAfter1.addAll(selectPhotosAfter);
         selectPhotosBefore1.addAll(selectPhotosBefore);
         returnData.setFiles(selectPhotosBefore1);
