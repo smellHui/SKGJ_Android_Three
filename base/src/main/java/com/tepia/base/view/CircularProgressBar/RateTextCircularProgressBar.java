@@ -49,7 +49,6 @@ public class RateTextCircularProgressBar extends FrameLayout implements Circular
     }
 
 
-
     public void setmCircularProgressBar(CircularProgressBar mCircularProgressBar) {
         this.mCircularProgressBar = mCircularProgressBar;
     }
@@ -96,6 +95,13 @@ public class RateTextCircularProgressBar extends FrameLayout implements Circular
      */
     public void setText(String text) {
         mRateText.setText(text);
+    }
+
+    public String getText() {
+        if (mRateText == null) {
+            return null;
+        }
+        return mRateText.getText().toString();
     }
 
     /**

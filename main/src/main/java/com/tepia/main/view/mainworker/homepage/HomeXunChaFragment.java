@@ -20,6 +20,7 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -250,6 +251,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                if (mBinding.loXunjianStatisticsy.rtcpXunchaCount.getText().equals("0")) {
+                    return;
+                }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
                 item.setDate(TimeFormatUtils.getStringDateShort2());
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
@@ -272,6 +276,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             @Override
             public void onClick(View v) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (mBinding.loXunjianStatisticsy.rtcpQuestionCount.getText().equals("0")) {
                     return;
                 }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
@@ -299,6 +306,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                if (mBinding.loXunjianStatisticsy.rtcpDealedCount.getText().equals("0")) {
+                    return;
+                }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
                 item.setDate(TimeFormatUtils.getStringDateShort2());
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
@@ -322,6 +332,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             @Override
             public void onClick(View v) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (mBinding.loXunjianStatisticsy.rtcpNotDealCount.getText().equals("0")) {
                     return;
                 }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
@@ -352,12 +365,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                if (mBinding.loBaojieStatisticsy.rtcpXunchaCount.getText().equals("0")) {
+                    return;
+                }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
                 item.setDate(TimeFormatUtils.getStringDateShort2());
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation)
-                        .withString("operationType", "2")
+                        .withString("operationType", "3")
                         .withSerializable("item", item)
                         .navigation();
             }
@@ -376,12 +392,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                if (mBinding.loBaojieStatisticsy.rtcpQuestionCount.getText().equals("0")) {
+                    return;
+                }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
                 item.setDate(TimeFormatUtils.getStringDateShort2());
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation_report)
-                        .withString("operationType", "2")
+                        .withString("operationType", "3")
                         .withSerializable("item", item)
                         .withString("finishState", "0")
                         .navigation();
@@ -401,12 +420,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                if (mBinding.loBaojieStatisticsy.rtcpDealedCount.getText().equals("0")) {
+                    return;
+                }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
                 item.setDate(TimeFormatUtils.getStringDateShort2());
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation_report)
-                        .withString("operationType", "2")
+                        .withString("operationType", "3")
                         .withSerializable("item", item)
                         .withString("finishState", "1")
                         .navigation();
@@ -426,12 +448,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                if (mBinding.loBaojieStatisticsy.rtcpNotDealCount.getText().equals("0")) {
+                    return;
+                }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
                 item.setDate(TimeFormatUtils.getStringDateShort2());
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation_report)
-                        .withString("operationType", "2")
+                        .withString("operationType", "3")
                         .withSerializable("item", item)
                         .withString("finishState", "2")
                         .navigation();
@@ -448,10 +473,13 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpXunchaCount.setProgress(100);
         mBinding.loWeihuStatistics.rtcpXunchaCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#21a1ff"));
         mBinding.loWeihuStatistics.rtcpXunchaCount.setText("0");
-        mBinding.loWeihuStatistics.rtcpDealedCount.setOnClickListener(new View.OnClickListener() {
+        mBinding.loWeihuStatistics.rtcpXunchaCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (mBinding.loWeihuStatistics.rtcpXunchaCount.getText().equals("0")) {
                     return;
                 }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
@@ -459,7 +487,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation)
-                        .withString("operationType", "1")
+                        .withString("operationType", "2")
                         .withSerializable("item", item)
                         .navigation();
             }
@@ -472,10 +500,13 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpQuestionCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#809dd2"));
         mBinding.loWeihuStatistics.rtcpQuestionCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#e9f1fc"));
         mBinding.loWeihuStatistics.rtcpQuestionCount.setText("0");
-        mBinding.loWeihuStatistics.rtcpNotDealCount.setOnClickListener(new View.OnClickListener() {
+        mBinding.loWeihuStatistics.rtcpQuestionCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (mBinding.loWeihuStatistics.rtcpQuestionCount.getText().equals("0")) {
                     return;
                 }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
@@ -483,7 +514,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation_report)
-                        .withString("operationType", "1")
+                        .withString("operationType", "2")
                         .withSerializable("item", item)
                         .withString("finishState", "0")
                         .navigation();
@@ -497,10 +528,13 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.loWeihuStatistics.rtcpDealedCount.getCircularProgressBar().setPrimaryColor(Color.parseColor("#4acaa0"));
         mBinding.loWeihuStatistics.rtcpDealedCount.getCircularProgressBar().setBackgroundColor(Color.parseColor("#ddf9f0"));
         mBinding.loWeihuStatistics.rtcpDealedCount.setText("0");
-        mBinding.loWeihuStatistics.rtcpNotDealCount.setOnClickListener(new View.OnClickListener() {
+        mBinding.loWeihuStatistics.rtcpDealedCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (mBinding.loWeihuStatistics.rtcpDealedCount.getText().equals("0")) {
                     return;
                 }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
@@ -508,7 +542,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation_report)
-                        .withString("operationType", "1")
+                        .withString("operationType", "2")
                         .withSerializable("item", item)
                         .withString("finishState", "1")
                         .navigation();
@@ -528,12 +562,15 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
+                if (mBinding.loWeihuStatistics.rtcpNotDealCount.getText().equals("0")) {
+                    return;
+                }
                 AdminWorkOrderResponse.DataBean.ListBean item = new AdminWorkOrderResponse.DataBean.ListBean();
                 item.setDate(TimeFormatUtils.getStringDateShort2());
                 item.setReservoirId(UserManager.getInstance().getDefaultReservoir().getReservoirId());
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation_report)
-                        .withString("operationType", "1")
+                        .withString("operationType", "2")
                         .withSerializable("item", item)
                         .withString("finishState", "2")
                         .navigation();
