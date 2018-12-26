@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLy"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/bg_worker_item_header"
+    android:orientation="horizontal">
+
+    <TextView
+        android:textColor="#8993a9"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="@dimen/waterlevel_size"
+        android:text="年月" />
+
+
+
+    <TextView
+        android:textColor="#8993a9"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="@dimen/waterlevel_size"
+        android:text="@string/waterlevel_name" />
+
+    <TextView
+        android:textColor="#8993a9"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="@dimen/waterlevel_size"
+        android:text="编辑" />
+
+
+</LinearLayout>

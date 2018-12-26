@@ -851,6 +851,12 @@
     <string name="loading_text">正在登录...</string>
     <string name="is_null">是 空 的!</string>
 
+    <string name="connection_is_false">连接失败,请返回 </string>
+    <string name="prompt">提示</string>
+    <string name="affirm_text">确认</string>
+    <string name="downloadstr">扫码下载</string>
+    <string name="waterlevel_name">讯限水位</string>
+
 
 
 </resources>

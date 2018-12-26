@@ -35,6 +35,7 @@ import com.tepia.main.view.maincommon.reservoirs.detail.OperationPlanActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SafeRunningActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.SupportingActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
+import com.tepia.main.view.maincommon.reservoirs.detail.WaterLevelActivity;
 import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -96,6 +97,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         switchTv = findView(R.id.switchTv);
         tv_reservoir_name = findView(R.id.tv_reservoir_name);
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
+        setResviorRec("讯限水位", "FLOOD CONTROL LEVER", R.drawable.jianjie_xunqi);
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
         setResviorRec("水位库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
         setResviorRec("水库配套设施", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
@@ -126,35 +128,40 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 Intent intent = new Intent();
                 intent.putExtra(ReservoirsFragment.RESERVOIRId, reservoirId);
                 intent.putExtra(ReservoirsFragment.RESERVOIRNAME, reservoirName);
+                String nameStr = myReservoirsItemBeanList.get(position).getTitle();
                 if (position == 0) {
                     intent.setClass(getBaseActivity(), IntroduceOfReservoirsActivity.class);
                     startActivity(intent);
-                } else if (position == 1) {
+                } else if(position == 1){
+                    intent.setClass(getBaseActivity(), WaterLevelActivity.class);
+                    startActivity(intent);
+                }
+                else if (position == 2) {
                     intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);
                     startActivity(intent);
-                } else if (position == 2) {
+                } else if (position == 3) {
                     intent.setClass(getBaseActivity(), CapacityActivity.class);
                     startActivity(intent);
-                } else if (position == 3) {
+                } else if (position == 4) {
                     intent.setClass(getBaseActivity(), SupportingActivity.class);
                     startActivity(intent);
-                } else if (position == 4) {
+                } else if (position == 5) {
                     intent.setClass(getBaseActivity(), FloodActivity.class);
                     startActivity(intent);
-                } else if (position == 5) {
+                } else if (position == 6) {
                     //调度运行方案
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
                     intent.putExtra("select", "1");
                     startActivity(intent);
-                } else if (position == 6) {
+                } else if (position == 7) {
                     //水库安全管理应急预案
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
                     intent.putExtra("select", "2");
                     startActivity(intent);
-                } else if (position == 7) {
+                } else if (position == 8) {
                     intent.setClass(getBaseActivity(), SafeRunningActivity.class);
                     startActivity(intent);
-                } else if (position == 8) {
+                } else if (position == 9) {
                     intent.setClass(getBaseActivity(), VisitLogActivity.class);
                     startActivity(intent);
                 }

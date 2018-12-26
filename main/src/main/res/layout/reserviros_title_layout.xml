@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout>
 
+    <data></data>
 
-    <View
-
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/background_common" />
-    <TextView
-        android:id="@+id/nameTv"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:drawableLeft="@drawable/jianjie_logo"
-        android:drawablePadding="5dp"
-        android:gravity="center_vertical"
-        android:padding="15dp"
-        android:text="--"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-</LinearLayout>
+        android:orientation="vertical">
+
+
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_common" />
+
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/jianjie_logo"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:text="--"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</layout>

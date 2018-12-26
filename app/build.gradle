@@ -118,8 +118,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     configurations.all {
-        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
-        resolutionStrategy.force 'com.android.support:support-v4:26.1.0'
+        resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
+        resolutionStrategy.force "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+        resolutionStrategy.force "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     }
     implementation rootProject.ext.dependencies.appcompat
     implementation rootProject.ext.dependencies.constraint

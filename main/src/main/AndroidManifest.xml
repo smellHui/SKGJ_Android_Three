@@ -109,9 +109,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AppCompat.NoActionBar" />
 
-        <!--
-         蒲公英
-        -->
+        <!--          蒲公英 -->
         <meta-data
             android:name="PGYER_APPID"
             android:value="cd3513e4ee84a838261dfc627379bdf3" />
@@ -196,17 +194,13 @@
         <activity
             android:name=".view.main.detail.vedio.VideoPlayActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".view.maincommon.reservoirs.detail.VideoPlayThreeActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".view.maincommon.reservoirs.detail.VisitLogAddActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".view.maincommon.setting.EditUserInfoActivity"
             android:screenOrientation="portrait" />
@@ -345,7 +339,6 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait" />
 
-
         <!-- 实时水位库容曲线 -->
         <activity
             android:name=".view.mainworker.homepage.RealTimeWaterLevelStorageCapacityActivity"
@@ -353,14 +346,15 @@
         <activity
             android:name=".view.maincommon.setting.ChoiceReservoirActivity"
             android:screenOrientation="portrait" />
-        <!--综合监控-图像站-图片详情-->
+        <!-- 综合监控-图像站-图片详情 -->
         <activity
             android:name=".view.main.detail.imageshow.ImageShowActivity"
             android:screenOrientation="portrait" />
-        <!--工单报告-->
+        <!-- 工单报告 -->
         <activity
             android:name=".view.main.work.task.taskdetail.TaskWorkReportActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity"></activity>
     </application>
 
 </manifest>
