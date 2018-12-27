@@ -33,6 +33,7 @@ import com.tepia.main.view.maincommon.reservoirs.ReservoirsFragment;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.ReserviorPresent;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -235,7 +236,9 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
                 Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
                         Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));
                 Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
-                arcgisLayout.addPic(R.drawable.map_ku, point);
+                Map<String, Object> attrs = new HashMap<>();
+
+                arcgisLayout.addPic(R.drawable.map_ku, point,attrs);
                 arcgisLayout.setCenterPoint(point, arcgisLayout.groupScale);
             }catch (NumberFormatException e){
                 LogUtil.e(e.getMessage());

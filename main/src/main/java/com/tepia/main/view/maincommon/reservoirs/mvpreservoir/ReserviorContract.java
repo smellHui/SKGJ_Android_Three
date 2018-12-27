@@ -2,6 +2,8 @@ package com.tepia.main.view.maincommon.reservoirs.mvpreservoir;
 
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
+import com.tepia.main.view.maincommon.reservoirs.detail.WaterLevelActivity;
+import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterWaterlevelReservoirs;
 
 /**
  * Created by      android studio
@@ -18,6 +20,7 @@ public class ReserviorContract {
         void success(T data);
 
         void failure(String msg);
+
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -74,6 +77,26 @@ public class ReserviorContract {
          * @param reservoirId
          */
         void getReservoirVideo(String reservoirId);
+
+        /**
+         * 水库月汛限水位-分页查询
+         * @param reservoirId
+         * @param currentPage
+         * @param pageSize
+         * @param isshowloading
+         */
+        void getReservoirFloodSeason(String reservoirId,String currentPage, String pageSize,boolean isshowloading);
+
+        /**
+         * 水库月汛限水位-修改
+         * @param id
+         * @param floodLevel
+         */
+        void updateFloodSeason(String id, String floodLevel, WaterLevelActivity waterLevelActivity);
+
+        void addReservoirFloodSeason(String reservoirId,String floodYearMonth,String floodLevel,WaterLevelActivity waterLevelActivity);
+
+
 
     }
 }

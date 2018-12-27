@@ -7,9 +7,9 @@
     >
 
     <TextView
+        android:id="@+id/title_waterlevelTv"
         android:background="@drawable/bg_shangbao_bg_selector"
         android:gravity="center"
-        android:text="汛 限 水 位 上 报"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
 
         <TextView
             android:maxLines="1"
-            android:id="@+id/selectReserviorTv"
+            android:id="@+id/selectTimeTv"
             android:layout_weight="4"
 
             android:text=""

@@ -263,5 +263,6 @@
     <string name="loading_text">正在登录...</string>
     <string name="is_null">是 空 的!</string>
     <string name="downloadstr">扫码下载</string>
-    <string name="waterlevel_name">讯限水位</string>
+    <string name="waterlevel_name">汛限水位</string>
+    <string name="editstr"><u>修改</u></string>
 </resources>

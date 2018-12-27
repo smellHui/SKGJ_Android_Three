@@ -3,10 +3,7 @@ package com.tepia.main.model.reserviros;
 import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
 import com.tepia.main.APPCostant;
-import com.tepia.main.model.detai.DetailManager;
-import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.VideoResponse;
-import com.tepia.main.model.question.AllproblemBean;
 import com.tepia.main.model.user.UserManager;
 
 import java.io.File;
@@ -53,6 +50,49 @@ public class ReservirosManager {
     public Observable<VisitLogBean> getPageList(String reservoirId,String currentPage, String pageSize) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.getPageList(token,reservoirId,currentPage,pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 水库月汛限水位-分页查询
+     * @param reservoirId
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public Observable<FloodSeasonBean> getReservoirFloodSeason(String reservoirId, String currentPage, String pageSize) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getReservoirFloodSeason(token,reservoirId,currentPage,pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
+     * 水库月汛限水位-修改
+     * @param id
+     * @param floodLevel
+     * @return
+     */
+    public Observable<BaseResponse> updateFloodSeason(String id, String floodLevel) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.updateFloodSeason(token,id,floodLevel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
+     * 水库月汛限水位-新增
+     * @param reservoirId
+     * @param floodYearMonth
+     * @param floodLevel
+     * @return
+     */
+    public Observable<BaseResponse> addReservoirFloodSeason(String reservoirId,String floodYearMonth,String floodLevel) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.addReservoirFloodSeason(token,reservoirId,floodYearMonth,floodLevel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

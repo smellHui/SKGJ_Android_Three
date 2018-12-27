@@ -115,7 +115,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             ToastUtils.shortToast(R.string.no_network);
             return;
         }
-        UserManager.getInstance_ADMIN().getLoginUser().subscribe(new LoadingSubject<UserInfoBean>(false, "") {
+        UserManager.getInstance_ADMIN().getLoginUser().subscribe(new LoadingSubject<UserInfoBean>(true, "正在获取数据...") {
             @Override
             protected void _onNext(UserInfoBean userInfoBean) {
                 if (userInfoBean != null) {
@@ -147,7 +147,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
      * @return
      */
     private void getByTokenMenu2() {
-        UserManager.getInstance_ADMIN().getByTokenMenu2().safeSubscribe(new LoadingSubject<MenuListResponse>() {
+        UserManager.getInstance_ADMIN().getByTokenMenu2().safeSubscribe(new LoadingSubject<MenuListResponse>(true, "正在获取动态菜单...") {
             @Override
             protected void _onNext(MenuListResponse menuListResponse) {
                 if (menuListResponse.getCode() == 0) {

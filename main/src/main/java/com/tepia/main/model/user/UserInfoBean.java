@@ -60,6 +60,8 @@ public class UserInfoBean extends BaseResponse {
         private String status;
         private String createDate;
         private String updateDate;
+        private String countSymbol;
+        private String areaCode;
 
         public String getUserCode() {
             return userCode;
@@ -187,6 +189,22 @@ public class UserInfoBean extends BaseResponse {
 
         public void setUpdateDate(String updateDate) {
             this.updateDate = updateDate;
+        }
+
+        public String getCountSymbol() {
+            return countSymbol;
+        }
+
+        public void setCountSymbol(String countSymbol) {
+            this.countSymbol = countSymbol;
+        }
+
+        public String getAreaCode() {
+            return areaCode;
+        }
+
+        public void setAreaCode(String areaCode) {
+            this.areaCode = areaCode;
         }
     }
 }

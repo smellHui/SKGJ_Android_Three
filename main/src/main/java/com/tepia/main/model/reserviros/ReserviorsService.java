@@ -1,12 +1,7 @@
 package com.tepia.main.model.reserviros;
 
 import com.tepia.base.http.BaseResponse;
-import com.tepia.base.http.RetrofitManager;
-import com.tepia.main.APPCostant;
-import com.tepia.main.model.detai.DetailManager;
-import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.VideoResponse;
-import com.tepia.main.model.question.AllproblemBean;
 
 import java.util.List;
 import java.util.Map;
@@ -47,6 +42,51 @@ public interface ReserviorsService {
                                               @Query("currentPage") String currentPage,
                                               @Query("pageSize") String pageSize
 
+    );
+
+    /**
+     * 水库月汛限水位-分页查询
+     * @param token
+     * @param reservoirId
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/bizReservoirFloodSeasonLevel/pageReservoirFloodSeason")
+    Observable<FloodSeasonBean> getReservoirFloodSeason(@Header("Authorization") String token,
+                                                        @Query("reservoirId") String reservoirId,
+                                                        @Query("currentPage") String currentPage,
+                                                        @Query("pageSize") String pageSize
+
+    );
+
+    /**
+     * 水库月汛限水位-修改
+     * @param token
+     * @param id
+     * @param floodLevel
+     * @return
+     */
+    @POST("app/bizReservoirFloodSeasonLevel/updateReservoirFloodSeason")
+    Observable<BaseResponse> updateFloodSeason(@Header("Authorization") String token,
+                                    @Query("id") String id,
+                                    @Query("floodLevel") String floodLevel
+                                    );
+
+
+    /**
+     * 水库月汛限水位-新增
+     * @param token
+     * @param reservoirId
+     * @param floodYearMonth
+     * @param floodLevel
+     * @return
+     */
+    @POST("app/bizReservoirFloodSeasonLevel/addReservoirFloodSeason")
+    Observable<BaseResponse> addReservoirFloodSeason(@Header("Authorization") String token,
+                                               @Query("reservoirId") String reservoirId,
+                                               @Query("floodYearMonth") String floodYearMonth,
+                                                     @Query("floodLevel") String floodLevel
     );
 
     /**

@@ -1,7 +1,9 @@
 package com.tepia.main.view.maincommon.reservoirs.mvpreservoir;
 
+import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
@@ -9,6 +11,7 @@ import com.tepia.main.model.map.VideoResponse;
 import com.tepia.main.model.reserviros.BizkeyBean;
 import com.tepia.main.model.reserviros.CapacityBean;
 import com.tepia.main.model.reserviros.FloodBean;
+import com.tepia.main.model.reserviros.FloodSeasonBean;
 import com.tepia.main.model.reserviros.IntroduceOfReservoirsBean;
 import com.tepia.main.model.reserviros.OperationPlanBean;
 import com.tepia.main.model.reserviros.ReservirosManager;
@@ -16,6 +19,8 @@ import com.tepia.main.model.reserviros.SafeManagerPlanBean;
 import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.model.reserviros.VisitLogBean;
+import com.tepia.main.view.maincommon.reservoirs.detail.WaterLevelActivity;
+import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterWaterlevelReservoirs;
 
 /**
  * Created by      android studio
@@ -85,6 +90,95 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     }
                 });
+    }
+
+    /**
+     * 水库月汛限水位-分页查询
+     * @param reservoirId
+     * @param currentPage
+     * @param pageSize
+     * @param isshowloading
+     */
+    @Override
+    public void getReservoirFloodSeason(String reservoirId,String currentPage, String pageSize,boolean isshowloading) {
+        ReservirosManager.getInstance().getReservoirFloodSeason(reservoirId,currentPage,pageSize)
+                .subscribe(new LoadingSubject<FloodSeasonBean>(isshowloading, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(FloodSeasonBean floodSeasonBean) {
+                        if (floodSeasonBean != null) {
+                            if (floodSeasonBean.getCode() == 0) {
+                                mView.success(floodSeasonBean);
+
+                            }else{
+                                mView.failure(floodSeasonBean.getMsg());
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.failure(message);
+
+                    }
+                });
+    }
+
+    /**
+     * 水库月汛限水位-修改
+     * @param id
+     * @param floodLevel
+     */
+    @Override
+    public void updateFloodSeason(String id, String floodLevel,WaterLevelActivity waterLevelActivity) {
+        ReservirosManager.getInstance().updateFloodSeason(id,floodLevel).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+            @Override
+            protected void _onNext(BaseResponse baseResponse) {
+                if (baseResponse.getCode() == 0) {
+                    ToastUtils.shortToast("修改成功");
+//                    mView.success(baseResponse);
+                    waterLevelActivity.refresh(false);
+                }else{
+                    ToastUtils.shortToast("修改失败");
+
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message + " ");
+
+            }
+        });
+
+    }
+
+
+    /**
+     * 水库月汛限水位-新增
+     * @param reservoirId
+     * @param floodYearMonth
+     * @param floodLevel
+     */
+    @Override
+    public void addReservoirFloodSeason(String reservoirId, String floodYearMonth, String floodLevel,WaterLevelActivity waterLevelActivity) {
+        ReservirosManager.getInstance().addReservoirFloodSeason(reservoirId,floodYearMonth,floodLevel).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+            @Override
+            protected void _onNext(BaseResponse baseResponse) {
+                if (baseResponse.getCode() == 0) {
+                    ToastUtils.shortToast("提交成功");
+                    waterLevelActivity.refresh(false);
+
+                }else{
+                    ToastUtils.shortToast("提交失败");
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                ToastUtils.shortToast(message + " ");
+
+            }
+        });
     }
 
     /**
