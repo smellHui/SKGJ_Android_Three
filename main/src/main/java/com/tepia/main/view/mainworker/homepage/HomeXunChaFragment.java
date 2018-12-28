@@ -821,7 +821,10 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
             prarm += "waterStorate=" + reservoirWaterLevel.getW() + "&";
         }
         if (reservoirWaterLevel.getTm() != null) {
-            prarm += "dataTime=" + reservoirWaterLevel.getTm();
+            prarm += "dataTime=" + reservoirWaterLevel.getTm() + "&";
+        }
+        if (reservoirWaterLevel.getBizReservoirFloodSeasonLevels() != null) {
+            prarm += "bizReservoirFloodSeasonLevels=" + new Gson().toJson(reservoirWaterLevel.getBizReservoirFloodSeasonLevels());
         }
 
         url = host + prarm;

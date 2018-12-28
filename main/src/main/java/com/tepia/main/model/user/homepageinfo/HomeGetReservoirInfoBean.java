@@ -1,6 +1,7 @@
 package com.tepia.main.model.user.homepageinfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by      android studio
@@ -214,6 +215,7 @@ public class HomeGetReservoirInfoBean {
         private Float dead_waterLevel;
         private Boolean isFlood;
         private Double designFloodWaterLevel;
+        private List<Map<String, Object>> bizReservoirFloodSeasonLevels;
         private String reservoirId;
         private Float normalImpoundedLevel;
         private Float damCrestElevation;
@@ -222,6 +224,14 @@ public class HomeGetReservoirInfoBean {
         private String tm;
         private String rz;
         private String w;
+
+        public List<Map<String, Object>> getBizReservoirFloodSeasonLevels() {
+            return bizReservoirFloodSeasonLevels;
+        }
+
+        public void setBizReservoirFloodSeasonLevels(List<Map<String, Object>> bizReservoirFloodSeasonLevels) {
+            this.bizReservoirFloodSeasonLevels = bizReservoirFloodSeasonLevels;
+        }
 
         public String getFloodSeasonStartDate() {
             return floodSeasonStartDate;
