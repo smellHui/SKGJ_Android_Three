@@ -97,7 +97,11 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
         initMonthDate();
 //        initSpinner();
         tvReservoir = findView(R.id.tv_reservoir);
-        tvReservoir.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode));
+        tvReservoir.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
+            intent.putExtra(ChoiceReservoirActivity.isFromYunWei,true);
+            startActivityForResult(intent, ChoiceReservoirActivity.resultCode);
+        });
         initRecyclerView();
         initSearch();
     }
@@ -460,11 +464,31 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                 }
                 break;
             case ChoiceReservoirActivity.resultCode:
-                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (!reservoirId.equals(defaultReservoir.getReservoirId())) {
-                    tvReservoir.setText(defaultReservoir.getReservoir());
-                    reservoirId = defaultReservoir.getReservoirId();
+                if (null != data) {
+                    boolean isSelectAll = data.getBooleanExtra(ChoiceReservoirActivity.isAllReservoir, false);
+                    boolean isKeyBack = data.getBooleanExtra(ChoiceReservoirActivity.isKeyBack,false);
+//                    intent.putExtra("reservoirId",reservoirId);
+//                    intent.putExtra("reservoir",reservoir);
+                    String backReservoirId = data.getStringExtra("reservoirId");
+                    String reservoir = data.getStringExtra("reservoir");
+                    if (isKeyBack){
+                        return;
+                    }
+                    if (isSelectAll) {
+                        tvReservoir.setText("全部");
+                        this.reservoirId = "";
+                        return;
+                    }
+                    if (!reservoirId.equals(backReservoirId)) {
+                        tvReservoir.setText(reservoir);
+                        reservoirId = backReservoirId;
+                    }
                 }
+//                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+//                if (!reservoirId.equals(defaultReservoir.getReservoirId())) {
+//                    tvReservoir.setText(defaultReservoir.getReservoir());
+//                    reservoirId = defaultReservoir.getReservoirId();
+//                }
                 break;
             default:
                 break;

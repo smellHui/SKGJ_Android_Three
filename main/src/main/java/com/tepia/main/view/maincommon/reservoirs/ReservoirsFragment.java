@@ -256,7 +256,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         if (num != null && num == 100) {
             ReservoirBean reservoirBean = com.tepia.main.model.user.UserManager.getInstance().getDefaultReservoir();
             tv_reservoir_name.setText(reservoirBean.getReservoir());
-            LogUtil.e("当前默认水库id--------------" + reservoirBean.getReservoirId());
+//            LogUtil.e("当前默认水库id--------------" + reservoirBean.getReservoirId());
             String reservoirId = reservoirBean.getReservoirId();
             if (!(reservoirId.equals(oldReserviorId))) {
                 oldReserviorId = reservoirId;

@@ -5,8 +5,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.mvp.BaseActivity;
@@ -15,22 +17,24 @@ import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.EmptyLayoutUtil;
+import com.tepia.main.view.main.jihua.AddPlanActivity;
 import com.tepia.main.view.maincommon.setting.adapter.MySelectReservoirAdapter;
 
 import java.util.ArrayList;
 
 /**
-  * Created by      Android studio
-  *
-  * @author :wwj (from Center Of Wuhan)
-  * Date    :2018/10/16
-  * Version :1.0
-  * 功能描述 :搜索水库
+ * Created by      Android studio
+ *
+ * @author :wwj (from Center Of Wuhan)
+ * Date    :2018/10/16
+ * Version :1.0
+ * 功能描述 :搜索水库
  **/
 
 public class ChoiceReservoirActivity extends BaseActivity {
     public static final int resultCode = 1001;
     public static String isAllReservoir = "isAllReservoir";
+    public static String isFromYunWei = "isFromYunWei";
 
     private EditText etSearch;
     private RecyclerView rvSelectReservoir;
@@ -39,6 +43,8 @@ public class ChoiceReservoirActivity extends BaseActivity {
     private ArrayList<ReservoirBean> searchReservoirList = new ArrayList<>();
     private MySelectReservoirAdapter mySelectReservoirAdapter;
     private boolean isSelectAll;
+    public static String isKeyBack = "isKeyBack";
+    private boolean isFromYunWeiF;
 
     public static Intent setIntent(Intent intent, boolean isSelectAll) {
         intent.putExtra("isSelectAll", isSelectAll);
@@ -53,8 +59,16 @@ public class ChoiceReservoirActivity extends BaseActivity {
     @Override
     public void initView() {
         setCenterTitle("选择水库");
-        showBack();
+        TextView tvLeftText = findViewById(R.id.tv_left_text);
+        tvLeftText.setVisibility(View.VISIBLE);
+        tvLeftText.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra(isKeyBack, true);
+            ChoiceReservoirActivity.this.setResult(resultCode, intent);
+            finish();
+        });
         isSelectAll = getIntent().getBooleanExtra("isSelectAll", false);
+        isFromYunWeiF = getIntent().getBooleanExtra(isFromYunWei, false);
         etSearch = findViewById(R.id.et_search);
         rvSelectReservoir = findViewById(R.id.rv_select_reservoir);
         initRecyclerView();
@@ -71,21 +85,21 @@ public class ChoiceReservoirActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchStr = s.toString().replaceAll(" ", "");
-                if (null!=reservoirList&&reservoirList.size()>0){
+                if (null != reservoirList && reservoirList.size() > 0) {
                     searchReservoirList.clear();
                     for (int i = 0; i < reservoirList.size(); i++) {
-                        String reservoir =  reservoirList.get(i).getReservoir();
-                        if (reservoir.contains(searchStr)){
+                        String reservoir = reservoirList.get(i).getReservoir();
+                        if (reservoir.contains(searchStr)) {
                             searchReservoirList.add(reservoirList.get(i));
                         }
                     }
-                    if (null!=searchReservoirList&&searchReservoirList.size()>0){
+                    if (null != searchReservoirList && searchReservoirList.size() > 0) {
                         mySelectReservoirAdapter.notifyDataSetChanged();
-                    }else {
+                    } else {
                         mySelectReservoirAdapter.setEmptyView(EmptyLayoutUtil.show("暂无数据"));
                         mySelectReservoirAdapter.notifyDataSetChanged();
                     }
-                }else {
+                } else {
                     mySelectReservoirAdapter.setEmptyView(EmptyLayoutUtil.show("暂无数据"));
                     mySelectReservoirAdapter.notifyDataSetChanged();
                 }
@@ -103,8 +117,8 @@ public class ChoiceReservoirActivity extends BaseActivity {
         rvSelectReservoir.setLayoutManager(new LinearLayoutManager(this));
         mySelectReservoirAdapter = new MySelectReservoirAdapter(R.layout.lv_select_reservoir_item, searchReservoirList);
         rvSelectReservoir.setAdapter(mySelectReservoirAdapter);
-        if (null!=localReservoirList){
-            if (isSelectAll){
+        if (null != localReservoirList) {
+            if (isSelectAll) {
                 ReservoirBean reservoirBean = new ReservoirBean();
                 reservoirBean.setReservoir("全部");
                 searchReservoirList.add(reservoirBean);
@@ -114,20 +128,30 @@ public class ChoiceReservoirActivity extends BaseActivity {
             mySelectReservoirAdapter.notifyDataSetChanged();
         }
         mySelectReservoirAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (null!=searchReservoirList&&searchReservoirList.size()>=(position)){
+            if (null != searchReservoirList && searchReservoirList.size() >= (position)) {
                 ReservoirBean reservoirBean = searchReservoirList.get(position);
-                if ("全部".equals(reservoirBean.getReservoir())){
+                if ("全部".equals(reservoirBean.getReservoir())) {
                     Intent intent = new Intent();
-                    intent.putExtra(isAllReservoir,true);
-                    ChoiceReservoirActivity.this.setResult(resultCode,intent);
+                    intent.putExtra(isAllReservoir, true);
+                    ChoiceReservoirActivity.this.setResult(resultCode, intent);
                     finish();
                     return;
+                }else{
+                    if (isFromYunWeiF){
+                        Intent intent = new Intent();
+                        String reservoirId = reservoirBean.getReservoirId();
+                        String reservoir = reservoirBean.getReservoir();
+                        intent.putExtra("reservoirId",reservoirId);
+                        intent.putExtra("reservoir",reservoir);
+                        ChoiceReservoirActivity.this.setResult(resultCode, intent);
+                        finish();
+                        return;
+                    }
                 }
                 UserManager.getInstance().saveDefaultReservoir(reservoirBean);
                 ChoiceReservoirActivity.this.setResult(resultCode);
                 finish();
             }
-
         });
     }
 
@@ -144,5 +168,17 @@ public class ChoiceReservoirActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent();
+            intent.putExtra(isKeyBack, true);
+            ChoiceReservoirActivity.this.setResult(resultCode, intent);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

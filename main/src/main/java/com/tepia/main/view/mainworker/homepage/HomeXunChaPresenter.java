@@ -20,8 +20,8 @@ public class HomeXunChaPresenter extends BasePresenterImpl<HomeXunChaContract.Vi
      * 查询APP首页数据
      * @param reservoirId
      */
-    public void getAppHomeGetReservoirInfo(String reservoirId) {
-        UserManager.getInstance_ADMIN().getAppHomeGetReservoirInfo(reservoirId).safeSubscribe(new LoadingSubject<HomeGetReservoirInfoResponse>(true, ResUtils.getString(R.string.data_loading)) {
+    public void getAppHomeGetReservoirInfo(String reservoirId,boolean isShow) {
+        UserManager.getInstance_ADMIN().getAppHomeGetReservoirInfo(reservoirId).safeSubscribe(new LoadingSubject<HomeGetReservoirInfoResponse>(isShow, ResUtils.getString(R.string.data_loading)) {
             @Override
             protected void _onNext(HomeGetReservoirInfoResponse response) {
                 mView.getHommeInfoSuccess(response.getData());

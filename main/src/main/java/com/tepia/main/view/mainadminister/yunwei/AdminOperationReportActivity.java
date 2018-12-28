@@ -57,6 +57,7 @@ public class AdminOperationReportActivity extends BaseActivity {
     private SwipeRefreshLayout srl = null;
     private TextView tvReservoir;
     private TextView tvStartDate;
+    private String problemStatus;
 
     @Override
     public int getLayoutId() {
@@ -67,7 +68,17 @@ public class AdminOperationReportActivity extends BaseActivity {
     public void initView() {
         Intent intent = getIntent();
         item = (AdminWorkOrderResponse.DataBean.ListBean) intent.getSerializableExtra("item");
-        setCenterTitle("上报");
+        String finishState = intent.getStringExtra("finishState");
+        if (finishState!=null){
+            if ("1".equals(finishState)){
+                //已处理
+                problemStatus = "5";
+            }else if ("2".equals(finishState)){
+                //未处理
+                problemStatus = "4";
+            }
+        }
+        setCenterTitle("上报问题列表");
         showBack();
         rv = findViewById(R.id.rv_operation_list);
         srl = (SwipeRefreshLayout) findViewById(R.id.srl);
@@ -80,7 +91,7 @@ public class AdminOperationReportActivity extends BaseActivity {
             first = true;
             isloadmore = false;
             if (mPresenter != null) {
-                mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),"",false);
+                mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),problemStatus,false);
             }
         });
         /*srl.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -117,7 +128,7 @@ public class AdminOperationReportActivity extends BaseActivity {
             isloadmore = false;
             first = true;
             if (mPresenter != null) {
-                mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),"",true);
+                mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),problemStatus,true);
             }
         }
     }
@@ -215,7 +226,7 @@ public class AdminOperationReportActivity extends BaseActivity {
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),"",false);
+            mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),problemStatus,false);
         }
     }
 

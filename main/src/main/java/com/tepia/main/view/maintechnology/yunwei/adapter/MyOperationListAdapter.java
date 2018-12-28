@@ -56,6 +56,7 @@ public class MyOperationListAdapter extends BaseQuickAdapter<WorkOrderListRespon
             isExecute.setText("已完成");
             isExecute.setTextColor(Color.parseColor("#46c189"));
             ivComplete.setImageDrawable(ResUtils.getResources().getDrawable(R.drawable.operation_complete));
+
         }
     }
 }

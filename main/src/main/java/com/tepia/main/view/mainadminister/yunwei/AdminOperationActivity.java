@@ -28,12 +28,12 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
-  * Created by      Android studio
-  *
-  * @author :wwj (from Center Of Wuhan)
-  * Date    :2018/10/9
-  * Version :1.0
-  * 功能描述 :行政运维具体月份
+ * Created by      Android studio
+ *
+ * @author :wwj (from Center Of Wuhan)
+ * Date    :2018/10/9
+ * Version :1.0
+ * 功能描述 :行政运维具体月份
  **/
 @Route(path = AppRoutePath.app_admin_operation)
 public class AdminOperationActivity extends BaseActivity {
@@ -55,6 +55,7 @@ public class AdminOperationActivity extends BaseActivity {
     private SwipeRefreshLayout srl = null;
     private TextView tvReservoir;
     private TextView tvStartDate;
+    private String executeStatus = "";
 
     @Override
     public int getLayoutId() {
@@ -65,13 +66,14 @@ public class AdminOperationActivity extends BaseActivity {
     public void initView() {
         Intent intent = getIntent();
         operationType = intent.getStringExtra("operationType");
+        executeStatus = intent.getStringExtra("executeStatus");
         item = (AdminWorkOrderResponse.DataBean.ListBean) intent.getSerializableExtra("item");
-        LogUtil.i(operationType +"-----"+ item.getDate());
-        if ("1".equals(operationType)){
+//        LogUtil.i(operationType +"-----"+ item.getDate());
+        if ("1".equals(operationType)) {
             setCenterTitle(tabNames[0]);
-        }else if("2".equals(operationType)){
+        } else if ("2".equals(operationType)) {
             setCenterTitle(tabNames[1]);
-        }else if ("3".equals(operationType)){
+        } else if ("3".equals(operationType)) {
             setCenterTitle(tabNames[2]);
         }
         showBack();
@@ -86,7 +88,7 @@ public class AdminOperationActivity extends BaseActivity {
             first = true;
             isloadmore = false;
             if (mPresenter != null) {
-                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), false);
+                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), executeStatus, false);
             }
         });
         /*srl.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -96,24 +98,24 @@ public class AdminOperationActivity extends BaseActivity {
         initRequestResponse();
     }
 
-    private int getDayOfMonth(int year,int month){
+    private int getDayOfMonth(int year, int month) {
         Calendar c = Calendar.getInstance();
         c.set(year, month, 0); //输入类型为int类型
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 //        LogUtil.i("一个月的天数:"+dayOfMonth);
-       return dayOfMonth;
+        return dayOfMonth;
     }
 
     private void initRequestResponse() {
-        if (item!=null){
+        if (item != null) {
             tvReservoir.setText(item.getReservoirName());
             tvStartDate.setText(item.getDate());
             String date = item.getDate();
             String[] split = date.split("-");
-            if (split.length==2){
+            if (split.length == 2) {
                 int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
-                startDate = date+"-01 00:00:00";
-                endDate = date+"-"+dayOfMonth+" 23:59:59";
+                startDate = date + "-01 00:00:00";
+                endDate = date + "-" + dayOfMonth + " 23:59:59";
             }
             reservoirId = item.getReservoirId();
             rvAdapter.setEnableLoadMore(false);
@@ -121,7 +123,7 @@ public class AdminOperationActivity extends BaseActivity {
             isloadmore = false;
             first = true;
             if (mPresenter != null) {
-                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
+                mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), executeStatus, true);
             }
         }
     }
@@ -138,10 +140,10 @@ public class AdminOperationActivity extends BaseActivity {
                 isloadmore = true;
                 //加载更多数据
                 loadDataOrMore(false);
-            },1000);
-        },rv);
+            }, 1000);
+        }, rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
-            LogUtil.i("position:"+position);
+            LogUtil.i("position:" + position);
             ARouter.getInstance().build(AppRoutePath.app_task_detail)
                     .withString("workOrderId", dataList.get(position).getWorkOrderId())
                     .navigation();
@@ -172,7 +174,7 @@ public class AdminOperationActivity extends BaseActivity {
                     }
                     rvAdapter.setEnableLoadMore(true);
                     srl.setRefreshing(false);
-                    if (pages==1){
+                    if (pages == 1) {
                         //只有一页
                         rvAdapter.loadMoreEnd();
                         return;
@@ -213,7 +215,7 @@ public class AdminOperationActivity extends BaseActivity {
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, "", String.valueOf(currentPage), String.valueOf(pageSize), isShowLoading);
+            mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, "", String.valueOf(currentPage), String.valueOf(pageSize),executeStatus, isShowLoading);
         }
     }
 

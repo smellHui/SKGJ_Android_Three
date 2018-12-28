@@ -109,7 +109,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AppCompat.NoActionBar" />
 
-        <!--          蒲公英 -->
+        <!-- 蒲公英 -->
         <meta-data
             android:name="PGYER_APPID"
             android:value="cd3513e4ee84a838261dfc627379bdf3" />
@@ -354,7 +354,11 @@
         <activity
             android:name=".view.main.work.task.taskdetail.TaskWorkReportActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity"></activity>
+        <activity android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity" />
+        <activity android:name=".view.mainadminister.yunwei.TownOperationActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.mainadminister.yunwei.TownOperationReportActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

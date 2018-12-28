@@ -10,12 +10,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
@@ -27,6 +30,7 @@ import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
 import com.tepia.main.view.mainadminister.yunwei.adapter.MyAdminOperationListAdapter;
+import com.tepia.main.view.mainadminister.yunwei.adapter.MyAdminOperationReportListAdapter;
 import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
@@ -40,12 +44,12 @@ import java.util.List;
 import java.util.Locale;
 
 /**
-  * Created by      Android studio
-  *
-  * @author :wwj (from Center Of Wuhan)
-  * Date    :2018/10/9
-  * Version :1.0
-  * 功能描述 :行政运维上报
+ * Created by      Android studio
+ *
+ * @author :wwj (from Center Of Wuhan)
+ * Date    :2018/10/9
+ * Version :1.0
+ * 功能描述 :行政运维上报
  **/
 
 public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
@@ -60,7 +64,7 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
     private String operationType;
     private TextView tvStartDate;
     private List<AdminWorkOrderResponse.DataBean.ListBean> dataList = new ArrayList<>();
-    private MyAdminOperationListAdapter rvAdapter;
+    private MyAdminOperationReportListAdapter rvAdapter;
     private int pageSize = 10;
     private int currentPage = 1;
     private boolean isloadmore;
@@ -74,6 +78,9 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
     private ArrayList<ReservoirBean> localReservoirList;
     private ReservoirBean selectedResrvoir;
     private TextView tvReservoir;
+    private int currentSearchType = 0;//0是水库，1是乡镇
+    private String currentDate;
+    private String areaCode;
 
     @Override
     protected int getLayoutId() {
@@ -103,7 +110,7 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
                         first = false;
                     }
                     rvAdapter.setEnableLoadMore(true);
-                    if (pages==1){
+                    if (pages == 1) {
                         //只有一页
                         rvAdapter.loadMoreEnd();
                         return;
@@ -125,14 +132,15 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
             @Override
             public void failure(String msg) {
                 ToastUtils.shortToast(msg);
-                isFirstLoad = true;
                 if (isloadmore) {
                     if (currentPage > 1) {
                         currentPage--;
                         rvAdapter.loadMoreFail();
                     }
                 } else {
+                    dataList.clear();
                     rvAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
+                    rvAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -153,6 +161,13 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         tvTitleTotals.setText("上报数");
         TextView tvTitleStatus = findView(R.id.tv_title_status);
         tvTitleStatus.setText("处理率");
+        String countSymbol = getArguments().getString("countSymbol");
+        areaCode = getArguments().getString("areaCode");
+        LinearLayout llSearchType = findView(R.id.ll_search_type);
+        if (!"1".equals(countSymbol)){
+            //显示乡镇
+            llSearchType.setVisibility(View.GONE);
+        }
         tvOperationTask = findView(R.id.tv_operation_task);
         tvComplete = findView(R.id.tv_complete);
         tvPercent = findView(R.id.tv_percent);
@@ -165,10 +180,14 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         });
         tvReservoir = findView(R.id.tv_reservoir);
         tvReservoir.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
-            ChoiceReservoirActivity.setIntent(intent, true);
-            startActivityForResult(intent,ChoiceReservoirActivity.resultCode);
+            if (currentSearchType == 0) {
+                Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
+                ChoiceReservoirActivity.setIntent(intent, true);
+                intent.putExtra(ChoiceReservoirActivity.isFromYunWei,true);
+                startActivityForResult(intent, ChoiceReservoirActivity.resultCode);
+            }
         });
+        initRadioButton();
         initStartDate();
 //        initSpinner();
         initRecyclerView();
@@ -176,13 +195,21 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         initRequestResponse();
     }
 
+    private void initRadioButton() {
+        RadioGroup radioGroup = findView(R.id.rg);
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int i = group.getCheckedRadioButtonId();
+            if (i == R.id.radio_reservoir) {
+                currentSearchType = 0;
+            } else if (i == R.id.radio_town) {
+                currentSearchType = 1;
+                tvReservoir.setText("全部");
+                reservoirId = "";
+            }
+        });
+    }
+
     private void initRequestResponse() {
-        if (!isFirstLoad) {
-            ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-            String defaultReservoirId = defaultReservoir.getReservoirId();
-            if (defaultReservoirId!=reservoirId) {
-//                reservoirId = defaultReservoir.getReservoirId();
-//                tvReservoir.setText(defaultReservoir.getReservoir());
                 reservoirId = "";
                 tvReservoir.setText("全部");
                 rvAdapter.setEnableLoadMore(false);
@@ -190,14 +217,16 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
                 isloadmore = false;
                 first = true;
                 if (mPresenter != null) {
-                    mPresenter.getAdminProblemList(reservoirId, startDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
-                }
-            }
+                    mPresenter.getAdminProblemList(reservoirId, currentDate, String.valueOf(currentPage), String.valueOf(pageSize), false);
         }
     }
 
     private void initSearch() {
         Button btConfirm = findView(R.id.bt_confirm);
+        TextView tvTitleTownReservoir = findView(R.id.tv_title_town_reservoir);
+        currentDate = TimeFormatUtils.getStringDateShort2();
+        tvStartDate.setText(currentDate);
+        startDate = currentDate;
         btConfirm.setOnClickListener(v -> {
             dataList.clear();
             startDate = tvStartDate.getText().toString();
@@ -208,9 +237,24 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
             first = true;
             if (!NetUtil.isNetworkConnected(Utils.getContext())) {
                 ToastUtils.shortToast(R.string.no_network);
-            }else {
-                if (mPresenter != null) {
-                    mPresenter.getAdminProblemList(reservoirId,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
+            } else {
+                if (currentSearchType == 0) {
+                    tvTitleTownReservoir.setText("水库");
+                    if (mPresenter != null) {
+                        if ((null == reservoirId || "".equals(reservoirId))&&(startDate==null||"".equals(startDate))) {
+                            tvStartDate.setText(currentDate);
+                            startDate = currentDate;
+                        }
+                        rvAdapter.setCurrentSearchType(0);
+                        mPresenter.getAdminProblemList(reservoirId, startDate, String.valueOf(currentPage), String.valueOf(pageSize), true);                    }
+                } else if (currentSearchType == 1) {
+                    tvTitleTownReservoir.setText("乡镇(水库数)");
+                    if (null == startDate || "".equals(startDate)) {
+                        tvStartDate.setText(currentDate);
+                        startDate = currentDate;
+                    }
+                    rvAdapter.setCurrentSearchType(1);
+                    mPresenter.getTownProblemList(areaCode, startDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
                 }
             }
         });
@@ -233,7 +277,7 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
             long currentLong = 0;
-            if (current==null&&current.length()>0){
+            if (current == null && current.length() > 0) {
                 currentLong = strToLong(current);
             }
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
@@ -263,7 +307,7 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
 
     private void initRecyclerView() {
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvAdapter = new MyAdminOperationListAdapter(R.layout.admin_operation_list_item, dataList);
+        rvAdapter = new MyAdminOperationReportListAdapter(R.layout.admin_operation_list_item, dataList);
         rvAdapter.openLoadAnimation();
         rv.setAdapter(rvAdapter);
         rvAdapter.setOnLoadMoreListener(() -> {
@@ -273,18 +317,34 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
                 isloadmore = true;
                 //加载更多数据
                 loadDataOrMore(false);
-            },1000);
-        },rv);
+            }, 1000);
+        }, rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
-            Intent bundle = new Intent(getActivity(),AdminOperationReportActivity.class);
-            bundle.putExtra("item",dataList.get(position));
-            startActivity(bundle);
+            int rvCurrentSearchType = rvAdapter.getCurrentSearchType();
+            if (0 == rvCurrentSearchType) {
+                Intent bundle = new Intent(getActivity(), AdminOperationReportActivity.class);
+                bundle.putExtra("item", dataList.get(position));
+                startActivity(bundle);
+            } else if (rvCurrentSearchType == 1) {
+//                startActivity(new Intent(getActivity(), TownOperationActivity.class));
+                Intent intent = new Intent(getActivity(), TownOperationReportActivity.class);
+                AdminWorkOrderResponse.DataBean.ListBean listBean = dataList.get(position);
+                String areaCode = listBean.getAreaCode();
+                String date = listBean.getDate();
+                String areaName = listBean.getAreaName();
+                TownOperationReportActivity.setIntent(intent,areaCode,date,areaName);
+                startActivity(intent);
+            }
         });
     }
 
     private void loadDataOrMore(boolean isShowLoading) {
-        if (mPresenter != null) {
-            mPresenter.getAdminProblemList(reservoirId,startDate, String.valueOf(currentPage), String.valueOf(pageSize),isShowLoading);
+        if (currentSearchType == 0) {
+            if (mPresenter != null) {
+                mPresenter.getAdminProblemList(reservoirId, startDate, String.valueOf(currentPage), String.valueOf(pageSize), isShowLoading);
+            }
+        } else if (currentSearchType == 1) {
+            mPresenter.getTownProblemList(areaCode, startDate, String.valueOf(currentPage), String.valueOf(pageSize), false);
         }
     }
 
@@ -327,21 +387,21 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
 
     }
 
-    private void setSpanned(int doneNum,int totals){
-        int percent=0;
-        if (doneNum!=0&&totals!=0){
-            percent = doneNum*100/totals;
+    private void setSpanned(int doneNum, int totals) {
+        int percent = 0;
+        if (doneNum != 0 && totals != 0) {
+            percent = doneNum * 100 / totals;
         }
-        String str=typeName+"任务:<font color='#e3654d'>"+totals+"次</font>";
-        String totalStr="完成"+typeName+":<font color='#e3654d'>"+doneNum+"次</font>";
-        String percentStr = "完成率:<font color='#e3654d'>"+percent+"%</font>";
+        String str = typeName + "任务:<font color='#e3654d'>" + totals + "次</font>";
+        String totalStr = "完成" + typeName + ":<font color='#e3654d'>" + doneNum + "次</font>";
+        String percentStr = "完成率:<font color='#e3654d'>" + percent + "%</font>";
         Spanned result;
         Spanned complete;
         Spanned percentSd;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY);
             complete = Html.fromHtml(totalStr, Html.FROM_HTML_MODE_LEGACY);
-            percentSd= Html.fromHtml(percentStr, Html.FROM_HTML_MODE_LEGACY);
+            percentSd = Html.fromHtml(percentStr, Html.FROM_HTML_MODE_LEGACY);
         } else {
             result = Html.fromHtml(str);
             complete = Html.fromHtml(totalStr);
@@ -354,9 +414,9 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
 
     private void showSelectReservoir() {
         if (localReservoirList != null) {
-            String[] stringItems = new String[localReservoirList.size()+1];
+            String[] stringItems = new String[localReservoirList.size() + 1];
             for (int i = 0; i < localReservoirList.size(); i++) {
-                stringItems[i+1] = localReservoirList.get(i).getReservoir();
+                stringItems[i + 1] = localReservoirList.get(i).getReservoir();
             }
             stringItems[0] = "全部";
             final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
@@ -383,19 +443,31 @@ public class AdminOperationReportListFragment extends MVPBaseFragment<YunWeiJiSh
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
-                if (null!=data){
+                if (null != data) {
                     boolean isSelectAll = data.getBooleanExtra(ChoiceReservoirActivity.isAllReservoir, false);
-                    if (isSelectAll){
-                        tvReservoir.setText("全部");
-                        reservoirId = "";
+                    boolean isKeyBack = data.getBooleanExtra(ChoiceReservoirActivity.isKeyBack,false);
+//                    intent.putExtra("reservoirId",reservoirId);
+//                    intent.putExtra("reservoir",reservoir);
+                    String backReservoirId = data.getStringExtra("reservoirId");
+                    String reservoir = data.getStringExtra("reservoir");
+                    if (isKeyBack){
                         return;
                     }
+                    if (isSelectAll) {
+                        tvReservoir.setText("全部");
+                        this.reservoirId = "";
+                        return;
+                    }
+                    if (!reservoirId.equals(backReservoirId)) {
+                        tvReservoir.setText(reservoir);
+                        reservoirId = backReservoirId;
+                    }
                 }
-                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (!reservoirId.equals(defaultReservoir.getReservoirId())){
-                    tvReservoir.setText(defaultReservoir.getReservoir());
-                    reservoirId = defaultReservoir.getReservoirId();
-                }
+//                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+//                if (!reservoirId.equals(defaultReservoir.getReservoirId())) {
+//                    tvReservoir.setText(defaultReservoir.getReservoir());
+//                    reservoirId = defaultReservoir.getReservoirId();
+//                }
                 break;
             default:
                 break;

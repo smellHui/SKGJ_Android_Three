@@ -226,7 +226,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                         mBinding.wrflContainer.setRefreshing(false);
                     }
                 }, 500);
-                mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
+                mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId(),true);
             }
         });
     }
@@ -260,6 +260,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 item.setReservoirName(UserManager.getInstance().getDefaultReservoir().getReservoir());
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation)
                         .withString("operationType", "1")
+                        .withString("executeStatus","3")
                         .withSerializable("item", item)
                         .navigation();
             }
@@ -489,6 +490,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                 ARouter.getInstance().build(AppRoutePath.app_admin_operation)
                         .withString("operationType", "2")
                         .withSerializable("item", item)
+                        .withString("executeStatus","3")
                         .navigation();
             }
         });
@@ -629,7 +631,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                     selectedResrvoir = reservoirBeans.get(position);
                     mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
                     UserManager.getInstance().saveDefaultReservoir(selectedResrvoir);
-                    mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId());
+                    mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId(),true);
                     if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
                         mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
                     } else {
@@ -649,13 +651,18 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
     @Subscribe
     public void getEventBus(Integer num) {
         if (num != null && num == 100) {
-            if (UserManager.getInstance().getDefaultReservoir() != null) {
-                tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
-                mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
-                if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
-                    mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
-                } else {
-                    mBinding.loHeader.tvVr.setVisibility(View.GONE);
+            ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+            if ( defaultReservoir!= null) {
+                if (!selectedResrvoir.getReservoirId().equals(defaultReservoir.getReservoirId())) {
+                    tvReservoirName.setText(defaultReservoir.getReservoir());
+                    selectedResrvoir = defaultReservoir;
+                    mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
+                    mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId(),false);
+                    if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
+                        mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
+                    } else {
+                        mBinding.loHeader.tvVr.setVisibility(View.GONE);
+                    }
                 }
             }
         }
@@ -666,7 +673,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
 
         if (UserManager.getInstance().getDefaultReservoir() != null) {
             tvReservoirName.setText(UserManager.getInstance().getDefaultReservoir().getReservoir());
-            mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId());
+            mPresenter.getAppHomeGetReservoirInfo(UserManager.getInstance().getDefaultReservoir().getReservoirId(),false);
             if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
                 mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
             } else {
@@ -847,7 +854,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                     tvReservoirName.setText(defaultReservoir.getReservoir());
                     selectedResrvoir = defaultReservoir;
                     mBinding.loHeader.tvReservoirName.setText(selectedResrvoir.getReservoir());
-                    mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId());
+                    mPresenter.getAppHomeGetReservoirInfo(selectedResrvoir.getReservoirId(),false);
                     if (!TextUtils.isEmpty(UserManager.getInstance().getDefaultReservoir().getVrUrl())) {
                         mBinding.loHeader.tvVr.setVisibility(View.VISIBLE);
                     } else {

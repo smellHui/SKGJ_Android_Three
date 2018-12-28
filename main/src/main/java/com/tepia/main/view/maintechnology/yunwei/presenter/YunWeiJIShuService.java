@@ -1,6 +1,7 @@
 package com.tepia.main.view.maintechnology.yunwei.presenter;
 
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
+import com.tepia.main.model.jishu.admin.ProblemListByAddvcdResponse;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
@@ -35,6 +36,7 @@ public interface YunWeiJIShuService {
      * @param endDate
      * @param currentPage
      * @param pageSize
+     * @param executeStatus 2 未完成 3 已完成
      * @return
      */
     @GET("app/workOrderTrp/getNoProcessWorkOrderList")
@@ -44,7 +46,8 @@ public interface YunWeiJIShuService {
                                                                 @Query("startDate") String startDate,
                                                                 @Query("endDate") String endDate,
                                                                 @Query("currentPage") String currentPage,
-                                                                @Query("pageSize") String pageSize
+                                                                @Query("pageSize") String pageSize,
+                                                                @Query("executeStatus") String executeStatus
     );
 
     /**
@@ -75,7 +78,7 @@ public interface YunWeiJIShuService {
      * @param endDate
      * @param currentPage
      * @param pageSize
-     * @param problemStatus
+     * @param problemStatus 4-未完成  5-已完成
      * @return
      */
     @GET("app/workOrderTrp/getProblemList")
@@ -165,5 +168,69 @@ public interface YunWeiJIShuService {
                                                              @Query("queryDate") String queryDate,
                                                              @Query("currentPage") String currentPage,
                                                              @Query("pageSize") String pageSize
+    );
+
+    /**
+     * 根据行政编码统计水库工单总数和完成数
+     * @param token
+     * @param operationType
+     * @param areaCode
+     * @param queryDate
+     * @return
+     */
+    @GET("app/workOrderTrp/getWorkOrderListByAreaCode")
+    Observable<AdminWorkOrderResponse> getWorkOrderListByAreaCode(@Header("Authorization") String token,
+                                                           @Query("operationType") String operationType,
+                                                           @Query("areaCode") String areaCode,
+                                                           @Query("queryDate") String queryDate
+    );
+
+    /**
+     * 根据行政编码统计水库问题总数和处理完成数
+     * @param token
+     * @param areaCode
+     * @param queryDate
+     * @return
+     */
+    @GET("app/workOrderTrp/getProblemListByAddvcd")
+    Observable<ProblemListByAddvcdResponse> getProblemListByAddvcd(@Header("Authorization") String token,
+                                                                   @Query("areaCode") String areaCode,
+                                                                   @Query("queryDate") String queryDate
+    );
+
+    /**
+     * 根据乡镇统计工单总数和完成数
+     * @param token
+     * @param operationType
+     * @param areaCode
+     * @param queryDate   必须传具体月份
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/workOrderTrp/getTownWorkOrderList")
+    Observable<AdminWorkOrderResponse> getTownWorkOrderList(@Header("Authorization") String token,
+                                                              @Query("operationType") String operationType,
+                                                              @Query("areaCode") String areaCode,
+                                                             @Query("queryDate") String queryDate,
+                                                            @Query("currentPage") String currentPage,
+                                                            @Query("pageSize") String pageSize
+    );
+
+    /**
+     *根据乡镇统计问题总数和处理完成数
+     * @param token
+     * @param areaCode
+     * @param queryDate
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/workOrderTrp/getTownProblemList")
+    Observable<AdminWorkOrderResponse> getTownProblemList(@Header("Authorization") String token,
+                                                            @Query("areaCode") String areaCode,
+                                                            @Query("queryDate") String queryDate,
+                                                            @Query("currentPage") String currentPage,
+                                                            @Query("pageSize") String pageSize
     );
 }

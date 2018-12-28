@@ -13,6 +13,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.main.R;
+import com.tepia.main.model.user.UserInfoBean;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.maintechnology.yunwei.OperationListFragment;
 import com.tepia.main.view.maintechnology.yunwei.OperationReportFragment;
 import com.tepia.main.view.maintechnology.yunwei.adapter.OperationTabPageAdapter;
@@ -32,6 +34,8 @@ public class YunWeiXingZhengFragment extends BaseCommonFragment {
     private List<BaseCommonFragment> mFragments = new ArrayList<>();
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private String countSymbol;
+    private String areaCode;
 
     public YunWeiXingZhengFragment() {
         // Required empty public constructor
@@ -45,7 +49,9 @@ public class YunWeiXingZhengFragment extends BaseCommonFragment {
 
     @Override
     protected void initData() {
-
+        UserInfoBean userBean = UserManager.getInstance().getUserBean();
+        countSymbol = userBean.getData().getCountSymbol();
+        areaCode = userBean.getData().getAreaCode();
     }
 
     @Override
@@ -69,10 +75,16 @@ public class YunWeiXingZhengFragment extends BaseCommonFragment {
             AdminOperationListFragment fragment = new AdminOperationListFragment();
             Bundle bundle = new Bundle();
             bundle.putString("type",tabNames[i]);
+            bundle.putString("countSymbol",countSymbol);
+            bundle.putString("areaCode",areaCode);
             fragment.setArguments(bundle);
             mFragments.add(fragment);
         }
         AdminOperationReportListFragment operationReportFragment = new AdminOperationReportListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("countSymbol",countSymbol);
+        bundle.putString("areaCode",areaCode);
+        operationReportFragment.setArguments(bundle);
         mFragments.add(operationReportFragment);
         OperationTabPageAdapter tabPageAdapter = new OperationTabPageAdapter(getFragmentManager(), mFragments);
         viewPager.setAdapter(tabPageAdapter);

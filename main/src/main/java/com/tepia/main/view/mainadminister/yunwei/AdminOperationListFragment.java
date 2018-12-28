@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
@@ -41,12 +44,12 @@ import java.util.List;
 import java.util.Locale;
 
 /**
-  * Created by      Android studio
-  *
-  * @author :wwj (from Center Of Wuhan)
-  * Date    :2018/10/9
-  * Version :1.0
-  * 功能描述 :行政运维
+ * Created by      Android studio
+ *
+ * @author :wwj (from Center Of Wuhan)
+ * Date    :2018/10/9
+ * Version :1.0
+ * 功能描述 :行政运维
  **/
 
 public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.View, YunWeiJiShuPresenter> {
@@ -75,6 +78,9 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
     private ArrayList<ReservoirBean> localReservoirList;
     private ReservoirBean selectedResrvoir;
     private TextView tvReservoir;
+    private int currentSearchType = 0;//0是水库，1是乡镇
+    private String currentDate;
+    private String areaCode;
 
     @Override
     protected int getLayoutId() {
@@ -89,51 +95,59 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
             public void success(AdminWorkOrderResponse adminWorkOrderResponse) {
 //                LogUtil.i("个数" + workOrderListResponse.getCode());
                 AdminWorkOrderResponse.DataBean dataBean = adminWorkOrderResponse.getData();
-                List<AdminWorkOrderResponse.DataBean.ListBean> data = dataBean.getList();
-                int totalSize = dataBean.getTotal();
-                int pages = dataBean.getPages();
-                if (first) {
-                    if (data == null || data.size() == 0) {
-                        dataList.clear();
-                        rvAdapter.setEmptyView(EmptyLayoutUtil.show("暂无数据"));
-                        rvAdapter.notifyDataSetChanged();
-                    } else {
-                        dataList.clear();
+                if (null != dataBean) {
+                    List<AdminWorkOrderResponse.DataBean.ListBean> data = dataBean.getList();
+                    int totalSize = dataBean.getTotal();
+                    int pages = dataBean.getPages();
+                    if (first) {
+                        if (data == null || data.size() == 0) {
+                            dataList.clear();
+                            rvAdapter.setEmptyView(EmptyLayoutUtil.show("暂无数据"));
+                            rvAdapter.notifyDataSetChanged();
+                        } else {
+                            dataList.clear();
+                            dataList.addAll(data);
+                            rvAdapter.notifyDataSetChanged();
+                            first = false;
+                        }
+                        rvAdapter.setEnableLoadMore(true);
+                        if (pages == 1) {
+                            //只有一页
+                            rvAdapter.loadMoreEnd();
+                            return;
+                        }
+                    } else if (isloadmore) {
                         dataList.addAll(data);
                         rvAdapter.notifyDataSetChanged();
-                        first = false;
+                        mCurrentCounter = rvAdapter.getData().size();
+                        if (mCurrentCounter >= totalSize) {
+                            //数据全部加载完毕
+                            rvAdapter.loadMoreEnd();
+                            return;
+                        }
+                        rvAdapter.loadMoreComplete();
                     }
-                    rvAdapter.setEnableLoadMore(true);
-                    if (pages==1){
-                        //只有一页
-                        rvAdapter.loadMoreEnd();
-                        return;
-                    }
-                } else if (isloadmore) {
-                    dataList.addAll(data);
+                    isFirstLoad = true;
+                }else {
+                    dataList.clear();
+                    rvAdapter.setEmptyView(EmptyLayoutUtil.show("暂无数据"));
                     rvAdapter.notifyDataSetChanged();
-                    mCurrentCounter = rvAdapter.getData().size();
-                    if (mCurrentCounter >= totalSize) {
-                        //数据全部加载完毕
-                        rvAdapter.loadMoreEnd();
-                        return;
-                    }
-                    rvAdapter.loadMoreComplete();
+                    isFirstLoad = true;
                 }
-                isFirstLoad = true;
             }
 
             @Override
             public void failure(String msg) {
                 ToastUtils.shortToast(msg);
-                isFirstLoad = true;
                 if (isloadmore) {
                     if (currentPage > 1) {
                         currentPage--;
                         rvAdapter.loadMoreFail();
                     }
                 } else {
+                    dataList.clear();
                     rvAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
+                    rvAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -147,6 +161,15 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
     @Override
     protected void initView(View view) {
         typeStr = getArguments().getString("type");
+//        bundle.putString("countSymbol",countSymbol);
+//        bundle.putString("areaCode",areaCode);
+        String countSymbol = getArguments().getString("countSymbol");
+        areaCode = getArguments().getString("areaCode");
+        LinearLayout llSearchType = findView(R.id.ll_search_type);
+        if (!"1".equals(countSymbol)){
+            //显示乡镇
+            llSearchType.setVisibility(View.GONE);
+        }
 //        LogUtil.i("typeStr:" + typeStr);
         if (tabNames[3].equals(typeStr)) {
             operationType = "";
@@ -174,11 +197,15 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
             tvStartDate.setText("");
         });
         tvReservoir.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
-            ChoiceReservoirActivity.setIntent(intent, true);
-            startActivityForResult(intent,ChoiceReservoirActivity.resultCode);
+            if (currentSearchType == 0) {
+                Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
+                ChoiceReservoirActivity.setIntent(intent, true);
+                intent.putExtra(ChoiceReservoirActivity.isFromYunWei,true);
+                startActivityForResult(intent, ChoiceReservoirActivity.resultCode);
+            }
 //            startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode)
         });
+        initRadioButton();
         initStartDate();
 //        initSpinner();
         initRecyclerView();
@@ -186,28 +213,44 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         initRequestResponse();
     }
 
+    private void initRadioButton() {
+        RadioGroup radioGroup = findView(R.id.rg);
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int i = group.getCheckedRadioButtonId();
+            if (i == R.id.radio_reservoir) {
+                currentSearchType = 0;
+            } else if (i == R.id.radio_town) {
+                currentSearchType = 1;
+                tvReservoir.setText("全部");
+                reservoirId = "";
+            }
+        });
+    }
+
     private void initRequestResponse() {
         if (!isFirstLoad) {
-            ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-            String defaultReservoirId = defaultReservoir.getReservoirId();
-            if (defaultReservoirId!=reservoirId) {
-//                reservoirId = defaultReservoir.getReservoirId();
-//                tvReservoir.setText(defaultReservoir.getReservoir());
-                reservoirId = "";
-                tvReservoir.setText("全部");
-                rvAdapter.setEnableLoadMore(false);
-                currentPage = 1;
-                isloadmore = false;
-                first = true;
-                if (mPresenter != null) {
-                    mPresenter.getAdminWorkOrderList(reservoirId, operationType, startDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
+            reservoirId = "";
+            tvReservoir.setText("全部");
+            rvAdapter.setEnableLoadMore(false);
+            currentPage = 1;
+            isloadmore = false;
+            first = true;
+            if (mPresenter != null) {
+                boolean isShow = false;
+                if ("1".equals(operationType)){
+                    isShow =true;
                 }
+                mPresenter.getAdminWorkOrderList(reservoirId, operationType, currentDate, String.valueOf(currentPage), String.valueOf(pageSize), isShow);
             }
         }
     }
 
     private void initSearch() {
         Button btConfirm = findView(R.id.bt_confirm);
+        TextView tvTitleTownReservoir = findView(R.id.tv_title_town_reservoir);
+        currentDate = TimeFormatUtils.getStringDateShort2();
+        tvStartDate.setText(currentDate);
+        startDate = currentDate;
         btConfirm.setOnClickListener(v -> {
             dataList.clear();
             startDate = tvStartDate.getText().toString();
@@ -218,9 +261,25 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
             first = true;
             if (!NetUtil.isNetworkConnected(Utils.getContext())) {
                 ToastUtils.shortToast(R.string.no_network);
-            }else {
-                if (mPresenter != null) {
-                    mPresenter.getAdminWorkOrderList(reservoirId,operationType,startDate, String.valueOf(currentPage), String.valueOf(pageSize),true);
+            } else {
+                if (currentSearchType == 0) {
+                    tvTitleTownReservoir.setText("水库");
+                    if (mPresenter != null) {
+                        if ((null == reservoirId || "".equals(reservoirId))&&(startDate==null||"".equals(startDate))) {
+                            tvStartDate.setText(currentDate);
+                            startDate = currentDate;
+                        }
+                        rvAdapter.setCurrentSearchType(0);
+                        mPresenter.getAdminWorkOrderList(reservoirId, operationType, startDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
+                    }
+                } else if (currentSearchType == 1) {
+                    tvTitleTownReservoir.setText("乡镇(水库数)");
+                    if (null == startDate || "".equals(startDate)) {
+                        tvStartDate.setText(currentDate);
+                        startDate = currentDate;
+                    }
+                    rvAdapter.setCurrentSearchType(1);
+                    mPresenter.getTownWorkOrderList(operationType, areaCode, startDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
                 }
             }
         });
@@ -243,7 +302,7 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         tvStartDate.setOnClickListener(v -> {
             String current = (String) tvStartDate.getText();
             long currentLong = 0;
-            if (current!=null&&current.length()>0){
+            if (current != null && current.length() > 0) {
                 currentLong = strToLong(current);
             }
             timePickerDialogUtil.initTimePickerSetStartAndEnd((timePickerView, millseconds) -> {
@@ -278,28 +337,47 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         rv.setAdapter(rvAdapter);
         rvAdapter.setOnLoadMoreListener(() -> {
             rv.postDelayed(() -> {
-                currentPage++;
-                first = false;
-                isloadmore = true;
-                //加载更多数据
-                loadDataOrMore(false);
-            },1000);
-        },rv);
+                if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                    ToastUtils.shortToast(R.string.no_network);
+                }else {
+                    currentPage++;
+                    first = false;
+                    isloadmore = true;
+                    //加载更多数据
+                    loadDataOrMore(false);
+                }
+            }, 500);
+        }, rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
 //            LogUtil.i("position:"+position);
 //            ARouter.getInstance().build(AppRoutePath.app_task_detail)
 //                    .withString("workOrderId", dataList.get(position).getWorkOrderId())
 //                    .navigation();
-            Intent bundle = new Intent(getActivity(),AdminOperationActivity.class);
-            bundle.putExtra("item",dataList.get(position));
-            bundle.putExtra("operationType",operationType);
-            startActivity(bundle);
+            int rvCurrentSearchType = rvAdapter.getCurrentSearchType();
+            if (0 == rvCurrentSearchType) {
+                Intent bundle = new Intent(getActivity(), AdminOperationActivity.class);
+                bundle.putExtra("item", dataList.get(position));
+                bundle.putExtra("operationType", operationType);
+                startActivity(bundle);
+            } else if (rvCurrentSearchType == 1) {
+                Intent intent = new Intent(getActivity(), TownOperationActivity.class);
+                AdminWorkOrderResponse.DataBean.ListBean listBean = dataList.get(position);
+                String areaName = listBean.getAreaName();
+                String date = listBean.getDate();
+                String areaCode = listBean.getAreaCode();
+                TownOperationActivity.setIntent(intent,operationType,areaCode,date,areaName);
+                startActivity(intent);
+            }
         });
     }
 
     private void loadDataOrMore(boolean isShowLoading) {
-        if (mPresenter != null) {
-            mPresenter.getAdminWorkOrderList(reservoirId,operationType,startDate, String.valueOf(currentPage), String.valueOf(pageSize),isShowLoading);
+        if (currentSearchType == 0) {
+            if (mPresenter != null) {
+                mPresenter.getAdminWorkOrderList(reservoirId, operationType, startDate, String.valueOf(currentPage), String.valueOf(pageSize), false);
+            }
+        } else if (currentSearchType == 1) {
+            mPresenter.getTownWorkOrderList(operationType, areaCode, startDate, String.valueOf(currentPage), String.valueOf(pageSize), false);
         }
     }
 
@@ -342,21 +420,21 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
 
     }
 
-    private void setSpanned(int doneNum,int totals){
-        int percent=0;
-        if (doneNum!=0&&totals!=0){
-            percent = doneNum*100/totals;
+    private void setSpanned(int doneNum, int totals) {
+        int percent = 0;
+        if (doneNum != 0 && totals != 0) {
+            percent = doneNum * 100 / totals;
         }
-        String str=typeName+"任务:<font color='#e3654d'>"+totals+"次</font>";
-        String totalStr="完成"+typeName+":<font color='#e3654d'>"+doneNum+"次</font>";
-        String percentStr = "完成率:<font color='#e3654d'>"+percent+"%</font>";
+        String str = typeName + "任务:<font color='#e3654d'>" + totals + "次</font>";
+        String totalStr = "完成" + typeName + ":<font color='#e3654d'>" + doneNum + "次</font>";
+        String percentStr = "完成率:<font color='#e3654d'>" + percent + "%</font>";
         Spanned result;
         Spanned complete;
         Spanned percentSd;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             result = Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY);
             complete = Html.fromHtml(totalStr, Html.FROM_HTML_MODE_LEGACY);
-            percentSd= Html.fromHtml(percentStr, Html.FROM_HTML_MODE_LEGACY);
+            percentSd = Html.fromHtml(percentStr, Html.FROM_HTML_MODE_LEGACY);
         } else {
             result = Html.fromHtml(str);
             complete = Html.fromHtml(totalStr);
@@ -369,9 +447,9 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
 
     private void showSelectReservoir() {
         if (localReservoirList != null) {
-            String[] stringItems = new String[localReservoirList.size()+1];
+            String[] stringItems = new String[localReservoirList.size() + 1];
             for (int i = 0; i < localReservoirList.size(); i++) {
-                stringItems[i+1] = localReservoirList.get(i).getReservoir();
+                stringItems[i + 1] = localReservoirList.get(i).getReservoir();
             }
             stringItems[0] = "全部";
             final ActionSheetDialog dialog = new ActionSheetDialog(getBaseActivity(), stringItems, null);
@@ -398,19 +476,31 @@ public class AdminOperationListFragment extends MVPBaseFragment<YunWeiJiShuContr
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
-                if (null!=data){
+                if (null != data) {
                     boolean isSelectAll = data.getBooleanExtra(ChoiceReservoirActivity.isAllReservoir, false);
-                    if (isSelectAll){
-                        tvReservoir.setText("全部");
-                        reservoirId = "";
+                    boolean isKeyBack = data.getBooleanExtra(ChoiceReservoirActivity.isKeyBack,false);
+//                    intent.putExtra("reservoirId",reservoirId);
+//                    intent.putExtra("reservoir",reservoir);
+                    String backReservoirId = data.getStringExtra("reservoirId");
+                    String reservoir = data.getStringExtra("reservoir");
+                    if (isKeyBack){
                         return;
                     }
+                    if (isSelectAll) {
+                        tvReservoir.setText("全部");
+                        this.reservoirId = "";
+                        return;
+                    }
+                    if (!reservoirId.equals(backReservoirId)) {
+                        tvReservoir.setText(reservoir);
+                        reservoirId = backReservoirId;
+                    }
                 }
-                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (!reservoirId.equals(defaultReservoir.getReservoirId())){
-                    tvReservoir.setText(defaultReservoir.getReservoir());
-                    reservoirId = defaultReservoir.getReservoirId();
-                }
+//                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+//                if (!reservoirId.equals(defaultReservoir.getReservoirId())) {
+//                    tvReservoir.setText(defaultReservoir.getReservoir());
+//                    reservoirId = defaultReservoir.getReservoirId();
+//                }
                 break;
             default:
                 break;

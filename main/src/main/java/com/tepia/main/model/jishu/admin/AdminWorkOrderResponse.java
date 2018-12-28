@@ -251,6 +251,60 @@ public class AdminWorkOrderResponse extends BaseResponse{
             private int totals;
             private String reservoirId;
             private String reservoirName;
+            private String areaName;
+            private double doneRate;//该值除以reservoirNum得到该镇的完成率
+            private int reservoirNum;//水库数量
+            private int nonNum;
+            private int doneNum;
+            private String areaCode;
+
+            public String getAreaCode() {
+                return areaCode;
+            }
+
+            public void setAreaCode(String areaCode) {
+                this.areaCode = areaCode;
+            }
+
+            public int getNonNum() {
+                return nonNum;
+            }
+
+            public void setNonNum(int nonNum) {
+                this.nonNum = nonNum;
+            }
+
+            public int getDoneNum() {
+                return doneNum;
+            }
+
+            public void setDoneNum(int doneNum) {
+                this.doneNum = doneNum;
+            }
+
+            public String getAreaName() {
+                return areaName;
+            }
+
+            public void setAreaName(String areaName) {
+                this.areaName = areaName;
+            }
+
+            public double getDoneRate() {
+                return doneRate;
+            }
+
+            public void setDoneRate(double doneRate) {
+                this.doneRate = doneRate;
+            }
+
+            public int getReservoirNum() {
+                return reservoirNum;
+            }
+
+            public void setReservoirNum(int reservoirNum) {
+                this.reservoirNum = reservoirNum;
+            }
 
             public String getDate() {
                 return date;

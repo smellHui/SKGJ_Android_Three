@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.main.R;
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 
@@ -22,10 +23,10 @@ import java.util.List;
  * Version :       1.0
  * Company :       北京太比雅科技(武汉研发中心)
  **/
-public class MyAdminOperationListAdapter extends BaseQuickAdapter<AdminWorkOrderResponse.DataBean.ListBean, BaseViewHolder> {
+public class MyAdminOperationReportListAdapter extends BaseQuickAdapter<AdminWorkOrderResponse.DataBean.ListBean, BaseViewHolder> {
     private int currentSearchType = 0;
 
-    public MyAdminOperationListAdapter(int layoutResId, @Nullable List<AdminWorkOrderResponse.DataBean.ListBean> data) {
+    public MyAdminOperationReportListAdapter(int layoutResId, @Nullable List<AdminWorkOrderResponse.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
@@ -47,6 +48,8 @@ public class MyAdminOperationListAdapter extends BaseQuickAdapter<AdminWorkOrder
         tvDate.setText(item.getDate());
         int doneNum = item.getDone_num();
         int totals = item.getTotals();
+        int non_num = item.getNon_num();
+//        LogUtil.i("doneNum:"+doneNum+"totals:"+totals+"non_num:"+non_num);
         if (currentSearchType==0){
             tvReservoirName.setText(item.getReservoirName());
             int percent=0;
@@ -58,14 +61,15 @@ public class MyAdminOperationListAdapter extends BaseQuickAdapter<AdminWorkOrder
         }else if (currentSearchType==1){
             int reservoirNum = item.getReservoirNum();
             tvReservoirName.setText(item.getAreaName()+"("+reservoirNum+")");
+            int doneNum1 = item.getDoneNum();
             int percent=0;
-            double doneRate = item.getDoneRate();
-            if (doneRate!=0&&reservoirNum!=0){
-                percent = (int) (doneRate*100/reservoirNum);
+            if (doneNum1!=0&&totals!=0){
+                percent = doneNum1*100/totals;
             }
             tvStatus.setText(percent+"%");
-            tvComplete.setText(item.getDoneNum()+"");
+            tvComplete.setText(doneNum1+"");
         }
+
         tvCount.setText(item.getTotals()+"");
 
         if (helper.getLayoutPosition() % 2 == 0) {

@@ -216,7 +216,11 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
         tvStartDate = findView(R.id.tv_start_date);
 //        tvEndDate = findView(R.id.tv_end_date);
         tvReservoir = findView(R.id.tv_reservoir);
-        tvReservoir.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), ChoiceReservoirActivity.class),ChoiceReservoirActivity.resultCode));
+        tvReservoir.setOnClickListener(v ->{
+            Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
+            intent.putExtra(ChoiceReservoirActivity.isFromYunWei,true);
+            startActivityForResult(intent, ChoiceReservoirActivity.resultCode);
+        });
 //        initStartDate();
 //        initEndDate();
         initMonthDate();
@@ -303,7 +307,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 first = true;
                 getStartAndEndOfMonth();
                 if (mPresenter != null&&yunWeiJiShuPresenter!=null) {
-                    mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
+                    mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize),"" ,true);
                     yunWeiJiShuPresenter.getWorkOrderNumByJs(reservoirId,operationType,startDate,endDate);
                 }
             }
@@ -342,7 +346,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
                 ToastUtils.shortToast(R.string.no_network);
             }else {
                 if (mPresenter != null) {
-                    mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), true);
+                    mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize),"" ,true);
                 }
                 yunWeiJiShuPresenter.getWorkOrderNumByJs(reservoirId,operationType,startDate,endDate);
             }
@@ -418,7 +422,7 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), isShowLoading);
+            mPresenter.getNoProcessWorkOrderList(reservoirId, operationType, startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize),"", isShowLoading);
         }
     }
 
@@ -519,11 +523,31 @@ public class OperationListFragment extends MVPBaseFragment<YunWeiJiShuContract.V
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case ChoiceReservoirActivity.resultCode:
-                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
-                if (!reservoirId.equals(defaultReservoir.getReservoirId())){
-                    tvReservoir.setText(defaultReservoir.getReservoir());
-                    reservoirId = defaultReservoir.getReservoirId();
+                if (null != data) {
+                    boolean isSelectAll = data.getBooleanExtra(ChoiceReservoirActivity.isAllReservoir, false);
+                    boolean isKeyBack = data.getBooleanExtra(ChoiceReservoirActivity.isKeyBack,false);
+//                    intent.putExtra("reservoirId",reservoirId);
+//                    intent.putExtra("reservoir",reservoir);
+                    String backReservoirId = data.getStringExtra("reservoirId");
+                    String reservoir = data.getStringExtra("reservoir");
+                    if (isKeyBack){
+                        return;
+                    }
+                    if (isSelectAll) {
+                        tvReservoir.setText("全部");
+                        this.reservoirId = "";
+                        return;
+                    }
+                    if (!reservoirId.equals(backReservoirId)) {
+                        tvReservoir.setText(reservoir);
+                        reservoirId = backReservoirId;
+                    }
                 }
+//                ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+//                if (!reservoirId.equals(defaultReservoir.getReservoirId())) {
+//                    tvReservoir.setText(defaultReservoir.getReservoir());
+//                    reservoirId = defaultReservoir.getReservoirId();
+//                }
                 break;
             default:
                 break;
