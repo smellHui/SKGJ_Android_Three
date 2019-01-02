@@ -26,6 +26,7 @@ import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.CustomLinearLayoutManager;
 import com.tepia.main.model.detai.ReservoirBean;
+import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.maincommon.reservoirs.detail.CapacityActivity;
 import com.tepia.main.view.maincommon.reservoirs.detail.VisitLogActivity;
@@ -96,8 +97,13 @@ public class ReservoirsFragment extends BaseCommonFragment {
         resviorRec = findView(R.id.resviorRec);
         switchTv = findView(R.id.switchTv);
         tv_reservoir_name = findView(R.id.tv_reservoir_name);
+        UserInfoBean dataBean = com.tepia.main.model.user.UserManager.getInstance().getUserBean();
+        String countSymbol = dataBean.getData().getCountSymbol();
         setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
-        setResviorRec(getString(R.string.waterlevel_name), "FLOOD CONTROL LEVER", R.drawable.jianjie_xunqi);
+        if ("1".equals(countSymbol)) {
+            //统计标识（0 隐藏  1 显示）
+            setResviorRec(getString(R.string.waterlevel_name), "FLOOD CONTROL LEVER", R.drawable.jianjie_xunqi);
+        }
         setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
         setResviorRec("水位库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
         setResviorRec("水库配套设施", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);

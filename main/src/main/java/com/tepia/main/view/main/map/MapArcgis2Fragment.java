@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -61,7 +62,6 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.google.gson.Gson;
 import com.tepia.base.mvp.MVPBaseFragment;
-import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ScreenUtil;
 import com.tepia.base.utils.ToastUtils;
@@ -72,7 +72,6 @@ import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.MapCommonResponse;
-import com.tepia.main.model.map.PictureResponse;
 import com.tepia.main.model.map.RainfallResponse;
 import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.map.ReservoirResponse;
@@ -175,7 +174,7 @@ public class MapArcgis2Fragment extends MVPBaseFragment<MainMapContract.View, Ma
     /**
      * 图标
      */
-    int[] pics = {R.drawable.map_ku, R.drawable.m_waterflow, R.drawable.m_water_quality, R.drawable.m_rain, R.drawable.m_waterlevel, R.drawable.m_image, R.drawable.m_vedio};
+    int[] pics = {R.drawable.m_reservior, R.drawable.m_waterflow, R.drawable.m_water_quality, R.drawable.m_rain, R.drawable.m_waterlevel, R.drawable.m_image, R.drawable.m_vedio};
     private HashMap<Integer, int[]> picMap;
 
 //    {
@@ -412,7 +411,8 @@ public class MapArcgis2Fragment extends MVPBaseFragment<MainMapContract.View, Ma
         double lgtd = searchModel.getLgtd();
         double lttd = searchModel.getLttd();
         Point point = transformationPoint(lgtd, lttd);
-        addPic(searchOverlay, picMap.get(0)[searchModel.getTypeId()], point);
+        Map<String, Object> attrs = new HashMap<>(1);
+        addPic(searchOverlay, picMap.get(0)[searchModel.getTypeId()], point,attrs);
         String name = searchModel.getName();
         if (73.66 < lgtd && lgtd < 135.05 && lttd > 3.86 && lttd < 53.55) {
             mapView.setViewpointCenterAsync(transformationPoint(lgtd, lttd), itemScale).addDoneListener(() -> {
@@ -1532,16 +1532,33 @@ public class MapArcgis2Fragment extends MVPBaseFragment<MainMapContract.View, Ma
 
     /**
      * 添加图片
-     *
+     * @param graphicsOverlay
      * @param id         图片id
      * @param point      坐标点
      * @param attributes 要素传值
      */
     public void addPic(GraphicsOverlay graphicsOverlay, int id, Point point, Map<String, Object> attributes) {
-        PictureMarkerSymbol pictureMarkerSymbol1 = null;
+        /*PictureMarkerSymbol pictureMarkerSymbol1 = null;
         try {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
             pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), bitmap)).get();
+            Graphic picGraphic = new Graphic(point, attributes, pictureMarkerSymbol1);
+            graphicsOverlay.getGraphics().add(picGraphic);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }*/
+
+        PictureMarkerSymbol pictureMarkerSymbol1 = null;
+        try {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
+            if (bitmap == null) {return;}
+            Bitmap result =   Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight()*2, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(bitmap, 0, 0, null);
+//            canvas.drawBitmap(bitmap, bitmap.getHeight(), 0, null);
+            pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), result)).get();
             Graphic picGraphic = new Graphic(point, attributes, pictureMarkerSymbol1);
             graphicsOverlay.getGraphics().add(picGraphic);
         } catch (InterruptedException e) {

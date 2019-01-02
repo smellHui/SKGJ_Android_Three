@@ -39,7 +39,7 @@
                     android:text="汛限水位："
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                     />
 
                 <TextView
                     android:id="@+id/waterleverTv"

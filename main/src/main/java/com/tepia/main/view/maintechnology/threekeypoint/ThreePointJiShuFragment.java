@@ -56,7 +56,7 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
 
     @Subscribe
     public void getEventBus(Integer num) {
-        if (num != null&&num==100) {
+        if (num != null && num == 100) {
             if(viewPager.getCurrentItem() == 0){
                 fragment.initRequestResponse();
             }else if (viewPager.getCurrentItem()==1){

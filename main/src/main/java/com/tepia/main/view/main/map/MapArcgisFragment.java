@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -21,11 +22,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -50,9 +49,6 @@ import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
-import com.esri.arcgisruntime.loadable.LoadStatus;
-import com.esri.arcgisruntime.loadable.LoadStatusChangedEvent;
-import com.esri.arcgisruntime.loadable.LoadStatusChangedListener;
 import com.esri.arcgisruntime.location.LocationDataSource;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
@@ -79,14 +75,8 @@ import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.MapCommonResponse;
-import com.tepia.main.model.map.PictureResponse;
-import com.tepia.main.model.map.RainfallResponse;
 import com.tepia.main.model.map.ReservoirListResponse;
-import com.tepia.main.model.map.ReservoirResponse;
-import com.tepia.main.model.map.StRiverResponse;
 import com.tepia.main.model.map.VideoResponse;
-import com.tepia.main.model.map.WaterLevelResponse;
-import com.tepia.main.model.map.WaterQualityResponse;
 import com.tepia.main.view.main.detail.imageshow.ImageFragment;
 import com.tepia.main.view.main.detail.liuliangzhanandrainfull.LiuliangFragment;
 import com.tepia.main.view.main.detail.liuliangzhanandrainfull.RainFullFragment;
@@ -98,7 +88,6 @@ import com.tepia.main.view.main.map.adapter.CommonModel;
 import com.tepia.main.view.main.map.adapter.DHotelEntityAdapter;
 import com.tepia.main.view.main.map.adapter.LHotelEntityAdapter;
 import com.tepia.main.view.main.map.adapter.LTntity;
-import com.tepia.main.view.main.map.adapter.OnRecyclerviewItemClickListener;
 import com.tepia.main.view.main.map.adapter.SectionData;
 import com.tepia.main.view.main.map.adapter.search.SearchModel;
 import com.tepia.main.view.main.map.presenter.MainMapContract;
@@ -114,7 +103,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Logger;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -199,7 +187,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     /**
      * 图标
      */
-    int[] pics = {R.drawable.map_ku, R.drawable.m_waterflow, R.drawable.m_water_quality, R.drawable.m_rain, R.drawable.m_waterlevel, R.drawable.m_image, R.drawable.m_vedio};
+    int[] pics = {R.drawable.m_reservior, R.drawable.m_waterflow, R.drawable.m_water_quality, R.drawable.m_rain, R.drawable.m_waterlevel, R.drawable.m_image, R.drawable.m_vedio};
     private HashMap<Integer, int[]> picMap;
 
 //    {
@@ -536,7 +524,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         double lgtd = searchModel.getLgtd();
         double lttd = searchModel.getLttd();
         Point point = transformationPoint(lgtd, lttd);
-        addPic(searchOverlay, picMap.get(0)[searchModel.getTypeId()], point);
+        Map<String, Object> attrs = new HashMap<>(1);
+
+        addPic(searchOverlay, picMap.get(0)[searchModel.getTypeId()], point,attrs);
         if (73.66 < lgtd && lgtd < 135.05 && lttd > 3.86 && lttd < 53.55) {
             mapView.setViewpointCenterAsync(transformationPoint(lgtd, lttd), itemScale).addDoneListener(() -> {
                 if (scroll_item_layout.getCurrentStatus() != ScrollLayout.Status.EXIT) {
@@ -1632,6 +1622,8 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                         //传入对应类型的position
                         map.put("groupId", position);
                         Point point = transformationPoint(mListData.get(i).getLgtd(), mListData.get(i).getLttd());
+                        Map<String, Object> attrs = new HashMap<>(1);
+
                         addPic(graphicsOverlay, picMap.get(section)[position], point, map);
                     }
                     e.onNext("完成");
@@ -1677,10 +1669,27 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * @param attributes 要素传值
      */
     public void addPic(GraphicsOverlay graphicsOverlay, int id, Point point, Map<String, Object> attributes) {
-        PictureMarkerSymbol pictureMarkerSymbol1 = null;
+        /*PictureMarkerSymbol pictureMarkerSymbol1 = null;
         try {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
             pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), bitmap)).get();
+            Graphic picGraphic = new Graphic(point, attributes, pictureMarkerSymbol1);
+            graphicsOverlay.getGraphics().add(picGraphic);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }*/
+
+        PictureMarkerSymbol pictureMarkerSymbol1 = null;
+        try {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
+            if (bitmap == null) {return;}
+            Bitmap result =   Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight()*2, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(bitmap, 0, 0, null);
+//            canvas.drawBitmap(bitmap, bitmap.getHeight(), 0, null);
+            pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), result)).get();
             Graphic picGraphic = new Graphic(point, attributes, pictureMarkerSymbol1);
             graphicsOverlay.getGraphics().add(picGraphic);
         } catch (InterruptedException e) {

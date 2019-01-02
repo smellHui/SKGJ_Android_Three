@@ -207,13 +207,26 @@
         <activity
             android:name=".view.vedio.VedioComunicationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.main.jihua.JihuaActivity" />
-        <activity android:name=".view.main.work.plan.planlist.PlanListActivity" />
-        <activity android:name=".view.main.work.task2.tasklist.TaskTypeListActivity" />
-        <activity android:name=".view.main.jihua.PlanDetailActivity" />
-        <activity android:name=".view.main.jihua.EditPlanActivity" />
-        <activity android:name=".view.main.jihua.AddPlanActivity" />
-        <activity android:name=".view.main.work.task2.taskdetail.TaskDetailActivity" />
+        <activity android:name=".view.main.jihua.JihuaActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.main.work.plan.planlist.PlanListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.main.work.task2.tasklist.TaskTypeListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.main.jihua.PlanDetailActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.main.jihua.EditPlanActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.main.jihua.AddPlanActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.main.work.task2.taskdetail.TaskDetailActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".view.main.question.problemconfigure.ProblemCallListActivity"
             android:screenOrientation="portrait" />
@@ -354,11 +367,13 @@
         <activity
             android:name=".view.main.work.task.taskdetail.TaskWorkReportActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity" />
         <activity android:name=".view.mainadminister.yunwei.TownOperationActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".view.mainadminister.yunwei.TownOperationReportActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

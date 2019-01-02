@@ -86,7 +86,7 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
         waterLevelActivity = this;
         reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
         // TODO: 2018/12/27 要删除 
-        reservoirId = "66fb3d579d084daf8a7d35d9d9612213";
+//        reservoirId = "66fb3d579d084daf8a7d35d9d9612213";
         String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
         binding.rerserviorNameTag.nameTv.setText(reservoirName);
         binding.addTv.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +136,7 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
     private void search(boolean isshowloadiing) {
         adapterWaterlevelReservoirs.setEnableLoadMore(false);
         dataList.clear();
-        adapterWaterlevelReservoirs.notifyDataSetChanged();
+//        adapterWaterlevelReservoirs.notifyDataSetChanged();
         currentPage = 1;
         first = true;
         isloadmore = false;
@@ -254,7 +254,7 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
             title_waterlevelTv.setText("修  改  汛  限  水  位");
             selectTimeTv.setClickable(false);
             selectTimeTv.setEnabled(false);
-            selectTimeTv.setText(floodseasonbean.getFloodYearMonth());
+            selectTimeTv.setText(floodseasonbean.getFloodYearMonth() + " (不可编辑) ");
             String floodlevel = floodseasonbean.getFloodLevel();
             selectShuiweiEv.setText(floodlevel);
             //将光标移至文字末尾

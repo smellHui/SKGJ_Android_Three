@@ -19,7 +19,9 @@ import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.main.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ArcgsiBaseActivity extends AppCompatActivity {
 
@@ -37,7 +39,8 @@ public class ArcgsiBaseActivity extends AppCompatActivity {
         arcgisLayout = findViewById(R.id.arcgisLayout);
         mapView = arcgisLayout.getMapView();
         //添加图片
-        arcgisLayout.addPic(R.drawable.map_ku,new Point(12734302.279705,3574615.512000));
+        Map<String, Object> attrs = new HashMap<>(1);
+        arcgisLayout.addPic(R.drawable.m_reservior,new Point(12734302.279705,3574615.512000),attrs);
         //添加线
         List<Point> points =new ArrayList<>();
         points.add(new Point(12435862.164232, 3736503.596019));
@@ -62,7 +65,7 @@ public class ArcgsiBaseActivity extends AppCompatActivity {
         Point point1 = new Point(106.745, 27.60, SpatialReference.create(4326));
         Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
 //        LogUtil.i("转换之后的坐标:"+point.toString());
-        arcgisLayout.addPic(R.drawable.map_ku,point);
+        arcgisLayout.addPic(R.drawable.m_reservior,point,attrs);
     }
 
     /**

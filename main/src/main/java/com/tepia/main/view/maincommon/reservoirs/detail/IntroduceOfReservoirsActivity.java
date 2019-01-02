@@ -236,9 +236,9 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
                 Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
                         Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));
                 Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
-                Map<String, Object> attrs = new HashMap<>();
+                Map<String, Object> attrs = new HashMap<>(1);
 
-                arcgisLayout.addPic(R.drawable.map_ku, point,attrs);
+                arcgisLayout.addPic(R.drawable.m_reservior, point,attrs);
                 arcgisLayout.setCenterPoint(point, arcgisLayout.groupScale);
             }catch (NumberFormatException e){
                 LogUtil.e(e.getMessage());
