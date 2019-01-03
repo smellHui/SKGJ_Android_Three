@@ -102,6 +102,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 //        HstApplication.init(Utils.getContext());
         registerPowerReceiver();
         setNewBottom();
+        resumePush();
     }
 
 
@@ -141,6 +142,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         updateData();
 
         mTabHost.setOnTabChangedListener(tabId -> {
+            resumePush();
             EventBus.getDefault().post(100);
         });
 
@@ -365,10 +367,18 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     protected void onResume() {
         super.onResume();
+        //        updateData();
+        resumePush();
+
+    }
+
+    /**
+     * 重连极光推送
+     */
+    protected void resumePush(){
         // TODO: 2018/10/22 和视频会议连接在一起的极光推送。不要删除
         LogUtil.e("MainActivity", "极光推送before onresum状态getConnectionState：" + JPushInterface.getConnectionState(Utils.getContext()));
         LogUtil.e("MainActivity", "极光推送before onresum状态isPushStopped：" + JPushInterface.isPushStopped(Utils.getContext()));
-        updateData();
         if (JPushInterface.isPushStopped(Utils.getContext()) || !JPushInterface.getConnectionState(Utils.getContext())) {
             LogUtil.e("MainActivity", "MainActivity极光推送已停止，正在重新开启");
             //极光推送

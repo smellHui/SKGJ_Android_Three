@@ -23,8 +23,8 @@ public class MyApplication extends BaseApplication {
         PgyCrashManager.register(this);
         // TODO: 2018/10/22 以下代码是和视频会议连接在一起的极光推送。请不要删除
         //极光推送
-        /*JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);*/
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         UtilsContextOfGaode.init(this);
 
 
