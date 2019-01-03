@@ -53,6 +53,7 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
 
         tvDescribe.setText(item.getSuperviseItemName());
         tvTaskTime.setText(item.getExcuteDate());
+
         tvItemCount.setText(item.getReservoirSuperviseSequence() + "");
         tvItemCount.setText(view.getLayoutPosition() + 1 + "");
         if (item.getPositionTreeNames() != null) {
@@ -72,6 +73,11 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
         if (!TextUtils.isEmpty(item.getCompleteStatus()) && "0".equals(item.getCompleteStatus())) {
             ivIsOver.setVisibility(View.VISIBLE);
             tvTaskTime.setVisibility(View.VISIBLE);
+            if (item.getExecuteResultType() != null && item.getExecuteResultType().equals("1")) {
+                ivIsOver.setImageResource(R.drawable.icon_status_finish_with_exp);
+            }else {
+                ivIsOver.setImageResource(R.drawable.icon_status_finish);
+            }
         } else {
             ivIsOver.setVisibility(View.GONE);
             tvTaskTime.setVisibility(View.GONE);
@@ -104,5 +110,16 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
             }
         }
         return getData().size();
+    }
+
+    public List<TaskItemBean> getAbnormalityList() {
+        List<TaskItemBean> abnormality = new ArrayList<>();
+        for (int i = 0; i < getData().size(); i++) {
+            TaskItemBean bean = getData().get(i);
+            if (bean.getExecuteResultType() != null && bean.getExecuteResultType().equals("1")) {
+                abnormality.add(bean);
+            }
+        }
+        return abnormality;
     }
 }

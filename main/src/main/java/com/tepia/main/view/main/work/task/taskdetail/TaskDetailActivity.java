@@ -1,6 +1,7 @@
 package com.tepia.main.view.main.work.task.taskdetail;
 
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +12,11 @@ import android.os.Bundle;
 import android.os.UserManager;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -512,13 +517,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                             if (DoubleClickUtil.isFastDoubleClick()) {
                                 return;
                             }
-                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
-                            String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
-                            if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
-                                mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
-                            } else {
-                                mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
-                            }
+                            showTjDialog();
+
 
                         }
                     });
@@ -614,6 +614,46 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         }
 
     }
+
+    private void showTjDialog() {
+        SpannableString spannableString;
+        if (adapterTaskItemList.getAbnormalityList().size() > 0) {
+            String title = "有 " + adapterTaskItemList.getAbnormalityList().size() + " 项异常是否确定提交";
+            spannableString = new SpannableString(title);
+            //设置颜色
+            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FE6026")), 2, 2 + adapterTaskItemList.getAbnormalityList().size(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else {
+            String title = "没有异常项是否确定提交";
+            spannableString = new SpannableString(title);
+        }
+
+        new AlertDialog.Builder(getContext()).setMessage(spannableString)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
+                        String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
+                        if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
+                            mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
+                        } else {
+                            mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (adapterTaskItemList.getAbnormalityList().size() > 0) {
+                            int count = adapterTaskItemList.getData().indexOf(adapterTaskItemList.getAbnormalityList().get(0));
+                            mBinding.nsvContainer.scrollTo(0, adapterTaskItemList.getViewByPosition(mBinding.rvTaskItemList, count, R.id.lo_container).getHeight() * count);
+                        }
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
 
     private void refreshMapView() {
         if (taskBean == null) {
