@@ -216,18 +216,18 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
 
         if (!TextUtils.isEmpty(executeResultType)) {
             switch (executeResultType) {
-                case "1":
-                    mBinding.rb1.setChecked(false);
-                    mBinding.rb2.setChecked(true);
-                    break;
                 case "0":
                     mBinding.rb1.setChecked(true);
                     mBinding.rb2.setChecked(false);
                     break;
-                default:
+                case "1":
                     mBinding.rb1.setChecked(false);
                     mBinding.rb2.setChecked(true);
-                    executeResultType = "1";
+                    break;
+                default:
+                    mBinding.rb1.setChecked(true);
+                    mBinding.rb2.setChecked(false);
+                    executeResultType = "0";
                     break;
             }
         } else {
@@ -270,14 +270,14 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                 } else if (showTypeBeanList.get(1).isChecked()) {
                     executeResultType = showTypeBeanList.get(1).getValue();
                 } else {
-                    executeResultType = showTypeBeanList.get(1).getValue();
+                    executeResultType = showTypeBeanList.get(0).getValue();
                     initRadioView();
                 }
 
             } else {
-                mBinding.rb1.setChecked(false);
-                mBinding.rb2.setChecked(true);
-                executeResultType = "1";
+                mBinding.rb2.setChecked(false);
+                mBinding.rb1.setChecked(true);
+                executeResultType = "0";
                 initRadioView();
             }
         }

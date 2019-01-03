@@ -109,7 +109,7 @@
                                 android:id="@+id/rb_1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:checked="false"
+                                android:checked="true"
                                 android:text="" />
 
                             <RadioButton
@@ -117,7 +117,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="40dp"
-                                android:checked="true"
+                                android:checked="false"
                                 android:text="" />
                         </RadioGroup>
                     </LinearLayout>

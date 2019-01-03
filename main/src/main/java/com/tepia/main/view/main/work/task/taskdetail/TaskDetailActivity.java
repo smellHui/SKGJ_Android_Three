@@ -626,32 +626,38 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             String title = "没有异常项是否确定提交";
             spannableString = new SpannableString(title);
         }
+        TjDialogFragment tjDialogFragment = new TjDialogFragment();
+        tjDialogFragment.tip = spannableString;
+        tjDialogFragment.setListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                tjDialogFragment.dismiss();
+                LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
+                String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
+                if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
+                    mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
+                } else {
+                    mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+                }
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                tjDialogFragment.dismiss();
+                if (adapterTaskItemList.getAbnormalityList().size() > 0) {
+                    int count = adapterTaskItemList.getData().indexOf(adapterTaskItemList.getAbnormalityList().get(0));
+                    mBinding.nsvContainer.scrollTo(0, adapterTaskItemList.getViewByPosition(mBinding.rvTaskItemList, count, R.id.lo_container).getHeight() * count);
+                }
+            }
+        });
+        tjDialogFragment.show(getSupportFragmentManager(), "cb");
 
-        new AlertDialog.Builder(getContext()).setMessage(spannableString)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
-                        String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
-                        if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
-                            mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
-                        } else {
-                            mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
-                        }
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (adapterTaskItemList.getAbnormalityList().size() > 0) {
-                            int count = adapterTaskItemList.getData().indexOf(adapterTaskItemList.getAbnormalityList().get(0));
-                            mBinding.nsvContainer.scrollTo(0, adapterTaskItemList.getViewByPosition(mBinding.rvTaskItemList, count, R.id.lo_container).getHeight() * count);
-                        }
-                        dialog.dismiss();
-                    }
-                })
-                .show();
     }
 
 
