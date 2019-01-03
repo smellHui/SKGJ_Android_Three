@@ -16,6 +16,7 @@ import com.tepia.main.model.VedioBean;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.NotificationUtil;
+import com.tepia.main.view.MainActivity;
 import com.tepia.main.view.vedio.VedioComunicationActivity;
 
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class MyReceiver extends BroadcastReceiver {
 
 			} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
 
-				LogUtil.e(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+				LogUtil.e(TAG, "[MyReceiver] ACTION_MESSAGE_RECEIVED接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
 //				processCustomMessage(context, bundle);
 				if(!TextUtils.isEmpty(UserManager.getInstance().getToken())) {
 					//登录状态下才能进行推送
@@ -62,9 +63,11 @@ public class MyReceiver extends BroadcastReceiver {
 				}
 
 			} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-				LogUtil.e(TAG, "[MyReceiver] 接收到推送下来的通知");
 				int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-				LogUtil.e(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+				LogUtil.e(TAG, "[MyReceiver] ACTION_NOTIFICATION_RECEIVED接收到推送下来的通知的ID: " + notifactionId);
+				LogUtil.e(TAG, "[MyReceiver] ACTION_NOTIFICATION_RECEIVED接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+
+				NotificationUtil.showNotification(context,bundle.getString(JPushInterface.EXTRA_MESSAGE) + " ",MainActivity.class);
 
 
 			} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
