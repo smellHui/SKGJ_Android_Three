@@ -34,6 +34,7 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
     private TextView tvTaskPeople;
     private TextView tvTaskTime;
     private ImageView ivIsOver;
+    private TextView tvItemExp;
 
     public AdapterTaskItemList(Context context, int layoutResId, @Nullable List<TaskItemBean> data) {
         super(layoutResId, data);
@@ -50,6 +51,7 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
         tvTaskPeople = view.getView(R.id.tv_task_people);
         tvTaskTime = view.getView(R.id.tv_task_time);
         ivIsOver = view.getView(R.id.iv_is_over);
+        tvItemExp = view.getView(R.id.tv_item_exp);
 
         tvDescribe.setText(item.getSuperviseItemName());
         tvTaskTime.setText(item.getExcuteDate());
@@ -75,11 +77,14 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
             tvTaskTime.setVisibility(View.VISIBLE);
             if (item.getExecuteResultType() != null && item.getExecuteResultType().equals("1")) {
                 ivIsOver.setImageResource(R.drawable.icon_status_finish_with_exp);
-            }else {
+                tvItemExp.setVisibility(View.VISIBLE);
+            } else {
                 ivIsOver.setImageResource(R.drawable.icon_status_finish);
+                tvItemExp.setVisibility(View.GONE);
             }
         } else {
             ivIsOver.setVisibility(View.GONE);
+            tvItemExp.setVisibility(View.GONE);
             tvTaskTime.setVisibility(View.GONE);
         }
     }

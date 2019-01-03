@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lo_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/lo_container"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="7dp"
         android:background="@drawable/bg_task_list_item2">
 
         <LinearLayout
@@ -23,6 +23,8 @@
             android:padding="10dp">
 
             <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -40,9 +42,9 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_task_item_count_num"
                         android:gravity="center"
-                        android:minHeight="22dp"
                         android:maxHeight="22dp"
                         android:minWidth="22dp"
+                        android:minHeight="22dp"
                         android:text="1"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
@@ -51,8 +53,8 @@
                         android:id="@+id/rv_position_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="9dp" />
-
+                        android:layout_marginLeft="9dp"
+                        android:layout_weight="1" />
 
                 </LinearLayout>
 
@@ -87,7 +89,6 @@
                             android:weightSum="3">
 
                             <TextView
-                                android:visibility="gone"
                                 android:id="@+id/tv_task_people"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -96,7 +97,8 @@
                                 android:drawablePadding="8dp"
                                 android:text="fkdsjfk"
                                 android:textColor="#888888"
-                                android:textSize="12dp" />
+                                android:textSize="12dp"
+                                android:visibility="gone" />
 
 
                             <TextView
@@ -117,6 +119,24 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_item_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_task_item_exp"
+            android:gravity="center"
+            android:maxHeight="22dp"
+            android:minWidth="22dp"
+            android:minHeight="22dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="异常"
+            android:layout_gravity="top|right"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_is_over"
