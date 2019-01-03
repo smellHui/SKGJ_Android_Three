@@ -621,7 +621,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             String title = "有 " + adapterTaskItemList.getAbnormalityList().size() + " 项异常是否确定提交";
             spannableString = new SpannableString(title);
             //设置颜色
-            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FE6026")), 2, 2 + adapterTaskItemList.getAbnormalityList().size(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FE6026")), 2, 2 + (adapterTaskItemList.getAbnormalityList().size() + "").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             String title = "没有异常项是否确定提交";
             spannableString = new SpannableString(title);
