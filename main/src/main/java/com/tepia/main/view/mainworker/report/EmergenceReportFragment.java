@@ -25,6 +25,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.example.gaodelibrary.GaodeEntity;
+import com.example.gaodelibrary.OnGaodeLibraryListen;
 import com.tepia.base.http.BaseResponse;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.LogUtil;
@@ -90,9 +93,10 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
     // 视频路径
     public static String videoPath = "";
     private Bitmap addBitmap;
-    private int flag;
 
-    private EmergenceListBean.DataBean.ListBean listBean;
+    private GaodeEntity gaodeEntity;
+    private double latitude;
+    private double longitude;
 
     @Override
     protected int getLayoutId() {
@@ -201,6 +205,18 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         rvImagePick.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
         rvImagePick.setAdapter(photoAdapter);
         getSP();
+
+        gaodeEntity = new GaodeEntity(getContext());
+        gaodeEntity.initLocation();
+        gaodeEntity.startLocation();
+        gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
+            @Override
+            public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
+                latitude = aMapLocation.getLatitude();
+                longitude = aMapLocation.getLongitude();
+
+            }
+        });
     }
 
 
@@ -401,8 +417,8 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 }
             });
 
-            mPresenter.reportProblem(reservoirId, questionTitle, questionContent, "",
-                    "", selectedPhotos, videoPath);
+            mPresenter.reportProblem(reservoirId, questionTitle, questionContent, String.valueOf(longitude),
+                    String.valueOf(latitude), selectedPhotos, videoPath);
 
 
         } else if (viewID == R.id.resviorTv) {
@@ -480,6 +496,9 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         }
         if (data != null) {
             data.clear();
+        }
+        if (gaodeEntity != null) {
+            gaodeEntity.closeLocation();
         }
     }
 }

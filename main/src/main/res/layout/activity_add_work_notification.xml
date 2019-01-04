@@ -95,16 +95,16 @@
                             <EditText
                                 android:id="@+id/et_content"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
                                 android:background="@color/trans"
+                                android:layout_weight="1"
                                 android:gravity="top"
                                 android:hint="请输入通知内容"
-                                android:minHeight="80dp"
+                                android:minHeight="100dp"
                                 android:textColor="#5f6166"
                                 android:textColorHint="#bec2c8"
+                                android:scrollbars="vertical"
                                 android:textSize="15dp" />
 
                             <ImageView

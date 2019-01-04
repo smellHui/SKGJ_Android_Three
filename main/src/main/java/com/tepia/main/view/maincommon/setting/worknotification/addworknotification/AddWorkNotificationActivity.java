@@ -32,6 +32,8 @@ import com.tepia.main.view.maincommon.setting.train.FileBean;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -240,6 +242,7 @@ public class AddWorkNotificationActivity extends MVPBaseActivity<AddWorkNotifica
     @Override
     public void addWorkNoticeSuccess() {
         SelectReservorsActivity.selectReservors = null;
+        EventBus.getDefault().post(500);
         finish();
     }
 
