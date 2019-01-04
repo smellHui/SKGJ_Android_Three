@@ -20,7 +20,6 @@ import com.tepia.main.model.reserviros.SafeRunningBean;
 import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.model.reserviros.VisitLogBean;
 import com.tepia.main.view.maincommon.reservoirs.detail.WaterLevelActivity;
-import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterWaterlevelReservoirs;
 
 /**
  * Created by      android studio

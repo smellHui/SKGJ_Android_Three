@@ -47,8 +47,9 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
         setCenterTitle("工作通知");
         showBack();
         getRithtTv().setVisibility(View.VISIBLE);
-        getRithtTv().setTextColor(Color.BLACK);
+        getRithtTv().setTextColor(Color.GRAY);
         getRithtTv().setText("发布通知");
+        getRithtTv().setTextSize(16);
         mBinding = DataBindingUtil.bind(mRootView);
         initListView();
     }

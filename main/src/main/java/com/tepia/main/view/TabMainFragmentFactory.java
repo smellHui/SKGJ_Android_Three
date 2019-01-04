@@ -153,7 +153,7 @@ public class TabMainFragmentFactory {
         return (BaseCommonFragment) ARouter.getInstance().build(menuItemBean.getMenuHref()).navigation();
     }
 
-    public void setMenuData(String valuestr) {
+    public void setMenuData1(String valuestr) {
         ArrayList<MenuItemBean> menuData = new ArrayList<>();
         switch (valuestr) {
             case "1": {

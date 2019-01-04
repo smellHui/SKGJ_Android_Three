@@ -3,7 +3,6 @@ package com.tepia.main.view.maincommon.reservoirs.mvpreservoir;
 import com.tepia.base.mvp.BasePresenter;
 import com.tepia.base.mvp.BaseView;
 import com.tepia.main.view.maincommon.reservoirs.detail.WaterLevelActivity;
-import com.tepia.main.view.maincommon.reservoirs.detailadapter.AdapterWaterlevelReservoirs;
 
 /**
  * Created by      android studio

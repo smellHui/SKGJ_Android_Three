@@ -73,33 +73,7 @@ public class TrainActivity extends BaseActivity {
                 startActivityForResult(new Intent(TrainActivity.this, AddTrainActivity.class), 1);
             }
         });
-     /*     peixunRec = findViewById(R.id.peixunRec);
-        images.add(R.drawable.jianjie_banner0);
-        images.add(R.drawable.jianjie_banner1);
-        images.add(R.drawable.jianjie_banner2);
-        images.add(R.drawable.jianjie_banner3);
-        images.add(R.drawable.jianjie_banner0);
-        images.add(R.drawable.jianjie_banner1);
-        images.add(R.drawable.jianjie_banner2);
-        images.add(R.drawable.jianjie_banner3);
-        images.add(R.drawable.jianjie_banner0);
-        images.add(R.drawable.jianjie_banner1);
-        images.add(R.drawable.jianjie_banner2);
-        images.add(R.drawable.jianjie_banner3);
-        images.add(R.drawable.jianjie_banner0);
-        images.add(R.drawable.jianjie_banner1);
-        images.add(R.drawable.jianjie_banner2);
-        images.add(R.drawable.jianjie_banner3);
 
-        //创建LinearLayoutManager
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        //设置为横向滑动
-        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        //设置
-        peixunRec.setLayoutManager(manager);
-        adapterPeixunDetail = new AdapterTrainDetail(this,R.layout.activity_pei_xun_item,images);
-        peixunRec.setAdapter(adapterPeixunDetail);
-*/
         srl = findViewById(R.id.srl);
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(view1 -> startActivityForResult(new Intent(TrainActivity.this, AddTrainActivity.class), 1));
@@ -108,9 +82,7 @@ public class TrainActivity extends BaseActivity {
     }
 
     private void initRecycleView() {
-//        for (int i = 0; i < 10; i++) {
-//            dataList.add(new TrainListResponse.DataBean.ListBean());
-//        }
+
         rvTrainList = findViewById(R.id.rv_train_list);
         rvTrainList.setLayoutManager(new LinearLayoutManager(this));
         trainListAdapter = new TrainListAdapter(R.layout.train_list_item, dataList);
@@ -147,7 +119,7 @@ public class TrainActivity extends BaseActivity {
 //                srl.setRefreshing(false);
             }, 500);
         });
-        srl.setRefreshing(true);
+//        srl.setRefreshing(true);
         srl.postDelayed(new Runnable() {
             @Override
             public void run() {

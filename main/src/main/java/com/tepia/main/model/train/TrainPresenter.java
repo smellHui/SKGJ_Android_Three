@@ -30,7 +30,7 @@ public class TrainPresenter extends BasePresenterImpl<TrainContract.View> implem
 
     @Override
     public void getTrainList(String currentPage, String pageSize) {
-        TrainManager.getInstance().getTrainList(currentPage, pageSize).subscribe(new LoadingSubject<TrainListResponse>(false,"正在加载中...") {
+        TrainManager.getInstance().getTrainList(currentPage, pageSize).subscribe(new LoadingSubject<TrainListResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(TrainListResponse trainListResponse) {
                 if (trainListResponse.getCode()==0){
@@ -51,7 +51,7 @@ public class TrainPresenter extends BasePresenterImpl<TrainContract.View> implem
 
     @Override
     public void getTrainDetail(String id) {
-        TrainManager.getInstance().getTrainDetail(id).subscribe(new LoadingSubject<TrainDetailResponse>(false,"正在加载中...") {
+        TrainManager.getInstance().getTrainDetail(id).subscribe(new LoadingSubject<TrainDetailResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(TrainDetailResponse trainDetailResponse) {
                 if (trainDetailResponse.getCode()==0){

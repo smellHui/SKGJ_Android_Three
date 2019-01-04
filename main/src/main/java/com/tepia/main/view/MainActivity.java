@@ -115,7 +115,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         if (UserManager.getInstance().getMenuList() != null) {
             TabMainFragmentFactory.getInstance().setMenuData(UserManager.getInstance().getMenuList());
         } else {
-            TabMainFragmentFactory.getInstance().setMenuData("1");
+            TabMainFragmentFactory.getInstance().setMenuData1("1");
         }
 
         ArrayList<String> titles = TabMainFragmentFactory.getInstance().getTitles();
