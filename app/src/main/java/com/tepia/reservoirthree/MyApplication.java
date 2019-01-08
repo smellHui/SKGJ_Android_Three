@@ -25,6 +25,8 @@ public class MyApplication extends BaseApplication {
         //极光推送
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+        //开启crashlog日志上报
+        JPushInterface.initCrashHandler(this);
         UtilsContextOfGaode.init(this);
 
 

@@ -38,8 +38,8 @@ public class AdapterWaterlevelReservoirs extends BaseQuickAdapter<FloodSeasonBea
     @Override
     protected void convert(BaseViewHolder view, FloodSeasonBean.DataBean.ListBean item) {
 
-        view.setText(R.id.yearTv,item.getFloodYearMonth());
-        view.setText(R.id.waterLevelTv,item.getFloodLevel());
+        view.setText(R.id.yearTv,item.getFloodYearMonth() + "");
+        view.setText(R.id.waterLevelTv,item.getFloodLevel() + "");
         view.getView(R.id.editTv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

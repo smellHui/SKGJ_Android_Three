@@ -41,6 +41,7 @@ public class TrainDetailActivity extends BaseActivity {
     private TextView tvTrainPosition;
     private TextView tvTrainOrganizecompany;
     private TextView tvTrainContent;
+    private TextView fujianTv;
     private TrainPresenter trainPresenter;
     private RecyclerView rvFilePick;
     private List<TrainDetailResponse.DataBean.FilesBean> filesBeanList = new ArrayList<>();
@@ -64,6 +65,7 @@ public class TrainDetailActivity extends BaseActivity {
         tvTrainOrganizecompany = findViewById(R.id.tv_train_organizeCompany);
         tvTrainContent = findViewById(R.id.tv_train_content);
         rvFilePick = findViewById(R.id.rv_file_pick);
+        fujianTv = findViewById(R.id.fujianTv);
         if (item!=null){
             initDetail(item);
         }
@@ -125,12 +127,14 @@ public class TrainDetailActivity extends BaseActivity {
                     }
                     //刷新附件
                     List<TrainDetailResponse.DataBean.FilesBean> files1 = data.getFiles();
-                    if (files1!=null&&files1.size()>0){
+                    if (files1 != null && files1.size() > 0){
                         filesBeanList.clear();
                         for (int i = 0; i < files1.size(); i++) {
                             filesBeanList.add(files1.get(i));
                         }
                         myFIleListAdapter.notifyDataSetChanged();
+                    }else{
+                        fujianTv.setVisibility(View.GONE);
                     }
                 }
             }

@@ -20,9 +20,13 @@ import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityWorkNotificationListBinding;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.worknotification.WorkNoticeBean;
 import com.tepia.main.model.worknotification.WorkNoticeListResponse;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -47,10 +51,12 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
         setCenterTitle("工作通知");
         showBack();
         getRithtTv().setVisibility(View.VISIBLE);
-        getRithtTv().setTextColor(Color.BLACK);
+        getRithtTv().setTextColor(Color.GRAY);
         getRithtTv().setText("发布通知");
+        getRithtTv().setTextSize(16);
         mBinding = DataBindingUtil.bind(mRootView);
         initListView();
+        EventBus.getDefault().register(this);
     }
 
     private void initListView() {
@@ -58,6 +64,8 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
         adapterWorkNotificationList = new AdapterWorkNotificationList(R.layout.lv_work_notification_item, null);
         mBinding.rvWorkNotificationList.setAdapter(adapterWorkNotificationList);
     }
+
+
 
     @Override
     public void initData() {
@@ -111,6 +119,13 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
         });
     }
 
+    @Subscribe
+    public void getEventBus(Integer num) {
+        if (num != null && num == 500) {
+            mPresenter.getWorkNoticeList();
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,5 +159,11 @@ public class WorkNotificationListLeaderActivity extends MVPBaseActivity<WorkNoti
             }
         }
         adapterWorkNotificationList.loadMoreComplete();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

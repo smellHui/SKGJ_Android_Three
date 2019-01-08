@@ -33,7 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/jianjiemarginleft"
                 android:layout_marginRight="@dimen/jianjiemarginleft"
-                android:text="水库安全管理技能培训"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/setting_t_null"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:gravity="center"
@@ -66,7 +68,7 @@
                 android:drawableLeft="@drawable/peixun_time"
                 android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="培训时间：2018"
+                android:text="培训时间：--"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/jianjietextsize" />
 
@@ -79,7 +81,7 @@
                 android:drawableLeft="@drawable/peixun_didian"
                 android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="培训地点：2018"
+                android:text="培训地点：--"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/jianjietextsize" />
 
@@ -92,7 +94,7 @@
                 android:drawableLeft="@drawable/peixun_zuzhi"
                 android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="培训组织：2018"
+                android:text="培训组织：--"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/jianjietextsize" />
 
@@ -123,7 +125,7 @@
                 android:layout_marginBottom="@dimen/jianjiemarginbottom"
                 android:layout_marginLeft="@dimen/jianjiemarginleft"
                 android:layout_marginRight="@dimen/jianjiemarginleft"
-                android:text="培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容培训内容"
+                android:text="@string/setting_t_null"
                 android:textColor="@color/text_color"
                 android:textSize="14sp" />
 
@@ -135,7 +137,7 @@
                 android:background="@color/text_color" />
 
             <TextView
-
+                android:id="@+id/fujianTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/jianjiemarginbottom"

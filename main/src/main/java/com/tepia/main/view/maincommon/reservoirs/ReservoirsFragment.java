@@ -48,6 +48,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by      android studio
  *
@@ -74,6 +76,17 @@ public class ReservoirsFragment extends BaseCommonFragment {
     private TextView switchTv;
     private String oldReserviorId;
 
+    private String RESERVOIR_DESCRIPTION = "水库简介";
+    private String RESERVOIRS_VEDIO = "水库视频";
+    private String CAPACITY_CURVE = "水位库容曲线";
+    private String RESERVOIRS_SUPPORTING = "水库配套设施";
+    private String FLOOD_FIGHTING_MATERIALS = "防汛物资";
+    private String DISPATCHING_OPERATION_PLAN = "调度运行方案";
+    private String CONTINGENCY_PLAN = "水库安全管理应急预案";
+    private String ADMINISTRATIVE_SITUATION = "水库安全运行管理";
+    private String RESERVOIRS_LOG = "到访水库日志";
+    private String FLOOD_CONTROL_LEVER = "汛限水位";
+
     public ReservoirsFragment() {
     }
 
@@ -99,19 +112,19 @@ public class ReservoirsFragment extends BaseCommonFragment {
         tv_reservoir_name = findView(R.id.tv_reservoir_name);
         UserInfoBean dataBean = com.tepia.main.model.user.UserManager.getInstance().getUserBean();
         String countSymbol = dataBean.getData().getCountSymbol();
-        setResviorRec("水库简介", "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
+        setResviorRec(RESERVOIR_DESCRIPTION, "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
         if ("1".equals(countSymbol)) {
-            //统计标识（0 隐藏  1 显示）
-            setResviorRec(getString(R.string.waterlevel_name), "FLOOD CONTROL LEVER", R.drawable.jianjie_xunqi);
+            //统计标识（0 隐藏  1 显示）东源县特殊要求字段
+            setResviorRec(FLOOD_CONTROL_LEVER, "FLOOD CONTROL LEVER", R.drawable.jianjie_xunqi);
         }
-        setResviorRec("水库视频", "RESERVOIRS VEDIO", R.drawable.jianjie2);
-        setResviorRec("水位库容曲线", "CAPACITY CURVE", R.drawable.jianjie3);
-        setResviorRec("水库配套设施", "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
-        setResviorRec("防汛物资", "FLOOD-FIGHTING MATERIALS", R.drawable.jianjie5);
-        setResviorRec("调度运行方案", "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);
-        setResviorRec("水库安全管理应急预案", "CONTINGENCY PLAN", R.drawable.jianjie7);
-        setResviorRec("水库安全运行管理", "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
-        setResviorRec("到访水库日志", "RESERVOIRS SUPPORTING", R.drawable.jianjie_visitlog);
+        setResviorRec(RESERVOIRS_VEDIO, "RESERVOIRS VEDIO", R.drawable.jianjie2);
+        setResviorRec(CAPACITY_CURVE, "CAPACITY CURVE", R.drawable.jianjie3);
+        setResviorRec(RESERVOIRS_SUPPORTING, "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
+        setResviorRec(FLOOD_FIGHTING_MATERIALS, "FLOOD-FIGHTING MATERIALS", R.drawable.jianjie5);
+        setResviorRec(DISPATCHING_OPERATION_PLAN, "DISPATCHING OPERATION PLAN", R.drawable.jianjie6);
+        setResviorRec(CONTINGENCY_PLAN, "CONTINGENCY PLAN", R.drawable.jianjie7);
+        setResviorRec(ADMINISTRATIVE_SITUATION, "ADMINISTRATIVE SITUATION", R.drawable.jianjie8);
+        setResviorRec(RESERVOIRS_LOG, "RESERVOIRS LOG", R.drawable.jianjie_visitlog);
         CustomLinearLayoutManager customLinearLayoutManager = new CustomLinearLayoutManager(getContext());
         customLinearLayoutManager.setScrollEnabled(false);
 //        resviorRec.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -135,39 +148,40 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 intent.putExtra(ReservoirsFragment.RESERVOIRId, reservoirId);
                 intent.putExtra(ReservoirsFragment.RESERVOIRNAME, reservoirName);
                 String nameStr = myReservoirsItemBeanList.get(position).getTitle();
-                if (position == 0) {
+
+                if (RESERVOIR_DESCRIPTION.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), IntroduceOfReservoirsActivity.class);
                     startActivity(intent);
-                } else if(position == 1){
+                } else if(FLOOD_CONTROL_LEVER.equals(nameStr)){
                     intent.setClass(getBaseActivity(), WaterLevelActivity.class);
                     startActivity(intent);
                 }
-                else if (position == 2) {
+                else if (RESERVOIRS_VEDIO.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);
                     startActivity(intent);
-                } else if (position == 3) {
+                } else if (CAPACITY_CURVE.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), CapacityActivity.class);
                     startActivity(intent);
-                } else if (position == 4) {
+                } else if (RESERVOIRS_SUPPORTING.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), SupportingActivity.class);
                     startActivity(intent);
-                } else if (position == 5) {
+                } else if (FLOOD_FIGHTING_MATERIALS.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), FloodActivity.class);
                     startActivity(intent);
-                } else if (position == 6) {
+                } else if (DISPATCHING_OPERATION_PLAN.equals(nameStr)) {
                     //调度运行方案
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
                     intent.putExtra("select", "1");
                     startActivity(intent);
-                } else if (position == 7) {
+                } else if (CONTINGENCY_PLAN.equals(nameStr)) {
                     //水库安全管理应急预案
                     intent.setClass(getBaseActivity(), OperationPlanActivity.class);
                     intent.putExtra("select", "2");
                     startActivity(intent);
-                } else if (position == 8) {
+                } else if (ADMINISTRATIVE_SITUATION.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), SafeRunningActivity.class);
                     startActivity(intent);
-                } else if (position == 9) {
+                } else if (RESERVOIRS_LOG.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), VisitLogActivity.class);
                     startActivity(intent);
                 }
@@ -238,7 +252,7 @@ public class ReservoirsFragment extends BaseCommonFragment {
         banner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
-                Glide.with(context)
+                Glide.with(Utils.getContext())
                         .load(path)
                         .apply(ConfigConsts.options)
                         .thumbnail(0.5f)

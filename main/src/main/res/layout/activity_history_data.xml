@@ -134,8 +134,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="18dp"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:text="测站名"
+                        android:layout_gravity="center_horizontal"
                         android:visibility="gone"/>
 
                     <TextView
@@ -149,14 +150,14 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:text="水位" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:text="库容" />
                 </LinearLayout>
                 <android.support.v7.widget.RecyclerView
@@ -186,7 +187,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="18dp"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:text="测站名" />
 
                     <TextView
@@ -200,7 +201,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:text="雨情" />
 
                 </LinearLayout>

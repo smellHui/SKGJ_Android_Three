@@ -3,6 +3,8 @@ package com.tepia.main.view.maincommon.setting.contacts;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
+import com.tepia.main.R;
 import com.tepia.main.model.user.AddressBookResponse;
 import com.tepia.main.model.user.UserManager;
 
@@ -19,7 +21,7 @@ public class ContactsPresenter extends BasePresenterImpl<ContactsContract.View> 
 
     public void getAddressBook(String searchKey) {
         currentPage = 1;
-        UserManager.getInstance_ADMIN().getAddressBook(searchKey, currentPage + "", pageSize).safeSubscribe(new LoadingSubject<AddressBookResponse>() {
+        UserManager.getInstance_ADMIN().getAddressBook(searchKey, currentPage + "", pageSize).safeSubscribe(new LoadingSubject<AddressBookResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
             @Override
             protected void _onNext(AddressBookResponse addressBookResponse) {
                 currentPage = addressBookResponse.getData().getPageNum();

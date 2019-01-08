@@ -30,6 +30,7 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.view.floatview.FloatUtil;
+import com.tepia.main.CacheConsts;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.user.UserManager;
@@ -122,6 +123,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         telTv.setOnClickListener(this);
         shareIv.setOnClickListener(this);
         showShareFy.setOnClickListener(this);
+        String userName = SPUtils.getInstance().getString(CacheConsts.USERNAME_LOGIN,"");
+        usernameEt.setText(userName);
         /*showShareFy.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -156,7 +159,9 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
             String registId = JPushInterface.getRegistrationID(Utils.getContext());
             LogUtil.e("LoginActivity","获取极光推送注册："+registId);
+            SPUtils.getInstance().putString(CacheConsts.USERNAME_LOGIN,usernameEt.getText().toString());
             mPresenter.login(usernameEt.getText().toString(),psEt.getText().toString(),registId);
+
 //            Intent intent = new Intent();
 //            intent.setClass(this, MainActivity.class);
 //            intent.putExtra("key",usernameEt.getText().toString());

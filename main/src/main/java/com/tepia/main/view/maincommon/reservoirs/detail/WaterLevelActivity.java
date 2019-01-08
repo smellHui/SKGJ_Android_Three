@@ -52,7 +52,7 @@ import java.util.Locale;
  *
  * @author :ly (from Center Of Wuhan)
  * 创建时间 :2018-12-26
- * 更新时间 :
+ * 更新时间 :2019-1-3
  * Version :1.0
  * 功能描述 :汛限水位页面
  **/
@@ -85,8 +85,6 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
         showBack();
         waterLevelActivity = this;
         reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
-        // TODO: 2018/12/27 要删除 
-//        reservoirId = "66fb3d579d084daf8a7d35d9d9612213";
         String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
         binding.rerserviorNameTag.nameTv.setText(reservoirName);
         binding.addTv.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +134,7 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
     private void search(boolean isshowloadiing) {
         adapterWaterlevelReservoirs.setEnableLoadMore(false);
         dataList.clear();
-//        adapterWaterlevelReservoirs.notifyDataSetChanged();
+        adapterWaterlevelReservoirs.notifyDataSetChanged();
         currentPage = 1;
         first = true;
         isloadmore = false;

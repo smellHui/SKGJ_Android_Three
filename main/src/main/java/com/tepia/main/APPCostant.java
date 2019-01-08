@@ -57,40 +57,7 @@ public class APPCostant {
      */
     public static final String WEB_COMPANY = "http://www.hydro-soft.cn/";
 
-    /**
-     * 底部导航栏高度key
-     */
-    //public static final String HEIGHT_OF_TabWidget = "getTabWidget_height";
-    /**
-     * glide参数配置
-     */
-    /*public static final RequestOptions options = new RequestOptions()
-            .centerCrop()
-            .placeholder(R.mipmap.icon_empty)
-            .error(R.mipmap.icon_empty)
-            .priority(Priority.HIGH)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);*/
 
-    /**
-     * 流量站详情页面查询类型区分
-     */
-    //public static String[] TimeType = {"time","day","month","years"};
-    /**
-     * 水质站详情页面查询类型区分
-     */
-    public static int[] TimeTypeInt = {0,1,2,3,4};
-    /**
-     * 详情页面线性图表颜色
-     */
-    //public static int colortext = Color.rgb(153, 153, 153);
-    /**
-     * 详情页面默认查询时间间隔
-     */
-    //public static String timeseriod = "-7";
-    /**
-     * 极光推送注册id保存
-     */
-    //public static String regisid_jiguang = "regisid_jiguang";
 
 
 }

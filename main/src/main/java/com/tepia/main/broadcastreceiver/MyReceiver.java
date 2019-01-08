@@ -57,7 +57,7 @@ public class MyReceiver extends BroadcastReceiver {
 					goVedio(context, bundle);
 					if(WakeLockScreenReceiverOfMain.hasScreenOn){
 						LogUtil.e(TAG,"显示通知栏-------------");
-						NotificationUtil.showNotification(context,context.getString(R.string.askstr),VedioComunicationActivity.class);
+//						NotificationUtil.showNotification(context,context.getString(R.string.askstr),VedioComunicationActivity.class);
 
 					}
 				}

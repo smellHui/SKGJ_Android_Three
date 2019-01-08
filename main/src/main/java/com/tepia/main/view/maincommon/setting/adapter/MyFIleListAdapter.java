@@ -59,7 +59,7 @@ public class MyFIleListAdapter extends BaseQuickAdapter<TrainDetailResponse.Data
             }
 
         }
-        helper.getView(R.id.officeDownloadTv).setOnClickListener(v -> {
+        helper.getView(R.id.officeLy).setOnClickListener(v -> {
             Intent intent = new Intent(mContext, DownLoadActivity.class);
 //            DownLoadActivity.setIntent(intent,"ggsg8.apk","http://rs.0.gaoshouyou.com/d/04/1e/400423a7551e1f3f0eb1812afa1f9b44.apk");
 //            DownLoadActivity.setIntent(intent,"CloudMusic_official_5.5.2.826166.apk","http://d1.music.126.net/dmusic/CloudMusic_official_5.5.2.826166.apk");

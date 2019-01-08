@@ -8,6 +8,7 @@
     <!--限定宽度-->
     <com.tepia.main.common.RoundImageView
         android:id="@+id/item_img"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
