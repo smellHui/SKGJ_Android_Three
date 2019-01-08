@@ -44,6 +44,7 @@ public class TaskItemBean implements Serializable {
 
 
     private String itemId;
+    private String reservoirSuperviseId;
     private boolean isSelected;
     private String reservoirId;
     private String planId;
@@ -81,6 +82,14 @@ public class TaskItemBean implements Serializable {
     private String dicName;
     private List<ImageInfoBean> startImages;
     private List<ImageInfoBean> endImages;
+
+    public String getReservoirSuperviseId() {
+        return reservoirSuperviseId;
+    }
+
+    public void setReservoirSuperviseId(String reservoirSuperviseId) {
+        this.reservoirSuperviseId = reservoirSuperviseId;
+    }
 
     public String getItemId() {
         return itemId;

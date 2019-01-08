@@ -153,11 +153,12 @@ interface TaskHttpService {
     Observable<BaseResponse> endExecute(@Header("Authorization") String token,
                                         @Field("workOrderId") String workOrderId,
                                         @Field("workOrderRoute") String workOrderRoute);
+
     @FormUrlEncoded
     @POST("app/workOrderTrp/endExecute")
     Observable<BaseResponse> endExecute2(@Header("Authorization") String token,
-                                        @Field("workOrderId") String workOrderId,
-                                        @Field("workOrderRoute") String workOrderRoute);
+                                         @Field("workOrderId") String workOrderId,
+                                         @Field("workOrderRoute") String workOrderRoute);
 
 
     /**
@@ -279,7 +280,8 @@ interface TaskHttpService {
     Observable<TaskDetailResponse> newStartExecute(@Header("Authorization") String token,
                                                    @Field("reservoirId") String reservoirId,
                                                    @Field("reservoirName") String reservoirName,
-                                                   @Field("operationType") String operationType);
+                                                   @Field("operationType") String operationType,
+                                                   @Field("superviseIds") String superviseIds);
 
 
     @GET("app/workOrderTrp/getWorkOrderNumByXc")
@@ -294,8 +296,8 @@ interface TaskHttpService {
 
     @GET("app/workOrderTrp/getUnfinishedNum")
     Observable<UnfinishedNumResponse> getUnfinishedNum(@Header("Authorization") String token,
-                                                              @Query("reservoirId") String reservoirId,
-                                                              @Query("operationType") String operationType);
+                                                       @Query("reservoirId") String reservoirId,
+                                                       @Query("operationType") String operationType);
 
 
 }
