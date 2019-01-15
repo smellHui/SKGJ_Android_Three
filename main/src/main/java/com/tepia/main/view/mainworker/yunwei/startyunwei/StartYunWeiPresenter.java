@@ -10,10 +10,6 @@ import com.tepia.main.model.task.UnfinishedNumResponse;
 import com.tepia.main.model.task.WorkOrderNumResponse;
 import com.tepia.main.model.task.response.TaskDetailResponse;
 import com.tepia.main.model.task.response.TaskItemListResponse;
-import com.tepia.main.model.user.UserManager;
-
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 /**
  * @author :      zhang xinhua
@@ -28,12 +24,14 @@ public class StartYunWeiPresenter extends BasePresenterImpl<StartYunWeiContract.
      * @param reservoirId
      * @param reservoirName
      * @param operationType
+     * @param superviseIds
      */
-    public void newStartExecute(String reservoirId, String reservoirName, String operationType) {
-        TaskManager.getInstance().newStartExecute(reservoirId, reservoirName, operationType).safeSubscribe(new LoadingSubject<TaskDetailResponse>() {
+    public void newStartExecute(String reservoirId, String reservoirName, String operationType, String superviseIds) {
+        TaskManager.getInstance().newStartExecute(reservoirId, reservoirName, operationType,superviseIds).safeSubscribe(new LoadingSubject<TaskDetailResponse>() {
             @Override
             protected void _onNext(TaskDetailResponse taskDetailResponse) {
                 mView.newStartExecuteSuccess(taskDetailResponse.getData());
+
             }
 
             @Override

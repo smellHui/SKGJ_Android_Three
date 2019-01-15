@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
@@ -28,6 +29,7 @@ import com.tepia.main.model.task.bean.TaskItemBean;
 import com.tepia.main.model.task.bean.WorkOrderNumBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.work.task.taskdetail.AdapterTaskItemList;
+import com.tepia.main.view.main.work.task2.taskedit.AdapterTaskItemConfig;
 import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 
 import java.text.DecimalFormat;
@@ -52,7 +54,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
      * 被选择的运维类型
      */
     private String selectedYunWeiType;
-    private AdapterTaskItemList adapterTaskItemList;
+    private AdapterTaskItemConfig adapterTaskItemList;
     public String defaultYunweiType;
     private ArrayList<String> yunweiTypeStrs;
 
@@ -78,7 +80,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         mBinding = DataBindingUtil.bind(view);
         initListener();
         mBinding.rvTaskItemList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterTaskItemList = new AdapterTaskItemList(getContext(), R.layout.lv_item_task_item_list2, null);
+        adapterTaskItemList = new AdapterTaskItemConfig( R.layout.lv_item_task_item_config, null);
         mBinding.rvTaskItemList.setAdapter(adapterTaskItemList);
         mBinding.tvStartYunwei.setText("开始运维");
         mBinding.loTaskNumPresent.setVisibility(View.GONE);
@@ -152,6 +154,16 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
             public void onClick(View view) {
 
                 showSelectYunweiType();
+            }
+        });
+        mBinding.cbSelectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    adapterTaskItemList.selectAll();
+                }else {
+                    adapterTaskItemList.noSelectAll();
+                }
             }
         });
         mBinding.tvStartYunwei.setOnClickListener(new View.OnClickListener() {
@@ -278,7 +290,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         if (data.getTotals() == 0) {
             mBinding.tvDealedPresent.setText("--");
         } else {
-            DecimalFormat df = new DecimalFormat("#.0");
+            DecimalFormat df = new DecimalFormat("#0.0");
             mBinding.tvDealedPresent.setText(df.format(data.getDoneNum() * 100.0 / data.getTotals()) + "%");
         }
 
@@ -287,6 +299,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
     @Override
     public void getItemListByReservoirIdSuccess(List<TaskItemBean> data) {
         adapterTaskItemList.setNewData(data);
+        adapterTaskItemList.selectAll();
         if (data == null && data.size() == 0) {
             adapterTaskItemList.getData().clear();
             adapterTaskItemList.notifyDataSetChanged();
@@ -310,6 +323,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
     }
 
     private void showNewWorkOrder(UnfinishedNumResponse.DataBean data) {
+        String superviseIds = adapterTaskItemList.getItemConfigString2();
         if (data == null || data.getTotals() == 0) {
             new AlertDialog.Builder(getContext()).setTitle("新建任务").setMessage("是否确定新建任务")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -322,7 +336,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
-                            mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType);
+                            mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType,superviseIds);
                         }
                     })
                     .show();
@@ -342,7 +356,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
-                            mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType);
+                            mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType,superviseIds);
                         }
                     })
                     .show();

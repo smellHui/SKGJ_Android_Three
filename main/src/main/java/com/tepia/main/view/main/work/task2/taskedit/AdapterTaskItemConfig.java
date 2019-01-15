@@ -73,4 +73,31 @@ public class AdapterTaskItemConfig extends BaseItemDraggableAdapter<TaskItemBean
         }
         return workOrderItemIds;
     }
+
+    public String getItemConfigString2() {
+        String workOrderItemIds = "";
+        for (TaskItemBean bean : getData()) {
+            if (bean.isSelected()) {
+                workOrderItemIds += bean.getReservoirSuperviseId() + ",";
+            }
+        }
+        if (workOrderItemIds.endsWith(",")) {
+            workOrderItemIds = workOrderItemIds.substring(0, workOrderItemIds.lastIndexOf(','));
+        }
+        return workOrderItemIds;
+    }
+
+    public void selectAll() {
+        for (TaskItemBean bean : getData()) {
+            bean.setSelected(true);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void noSelectAll() {
+        for (TaskItemBean bean : getData()) {
+            bean.setSelected(false);
+        }
+        notifyDataSetChanged();
+    }
 }

@@ -279,7 +279,8 @@ interface TaskHttpService {
     Observable<TaskDetailResponse> newStartExecute(@Header("Authorization") String token,
                                                    @Field("reservoirId") String reservoirId,
                                                    @Field("reservoirName") String reservoirName,
-                                                   @Field("operationType") String operationType);
+                                                   @Field("operationType") String operationType,
+                                                   @Field("superviseIds") String superviseIds);
 
 
     @GET("app/workOrderTrp/getWorkOrderNumByXc")
@@ -291,6 +292,7 @@ interface TaskHttpService {
     Observable<TaskItemListResponse> getItemListByReservoirId(@Header("Authorization") String token,
                                                               @Query("reservoirId") String reservoirId,
                                                               @Query("operationType") String operationType);
+
 
     @GET("app/workOrderTrp/getUnfinishedNum")
     Observable<UnfinishedNumResponse> getUnfinishedNum(@Header("Authorization") String token,
