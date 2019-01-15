@@ -61,7 +61,7 @@ public class MyAdminOperationListAdapter extends BaseQuickAdapter<AdminWorkOrder
             int percent=0;
             double doneRate = item.getDoneRate();
             if (doneRate!=0&&reservoirNum!=0){
-                percent = (int) (doneRate*100/reservoirNum);
+                percent = (int) (doneRate*100);
             }
             tvStatus.setText(percent+"%");
             tvComplete.setText(item.getDoneNum()+"");
