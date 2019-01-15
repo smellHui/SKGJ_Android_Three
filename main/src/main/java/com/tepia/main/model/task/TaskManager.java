@@ -325,9 +325,9 @@ public class TaskManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<TaskDetailResponse> newStartExecute(String reservoirId, String reservoirName, String operationType, String superviseIds) {
+    public Observable<TaskDetailResponse> newStartExecute(String reservoirId, String reservoirName, String operationType) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.newStartExecute(token, reservoirId, reservoirName, operationType,superviseIds)
+        return mRetrofitService.newStartExecute(token, reservoirId, reservoirName, operationType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

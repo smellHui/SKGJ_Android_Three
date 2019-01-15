@@ -174,6 +174,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
             @Override
             protected void _onError(String message) {
+//                waterLevelActivity.closeDialog();
                 ToastUtils.shortToast(message + " ");
 
             }
