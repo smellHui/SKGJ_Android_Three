@@ -68,8 +68,9 @@ public class VisitLogActivity extends MVPBaseActivity<VisitLogContract.View, Vis
         setCenterTitle("到访日志");
         showBack();
         getRithtTv().setVisibility(View.VISIBLE);
-        getRithtTv().setTextColor(Color.BLACK);
+        getRithtTv().setTextColor(Color.GRAY);
         getRithtTv().setText("新增到访");
+        getRithtTv().setTextSize(16);
         getRithtTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

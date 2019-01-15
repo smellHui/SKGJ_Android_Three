@@ -50,10 +50,8 @@ public class YunWeiXingZhengFragment extends BaseCommonFragment {
     @Override
     protected void initData() {
         UserInfoBean userBean = UserManager.getInstance().getUserBean();
-        if (null != userBean && userBean.getData() != null) {
-            countSymbol = userBean.getData().getCountSymbol();
-            areaCode = userBean.getData().getAreaCode();
-        }
+        countSymbol = userBean.getData().getCountSymbol();
+        areaCode = userBean.getData().getAreaCode();
     }
 
     @Override
@@ -73,19 +71,19 @@ public class YunWeiXingZhengFragment extends BaseCommonFragment {
     }
 
     private void initViewPager() {
-        for (int i = 0; i < tabNames.length - 1; i++) {
+        for (int i = 0; i < tabNames.length-1; i++) {
             AdminOperationListFragment fragment = new AdminOperationListFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("type", tabNames[i]);
-            bundle.putString("countSymbol", countSymbol);
-            bundle.putString("areaCode", areaCode);
+            bundle.putString("type",tabNames[i]);
+            bundle.putString("countSymbol",countSymbol);
+            bundle.putString("areaCode",areaCode);
             fragment.setArguments(bundle);
             mFragments.add(fragment);
         }
         AdminOperationReportListFragment operationReportFragment = new AdminOperationReportListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("countSymbol", countSymbol);
-        bundle.putString("areaCode", areaCode);
+        bundle.putString("countSymbol",countSymbol);
+        bundle.putString("areaCode",areaCode);
         operationReportFragment.setArguments(bundle);
         mFragments.add(operationReportFragment);
         OperationTabPageAdapter tabPageAdapter = new OperationTabPageAdapter(getFragmentManager(), mFragments);
@@ -117,12 +115,12 @@ public class YunWeiXingZhengFragment extends BaseCommonFragment {
                         mCustomView.measure(0, 0);
                         width = mCustomView.getMeasuredWidth();
                     }
-                    if (i == 1) {
+                    if (i==1){
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
                         params.weight = (float) 1.5;
                         tabView.setLayoutParams(params);
                         tabView.invalidate();
-                    } else {
+                    }else {
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
                         params.weight = 1;
                         tabView.setLayoutParams(params);

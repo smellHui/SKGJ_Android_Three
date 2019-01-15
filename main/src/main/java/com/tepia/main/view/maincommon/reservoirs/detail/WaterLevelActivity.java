@@ -22,6 +22,7 @@ import com.arialyy.frame.util.show.T;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.LogUtil;
@@ -32,7 +33,9 @@ import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.common.DecimalInputTextWatcher;
 import com.tepia.main.databinding.ActivityWaterLevelBinding;
+import com.tepia.main.model.reserviros.CurrentFloodSeasonBean;
 import com.tepia.main.model.reserviros.FloodSeasonBean;
+import com.tepia.main.model.reserviros.ReservirosManager;
 import com.tepia.main.model.reserviros.VisitLogBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
@@ -105,6 +108,8 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
         });
         initRec();
         search(true);
+
+
     }
 
     @Override
@@ -139,8 +144,8 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
         first = true;
         isloadmore = false;
         if (mPresenter != null) {
-
             mPresenter.getReservoirFloodSeason(reservoirId, String.valueOf(currentPage), String.valueOf(pageSize), isshowloadiing);
+            findReservoirCurrentFloodSeason();
         }
     }
 
@@ -148,11 +153,15 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
      * 刷新
      */
     public void refresh(boolean isshowloading) {
+        closeDialog();
+        first = true;
+        search(isshowloading);
+    }
+
+    public void closeDialog(){
         if(dialog_show != null && dialog_show.isShowing()){
             dialog_show.dismiss();
         }
-        first = true;
-        search(isshowloading);
     }
 
     @Override
@@ -293,15 +302,16 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
             if (data == null || data.size() == 0) {
 //                        showEmptyView();
                 adapterWaterlevelReservoirs.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
-                binding.waterleverTv.setText(getString(R.string.setting_t_null));
+//                binding.waterleverTv.setText(getString(R.string.setting_t_null));
             } else {
                 dataList.clear();
                 //首次加载
                 dataList.addAll(data);
                 adapterWaterlevelReservoirs.notifyDataSetChanged();
-                if (dataList.size() > 0) {
+              /*  if (dataList.size() > 0) {
                     binding.waterleverTv.setText(dataList.get(0).getFloodSeasonWaterLevel());
-                }
+                }*/
+//                findReservoirCurrentFloodSeason();
             }
             adapterWaterlevelReservoirs.setEnableLoadMore(true);
         } else if (isloadmore) {
@@ -318,9 +328,41 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
         }
     }
 
+    /**
+     * 获取汛限水位
+     */
+    private void findReservoirCurrentFloodSeason(){
+        ReservirosManager.getInstance().findReservoirCurrentFloodSeason(reservoirId)
+                .subscribe(new LoadingSubject<CurrentFloodSeasonBean>(false, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(CurrentFloodSeasonBean currentFloodSeasonBean) {
+                        if (currentFloodSeasonBean != null) {
+                            if (currentFloodSeasonBean.getCode() == 0) {
+                                binding.waterleverTv.setText(currentFloodSeasonBean.getData() + "");
+                            }else{
+                                LogUtil.e("findReservoirCurrentFloodSeason",currentFloodSeasonBean.getMsg() + " ");
+                                binding.waterleverTv.setText(getString(R.string.setting_t_null));
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        LogUtil.e("findReservoirCurrentFloodSeason",message + " ");
+                        binding.waterleverTv.setText(getString(R.string.setting_t_null));
+
+
+
+                    }
+                });
+    }
+
     @Override
     public void failure(String msg) {
         adapterWaterlevelReservoirs.setEmptyView(EmptyLayoutUtil.show(msg));
+//        ToastUtils.shortToast(msg);
+
 
 
     }

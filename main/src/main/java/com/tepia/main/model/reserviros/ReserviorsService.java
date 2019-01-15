@@ -60,6 +60,13 @@ public interface ReserviorsService {
 
     );
 
+    @GET("app/bizReservoirFloodSeasonLevel/findReservoirCurrentFloodSeason")
+    Observable<CurrentFloodSeasonBean> findReservoirCurrentFloodSeason(@Header("Authorization") String token,
+                                                        @Query("reservoirId") String reservoirId
+
+
+    );
+
     /**
      * 水库月汛限水位-修改
      * @param token

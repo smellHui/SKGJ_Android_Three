@@ -6,24 +6,15 @@
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp">
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_selected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:drawablePadding="10dp"
-                android:gravity="center" />
 
 
             <LinearLayout
@@ -31,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_task_list_item2"
+                android:background="@drawable/bg_task_list_item"
 
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -56,8 +47,8 @@
                             android:background="@drawable/bg_task_item_count_num"
                             android:gravity="center"
                             android:maxHeight="22dp"
-                            android:minWidth="22dp"
                             android:minHeight="22dp"
+                            android:minWidth="22dp"
                             android:text="1"
                             android:textColor="@color/white"
                             android:textSize="15sp" />
@@ -133,7 +124,15 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/cb_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
 
+                android:layout_marginLeft="10dp"
+                android:gravity="center" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>

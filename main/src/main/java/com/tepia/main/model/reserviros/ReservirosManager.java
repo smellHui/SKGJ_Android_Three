@@ -68,6 +68,17 @@ public class ReservirosManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 查询汛限水位
+     * @param reservoirId
+     * @return
+     */
+    public Observable<CurrentFloodSeasonBean> findReservoirCurrentFloodSeason(String reservoirId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.findReservoirCurrentFloodSeason(token,reservoirId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     /**
      * 水库月汛限水位-修改

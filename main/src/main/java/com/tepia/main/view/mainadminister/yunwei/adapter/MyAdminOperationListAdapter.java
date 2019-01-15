@@ -61,7 +61,7 @@ public class MyAdminOperationListAdapter extends BaseQuickAdapter<AdminWorkOrder
             tvReservoirName.setText(item.getAreaName()+"("+reservoirNum+")");
             int percent=0;
             if (doneRate!=0&&reservoirNum!=0){
-                percent = (int) (doneRate*100);
+                percent = (int) (doneRate*100/reservoirNum);
             }
             tvStatus.setText(percent+"%");
             tvComplete.setText(item.getDoneNum()+"");
