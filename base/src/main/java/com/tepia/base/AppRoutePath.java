@@ -85,6 +85,8 @@ public class AppRoutePath {
      * 水库页（第四页）
      */
     public final static String app_main_fragment_reservoirs = "/app/main/fragment/reservoirs";
+    public final static String app_main_fragment_reservoirs_waterlevel = "/app/main/fragment/reservoirs/waterlevel";
+
 
     /**
      * 我的页（第五页）
@@ -179,4 +181,6 @@ public class AppRoutePath {
      * 行政运维具体月份上报
      */
     public  final static String app_admin_operation_report = "/app/admin/operation/report";
+
+
 }

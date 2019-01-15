@@ -138,6 +138,7 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies.Arouter_compiler
     implementation rootProject.ext.dependencies.jpush
     implementation rootProject.ext.dependencies.jcore
+    implementation rootProject.ext.dependencies.toast
 
     // 总是依赖最新版本
     implementation project(':photopicker')

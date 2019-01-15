@@ -32,6 +32,8 @@ public class BaseApplication extends LitePalApplication {
         LogUtil.isDebug = true;
         //初始化全局context,不允许删除
         Utils.init(this);
+        //解决部分机型上关闭通知栏权限后吐司无法显示问题
+        com.hjq.toast.ToastUtils.init(this);
 
     }
 

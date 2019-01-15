@@ -91,7 +91,7 @@ public class ReserviorContract {
          * @param id
          * @param floodLevel
          */
-        void updateFloodSeason(String id, String floodLevel, WaterLevelActivity waterLevelActivity);
+        void updateFloodSeason(String id, String floodLevel, String reservoirId,WaterLevelActivity waterLevelActivity);
 
         void addReservoirFloodSeason(String reservoirId,String floodYearMonth,String floodLevel,WaterLevelActivity waterLevelActivity);
 

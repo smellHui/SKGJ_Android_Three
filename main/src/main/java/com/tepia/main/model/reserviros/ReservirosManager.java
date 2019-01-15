@@ -86,9 +86,9 @@ public class ReservirosManager {
      * @param floodLevel
      * @return
      */
-    public Observable<BaseResponse> updateFloodSeason(String id, String floodLevel) {
+    public Observable<BaseResponse> updateFloodSeason(String id, String floodLevel,String reservoirId) {
         String token = UserManager.getInstance().getToken();
-        return mRetrofitService.updateFloodSeason(token,id,floodLevel)
+        return mRetrofitService.updateFloodSeason(token,id,floodLevel,reservoirId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -186,4 +186,5 @@ dependencies {
     //状态栏
     implementation rootProject.ext.dependencies.statusbaruitl
     implementation rootProject.ext.dependencies.EventBus
+    implementation rootProject.ext.dependencies.toast
 }

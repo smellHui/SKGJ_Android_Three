@@ -297,7 +297,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         powerManager = (PowerManager) UtilsContextOfGaode.getContext().getSystemService(Context.POWER_SERVICE);
 
         if (null == wakeLock) {
-            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track:upload");
         }
         if (null == WakeLockScreenReceiver) {
             WakeLockScreenReceiver = new WakeLockScreenReceiverOfMain(wakeLock);

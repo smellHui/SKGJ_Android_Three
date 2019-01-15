@@ -45,7 +45,8 @@ public class ToastUtils {
      * @param text 提示的内容
      */
     public static void shortToast(String text) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        com.hjq.toast.ToastUtils.show(text);
     }
 
     /**
@@ -54,7 +55,9 @@ public class ToastUtils {
      * @param text 提示的内容
      */
     public static void longToast(String text) {
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        com.hjq.toast.ToastUtils.show(text);
+
     }
 
     /**
@@ -62,7 +65,9 @@ public class ToastUtils {
      * @param resId 提示的内容资源id
      */
     public static void shortToast(int resId) {
-        Toast.makeText(context, ResUtils.getString(resId), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, ResUtils.getString(resId), Toast.LENGTH_SHORT).show();
+        com.hjq.toast.ToastUtils.show(ResUtils.getString(resId));
+
     }
 
     /**
@@ -70,6 +75,8 @@ public class ToastUtils {
      * @param resId 提示的内容资源id
      */
     public static void longToast(int resId) {
-        Toast.makeText(context, ResUtils.getString(resId), Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, ResUtils.getString(resId), Toast.LENGTH_LONG).show();
+        com.hjq.toast.ToastUtils.show(ResUtils.getString(resId));
+
     }
 }

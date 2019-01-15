@@ -128,8 +128,8 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
      * @param floodLevel
      */
     @Override
-    public void updateFloodSeason(String id, String floodLevel,WaterLevelActivity waterLevelActivity) {
-        ReservirosManager.getInstance().updateFloodSeason(id,floodLevel).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+    public void updateFloodSeason(String id, String floodLevel,String reservoirId,WaterLevelActivity waterLevelActivity) {
+        ReservirosManager.getInstance().updateFloodSeason(id,floodLevel,reservoirId).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
             @Override
             protected void _onNext(BaseResponse baseResponse) {
                 if (baseResponse.getCode() == 0) {

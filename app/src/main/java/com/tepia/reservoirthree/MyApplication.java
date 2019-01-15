@@ -8,6 +8,7 @@ import com.example.gaodelibrary.UtilsContextOfGaode;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.tepia.base.BaseApplication;
 import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.ToastUtils;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -28,6 +29,7 @@ public class MyApplication extends BaseApplication {
         //开启crashlog日志上报
         JPushInterface.initCrashHandler(this);
         UtilsContextOfGaode.init(this);
+
 
 
 

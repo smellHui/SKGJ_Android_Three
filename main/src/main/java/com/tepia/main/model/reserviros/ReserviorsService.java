@@ -77,7 +77,8 @@ public interface ReserviorsService {
     @POST("app/bizReservoirFloodSeasonLevel/updateReservoirFloodSeason")
     Observable<BaseResponse> updateFloodSeason(@Header("Authorization") String token,
                                     @Query("id") String id,
-                                    @Query("floodLevel") String floodLevel
+                                    @Query("floodLevel") String floodLevel,
+                                    @Query("reservoirId") String reservoirId
                                     );
 
 

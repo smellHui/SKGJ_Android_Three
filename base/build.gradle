@@ -113,5 +113,7 @@ dependencies {
     implementation rootProject.ext.dependencies.constraint
     annotationProcessor rootProject.ext.dependencies.Arouter_compiler
     implementation rootProject.ext.dependencies.androidWeakhandler
+    implementation rootProject.ext.dependencies.toast
+
 
 }

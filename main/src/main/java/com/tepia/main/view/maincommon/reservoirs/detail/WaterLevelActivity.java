@@ -18,10 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.arialyy.frame.util.show.T;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
@@ -59,6 +61,7 @@ import java.util.Locale;
  * Version :1.0
  * 功能描述 :汛限水位页面
  **/
+@Route(path = AppRoutePath.app_main_fragment_reservoirs_waterlevel)
 public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, ReserviorPresent> implements ReserviorContract.View<FloodSeasonBean>, OnDateSetListener {
 
     private AdapterWaterlevelReservoirs adapterWaterlevelReservoirs;
@@ -231,7 +234,7 @@ public class WaterLevelActivity extends MVPBaseActivity<ReserviorContract.View, 
 
                 } else {
                     //更新水位，时间则不可编辑
-                    mPresenter.updateFloodSeason(floodseasonbean.getId(), rz,waterLevelActivity);
+                    mPresenter.updateFloodSeason(floodseasonbean.getId(), rz,reservoirId , waterLevelActivity);
                 }
 
             }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tepia.base.AppRoutePath;
@@ -110,13 +111,14 @@ public class ReservoirsFragment extends BaseCommonFragment {
         resviorRec = findView(R.id.resviorRec);
         switchTv = findView(R.id.switchTv);
         tv_reservoir_name = findView(R.id.tv_reservoir_name);
-        UserInfoBean dataBean = com.tepia.main.model.user.UserManager.getInstance().getUserBean();
-        String countSymbol = dataBean.getData().getCountSymbol();
         setResviorRec(RESERVOIR_DESCRIPTION, "RESERVOIRS DESCRIPTION", R.drawable.jianjie1);
-        if ("1".equals(countSymbol)) {
-            //统计标识（0 隐藏  1 显示）东源县特殊要求字段
+
+        if (UserManager.getInstance().getMenuItemBean("汛限水位") != null) {
             setResviorRec(FLOOD_CONTROL_LEVER, "FLOOD CONTROL LEVER", R.drawable.jianjie_xunqi);
+        } else {
+            LogUtil.e("服务器没有配置汛限水位路径");
         }
+
         setResviorRec(RESERVOIRS_VEDIO, "RESERVOIRS VEDIO", R.drawable.jianjie2);
         setResviorRec(CAPACITY_CURVE, "CAPACITY CURVE", R.drawable.jianjie3);
         setResviorRec(RESERVOIRS_SUPPORTING, "RESERVOIRS SUPPORTING", R.drawable.jianjie4);
@@ -152,11 +154,15 @@ public class ReservoirsFragment extends BaseCommonFragment {
                 if (RESERVOIR_DESCRIPTION.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), IntroduceOfReservoirsActivity.class);
                     startActivity(intent);
-                } else if(FLOOD_CONTROL_LEVER.equals(nameStr)){
+                } else if (FLOOD_CONTROL_LEVER.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), WaterLevelActivity.class);
                     startActivity(intent);
-                }
-                else if (RESERVOIRS_VEDIO.equals(nameStr)) {
+                   /* if (UserManager.getInstance().getMenuItemBean("汛限水位") != null) {
+                        ARouter.getInstance().build(UserManager.getInstance().getMenuItemBean("汛限水位").getMenuHref()).navigation();
+                    } else {
+                        ToastUtils.shortToast("服务器没有配置汛限水位路径");
+                    }*/
+                } else if (RESERVOIRS_VEDIO.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);
                     startActivity(intent);
                 } else if (CAPACITY_CURVE.equals(nameStr)) {
