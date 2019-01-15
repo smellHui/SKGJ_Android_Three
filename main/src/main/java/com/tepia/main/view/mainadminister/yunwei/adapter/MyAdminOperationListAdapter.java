@@ -47,11 +47,12 @@ public class MyAdminOperationListAdapter extends BaseQuickAdapter<AdminWorkOrder
         tvDate.setText(item.getDate());
         int doneNum = item.getDone_num();
         int totals = item.getTotals();
+        double doneRate = item.getDoneRate();
         if (currentSearchType==0){
             tvReservoirName.setText(item.getReservoirName());
             int percent=0;
             if (doneNum!=0&&totals!=0){
-                percent = doneNum*100/totals;
+                percent = (int) (doneRate*100);
             }
             tvStatus.setText(percent+"%");
             tvComplete.setText(item.getDone_num()+"");
@@ -59,9 +60,8 @@ public class MyAdminOperationListAdapter extends BaseQuickAdapter<AdminWorkOrder
             int reservoirNum = item.getReservoirNum();
             tvReservoirName.setText(item.getAreaName()+"("+reservoirNum+")");
             int percent=0;
-            double doneRate = item.getDoneRate();
             if (doneRate!=0&&reservoirNum!=0){
-                percent = (int) (doneRate*100/reservoirNum);
+                percent = (int) (doneRate*100);
             }
             tvStatus.setText(percent+"%");
             tvComplete.setText(item.getDoneNum()+"");
