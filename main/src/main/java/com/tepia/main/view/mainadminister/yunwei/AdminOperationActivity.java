@@ -111,11 +111,15 @@ public class AdminOperationActivity extends BaseActivity {
             tvReservoir.setText(item.getReservoirName());
             tvStartDate.setText(item.getDate());
             String date = item.getDate();
-            String[] split = date.split("-");
-            if (split.length == 2) {
-                int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
-                startDate = date + "-01 00:00:00";
-                endDate = date + "-" + dayOfMonth + " 23:59:59";
+            try {
+                String[] split = date.split("-");
+                if (split.length == 2) {
+                    int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
+                    startDate = date + "-01 00:00:00";
+                    endDate = date + "-" + dayOfMonth + " 23:59:59";
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
             reservoirId = item.getReservoirId();
             rvAdapter.setEnableLoadMore(false);
