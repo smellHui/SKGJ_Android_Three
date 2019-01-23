@@ -49,14 +49,14 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(supportingBean);
 
                             }else{
-                                mView.failure(supportingBean.getMsg());
+                                mView.failure(supportingBean.getMsg() + "");
                             }
                         }
                     }
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        mView.failure(message + "");
 
                     }
                 });
@@ -78,14 +78,14 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(supportingBean);
 
                             }else{
-                                mView.failure(supportingBean.getMsg());
+                                mView.failure(supportingBean.getMsg() + "");
                             }
                         }
                     }
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        mView.failure(message + "");
 
                     }
                 });
@@ -109,14 +109,14 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(floodSeasonBean);
 
                             }else{
-                                mView.failure(floodSeasonBean.getMsg());
+                                mView.failure(floodSeasonBean.getMsg() + "");
                             }
                         }
                     }
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        mView.failure(message + "");
 
                     }
                 });
@@ -197,7 +197,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(supportingBean);
 
                             }else{
-                                mView.failure(supportingBean.getMsg());
+                                mView.failure(supportingBean.getMsg() + "");
                             }
                         }
                     }
@@ -226,7 +226,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(floodBean);
 
                             }else{
-                                mView.failure(floodBean.getMsg());
+                                mView.failure(floodBean.getMsg() + "");
                             }
                         }
                     }
@@ -254,7 +254,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(operationPlanBean);
 
                             }else{
-                                mView.failure(operationPlanBean.getMsg());
+                                mView.failure(operationPlanBean.getMsg() + "");
                             }
                         }
                     }
@@ -283,7 +283,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(operationPlanBean);
 
                             }else{
-                                mView.failure(operationPlanBean.getMsg());
+                                mView.failure(operationPlanBean.getMsg() + "");
                             }
                         }
                     }
@@ -312,7 +312,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(reservoirBean);
 
                             }else{
-                                mView.failure(reservoirBean.getMsg());
+                                mView.failure(reservoirBean.getMsg() + "");
                             }
                         }
                     }
@@ -340,7 +340,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(capacityBean);
 
                             }else{
-                                mView.failure(capacityBean.getMsg());
+                                mView.failure(capacityBean.getMsg() + "");
                             }
                         }
                     }
@@ -364,7 +364,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                                 mView.success(bizkeyBean);
 
                             }else{
-                                mView.failure(bizkeyBean.getMsg());
+                                mView.failure(bizkeyBean.getMsg() + "");
                             }
                         }
                     }

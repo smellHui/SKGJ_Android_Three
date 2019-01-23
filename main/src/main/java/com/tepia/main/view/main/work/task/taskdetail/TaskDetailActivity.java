@@ -1,25 +1,19 @@
 package com.tepia.main.view.main.work.task.taskdetail;
 
 
-import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -56,7 +50,7 @@ import com.tepia.main.model.route.RoutepointDataManager;
 import com.tepia.main.model.task.bean.PeopleBean;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
-import com.tepia.main.utils.PhoneTypeUtil;
+import com.tepia.main.utils.OSUtils;
 import com.tepia.main.utils.XiaomiDeviceUtil;
 import com.tepia.main.view.maincommon.setting.DownLoadActivity;
 
@@ -275,10 +269,11 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
     @Override
     public void initData() {
-        String type = PhoneTypeUtil.getSystem();
+//        String type = PhoneTypeUtil.getSystem();
+        boolean is_xiaomi = OSUtils.ROM_TYPE.MIUI.name().equals(OSUtils.getRomType().name());
         boolean hasset = SPUtils.getInstance(ResUtils.getContext()).getBoolean("go_set", false);
 
-        if (PhoneTypeUtil.SYS_MIUI.equals(type) && !hasset) {
+        if (is_xiaomi && !hasset) {
             android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
             builder.setTitle(R.string.xiaomiMind);
             builder.setMessage(R.string.whiteCard);

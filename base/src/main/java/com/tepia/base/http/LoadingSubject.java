@@ -62,8 +62,11 @@ public abstract class LoadingSubject<T extends BaseResponse> implements io.react
             }
         }
         Throwable throwable = UnifiedErrorUtil.unifiedError(e, Utils.getContext());
-        Log.e("LoadingSubject", "onError:>>>>>>>>>>>>>>>>" + throwable.getMessage());
-        _onError(throwable.getMessage());
+        if (throwable != null) {
+            Log.e("LoadingSubject", "onError:>>>>>>>>>>>>>>>>" + throwable.getMessage());
+            _onError(throwable.getMessage());
+        }
+
 
     }
 

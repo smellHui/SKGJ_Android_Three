@@ -46,7 +46,7 @@ import com.tepia.main.model.route.RoutepointDataManager;
 import com.tepia.main.model.task.bean.PeopleBean;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
-import com.tepia.main.utils.PhoneTypeUtil;
+import com.tepia.main.utils.OSUtils;
 import com.tepia.main.utils.XiaomiDeviceUtil;
 import com.tepia.main.view.main.work.task.taskdetail.AdapterTaskItemList;
 import com.tepia.main.view.main.work.task.taskdetail.TaskDetailContract;
@@ -251,10 +251,12 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
     @Override
     public void initData() {
-        String type = PhoneTypeUtil.getSystem();
+//        String type = PhoneTypeUtil.getSystem();
+        boolean is_xiaomi = OSUtils.ROM_TYPE.MIUI.name().equals(OSUtils.getRomType().name());
+
         boolean hasset = SPUtils.getInstance(ResUtils.getContext()).getBoolean("go_set", false);
 
-        if (PhoneTypeUtil.SYS_MIUI.equals(type) && !hasset) {
+        if (is_xiaomi && !hasset) {
             android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
             builder.setTitle(R.string.xiaomiMind);
             builder.setMessage(R.string.whiteCard);
