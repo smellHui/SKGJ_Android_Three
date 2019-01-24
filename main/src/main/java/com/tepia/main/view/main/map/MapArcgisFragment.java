@@ -92,6 +92,7 @@ import com.tepia.main.view.main.map.adapter.SectionData;
 import com.tepia.main.view.main.map.adapter.search.SearchModel;
 import com.tepia.main.view.main.map.presenter.MainMapContract;
 import com.tepia.main.view.main.map.presenter.MainMapPresenter;
+import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -362,59 +363,70 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     }
 
     private void setSearchLayoutVisible(){
-        Animator animator = createSearchAnimation(flSearchLayout, false);
-        animator.addListener(new Animator.AnimatorListener() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            @Override
-            public void onAnimationStart(Animator animation) {
-                flSearchLayout.setVisibility(View.VISIBLE);
-            }
+            Animator animator = createSearchAnimation(flSearchLayout, false);
+            animator.addListener(new Animator.AnimatorListener() {
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    flSearchLayout.setVisibility(View.VISIBLE);
+                }
 
-            }
+                @Override
+                public void onAnimationEnd(Animator animation) {
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
+                }
 
-            }
+                @Override
+                public void onAnimationCancel(Animator animation) {
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+                }
 
-            }
-        });
-        animator.start();
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            animator.start();
+        }else {
+            flSearchLayout.setVisibility(View.VISIBLE);
+
+        }
     }
 
     private void setSearchLayoutHide(){
-        Animator searchAnimation = createSearchAnimation(flSearchLayout, true);
-        searchAnimation.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            }
+            Animator searchAnimation = createSearchAnimation(flSearchLayout, true);
+            searchAnimation.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                flSearchLayout.setVisibility(View.GONE);
-            }
+                }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    flSearchLayout.setVisibility(View.GONE);
+                }
 
-            }
+                @Override
+                public void onAnimationCancel(Animator animation) {
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+                }
 
-            }
-        });
-        searchAnimation.start();
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            searchAnimation.start();
+        }else{
+            flSearchLayout.setVisibility(View.GONE);
+
+        }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private Animator createSearchAnimation(View view, boolean isOn) {
         Animator animator;
         double radio = Math.sqrt(Math.pow(view.getWidth(), 2) + Math.pow(view.getHeight(), 2));
@@ -679,13 +691,18 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     }
 
     private void initVedioDetailFragment(VideoResponse.DataBean dataBean) {
-        transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        VedioFragment detailFragment = VedioFragment.newInstance(dataBean);
-        transaction.replace(R.id.fl_container, detailFragment);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            VedioFragment detailFragment = VedioFragment.newInstance(dataBean);
+            transaction.replace(R.id.fl_container, detailFragment);
 //        hideFragment(transaction);
-        transaction.show(detailFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+            transaction.show(detailFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }else{
+            ToastUtils.shortToast("手机系统版本太低无法查看视频，请将手机系统升级至5.0及以上版本");
+        }
+
     }
 
     /**

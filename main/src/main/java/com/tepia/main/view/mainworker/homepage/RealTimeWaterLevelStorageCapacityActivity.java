@@ -60,6 +60,7 @@ public class RealTimeWaterLevelStorageCapacityActivity extends BaseActivity{
                 .useDefaultIndicator()// 使用默认进度条
                 .defaultProgressBarColor() // 使用默认进度条颜色
                 .setReceivedTitleCallback(mCallback) //设置 Web 页面的 title 回调
+                .setSecutityType(AgentWeb.SecurityType.strict)
                 .setAgentWebSettings(new AgentWebSettings() {
                     @Override
                     public AgentWebSettings toSetting(WebView web) {

@@ -8,7 +8,7 @@ ext {
             applicationId: "com.tepia.reservoirthree",
             compileSdkVersion: 28,
             buildToolsVersion: "28.0.3",
-            minSdkVersion    : 17,
+            minSdkVersion    : 16,
             targetSdkVersion : 27,
             versionCode      : 132,
             versionName      : "1.3.2"
@@ -33,8 +33,8 @@ ext {
 
             //图片加载
             glide                        : "com.github.bumptech.glide:glide:4.0.0",
-            //突破64k
-            multidex                     : "com.android.support:multidex:1.0.2",
+            //突破64k,使用 Dalvik 可执行文件分包支持库
+            multidex                     : "com.android.support:multidex:1.0.3",
             //多渠道打包
             walle                        : "com.meituan.android.walle:library:1.1.4",
             //沉浸式状态栏
@@ -61,7 +61,7 @@ ext {
             lovedise                     : "com.yanzhenjie:permission:1.0.8",
 
             //图表
-            MPAndroidChart               : "com.github.PhilJay:MPAndroidChart:v3.0.3",
+            MPAndroidChart               : "com.github.PhilJay:MPAndroidChart:v3.1.0-alpha",
             //webView封装
             agentweb                     : "com.just.agentweb:agentweb:2.0.1",
             //数据库

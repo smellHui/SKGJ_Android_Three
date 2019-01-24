@@ -2,6 +2,7 @@ package com.tepia.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.pgyersdk.crash.PgyCrashManager;
@@ -51,4 +52,10 @@ public class BaseApplication extends LitePalApplication {
     /*public static Context getInstance() {
         return instance;
     }*/  //Utils.getContext()替代;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

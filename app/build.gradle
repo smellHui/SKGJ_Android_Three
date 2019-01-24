@@ -44,6 +44,18 @@ android {
 
     }
 
+    /*productFlavors {
+        dev {
+            // Enable pre-dexing to produce an APK that can be tested on
+            // Android 5.0+ without the time-consuming DEX build processes.
+            minSdkVersion 21
+        }
+        prod {
+            // The actual minSdkVersion for the production version.
+            minSdkVersion rootProject.ext.android.minSdkVersion
+        }
+    }*/
+
     //极光推荐关于使用NDK r17时，可能Android Studio会出现以下提示/darwin-x86_64/bin/mips64el-linux-android-strip”
     /*packagingOptions {
         doNotStrip '*//*mips*//*.so'
@@ -139,6 +151,8 @@ dependencies {
     implementation rootProject.ext.dependencies.jpush
     implementation rootProject.ext.dependencies.jcore
     implementation rootProject.ext.dependencies.toast
+    //突破64k
+    implementation rootProject.ext.dependencies.multidex
 
     // 总是依赖最新版本
     implementation project(':photopicker')

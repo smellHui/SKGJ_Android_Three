@@ -2,6 +2,8 @@ package com.tepia.main.view.mainworker.homepage;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -14,6 +16,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.tepia.base.utils.ResUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 
@@ -129,8 +132,15 @@ public class ChartUtils {
             lineDataSet.setHighlightEnabled(false);
             // 填充渐变色
             lineDataSet.setDrawFilled(true);
-            Drawable drawable = ResUtils.getResources().getDrawable(R.drawable.fade_blue);
-            lineDataSet.setFillDrawable(drawable);
+//            Drawable drawable = ResUtils.getResources().getDrawable(R.drawable.fade_blue);
+//            lineDataSet.setFillDrawable(drawable);
+
+            if (Build.VERSION.SDK_INT >= 18) {
+                Drawable drawable = ContextCompat.getDrawable(Utils.getContext(), R.drawable.fade_blue);
+                lineDataSet.setFillDrawable(drawable);
+            }else{
+                lineDataSet.setFillColor(Color.parseColor("#35bcf3"));
+            }
             LineData data = new LineData(lineDataSet);
             chart.setData(data);
             chart.invalidate();

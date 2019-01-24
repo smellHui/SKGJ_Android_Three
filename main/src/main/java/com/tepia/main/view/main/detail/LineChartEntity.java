@@ -2,6 +2,7 @@ package com.tepia.main.view.main.detail;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -531,8 +532,13 @@ public class LineChartEntity {
             lineDataSet.setHighlightEnabled(false);
             // 填充渐变色
             lineDataSet.setDrawFilled(true);
-            Drawable drawable = ContextCompat.getDrawable(Utils.getContext(),R.drawable.fade_blue);
-            lineDataSet.setFillDrawable(drawable);
+            if (Build.VERSION.SDK_INT >= 18) {
+
+                Drawable drawable = ContextCompat.getDrawable(Utils.getContext(), R.drawable.fade_blue);
+                lineDataSet.setFillDrawable(drawable);
+            }else{
+                lineDataSet.setFillColor(Color.parseColor("#35bcf3"));
+            }
             //点上文字的颜色
             LineData data = new LineData(lineDataSet,lineDataSet);
             data.setValueTextColor(Color.RED);

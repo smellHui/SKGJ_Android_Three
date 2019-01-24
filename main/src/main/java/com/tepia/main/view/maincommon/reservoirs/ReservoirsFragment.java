@@ -3,6 +3,7 @@ package com.tepia.main.view.maincommon.reservoirs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -163,8 +164,13 @@ public class ReservoirsFragment extends BaseCommonFragment {
                         ToastUtils.shortToast("服务器没有配置汛限水位路径");
                     }*/
                 } else if (RESERVOIRS_VEDIO.equals(nameStr)) {
-                    intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);
-                    startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        intent.setClass(getBaseActivity(), VedioOfReservoirActivity.class);
+                        startActivity(intent);
+                    }else{
+                        ToastUtils.shortToast("手机系统版本太低无法查看视频，请将手机系统升级至5.0及以上版本");
+                    }
+
                 } else if (CAPACITY_CURVE.equals(nameStr)) {
                     intent.setClass(getBaseActivity(), CapacityActivity.class);
                     startActivity(intent);
