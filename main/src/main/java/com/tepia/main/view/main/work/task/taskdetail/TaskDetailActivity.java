@@ -388,7 +388,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     public void getTaskDetailSucess(TaskBean data) {
         this.taskBean = data;
         refreshView();
-
+        getGaoDeLocation();
     }
 
     @Override
