@@ -219,7 +219,8 @@ public class LineChartEntity {
 
 
     private String getTm(String tm,String timeType) {
-        if (tm != null && tm.length() > 16) {
+        if (tm != null && tm.length() >= 16) {
+            tm = tm+" ";
             xVals.add(tm);
             if (timeType.equals(ConfigConsts.TimeType[0])) {
                 //时 time
