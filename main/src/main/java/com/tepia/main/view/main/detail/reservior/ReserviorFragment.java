@@ -16,6 +16,8 @@ import com.tepia.main.model.detai.DetailManager;
 import com.tepia.main.model.detai.ImageBean;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.detai.ReservoirDetailBean;
+import com.tepia.main.model.dictmap.DictMapEntity;
+import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.model.map.ReservoirResponse;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.main.detail.liuliangzhanandrainfull.AdapterStationDetailList;
@@ -24,6 +26,7 @@ import com.tepia.main.view.main.detail.liuliangzhanandrainfull.StationDetailResp
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 水库详情页面
@@ -151,6 +154,10 @@ public class ReserviorFragment extends BaseCommonFragment {
             statusstr = "到期";
 
         }
+
+        DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
+        Map<String, String> map_Damtype = dictMapEntity.getObject().getDam_type();
+
         list_add_baseinfo(getString(R.string.status), statusstr,"");
         list_add_baseinfo(getString(R.string.manageUnit), reservoirbean.getManageDepId(),"");
         list_add_baseinfo(getString(R.string.belongtown), reservoirbean.getReservoirAddress(),"");
@@ -160,7 +167,7 @@ public class ReserviorFragment extends BaseCommonFragment {
         list_add_baseinfo(getString(R.string.belongRiver), getString(R.string.setting_t_null),"");
         list_add_baseinfo(getString(R.string.whenbuild), reservoirbean.getBuildStartDate(),"");
         list_add_baseinfo(getString(R.string.whenfinish), reservoirbean.getBuildEndDate(),"");
-        list_add_baseinfo(getString(R.string.baxing), reservoirbean.getDamType(),"");
+        list_add_baseinfo(getString(R.string.baxing), map_Damtype.get(reservoirbean.getDamType()),"");
         list_add_baseinfo(getString(R.string.bagao), reservoirbean.getDamHeight(),"(m)");
         list_add_baseinfo(getString(R.string.bakuan), reservoirbean.getDamWidth(),"(m)");
         list_add_baseinfo(getString(R.string.bachang), reservoirbean.getDamLength(),"(m)");

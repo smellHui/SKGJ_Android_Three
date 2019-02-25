@@ -867,9 +867,9 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
                         return null;
                     }
                 })
-                .createAgentWeb()//
+                .createAgentWeb()
                 .ready()
-                .go(host + prarm);
+                .go(url);
     }
 
     @Override

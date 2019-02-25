@@ -10,7 +10,7 @@ android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
-        minSdkVersion rootProject.ext.android.minSdkVersion
+//        minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
@@ -44,7 +44,10 @@ android {
 
     }
 
-    /*productFlavors {
+    flavorDimensions("dev")
+    flavorDimensions("prod")
+    //由于低版本消耗编译资源，时间较长，只在最后打包上线版本时运行assembleDev即可，编译期间则选择installProdDebug即可
+    productFlavors {
         dev {
             // Enable pre-dexing to produce an APK that can be tested on
             // Android 5.0+ without the time-consuming DEX build processes.
@@ -54,7 +57,7 @@ android {
             // The actual minSdkVersion for the production version.
             minSdkVersion rootProject.ext.android.minSdkVersion
         }
-    }*/
+    }
 
     //极光推荐关于使用NDK r17时，可能Android Studio会出现以下提示/darwin-x86_64/bin/mips64el-linux-android-strip”
     /*packagingOptions {
@@ -78,9 +81,9 @@ android {
         release {
             try {
                 storeFile file("./tepia.jks")
-                storePassword "tepiacom"
-                keyAlias "tepia"
-                keyPassword "tepiacom"
+                storePassword RELEASE_STORE_PASSWORD
+                keyAlias RELEASE_KEY_ALIAS
+                keyPassword RELEASE_KEY_PASSWORD
             } catch (ex) {
                 throw new Exception(ex.toString())
             }
