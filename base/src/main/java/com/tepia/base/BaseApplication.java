@@ -30,7 +30,7 @@ public class BaseApplication extends LitePalApplication {
         super.onCreate();
         instance = this;
         appInit();
-        LogUtil.isDebug = true;
+        LogUtil.isDebug = false;
         //初始化全局context,不允许删除
         Utils.init(this);
         //解决部分机型上关闭通知栏权限后吐司无法显示问题
@@ -43,7 +43,7 @@ public class BaseApplication extends LitePalApplication {
         ARouter.openLog();     // 打印日志
         // TODO: 2018/11/26 上线时记得关闭
         // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-        ARouter.openDebug();
+//        ARouter.openDebug();
         // 尽可能早，推荐在Application中初始化
         ARouter.init( this );
         Tiny.getInstance().init(this);
