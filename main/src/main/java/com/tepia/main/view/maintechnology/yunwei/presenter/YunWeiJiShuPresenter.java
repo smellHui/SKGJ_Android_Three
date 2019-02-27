@@ -5,6 +5,8 @@ import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.admin.ProblemListByAddvcdResponse;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
+import com.tepia.main.model.jishu.threepoint.RainHistoryResponse;
+import com.tepia.main.model.jishu.threepoint.WaterHistoryResponse;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
@@ -217,6 +219,48 @@ public class YunWeiJiShuPresenter extends BasePresenterImpl<YunWeiJiShuContract.
         YunWeiJiShuManager.getInstance().getProblemListByAddvcd(areaCode,queryDate).subscribe(new LoadingSubject<ProblemListByAddvcdResponse>(isShowLoading, "正在加载中...") {
             @Override
             protected void _onNext(ProblemListByAddvcdResponse response) {
+                if (response.getCode() == 0) {
+                    mView.success(response);
+                } else {
+                    if (response.getMsg() != null && response.getMsg().length() > 0) {
+                        mView.failure(response.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.failure(message);
+            }
+        });
+    }
+
+    @Override
+    public void getWaterHistoryResponse(String reservoirId, String startDate, String endDate, boolean isShowLoading) {
+        YunWeiJiShuManager.getInstance().getWaterHistoryResponse(reservoirId,startDate,endDate).subscribe(new LoadingSubject<WaterHistoryResponse>(isShowLoading, "正在加载中...") {
+            @Override
+            protected void _onNext(WaterHistoryResponse response) {
+                if (response.getCode() == 0) {
+                    mView.success(response);
+                } else {
+                    if (response.getMsg() != null && response.getMsg().length() > 0) {
+                        mView.failure(response.getMsg());
+                    }
+                }
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.failure(message);
+            }
+        });
+    }
+
+    @Override
+    public void getRainHistoryResponse(String reservoirId, String startDate, String endDate, String selectType, boolean isShowLoading) {
+        YunWeiJiShuManager.getInstance().getRainHistoryResponse(reservoirId,startDate,endDate,selectType).subscribe(new LoadingSubject<RainHistoryResponse>(isShowLoading, "正在加载中...") {
+            @Override
+            protected void _onNext(RainHistoryResponse response) {
                 if (response.getCode() == 0) {
                     mView.success(response);
                 } else {

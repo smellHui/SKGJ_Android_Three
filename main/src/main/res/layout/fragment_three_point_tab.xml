@@ -147,14 +147,14 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="水位" />
+                            android:text="水位(m)" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="库容" />
+                            android:text="库容(万m³)" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -285,7 +285,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="雨情" />
+                            android:text="雨量(mm)" />
 
                     </LinearLayout>
 

@@ -5,6 +5,8 @@ import com.tepia.main.APPCostant;
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.admin.ProblemListByAddvcdResponse;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
+import com.tepia.main.model.jishu.threepoint.RainHistoryResponse;
+import com.tepia.main.model.jishu.threepoint.WaterHistoryResponse;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
@@ -113,4 +115,17 @@ public class YunWeiJiShuManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<WaterHistoryResponse> getWaterHistoryResponse(String reservoirId,String startDate,String endDate){
+        String token = UserManager.getInstance().getToken();
+        YunWeiJIShuService yunWeiJIShuService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL + APPCostant.API_SERVER_MONITOR_AREA).create(YunWeiJIShuService.class);
+        return yunWeiJIShuService.getWaterHistoryResponse(token,reservoirId,startDate,endDate).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<RainHistoryResponse> getRainHistoryResponse(String reservoirId, String startDate, String endDate,String selectType){
+        String token = UserManager.getInstance().getToken();
+        YunWeiJIShuService yunWeiJIShuService = RetrofitManager.getRetrofit(APPCostant.API_SERVER_URL + APPCostant.API_SERVER_MONITOR_AREA).create(YunWeiJIShuService.class);
+        return yunWeiJIShuService.getRainHistoryResponse(token,reservoirId,startDate,endDate,selectType).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
