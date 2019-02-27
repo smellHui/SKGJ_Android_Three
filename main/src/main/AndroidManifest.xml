@@ -209,26 +209,27 @@
         <activity
             android:name=".view.vedio.VedioComunicationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.main.jihua.JihuaActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.main.work.plan.planlist.PlanListActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.main.work.task2.tasklist.TaskTypeListActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.main.jihua.PlanDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.main.jihua.EditPlanActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.main.jihua.AddPlanActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.main.work.task2.taskdetail.TaskDetailActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.main.jihua.JihuaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.work.plan.planlist.PlanListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.work.task2.tasklist.TaskTypeListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.jihua.PlanDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.jihua.EditPlanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.jihua.AddPlanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.main.work.task2.taskdetail.TaskDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.main.question.problemconfigure.ProblemCallListActivity"
             android:screenOrientation="portrait" />
@@ -369,13 +370,21 @@
         <activity
             android:name=".view.main.work.task.taskdetail.TaskWorkReportActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.mainadminister.yunwei.TownOperationActivity"
+        <activity
+            android:name=".view.mainadminister.yunwei.TownOperationActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".view.mainadminister.yunwei.TownOperationReportActivity"
+        <activity
+            android:name=".view.mainadminister.yunwei.TownOperationReportActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maintechnology.threekeypoint.RainHistoryDataActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.maintechnology.threekeypoint.RegimenHistoryDataActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -148,14 +148,14 @@ public class ThreePointListFragment extends BaseCommonFragment {
         TextView tvWaterSearch = findView(R.id.tv_water_search);
         TextView tvRainSearch = findView(R.id.tv_rain_search);
         tvWaterSearch.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), HistoryDataActivity.class);
+            Intent intent = new Intent(getActivity(), RegimenHistoryDataActivity.class);
             intent.putExtra("searchType", "water");
             intent.putExtra("reservoirName", reservoirName);
             intent.putExtra("reservoirId", reservoirId);
             startActivity(intent);
         });
         tvRainSearch.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), HistoryDataActivity.class);
+            Intent intent = new Intent(getActivity(), RainHistoryDataActivity.class);
             intent.putExtra("searchType", "rain");
             intent.putExtra("reservoirName", reservoirName);
             intent.putExtra("reservoirId", reservoirId);

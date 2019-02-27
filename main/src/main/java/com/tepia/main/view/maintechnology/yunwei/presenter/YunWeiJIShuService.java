@@ -3,6 +3,8 @@ package com.tepia.main.view.maintechnology.yunwei.presenter;
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.admin.ProblemListByAddvcdResponse;
 import com.tepia.main.model.jishu.threepoint.RainConditionResponse;
+import com.tepia.main.model.jishu.threepoint.RainHistoryResponse;
+import com.tepia.main.model.jishu.threepoint.WaterHistoryResponse;
 import com.tepia.main.model.jishu.threepoint.WaterLevelResponse;
 import com.tepia.main.model.jishu.yunwei.JiShuRePortDetailResponse;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
@@ -144,6 +146,38 @@ public interface YunWeiJIShuService {
     );
 
     /**
+     * 根据水库查询雨情历史列表
+     * @param token
+     * @param reservoirId
+     * @param startDate
+     * @param endDate
+     * @param selectType 搜索类型，默认按天  day
+     * @return
+     */
+    @GET("appThree/StPptnR/listReservoirStPptnRBySelectType")
+    Observable<RainHistoryResponse> getRainHistoryResponse(@Header("Authorization") String token,
+                                                                     @Query("reservoirId") String reservoirId,
+                                                                     @Query("startDate") String startDate,
+                                                                     @Query("endDate") String endDate,
+                                                                     @Query("selectType") String selectType
+    );
+
+    /**
+     * 根据水库查询水情历史列表
+     * @param token
+     * @param reservoirId
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @GET("appThree/StRsvrR/listWeekStRsvrRByReservoir")
+    Observable<WaterHistoryResponse> getWaterHistoryResponse(@Header("Authorization") String token,
+                                                                      @Query("reservoirId") String reservoirId,
+                                                                      @Query("startDate") String startDate,
+                                                                      @Query("endDate") String endDate
+    );
+
+    /**
      * 分页查询运维工单统计列表（行政责任人）
      * @param token
      * @param reservoirId
@@ -233,4 +267,6 @@ public interface YunWeiJIShuService {
                                                             @Query("currentPage") String currentPage,
                                                             @Query("pageSize") String pageSize
     );
+
+
 }

@@ -49,5 +49,10 @@ public class YunWeiJiShuContract {
         void getWorkOrderListByAreaCode(String operationType, String areaCode,String queryDate,boolean isShowLoading);
 
         void getProblemListByAddvcd(String areaCode, String queryDate,boolean isShowLoading);
+
+        void getWaterHistoryResponse(String reservoirId,String startDate,String endDate,boolean isShowLoading);
+
+        void getRainHistoryResponse(String reservoirId,String startDate,String endDate,String selectType,boolean isShowLoading);
+
     }
 }
