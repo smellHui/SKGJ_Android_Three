@@ -63,6 +63,7 @@ public class RegimenHistoryDataActivity extends BaseActivity {
     private YunWeiJiShuPresenter mPresenter;
     private List<WaterHistoryResponse.DataBean> waterDataList;
     private WaterHistoryListAdapter waterListAdapter;
+    private TextView tvKurong;
 
     @Override
     public int getLayoutId() {
@@ -75,6 +76,7 @@ public class RegimenHistoryDataActivity extends BaseActivity {
         showBack();
         tvStartDate = findViewById(R.id.tv_start_date);
         tvEndDate = findViewById(R.id.tv_end_date);
+        tvKurong = findViewById(R.id.tv_kurong);
         tvTitle = findViewById(R.id.tv_title);
         llChart = findViewById(R.id.ll_chart);
         showChartIv = findViewById(R.id.showChartIv);
@@ -188,6 +190,7 @@ public class RegimenHistoryDataActivity extends BaseActivity {
         mPresenter.attachView(new YunWeiJiShuContract.View<WaterHistoryResponse>() {
             @Override
             public void success(WaterHistoryResponse waterHistoryResponse) {
+                llChart.setVisibility(View.GONE);
                 waterDataList.clear();
                 List<WaterHistoryResponse.DataBean> data = waterHistoryResponse.getData();
                 if (data != null && data.size() > 0) {
@@ -197,9 +200,15 @@ public class RegimenHistoryDataActivity extends BaseActivity {
                     List<Float> yValues = new ArrayList<>();
                     List<Float> yValues2 = new ArrayList<>();
                     for (int i = 0; i < data.size(); i++) {
-                        xValues.add(data.get(i).getTm());
-                        yValues.add((float) data.get(i).getRz());
-                        yValues2.add((float) data.get(i).getW());
+                        xValues.add(data.get(data.size()-i-1).getTm());
+                        yValues.add((float) data.get(data.size()-i-1).getRz());
+                        float w = (float) data.get(data.size()-i-1).getW();
+                        yValues2.add(w);
+                    }
+                    if (data.get(0).getW()==0){
+                        tvKurong.setVisibility(View.GONE);
+                    }else {
+                        tvKurong.setVisibility(View.VISIBLE);
                     }
                     setLineChartData(xValues,yValues,yValues2);
                 } else {
