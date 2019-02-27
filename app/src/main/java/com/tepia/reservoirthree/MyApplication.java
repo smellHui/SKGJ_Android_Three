@@ -21,7 +21,7 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         //添加异常收集
-        PgyCrashManager.register(this);
+//        PgyCrashManager.register(this);
         // TODO: 2018/10/22 以下代码是和视频会议连接在一起的极光推送。请不要删除
         //极光推送
         JPushInterface.setDebugMode(true);

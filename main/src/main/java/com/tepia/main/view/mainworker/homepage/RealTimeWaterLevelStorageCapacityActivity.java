@@ -46,6 +46,7 @@ public class RealTimeWaterLevelStorageCapacityActivity extends BaseActivity{
     @Override
     public void initData() {
         url = getIntent().getStringExtra("laodUrl");
+//        url = "\"https://www.jd.com/\"";
     }
 
     @Override
