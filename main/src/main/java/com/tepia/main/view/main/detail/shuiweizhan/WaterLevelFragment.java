@@ -286,7 +286,12 @@ public class WaterLevelFragment extends MVPBaseFragment<DetailContract.View, Det
                 WaterlevelBean.DataBean.StRsvrRSBean stRsvrRSBean = dataBean.getStRsvrRS().get(0);
                 if (stRsvrRSBean != null) {
                     list_add_baseinfo(getString(R.string.time_unit), stRsvrRSBean.getTm());
-                    list_add_baseinfo("水位", stRsvrRSBean.getW()+"(m)");
+                    double w = stRsvrRSBean.getW();
+                    if (TextUtils.isEmpty(w + "") || w == 0) {
+                        list_add_baseinfo("水位", getString(R.string.setting_t_null) + "(m)");
+                    }else {
+                        list_add_baseinfo("水位", w + "(m)");
+                    }
                     list_add_baseinfo("库容", stRsvrRSBean.getRz()+"(万m³)");
 
                 }
