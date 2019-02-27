@@ -43,10 +43,10 @@ public class ThreePointMarkerView extends MarkerView {
 
             CandleEntry ce = (CandleEntry) e;
 
-            tvContent.setText("雨量:" + Utils.formatNumber(ce.getHigh(), 0, true));
+            tvContent.setText("雨量:" + ce.getHigh());
         } else {
 
-            tvContent.setText("雨量:" + Utils.formatNumber(e.getY(), 0, true));
+            tvContent.setText("雨量:" + e.getY());
         }
 
         super.refreshContent(e, highlight);

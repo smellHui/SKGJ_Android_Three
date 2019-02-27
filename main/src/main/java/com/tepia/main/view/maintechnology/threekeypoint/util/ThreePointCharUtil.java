@@ -220,7 +220,7 @@ public class ThreePointCharUtil {
             data.setValueTextSize(10f);
             data.setBarWidth(0.9f);
             data.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> {
-                return String.valueOf((int) value);
+                return String.valueOf(value);
             });
             barChart.setData(data);
         }
