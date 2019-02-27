@@ -37,7 +37,7 @@ public class WaterHistoryListAdapter extends BaseQuickAdapter<WaterHistoryRespon
 //        tvReservoirName.setText(item.getStnm());
         tvDate.setText(item.getTm());
         tvWaterLevel.setText(item.getRz()+"");
-        if (TextUtils.isEmpty(item.getW()+"")) {
+        if (TextUtils.isEmpty(item.getW()+"")||item.getW()==0) {
             tvW.setText(mContext.getString(R.string.setting_t_null));
         }else{
             tvW.setText(item.getW()+"");

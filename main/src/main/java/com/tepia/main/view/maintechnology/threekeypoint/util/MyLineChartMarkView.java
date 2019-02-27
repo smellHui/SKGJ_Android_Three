@@ -49,7 +49,11 @@ public class MyLineChartMarkView extends MarkerView {
                     tvValue0.setText(dataSet.getLabel() + "：" + y);
                 }
                 if (i == 1) {
-                    tvValue1.setText(dataSet.getLabel() + "：" + y);
+                    if (y==0){
+                        tvValue1.setText(dataSet.getLabel() + "：" + "--");
+                    }else {
+                        tvValue1.setText(dataSet.getLabel() + "：" + y);
+                    }
                 }
             }
             tvDate.setText(xAxisValueFormatter.getFormattedValue(e.getX(), null));
