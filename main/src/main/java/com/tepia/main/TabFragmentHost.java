@@ -26,6 +26,10 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 
+import com.tepia.base.utils.AppManager;
+import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.TabMainFragmentFactory;
+
 /**
  * Special TabHost that allows the use of {@link Fragment} objects for its tab
  * content. When placing this in a view hierarchy, after inflating the hierarchy
@@ -305,9 +309,17 @@ public class TabFragmentHost extends TabHost implements
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        SavedState ss = (SavedState) state;
-        super.onRestoreInstanceState(ss.getSuperState());
-        setCurrentTabByTag(ss.curTab);
+        if (state instanceof SavedState) {
+            SavedState ss = (SavedState) state;
+            super.onRestoreInstanceState(ss.getSuperState());
+            setCurrentTabByTag(ss.curTab);
+        }else{
+            UserManager.getInstance().clearCacheAndStopPush();
+            AppManager.getInstance().finishAll();
+            TabMainFragmentFactory.getInstance().clearFragment();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+
     }
 
     @Override

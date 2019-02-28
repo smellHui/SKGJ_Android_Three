@@ -592,6 +592,46 @@ public class ThreePointCharUtil {
             max = max+len;
             min = min-len*3;
         }
+        YAxis leftAxis = lineChart.getAxisLeft();
+        //重置所有限制线,以避免重叠线
+        leftAxis.removeAllLimitLines();
+        //y轴最大
+        leftAxis.setAxisMaximum(max);
+        //y轴最小
+        leftAxis.setAxisMinimum(min);
+        leftAxis.setTextColor(Color.parseColor("#376fff"));
+
+        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+
+        for (int i = 0; i < yAxisValue.size(); i++) {
+            yVals1.add(new Entry(i, yAxisValue.get(i)));
+        }
+
+        ArrayList<Entry> yVals2 = new ArrayList<Entry>();
+        boolean isShowYTwo = true;
+        for (int i = 0; i < yAxisValue.size(); i++) {
+            Float aFloat = yAxisValueTwo.get(i);
+            if (i==0){
+                if (aFloat==0){
+                    isShowYTwo = false;
+                }
+            }
+            if (aFloat==0&&i!=0){
+                Float aFloat1 = null;
+                for (int i1 = i; i1 >=0 ; i1--) {
+                    aFloat1 = yAxisValueTwo.get(i1);
+                    if (aFloat1!=0){
+                        break;
+                    }
+                }
+                aFloat = aFloat1;
+            }
+            yVals2.add(new Entry(i, aFloat));
+            yAxisValueTwo.set(i,aFloat);
+//            if(i == 10) {
+//                yVals2.add(new Entry(i, val + 50));
+//            }
+        }
         Float max2 = Collections.max(yAxisValueTwo);
         Float min2 = Collections.min(yAxisValueTwo);
         float v1 = max2 - min2;
@@ -603,68 +643,49 @@ public class ThreePointCharUtil {
             max2 = max2+len2;
             min2 = min2-len2*3;
         }
-        YAxis leftAxis = lineChart.getAxisLeft();
-        //重置所有限制线,以避免重叠线
-        leftAxis.removeAllLimitLines();
-        //y轴最大
-        leftAxis.setAxisMaximum(max);
-        //y轴最小
-        leftAxis.setAxisMinimum(min);
-        leftAxis.setTextColor(Color.parseColor("#376fff"));
+        LineDataSet set1, set2;
 
+//        if (lineChart.getData() != null &&
+//                lineChart.getData().getDataSetCount() > 0) {
+//            set1 = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+//            set1.setValues(yVals1);
+//            if (isShowYTwo){
+//                set2 = (LineDataSet) lineChart.getData().getDataSetByIndex(1);
+//                set2.setValues(yVals2);
+//            }
+//            lineChart.getData().notifyDataChanged();
+//            lineChart.notifyDataSetChanged();
+//        } else {
+//
+//        }
+        // create a dataset and give it a type
+        set1 = new LineDataSet(yVals1, title1);
+        set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set1.setColor(Color.parseColor("#376fff"));
+        set1.setCircleColor(Color.parseColor("#376fff"));
+        set1.setLineWidth(2f);
+        set1.setDrawCircles(false);
+//            set1.setCircleRadius(2f);
+//            set1.setFillAlpha(65);
+//            set1.setFillColor(ColorTemplate.getHoloBlue());
+        set1.setHighLightColor(Color.parseColor("#376fff"));
+        set1.setDrawCircleHole(false);
+        //set1.setFillFormatter(new MyFillFormatter(0f));
+        //set1.setDrawHorizontalHighlightIndicator(false);
+        //set1.setVisible(false);
+        //set1.setCircleHoleColor(Color.WHITE);
+        // create a dataset and give it a type
+        LineData data;
         YAxis rightAxis = lineChart.getAxisRight();
         rightAxis.setAxisMaximum(max2);
         rightAxis.setAxisMinimum(min2);
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawZeroLine(false);
         rightAxis.setGranularityEnabled(false);
+        rightAxis.setDrawAxisLine(true);
+        rightAxis.setDrawLabels(true);
         rightAxis.setTextColor(Color.rgb(10,184,180));
-
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-
-        for (int i = 0; i < yAxisValue.size(); i++) {
-            yVals1.add(new Entry(i, yAxisValue.get(i)));
-        }
-
-        ArrayList<Entry> yVals2 = new ArrayList<Entry>();
-
-        for (int i = 0; i < yAxisValueTwo.size(); i++) {
-            yVals2.add(new Entry(i, yAxisValueTwo.get(i)));
-//            if(i == 10) {
-//                yVals2.add(new Entry(i, val + 50));
-//            }
-        }
-
-        LineDataSet set1, set2;
-
-        if (lineChart.getData() != null &&
-                lineChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
-            set2 = (LineDataSet) lineChart.getData().getDataSetByIndex(1);
-            set1.setValues(yVals1);
-            set2.setValues(yVals2);
-            lineChart.getData().notifyDataChanged();
-            lineChart.notifyDataSetChanged();
-        } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(yVals1, title1);
-
-            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setColor(Color.parseColor("#376fff"));
-            set1.setCircleColor(Color.parseColor("#376fff"));
-            set1.setLineWidth(2f);
-            set1.setDrawCircles(false);
-//            set1.setCircleRadius(2f);
-//            set1.setFillAlpha(65);
-//            set1.setFillColor(ColorTemplate.getHoloBlue());
-            set1.setHighLightColor(Color.parseColor("#376fff"));
-            set1.setDrawCircleHole(false);
-            //set1.setFillFormatter(new MyFillFormatter(0f));
-            //set1.setDrawHorizontalHighlightIndicator(false);
-            //set1.setVisible(false);
-            //set1.setCircleHoleColor(Color.WHITE);
-
-            // create a dataset and give it a type
+        if (isShowYTwo){
             set2 = new LineDataSet(yVals2, title2);
             set2.setAxisDependency(YAxis.AxisDependency.RIGHT);
             set2.setColor(Color.rgb(10,184,180));
@@ -676,22 +697,27 @@ public class ThreePointCharUtil {
             //set2.setFillFormatter(new MyFillFormatter(900f));
 
             // create a data object with the datasets
-            LineData data = new LineData(set1, set2);
+            data = new LineData(set1, set2);
+        }else {
+            rightAxis.setDrawAxisLine(false);
+            rightAxis.setDrawLabels(false);
+            data = new LineData(set1);
+        }
 //            data.setValueTextColor(Color.BLACK);
 //            data.setValueTextSize(9f);
-            //曲线图上不显示值
-            data.setDrawValues(false);
+        //曲线图上不显示值
+        data.setDrawValues(false);
 
-            // set data
-            lineChart.setData(data);
-                    List<ILineDataSet> setsHorizontalCubic = lineChart.getData().getDataSets();
-            if (setsHorizontalCubic!=null&&setsHorizontalCubic.size()>0){
-                for (ILineDataSet iSet : setsHorizontalCubic) {
-                    LineDataSet set = (LineDataSet) iSet;
-                    set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-                }
+        // set data
+        lineChart.setData(data);
+        List<ILineDataSet> setsHorizontalCubic = lineChart.getData().getDataSets();
+        if (setsHorizontalCubic!=null&&setsHorizontalCubic.size()>0){
+            for (ILineDataSet iSet : setsHorizontalCubic) {
+                LineDataSet set = (LineDataSet) iSet;
+                set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             }
-            lineChart.invalidate();
         }
+        lineChart.invalidate();
+        lineChart.notifyDataSetChanged();
     }
 }
