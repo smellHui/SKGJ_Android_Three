@@ -592,17 +592,6 @@ public class ThreePointCharUtil {
             max = max+len;
             min = min-len*3;
         }
-        Float max2 = Collections.max(yAxisValueTwo);
-        Float min2 = Collections.min(yAxisValueTwo);
-        float v1 = max2 - min2;
-        if (v1<1){
-            max2 = max2+1;
-            min2 = min2-1;
-        }else {
-            Float len2 = (max2-min2)/8;
-            max2 = max2+len2;
-            min2 = min2-len2*3;
-        }
         YAxis leftAxis = lineChart.getAxisLeft();
         //重置所有限制线,以避免重叠线
         leftAxis.removeAllLimitLines();
@@ -620,7 +609,7 @@ public class ThreePointCharUtil {
 
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
         boolean isShowYTwo = true;
-        for (int i = 0; i < yAxisValueTwo.size(); i++) {
+        for (int i = 0; i < yAxisValue.size(); i++) {
             Float aFloat = yAxisValueTwo.get(i);
             if (i==0){
                 if (aFloat==0){
@@ -638,11 +627,22 @@ public class ThreePointCharUtil {
                 aFloat = aFloat1;
             }
             yVals2.add(new Entry(i, aFloat));
+            yAxisValueTwo.set(i,aFloat);
 //            if(i == 10) {
 //                yVals2.add(new Entry(i, val + 50));
 //            }
         }
-
+        Float max2 = Collections.max(yAxisValueTwo);
+        Float min2 = Collections.min(yAxisValueTwo);
+        float v1 = max2 - min2;
+        if (v1<1){
+            max2 = max2+1;
+            min2 = min2-1;
+        }else {
+            Float len2 = (max2-min2)/8;
+            max2 = max2+len2;
+            min2 = min2-len2*3;
+        }
         LineDataSet set1, set2;
 
 //        if (lineChart.getData() != null &&
