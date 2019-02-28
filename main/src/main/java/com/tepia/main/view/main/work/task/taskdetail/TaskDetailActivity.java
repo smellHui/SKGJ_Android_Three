@@ -114,11 +114,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     private GaodeEntity gaodeEntity;
 
     private void getGaoDeLocation() {
-//        gaodeEntity = new GaodeEntity(getContext());
-//        MapView mapView = new MapView(this);
-//        gaodeEntity = new GaodeEntity(this, mapView.getMap(),TaskDetailActivity.class, R.mipmap.logo);
-        gaodeEntity = new GaodeEntity(this, TaskDetailActivity.class, R.mipmap.logo);
-
+        if (gaodeEntity == null) {
+            gaodeEntity = new GaodeEntity(this, TaskDetailActivity.class, R.mipmap.logo);
+        }
         if (taskBean != null && !TextUtils.isEmpty(taskBean.getExecuteStatus()) && com.tepia.main.model.user.UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
             gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
                 @Override
@@ -186,22 +184,27 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 }
             }
         });
-        mBinding.alMapview.setOnAddLocationChangedListener(new ArcgisLayout.OnAddLocationChangedListener()
+       /* mBinding.alMapview.setOnAddLocationChangedListener(new ArcgisLayout.OnAddLocationChangedListener()
 
         {
             @Override
             public void getLocation(Point point) {
+
                 if (point == null) {
                     return;
                 }
+
                 if (taskBean == null) {
                     return;
                 }
+               *//* if (point != null && taskBean != null && !"2".equals(taskBean.getExecuteStatus())) {
+                    currentPoint = point;
+                }*//*
                 if (!"2".equals(taskBean.getExecuteStatus())) {
                     currentPoint = point;
                 }
             }
-        });
+        });*/
     }
 
     private void initMapView() {
