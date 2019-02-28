@@ -400,6 +400,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         if (mTabHost != null) {
             mTabHost.removeAllViews();
         }
+        PgyUpdateManager.unregister();
     }
 
 
