@@ -39,11 +39,12 @@ public class BaseApplication extends LitePalApplication {
     }
 
     private void appInit() {
+        //异常收集
         PgyCrashManager.register(this);
         ARouter.openLog();     // 打印日志
         // TODO: 2018/11/26 上线时记得关闭
         // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-        ARouter.openDebug();
+//        ARouter.openDebug();
         // 尽可能早，推荐在Application中初始化
         ARouter.init( this );
         Tiny.getInstance().init(this);
@@ -56,6 +57,6 @@ public class BaseApplication extends LitePalApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
+//        MultiDex.install(this);
     }
 }

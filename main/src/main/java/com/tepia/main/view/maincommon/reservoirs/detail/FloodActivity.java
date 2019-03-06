@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.R;
 import com.tepia.main.model.reserviros.FloodBean;
 import com.tepia.main.model.reserviros.SafeRunningBean;
@@ -40,8 +41,11 @@ import java.util.List;
 public class FloodActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<FloodBean> {
 
     private RecyclerView floodRec;
+    private TextView addTv;
     private AdapterFloodReservoirs adapterFloodReservoirs;
     private List<FloodBean.DataBean> myReservoirsItemBeanList = new ArrayList<>();
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_flood;
@@ -53,6 +57,13 @@ public class FloodActivity extends MVPBaseActivity<ReserviorContract.View,Reserv
         setCenterTitle("防汛物资");
         showBack();
         floodRec = findViewById(R.id.floodRec);
+        addTv = findViewById(R.id.addTv);
+        addTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.shortToast("热更新成功");
+            }
+        });
 
         floodRec.setLayoutManager(new LinearLayoutManager(this));
         adapterFloodReservoirs = new AdapterFloodReservoirs(this,R.layout.fragment_reservoirs_flood_item,myReservoirsItemBeanList);

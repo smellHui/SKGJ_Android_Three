@@ -385,6 +385,16 @@
         <activity
             android:name=".view.maintechnology.threekeypoint.RegimenHistoryDataActivity"
             android:screenOrientation="portrait" />
+
+        <service
+            android:name="com.taobao.sophix.aidl.DownloadService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.taobao.hotfix.action" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
