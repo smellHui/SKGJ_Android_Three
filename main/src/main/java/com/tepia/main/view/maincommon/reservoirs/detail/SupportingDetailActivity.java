@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
 import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.main.R;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
 import com.tepia.main.databinding.ActivitySupportingDetailBinding;
@@ -40,6 +41,16 @@ public class SupportingDetailActivity extends BaseActivity {
         setCenterTitle("配套设施详情");
         showBack();
         binding = DataBindingUtil.bind(mRootView);
+        getRithtTv().setText("修改");
+        getRithtTv().setTextSize(16f);
+        getRithtTv().setVisibility(View.VISIBLE);
+        getRithtTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogUtil.e("修改");
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
         SupportingBean.DataBean dataBean = (SupportingBean.DataBean) bundle.getSerializable("supportingid");
         binding.nameTv.setText(dataBean.getDeName());

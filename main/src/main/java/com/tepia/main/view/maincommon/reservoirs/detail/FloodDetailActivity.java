@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
@@ -48,6 +49,16 @@ public class FloodDetailActivity extends BaseActivity {
         setCenterTitle("防汛物资详情");
         showBack();
         activityFloodDetailBinding = DataBindingUtil.bind(mRootView);
+        getRithtTv().setText("修改");
+        getRithtTv().setTextSize(16f);
+        getRithtTv().setVisibility(View.VISIBLE);
+        getRithtTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogUtil.e("修改");
+            }
+        });
+
         Bundle bundle = getIntent().getExtras();
         String tempp =   getIntent().getStringExtra("floodid");
         String materialId = "";
