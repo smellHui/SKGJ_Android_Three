@@ -385,6 +385,8 @@
         <activity
             android:name=".view.maintechnology.threekeypoint.RegimenHistoryDataActivity"
             android:screenOrientation="portrait" />
+        <!-- 添加 或者 修改 防汛物资 -->
+        <activity android:name=".view.maincommon.reservoirs.detail.addoreditflood.AddOREditFloodActivity" />
 
         <service
             android:name="com.taobao.sophix.aidl.DownloadService"

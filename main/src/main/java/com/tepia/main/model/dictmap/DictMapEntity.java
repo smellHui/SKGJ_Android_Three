@@ -50,6 +50,15 @@ public class DictMapEntity {
         private List<NameValueBean> procedure_type;
         private List<NameValueBean> report_type;
         private List<NameValueBean> de_type;
+        private List<NameValueBean> meType;
+
+        public List<NameValueBean> getMeType() {
+            return meType;
+        }
+
+        public void setMeType(List<NameValueBean> meType) {
+            this.meType = meType;
+        }
 
         public List<NameValueBean> getDe_type() {
             return de_type;

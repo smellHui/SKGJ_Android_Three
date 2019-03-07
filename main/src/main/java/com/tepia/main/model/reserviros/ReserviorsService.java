@@ -6,9 +6,12 @@ import com.tepia.main.model.map.VideoResponse;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -30,6 +33,7 @@ import retrofit2.http.Query;
 public interface ReserviorsService {
     /**
      * 水库到访日志列表
+     *
      * @param token
      * @param reservoirId
      * @param currentPage
@@ -38,14 +42,15 @@ public interface ReserviorsService {
      */
     @GET("app/appReservoirVisit/getPageList")
     Observable<VisitLogBean> getPageList(@Header("Authorization") String token,
-                                              @Query("reservoirId") String reservoirId,
-                                              @Query("currentPage") String currentPage,
-                                              @Query("pageSize") String pageSize
+                                         @Query("reservoirId") String reservoirId,
+                                         @Query("currentPage") String currentPage,
+                                         @Query("pageSize") String pageSize
 
     );
 
     /**
      * 水库月汛限水位-分页查询
+     *
      * @param token
      * @param reservoirId
      * @param currentPage
@@ -62,13 +67,14 @@ public interface ReserviorsService {
 
     @GET("app/bizReservoirFloodSeasonLevel/findReservoirCurrentFloodSeason")
     Observable<CurrentFloodSeasonBean> findReservoirCurrentFloodSeason(@Header("Authorization") String token,
-                                                        @Query("reservoirId") String reservoirId
+                                                                       @Query("reservoirId") String reservoirId
 
 
     );
 
     /**
      * 水库月汛限水位-修改
+     *
      * @param token
      * @param id
      * @param floodLevel
@@ -76,14 +82,15 @@ public interface ReserviorsService {
      */
     @POST("app/bizReservoirFloodSeasonLevel/updateReservoirFloodSeason")
     Observable<BaseResponse> updateFloodSeason(@Header("Authorization") String token,
-                                    @Query("id") String id,
-                                    @Query("floodLevel") String floodLevel,
-                                    @Query("reservoirId") String reservoirId
-                                    );
+                                               @Query("id") String id,
+                                               @Query("floodLevel") String floodLevel,
+                                               @Query("reservoirId") String reservoirId
+    );
 
 
     /**
      * 水库月汛限水位-新增
+     *
      * @param token
      * @param reservoirId
      * @param floodYearMonth
@@ -92,25 +99,27 @@ public interface ReserviorsService {
      */
     @POST("app/bizReservoirFloodSeasonLevel/addReservoirFloodSeason")
     Observable<BaseResponse> addReservoirFloodSeason(@Header("Authorization") String token,
-                                               @Query("reservoirId") String reservoirId,
-                                               @Query("floodYearMonth") String floodYearMonth,
+                                                     @Query("reservoirId") String reservoirId,
+                                                     @Query("floodYearMonth") String floodYearMonth,
                                                      @Query("floodLevel") String floodLevel
     );
 
     /**
      * 水库到访日志详情
+     *
      * @param token
      * @param id
      * @return
      */
     @GET("app/appReservoirVisit/detail")
     Observable<VisitLogDetailBean> detail(@Header("Authorization") String token,
-                                         @Query("id") String id
+                                          @Query("id") String id
 
     );
 
     /**
      * 新增到访日志
+     *
      * @param token
      * @param parts
      * @param pathList
@@ -119,97 +128,105 @@ public interface ReserviorsService {
     @Multipart
     @POST("app/appReservoirVisit/insert")
     Observable<BaseResponse> insert(@Header("Authorization") String token,
-                                           @PartMap Map<String, RequestBody> parts,
-                                           @Part List<MultipartBody.Part> pathList
+                                    @PartMap Map<String, RequestBody> parts,
+                                    @Part List<MultipartBody.Part> pathList
     );
 
-     /**
+    /**
      * 获取配套设施
+     *
      * @param token
      * @param reservoirId
      * @return
      */
     @GET("app/reservoir/getDeviceByReservoir")
     Observable<SupportingBean> getDeviceByReservoir(@Header("Authorization") String token,
-                                           @Query("reservoirId") String reservoirId
+                                                    @Query("reservoirId") String reservoirId
 
     );
 
 
     /**
      * 水库安全运行报告
+     *
      * @param token
      * @param reservoirId
      * @return
      */
     @GET("app/reservoir/getSafetyReportByReservoir")
     Observable<SafeRunningBean> getSafetyReportByReservoir(@Header("Authorization") String token,
-                                                    @Query("reservoirId") String reservoirId
+                                                           @Query("reservoirId") String reservoirId
 
     );
 
     /**
      * 查询防汛物资
+     *
      * @param token
      * @param reservoirId
      * @return
      */
     @GET("app/reservoir/getMaterialByReservoir")
     Observable<FloodBean> getMaterialByReservoir(@Header("Authorization") String token,
-                                                           @Query("reservoirId") String reservoirId
+                                                 @Query("reservoirId") String reservoirId
 
     );
 
     /**
      * 根据防汛物资ID查询防汛物资
+     *
      * @param token
      * @param materialId
      * @return
      */
     @GET("app/reservoir/getMaterialByMaterialId")
     Observable<FloodBeanDetailBean> getMaterialByMaterialId(@Header("Authorization") String token,
-                                                 @Query("materialId") String materialId
+                                                            @Query("materialId") String materialId
 
     );
 
     /**
      * 查询水库安全管理应急预案
+     *
      * @param token
      * @param reservoirId
      * @return
      */
     @GET("app/reservoir/getEmergencyByReservoir")
     Observable<OperationPlanBean> getEmergencyByReservoir(@Header("Authorization") String token,
-                                                 @Query("reservoirId") String reservoirId
+                                                          @Query("reservoirId") String reservoirId
 
     );
 
     /**
      * 查询调度运行方案
+     *
      * @param token
      * @param reservoirId
      * @return
      */
     @GET("app/reservoir/getFloodControlByReservoir")
     Observable<OperationPlanBean> getFloodControlByReservoir(@Header("Authorization") String token,
-                                                            @Query("reservoirId") String reservoirId
+                                                             @Query("reservoirId") String reservoirId
 
     );
 
     /**
      * 查询水库简介
+     *
      * @param token
      * @param reservoirId
      * @return
      */
     @GET("app/reservoir/getBaseInfo")
     Observable<IntroduceOfReservoirsBean> getBaseInfo(@Header("Authorization") String token,
-                                          @Query("reservoirId") String reservoirId
+                                                      @Query("reservoirId") String reservoirId
 
     );
 
     /**
      * 查询视频
+     *
      * @param token
      * @param reservoirId
      * @return
@@ -222,26 +239,73 @@ public interface ReserviorsService {
 
     /**
      * 查询水库库容曲线
+     *
      * @param token
      * @param reservoirId
      * @return
      */
     @GET("app/reservoir/getStorageCurveByReservoir")
     Observable<CapacityBean> getStorageCurveByReservoir(@Header("Authorization") String token,
-                                                       @Query("reservoirId") String reservoirId
+                                                        @Query("reservoirId") String reservoirId
 
     );
 
 
     /**
      * 查询文件
+     *
      * @param token
      * @param bizKey
      * @return
      */
     @GET("app/fileManage/getFileByBizKey")
     Observable<BizkeyBean> getFileByBizKey(@Header("Authorization") String token,
-                                                        @Query("bizKey") String bizKey
+                                           @Query("bizKey") String bizKey
 
     );
+
+    /**
+     * 删除防汛物资
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app/reservoir/deleteReservoirMaterial")
+    Observable<BaseResponse> deleteReservoirMaterial(@Header("Authorization") String token,
+                                                     @Field("id") String id);
+
+    /**
+     * 添加防汛物资
+     *
+     * @param token
+     * @param params
+     * @param beforePathList
+     * @return
+     */
+
+    @Multipart
+    @POST("app/reservoir/addReservoirMaterial")
+    Observable<BaseResponse> addReservoirMaterial(@Header("Authorization") String token,
+                                                  @PartMap Map<String, RequestBody> params,
+                                                  @Part List<MultipartBody.Part> beforePathList);
+
+
+    /**
+     * 修改防汛物资
+     *
+     * @param token
+     * @param params
+     * @param beforePathList
+     * @return
+     */
+    @Multipart
+    @POST("app/reservoir/updateReservoirMaterial")
+    Observable<BaseResponse> updateReservoirMaterial(@Header("Authorization") String token,
+                                                     @PartMap Map<String, RequestBody> params,
+                                                     @Part List<MultipartBody.Part> beforePathList);
+
+
+
 }
