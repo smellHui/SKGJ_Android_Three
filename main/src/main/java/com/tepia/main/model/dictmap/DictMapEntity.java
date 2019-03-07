@@ -51,6 +51,15 @@ public class DictMapEntity {
         private List<NameValueBean> report_type;
         private List<NameValueBean> de_type;
         private List<NameValueBean> meType;
+        private List<NameValueBean> de_status;
+
+        public List<NameValueBean> getDe_status() {
+            return de_status;
+        }
+
+        public void setDe_status(List<NameValueBean> de_status) {
+            this.de_status = de_status;
+        }
 
         public List<NameValueBean> getMeType() {
             return meType;
@@ -309,6 +318,15 @@ public class DictMapEntity {
          * 设施类型
          */
         private Map<String,String> de_type;
+        private Map<String,String> de_status;
+
+        public Map<String, String> getDe_status() {
+            return de_status;
+        }
+
+        public void setDe_status(Map<String, String> de_status) {
+            this.de_status = de_status;
+        }
 
         public Map<String, String> getDe_type() {
             return de_type;

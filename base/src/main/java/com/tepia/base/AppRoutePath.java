@@ -159,6 +159,7 @@ public class AppRoutePath {
      * 防汛物资
      */
     public final static String app_flood_detail = "/app/flood/detail";
+    public final static String app_support_change = "/app/support/change";
     /**
      * 工作通知
      */

@@ -177,6 +177,72 @@ public class ReservirosManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<BaseResponse> deleteReservoirDevice(String id){
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.deleteReservoirDevice(token,id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseResponse> updateReservoirDevice(String id,String reservoirId, String deName, String deType, String deTotals, String deFunction,String beginUseDate,String position,
+                                                          String deStatus,String remark,ArrayList<String> selectPhotos) {
+
+        Map<String, RequestBody> params = new HashMap<>();
+        params.put("id", RetrofitManager.convertToRequestBody(id));
+        params.put("reservoirId", RetrofitManager.convertToRequestBody(reservoirId));
+        params.put("deName", RetrofitManager.convertToRequestBody(deName));
+        params.put("deType", RetrofitManager.convertToRequestBody(deType));
+        params.put("deTotals", RetrofitManager.convertToRequestBody(deTotals));
+        params.put("deFunction", RetrofitManager.convertToRequestBody(deFunction));
+        params.put("beginUseDate", RetrofitManager.convertToRequestBody(beginUseDate));
+        params.put("position", RetrofitManager.convertToRequestBody(position));
+        params.put("deStatus", RetrofitManager.convertToRequestBody(deStatus));
+        params.put("remark", RetrofitManager.convertToRequestBody(remark));
+        List<File> fileList = new ArrayList<>();
+        for (int i = 0; i < selectPhotos.size(); i++) {
+            File file = new File(selectPhotos.get(i));
+            fileList.add(file);
+
+        }
+        List<MultipartBody.Part> pathList = RetrofitManager.filesToMultipartBodyParts("files", fileList);
+        String token = UserManager.getInstance().getToken();
+
+        return mRetrofitService.updateReservoirDevice(token, params, pathList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    public Observable<BaseResponse> insertReservoirDevice(String reservoirId, String deName, String deType, String deTotals, String deFunction,String beginUseDate,String position,
+                                                          String deStatus,String remark,
+                                           ArrayList<String> selectPhotos) {
+
+        Map<String, RequestBody> params = new HashMap<>();
+        params.put("reservoirId", RetrofitManager.convertToRequestBody(reservoirId));
+        params.put("deName", RetrofitManager.convertToRequestBody(deName));
+        params.put("deType", RetrofitManager.convertToRequestBody(deType));
+        params.put("deTotals", RetrofitManager.convertToRequestBody(deTotals));
+        params.put("deFunction", RetrofitManager.convertToRequestBody(deFunction));
+        params.put("beginUseDate", RetrofitManager.convertToRequestBody(beginUseDate));
+        params.put("position", RetrofitManager.convertToRequestBody(position));
+        params.put("deStatus", RetrofitManager.convertToRequestBody(deStatus));
+        params.put("remark", RetrofitManager.convertToRequestBody(remark));
+        List<File> fileList = new ArrayList<>();
+        for (int i = 0; i < selectPhotos.size(); i++) {
+            File file = new File(selectPhotos.get(i));
+            fileList.add(file);
+
+        }
+        List<MultipartBody.Part> pathList = RetrofitManager.filesToMultipartBodyParts("files", fileList);
+
+        String token = UserManager.getInstance().getToken();
+
+        return mRetrofitService.insertReservoirDevice(token, params, pathList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+
+    }
 
     /**
      * 水库安全运行报告

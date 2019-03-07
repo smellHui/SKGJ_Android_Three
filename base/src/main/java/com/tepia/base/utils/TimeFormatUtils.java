@@ -310,6 +310,19 @@ public class TimeFormatUtils {
         }
     }
 
+    //@2016-12-13  获取当前时间，指定前面多少小时的时间
+    //返回格式YYYYMMDDHHMMSS
+    public static String getBeforeHourTime(int ihour){
+        String returnstr = "";
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) - ihour);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        returnstr = df.format(calendar.getTime());
+        return returnstr;
+    }
+
+
+
     /**
      * 判断是否润年
      *

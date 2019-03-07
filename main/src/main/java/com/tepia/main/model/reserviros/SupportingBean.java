@@ -1,6 +1,7 @@
 package com.tepia.main.model.reserviros;
 
 import com.tepia.base.http.BaseResponse;
+import com.tepia.main.model.image.ImageInfoBean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -34,6 +35,9 @@ public class SupportingBean extends BaseResponse{
          * fileInfo : [{"fileName":"xhr35_19201.jpg","filePath":"http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/reservoirDevice/2018-09/18/xhr35_19201.jpg"}]
          */
 
+        private String id;
+        private String reservoirId;
+        private String deStatus;
         /**
          * 设备名称
          */
@@ -61,7 +65,7 @@ public class SupportingBean extends BaseResponse{
         /**
          * 文件信息list
          */
-        private List<FileInfoBean> fileInfo;
+        private List<ImageInfoBean> fileInfo;
 
         public String getDeTotals() {
             return deTotals;
@@ -87,11 +91,11 @@ public class SupportingBean extends BaseResponse{
             this.deFunction = deFunction;
         }
 
-        public List<FileInfoBean> getFileInfo() {
+        public List<ImageInfoBean> getFileInfo() {
             return fileInfo;
         }
 
-        public void setFileInfo(List<FileInfoBean> fileInfo) {
+        public void setFileInfo(List<ImageInfoBean> fileInfo) {
             this.fileInfo = fileInfo;
         }
 
@@ -119,33 +123,28 @@ public class SupportingBean extends BaseResponse{
             this.position = position;
         }
 
-        public static class FileInfoBean implements Serializable{
-            /**
-             * fileName : xhr35_19201.jpg
-             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/PC/reservoirDevice/2018-09/18/xhr35_19201.jpg
-             */
+        public String getId() {
+            return id;
+        }
 
-            private String fileName;
-            /**
-             * 文件路径
-             */
-            private String filePath;
+        public void setId(String id) {
+            this.id = id;
+        }
 
-            public String getFileName() {
-                return fileName;
-            }
+        public String getReservoirId() {
+            return reservoirId;
+        }
 
-            public void setFileName(String fileName) {
-                this.fileName = fileName;
-            }
+        public void setReservoirId(String reservoirId) {
+            this.reservoirId = reservoirId;
+        }
 
-            public String getFilePath() {
-                return filePath;
-            }
+        public String getDeStatus() {
+            return deStatus;
+        }
 
-            public void setFilePath(String filePath) {
-                this.filePath = filePath;
-            }
+        public void setDeStatus(String deStatus) {
+            this.deStatus = deStatus;
         }
     }
 }

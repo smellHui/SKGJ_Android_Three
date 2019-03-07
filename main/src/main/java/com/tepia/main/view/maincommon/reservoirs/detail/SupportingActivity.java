@@ -1,6 +1,8 @@
 package com.tepia.main.view.maincommon.reservoirs.detail;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.UserManager;
@@ -11,10 +13,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.arialyy.frame.util.show.T;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.tepia.base.AppRoutePath;
+import com.tepia.base.http.BaseResponse;
+import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseActivity;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
+import com.tepia.main.model.reserviros.ReservirosManager;
 import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.maincommon.reservoirs.MyReservoirsItemBean;
@@ -41,6 +52,7 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
     private RecyclerView supportingRec;
     private AdapterSupportingReservoirs adapterSupportingReservoirs;
     private List<SupportingBean.DataBean> myReservoirsItemBeanList = new ArrayList<>();
+    private  String reservoirId;
     @Override
     public int getLayoutId() {
         return R.layout.activity_supporting;
@@ -52,6 +64,8 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
         setCenterTitle("水库配套设施");
         showBack();
         supportingRec = findViewById(R.id.supportingRec);
+        TextView addTv = findViewById(R.id.addTv);
+
         supportingRec.setLayoutManager(new GridLayoutManager(this,2));
         adapterSupportingReservoirs = new AdapterSupportingReservoirs(this,R.layout.fragment_reservoirs_supporting_item,myReservoirsItemBeanList);
         supportingRec.setAdapter(adapterSupportingReservoirs);
@@ -66,13 +80,71 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
                 startActivity(intent);
             }
         });
-        String reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
+
+        adapterSupportingReservoirs.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                new AlertDialog.Builder(SupportingActivity.this)
+                        .setMessage("是否确定删除该设施")
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+//                                mPresenter.deleteImage(imageInfoBean, false, true, "图片删除中...");
+                                delete(position);
+
+                            }
+                        }).show();
+
+                return false;
+            }
+        });
+        reservoirId = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRId);
         String reservoirName = getIntent().getStringExtra(ReservoirsFragment.RESERVOIRNAME);
         TextView nameTv = findViewById(R.id.nameTv);
         nameTv.setText(reservoirName);
-        mPresenter.getDeviceByReservoir(reservoirId);
+
+        addTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ARouter.getInstance().build(AppRoutePath.app_support_change)
+                        .withString(ReservoirsFragment.RESERVOIRId,reservoirId)
+                        .navigation();
+            }
+        });
     }
 
+    private void delete(int position){
+        ReservirosManager.getInstance().deleteReservoirDevice(myReservoirsItemBeanList.get(position).getId())
+                .subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+                    @Override
+                    protected void _onNext(BaseResponse baseResponse) {
+                        if (baseResponse != null) {
+                            if (baseResponse.getCode() == 0) {
+                                ToastUtils.shortToast("删除成功");
+                                myReservoirsItemBeanList.remove(position);
+                                adapterSupportingReservoirs.notifyDataSetChanged();
+
+                            }else{
+                                ToastUtils.shortToast("删除失败");
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        ToastUtils.shortToast(message);
+
+                    }
+                });
+    }
     @Override
     public void initView() {
 
@@ -91,6 +163,8 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
 
     @Override
     protected void initRequestData() {
+
+        mPresenter.getDeviceByReservoir(reservoirId);
 
     }
 

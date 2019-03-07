@@ -9,6 +9,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -161,6 +162,7 @@ public class AddOREditFloodActivity extends MVPBaseActivity<AddOREditFloodContra
         mBinding.tvType.getRightTextV().setVisibility(View.VISIBLE);
         mBinding.tvType.getRightTextV().setHint("请选择物资数量");
         mBinding.tvType.getRightTextV().setText("");
+        mBinding.tvType.getRightTextV().setInputType(InputType.TYPE_CLASS_NUMBER);
         if (meTypeList != null && meTypeList.size() > 0) {
             mBinding.tvType.getRightTextV().setText("" + meTypeList.get(0).getName());
             meType = meTypeList.get(0).getValue();

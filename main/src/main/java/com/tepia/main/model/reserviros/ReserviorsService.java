@@ -12,6 +12,9 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -142,6 +145,41 @@ public interface ReserviorsService {
     @GET("app/reservoir/getDeviceByReservoir")
     Observable<SupportingBean> getDeviceByReservoir(@Header("Authorization") String token,
                                                     @Query("reservoirId") String reservoirId
+
+    );
+
+    @POST("app/reservoir/deleteReservoirDevice")
+    Observable<BaseResponse> deleteReservoirDevice(@Header("Authorization") String token,
+                                                   @Query("id") String id
+
+
+    );
+
+
+    /**
+     * 修改配套设施
+     * @param token
+     * @return
+     */
+    @Multipart
+    @POST("app/reservoir/updateReservoirDevice")
+    Observable<BaseResponse> updateReservoirDevice(@Header("Authorization") String token,
+                                                   @PartMap Map<String, RequestBody> parts,
+                                                   @Part List<MultipartBody.Part> pathList
+    );
+
+    /**
+     * 新增配套设施
+     * @param token
+     * @param parts
+     * @param pathList
+     * @return
+     */
+    @Multipart
+    @POST("app/reservoir/insertReservoirDevice")
+    Observable<BaseResponse> insertReservoirDevice(@Header("Authorization") String token,
+                                                     @PartMap Map<String, RequestBody> parts,
+                                                     @Part List<MultipartBody.Part> pathList
 
     );
 
