@@ -24,6 +24,8 @@
 package com.tepia.base.http;
 
 
+import android.text.TextUtils;
+
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -102,6 +104,7 @@ public class RetrofitManager {
     };
 
     public static RequestBody convertToRequestBody(String param) {
+
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), param);
         LogUtil.d("参数是" + requestBody);
         return requestBody;

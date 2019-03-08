@@ -99,9 +99,9 @@
     </FrameLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/maringin_detailofly"
         android:layout_marginTop="@dimen/maringin_detailofly">
 
@@ -112,6 +112,6 @@
             android:layout_margin="@dimen/maringin_detailofly"
             android:scrollbars="vertical" />
 
-    </LinearLayout>
+    </RelativeLayout>>
 </LinearLayout>
 

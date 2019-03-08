@@ -2,6 +2,7 @@ package com.tepia.main.view.main.detail.imageshow;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -46,9 +47,19 @@ public class AdapterPatrolLoggerList extends BaseQuickAdapter<ImageBean.DataBean
         ImageView imageView = view.getView(R.id.imageIv);
         view.setText(R.id.serialTv,view.getAdapterPosition()+1+"");
         //上传时间
+        if (TextUtils.isEmpty(item.getTm())) {
+            view.setVisible(R.id.tmtimeTv,false);
+        }else{
+            view.setVisible(R.id.tmtimeTv,true);
+
+        }
         view.setText(R.id.tmtimeTv,"上传时间："+ item.getTm());
         //拍摄时间
-        view.setText(R.id.pictimeTv,"拍摄时间："+ item.getPictm());
+        if (TextUtils.isEmpty(item.getPictm())) {
+            view.setText(R.id.pictimeTv,"拍摄时间："+ "--");
+        }else {
+            view.setText(R.id.pictimeTv, "拍摄时间：" + item.getPictm());
+        }
 
         String path  = item.getPicpath();
         Glide.with(mContext).

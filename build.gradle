@@ -28,11 +28,10 @@ allprojects {
 //        maven { url 'https://raw.githubusercontent.com/xiaomi-passport/maven-repository/master/releases' }
         //weakhand解决方案
         maven { url 'https://oss.sonatype.org/content/repositories/releases/'}
-        /*maven {
-            repositories {
-                url 'https://oss.sonatype.org/content/repositories/releases/'
-            }
-        }*/
+
+        maven {
+            url "http://maven.aliyun.com/nexus/content/repositories/releases"
+        }
     }
 }
 

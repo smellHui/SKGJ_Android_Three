@@ -52,6 +52,10 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- 针对android O申请前台服务权限 -->
+    <uses-permission android:name="android.permission.INSTANT_APP_FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application android:theme="@style/AppTheme">
 
         <!-- 欢迎页 -->
@@ -249,6 +253,7 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.CapacityActivity"
             android:screenOrientation="portrait" />
+        <!--配套设施页面-->
         <activity
             android:name=".view.maincommon.reservoirs.detail.SupportingActivity"
             android:screenOrientation="portrait" />
@@ -293,8 +298,15 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.VisitLogDetailActivity"
             android:screenOrientation="portrait" />
+        <!--配套设施详细页面-->
         <activity
             android:name=".view.maincommon.reservoirs.detail.SupportingDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <!--配套设施修改新增页面-->
+        <activity
+            android:name=".view.maincommon.reservoirs.detail.SupportingChangeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.reservoirs.detail.FloodDetailActivity"
@@ -385,6 +397,18 @@
         <activity
             android:name=".view.maintechnology.threekeypoint.RegimenHistoryDataActivity"
             android:screenOrientation="portrait" />
+        <!-- 添加 或者 修改 防汛物资 -->
+        <activity android:name=".view.maincommon.reservoirs.detail.addoreditflood.AddOREditFloodActivity" />
+
+        <service
+            android:name="com.taobao.sophix.aidl.DownloadService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.taobao.hotfix.action" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

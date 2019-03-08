@@ -159,6 +159,7 @@ public class AppRoutePath {
      * 防汛物资
      */
     public final static String app_flood_detail = "/app/flood/detail";
+    public final static String app_support_change = "/app/support/change";
     /**
      * 工作通知
      */
@@ -183,4 +184,8 @@ public class AppRoutePath {
     public  final static String app_admin_operation_report = "/app/admin/operation/report";
 
 
+    /**
+     * 添加或者修改 防汛物资
+     */
+    public final static String app_flood_add_or_edit = "/app/flood/add/or/edit";
 }

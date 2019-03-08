@@ -1,6 +1,7 @@
 package com.tepia.main.model.reserviros;
 
 import com.tepia.base.http.BaseResponse;
+import com.tepia.main.model.image.ImageInfoBean;
 
 import java.util.List;
 
@@ -43,6 +44,8 @@ public class FloodBeanDetailBean extends BaseResponse {
          * meTypeName : 照明设备
          */
 
+        private String id;
+        private String reservoirId;
         private String meName;
         private String meType;
         private String meTotals;
@@ -51,7 +54,23 @@ public class FloodBeanDetailBean extends BaseResponse {
         private String phoneNum ;
         private String remark;
         private String meTypeName;
-        private List<FileInfoBean> fileInfo;
+        private List<ImageInfoBean> fileInfo;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getReservoirId() {
+            return reservoirId;
+        }
+
+        public void setReservoirId(String reservoirId) {
+            this.reservoirId = reservoirId;
+        }
 
         public String getMeName() {
             return meName;
@@ -117,38 +136,13 @@ public class FloodBeanDetailBean extends BaseResponse {
             this.meTypeName = meTypeName;
         }
 
-        public List<FileInfoBean> getFileInfo() {
+        public List<ImageInfoBean> getFileInfo() {
             return fileInfo;
         }
 
-        public void setFileInfo(List<FileInfoBean> fileInfo) {
+        public void setFileInfo(List<ImageInfoBean> fileInfo) {
             this.fileInfo = fileInfo;
         }
 
-        public static class FileInfoBean {
-            /**
-             * fileName : Java学习图片.jpg
-             * filePath : http://tepia-skgj.oss-cn-beijing.aliyuncs.com/APP/Cleaning/2018-09/30/76fd5fe2642542e2b21334b377bcf5b9.jpg
-             */
-
-            private String fileName;
-            private String filePath;
-
-            public String getFileName() {
-                return fileName;
-            }
-
-            public void setFileName(String fileName) {
-                this.fileName = fileName;
-            }
-
-            public String getFilePath() {
-                return filePath;
-            }
-
-            public void setFilePath(String filePath) {
-                this.filePath = filePath;
-            }
-        }
     }
 }

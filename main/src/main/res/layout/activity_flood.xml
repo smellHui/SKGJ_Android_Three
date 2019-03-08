@@ -23,16 +23,37 @@
         android:paddingTop="0dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_marginTop="@dimen/textviewtop"
-            android:drawableLeft="@drawable/jianjiejuxing"
-            android:drawablePadding="@dimen/textviewpadding"
-            android:text="物资列表"
-            android:textColor="@color/black"
-            android:textSize="@dimen/basetextsize"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:drawableLeft="@drawable/jianjiejuxing"
+                android:drawablePadding="@dimen/textviewpadding"
+                android:text="物资列表"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/basetextsize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addTv"
+                android:layout_width="55dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="23dp"
+                android:background="@drawable/bg_bt_start_yunwei"
+                android:gravity="center"
+                android:text="新增"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:layout_marginTop="10dp"

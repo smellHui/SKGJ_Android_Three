@@ -14,6 +14,9 @@
 
         <include layout="@layout/toolbar" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,13 +39,17 @@
                     android:textSize="@dimen/basetextsize"
                      />
 
-                <TextView
+                <EditText
+                    android:hint="请输入名称"
+                    android:gravity="right"
+                    android:background="@null"
                     android:id="@+id/nameTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/basetextsize"
+                    android:text=""
                      />
             </LinearLayout>
 
@@ -60,9 +67,13 @@
                     android:textSize="@dimen/basetextsize"
                      />
 
-                <TextView
+                <EditText
+                    android:hint="请输入用途"
+
+                    android:gravity="right"
+                    android:background="@null"
                     android:id="@+id/functionTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
@@ -85,9 +96,13 @@
                     android:textSize="@dimen/basetextsize"
                      />
 
-                <TextView
+                <EditText
+                    android:hint="请输入位置"
+
+                    android:gravity="right"
+                    android:background="@null"
                     android:id="@+id/positionTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
@@ -111,8 +126,12 @@
                      />
 
                 <TextView
+                    android:hint="请选择类型"
+
+                    android:gravity="right"
+                    android:background="@null"
                     android:id="@+id/typeTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
@@ -135,6 +154,10 @@
                     />
 
                 <TextView
+                    android:hint="请选择设施状态"
+
+                    android:gravity="right"
+                    android:background="@null"
                     android:id="@+id/destatusTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -158,9 +181,13 @@
                     android:textSize="@dimen/basetextsize"
                      />
 
-                <TextView
+                <EditText
+                    android:hint="请输入数量"
+                    android:inputType="number"
+                    android:gravity="right"
+                    android:background="@null"
                     android:id="@+id/totalTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
@@ -183,8 +210,12 @@
                      />
 
                 <TextView
+                    android:hint="请选择时间"
+
+                    android:gravity="right"
+                    android:background="@null"
                     android:id="@+id/timeTv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
@@ -221,7 +252,10 @@
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
             </LinearLayout>
-        </LinearLayout>
 
+            <include
+                layout="@layout/button_common_layout"/>
+        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>

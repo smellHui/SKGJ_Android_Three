@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
@@ -214,7 +215,9 @@ public class UserManager {
         JPushInterface.stopPush(Utils.getContext());
         //综合监控标志为置空
         SPUtils.getInstance(Utils.getContext()).putBoolean(CacheConsts.haslook,false);
+//        PgyCrashManager.unregister();
         PgyUpdateManager.unregister();
+
 
     }
 

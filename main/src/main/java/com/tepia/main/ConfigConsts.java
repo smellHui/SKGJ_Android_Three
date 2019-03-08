@@ -44,6 +44,10 @@ public class ConfigConsts {
      */
     public static String timeseriod = "-7";
     /**
+     * 综合监控图像站时间间隔
+     */
+    public static String timeseriodOfImage = "-1";
+    /**
      * 极光推送注册id保存
      */
     public static String regisid_jiguang = "regisid_jiguang";

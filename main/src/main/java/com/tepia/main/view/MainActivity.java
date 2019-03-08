@@ -34,6 +34,7 @@ import com.google.gson.reflect.TypeToken;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
+import com.taobao.sophix.SophixManager;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
@@ -97,6 +98,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     public void initView() {
+        //热阿里更新，请求补丁
+        SophixManager.getInstance().queryAndLoadNewPatch();
+
         // TODO: 2018/10/22 视讯客户端初始化
         //视讯客户端初始化
 //        HstApplication.init(Utils.getContext());
