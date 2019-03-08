@@ -25,6 +25,8 @@ import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
+import com.tepia.main.model.dictmap.DictMapEntity;
+import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.model.reserviros.ReservirosManager;
 import com.tepia.main.model.reserviros.SupportingBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
@@ -65,7 +67,10 @@ public class SupportingActivity extends MVPBaseActivity<ReserviorContract.View,R
         showBack();
         supportingRec = findViewById(R.id.supportingRec);
         TextView addTv = findViewById(R.id.addTv);
-
+        List<DictMapEntity.ArrayBean.NameValueBean> listOfDe_statues = DictMapManager.getInstance().getmDictMap().getArray().getDe_status();
+        if (listOfDe_statues == null || listOfDe_statues.size() == 0) {
+            DictMapManager.getInstance().getDictMapEntity();
+        }
         supportingRec.setLayoutManager(new GridLayoutManager(this,2));
         adapterSupportingReservoirs = new AdapterSupportingReservoirs(this,R.layout.fragment_reservoirs_supporting_item,myReservoirsItemBeanList);
         supportingRec.setAdapter(adapterSupportingReservoirs);
