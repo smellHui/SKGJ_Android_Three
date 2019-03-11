@@ -1,12 +1,14 @@
 package com.tepia.main.model.image;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 
 /**
  * Created by Joeshould on 2018/6/1.
  */
 
-public class ImageInfoBean implements Serializable {
+public class ImageInfoBean extends DataSupport implements Serializable {
 
     /**
      * id : b9c7fe90da2940eca62ec65a23af9ad9

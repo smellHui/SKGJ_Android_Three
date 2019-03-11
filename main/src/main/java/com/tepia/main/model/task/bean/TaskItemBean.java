@@ -6,6 +6,9 @@ import android.text.TextUtils;
 
 import com.tepia.main.model.image.ImageInfoBean;
 
+import org.litepal.annotation.Column;
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.Objects;
  * Created by Joeshould on 2018/5/31.
  */
 
-public class TaskItemBean implements Serializable {
+public class TaskItemBean extends DataSupport implements Serializable {
 
     /**
      * itemId : 8c5fa5f84035460db6245146f7efeb39
@@ -42,7 +45,7 @@ public class TaskItemBean implements Serializable {
      */
 
 
-
+    @Column(unique = true,nullable = false)
     private String itemId;
     private String reservoirSuperviseId;
     private boolean isSelected;

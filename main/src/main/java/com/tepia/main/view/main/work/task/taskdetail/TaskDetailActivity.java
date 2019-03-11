@@ -54,6 +54,8 @@ import com.tepia.main.utils.OSUtils;
 import com.tepia.main.utils.XiaomiDeviceUtil;
 import com.tepia.main.view.maincommon.setting.DownLoadActivity;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,9 +63,14 @@ import java.util.Map;
 
 
 /**
- * 任务详情
- * 邮箱 784787081@qq.com
- */
+ * @author :       zhang xinhua
+ * @Version :       1.0
+ * @创建人 ：      zhang xinhua
+ * @创建时间 :       2019/3/11 12:07
+ * @修改人 ：
+ * @修改时间 :       2019/3/11 12:07
+ * @功能描述 :        任务详情
+ **/
 @Route(path = AppRoutePath.app_task_detail)
 public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View, TaskDetailPresenter> implements TaskDetailContract.View {
     @Autowired(name = "workOrderId")
@@ -390,6 +397,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     @Override
     public void getTaskDetailSucess(TaskBean data) {
         this.taskBean = data;
+        taskBean.save();
+        List<TaskBean> taskBeans = DataSupport.findAll(TaskBean.class);
         refreshView();
         getGaoDeLocation();
     }

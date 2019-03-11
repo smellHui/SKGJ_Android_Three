@@ -1,5 +1,8 @@
 package com.tepia.main.model.task.bean;
 
+import org.litepal.annotation.Column;
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,7 +11,7 @@ import java.util.List;
  * Created by Joeshould on 2018/5/31.
  */
 
-public  class TaskBean  implements Serializable{
+public class TaskBean extends DataSupport implements Serializable {
 
 
     /**
@@ -23,6 +26,7 @@ public  class TaskBean  implements Serializable{
      * bizReservoirWorkOrderItems : [{"itemId":"8c5fa5f84035460db6245146f7efeb39","workOrderId":"01c0b2d2b86144a78bc88638982b181e","positionId":"089b678b89e046f0a86cd85dd2fecdba","superviseItemCode":"SK-QSB-1-1","reservoirSuperviseSequence":1,"executeId":"a623db0bdb92434ebe6553561aaf2eef","executeResultType":"0","executeResultDescription":"发生的JFK时间d","excuteLongitude":"123","excuteLatitude":"123","excuteDate":"2018-07-19 00:00:00","treeNames":"土石坝/坝体/坝坡","superviseItemName":"消防器材"}]
      */
 
+    @Column(unique = true,nullable = false)
     private String workOrderId;
     private String workOrderCode;
     private String workOrderName;
@@ -239,7 +243,7 @@ public  class TaskBean  implements Serializable{
         this.bizReservoirWorkOrderItems = bizReservoirWorkOrderItems;
     }
 
-    public static class BizPlanInfoBean implements Serializable{
+    public static class BizPlanInfoBean extends DataSupport implements Serializable {
         /**
          * planType : 2
          * planName : 2018-07-20东风水库日常巡检计划

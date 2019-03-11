@@ -10,6 +10,8 @@ import com.tepia.base.BaseApplication;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 
+import org.litepal.LitePal;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -28,7 +30,7 @@ public class MyApplication extends BaseApplication {
         JPushInterface.initCrashHandler(this);
         UtilsContextOfGaode.init(this);
 
-
+        LitePal.initialize(this);
 
 
     }
