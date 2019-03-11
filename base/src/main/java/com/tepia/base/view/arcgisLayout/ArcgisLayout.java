@@ -54,7 +54,8 @@ import java.util.concurrent.ExecutionException;
  */
 public class ArcgisLayout extends RelativeLayout {
 
-    public double itemScale = 72223.819286;
+//    public double itemScale = 72223.819286;
+    public double itemScale = 50000;
     public double groupScale = 1155581.108577;
     private LocationDisplay mLocationDisplay;
     private Point currentPoint;

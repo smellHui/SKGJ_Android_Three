@@ -220,8 +220,9 @@ public class ImageFragment extends MVPBaseFragment<DetailContract.View, DetailPr
         timePickerDialogUtil.initTimePicker(this, Type.ALL);
         endTime = TimeFormatUtils.getStringDate();
         last_millseconds_end = TimeFormatUtils.strToLong(endTime);
-        //往前一个月
-        startTime = TimeFormatUtils.getNextDay(endTime, ConfigConsts.timeseriod);
+        //往前24h
+//        startTime = TimeFormatUtils.getNextDay(endTime, ConfigConsts.timeseriodOfImage);
+        startTime = TimeFormatUtils.getBeforeHourTime(24);
         last_millseconds_start = TimeFormatUtils.strToLong(startTime);
         mstarttimeTv.setText(startTime);
         mendtimeTv.setText(endTime);

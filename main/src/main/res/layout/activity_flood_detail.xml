@@ -23,14 +23,15 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:text="名称:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
+
                 <TextView
                     android:text="@string/setting_t_null"
                     android:id="@+id/meNameTv"
@@ -38,21 +39,45 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="类型:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/basetextsize" />
+
+                <TextView
+                    android:text="@string/setting_t_null"
+                    android:id="@+id/meTypeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/basetextsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <TextView
                     android:text="数量:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
+
                 <TextView
                     android:text="@string/setting_t_null"
 
@@ -61,22 +86,22 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:text="位置:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
+
                 <TextView
                     android:text="@string/setting_t_null"
                     android:id="@+id/positionTv"
@@ -84,22 +109,22 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:text="管理人员:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
+
                 <TextView
                     android:text="@string/setting_t_null"
 
@@ -108,22 +133,22 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:text="联系方式:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
+
                 <TextView
                     android:text="@string/setting_t_null"
 
@@ -132,8 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/basetextsize"
-                     />
+                    android:textSize="@dimen/basetextsize" />
             </LinearLayout>
 
 
@@ -154,6 +178,6 @@
         <include
             android:visibility="gone"
             android:id="@+id/includeEmpty"
-            layout="@layout/view_empty_list_view"/>
+            layout="@layout/view_empty_list_view" />
     </LinearLayout>
 </layout>

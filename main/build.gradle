@@ -102,7 +102,7 @@ android {
 
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
 
 //    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 //    implementation 'com.android.support:support-v4:26.1.0'
@@ -200,4 +200,9 @@ dependencies {
     implementation rootProject.ext.dependencies.statusbaruitl
     implementation rootProject.ext.dependencies.EventBus
     implementation rootProject.ext.dependencies.toast
+//    implementation rootProject.ext.dependencies.alicloud_android_hotfix
+
+    /*implementation('com.aliyun.ams:alicloud-android-hotfix:3.2.8'){
+        exclude (module: 'com.aliyun.ams:alicloud-android-ut:1.1.3')
+    }*/
 }

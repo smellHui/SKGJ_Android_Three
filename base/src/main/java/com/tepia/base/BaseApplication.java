@@ -39,6 +39,7 @@ public class BaseApplication extends LitePalApplication {
     }
 
     private void appInit() {
+        //异常收集
         PgyCrashManager.register(this);
         ARouter.openLog();     // 打印日志
         // TODO: 2018/11/26 上线时记得关闭
@@ -56,6 +57,6 @@ public class BaseApplication extends LitePalApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
+//        MultiDex.install(this);
     }
 }
