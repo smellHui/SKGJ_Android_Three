@@ -123,15 +123,15 @@ public class ArcgisLayout extends RelativeLayout {
         mapView = view.findViewById(R.id.mapView);
         ArcGISRuntimeEnvironment.setLicense("runtimelite,1000,rud4163659509,none,1JPJD4SZ8L4HC2EN0229");
         mapView.setAttributionTextVisible(false);
-        ArcGISTiledLayer layer = new ArcGISTiledLayer("http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer");
+//        ArcGISTiledLayer layer = new ArcGISTiledLayer("http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer");
         ArcGISTiledLayer imgLayer = new ArcGISTiledLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
-        imgLayer.setVisible(false);
-        layer.setVisible(false);
+//        imgLayer.setVisible(false);
+//        layer.setVisible(false);
         OpenStreetMapLayer streetlayer=new OpenStreetMapLayer();
 
-        Basemap basemap = new Basemap(streetlayer);
+        Basemap basemap = new Basemap();
         ArcGISMap arcGISMap = new ArcGISMap(basemap);
-        arcGISMap.getOperationalLayers().add(layer);
+//        arcGISMap.getOperationalLayers().add(layer);
         arcGISMap.getOperationalLayers().add(imgLayer);
         mapView.setMap(arcGISMap);
         //添加覆盖物
