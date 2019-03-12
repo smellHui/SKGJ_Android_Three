@@ -224,6 +224,8 @@ public class ThreePointCharUtil {
             });
             barChart.setData(data);
         }
+        //图表上不显示值
+        barChart.getBarData().setDrawValues(false);
         XAxis xLabels = barChart.getXAxis();
         //修改x轴显示文字  monthList.get((int)value%monthList.size())
         xLabels.setValueFormatter((value, axis) -> xValues.get((int) value % xValues.size()));

@@ -21,17 +21,20 @@ import com.tepia.main.R;
  **/
 
 public class ThreePointMarkerView extends MarkerView {
+    private TextView tvDate;
     private TextView tvContent;
-
+    private IAxisValueFormatter xAxisValueFormatter;
     /**
      * Constructor. Sets up the MarkerView with a custom layout resource.
      *
      * @param context
      * @param layoutResource the layout resource to use for the MarkerView
      */
-    public ThreePointMarkerView(Context context, int layoutResource) {
+    public ThreePointMarkerView(Context context, int layoutResource, IAxisValueFormatter xAxisValueFormatter) {
         super(context, layoutResource);
+        this.xAxisValueFormatter = xAxisValueFormatter;
         tvContent = (TextView) findViewById(R.id.tvContent);
+        tvDate = (TextView) findViewById(R.id.tv_date);
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the
@@ -48,7 +51,7 @@ public class ThreePointMarkerView extends MarkerView {
 
             tvContent.setText("雨量:" + e.getY());
         }
-
+        tvDate.setText(xAxisValueFormatter.getFormattedValue(e.getX(), null));
         super.refreshContent(e, highlight);
     }
 
