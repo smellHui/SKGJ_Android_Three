@@ -196,8 +196,8 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
     }
 
     @Override
-    public void findAppAllReservoir(String reservoirName, String areaCode) {
-        MainMapManager.getInstance().findAppAllReservoir(reservoirName,areaCode).subscribe(new LoadingSubject<ReservoirListResponse>(true,"正在加载中...") {
+    public void findAppAllReservoir(String reservoirName, String areaCode,boolean showloading) {
+        MainMapManager.getInstance().findAppAllReservoir(reservoirName,areaCode).subscribe(new LoadingSubject<ReservoirListResponse>(showloading,"正在加载中...") {
             @Override
             protected void _onNext(ReservoirListResponse reservoirListResponse) {
                 if (reservoirListResponse.getCode()==0){

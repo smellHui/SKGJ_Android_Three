@@ -1524,7 +1524,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 ToastUtils.shortToast(msg);
             }
         });
-        mPresenter.findAppAllReservoir("", "");
+        mPresenter.findAppAllReservoir("", "",false);
     }
 
     /**
