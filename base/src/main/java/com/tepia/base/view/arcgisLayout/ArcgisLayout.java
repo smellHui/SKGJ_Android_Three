@@ -164,14 +164,18 @@ public class ArcgisLayout extends RelativeLayout {
             }
         });
 
-        ViewTreeObserver viewTreeObserver = mapView.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                mapHeight = mapView.getHeight();
-            }
-        });
+        if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+            ViewTreeObserver viewTreeObserver = mapView.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+
+                    mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    mapHeight = mapView.getHeight();
+                }
+            });
+        }
+
         initLocation();
     }
 
