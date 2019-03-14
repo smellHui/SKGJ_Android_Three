@@ -321,6 +321,8 @@ public class SpeakActivity extends BaseActivity {
 
             @Override
             public void onNoUpdateAvailable() {
+                PgyUpdateManager.unregister();
+
                 ToastUtils.shortToast("已是最新版本");
                 XuFeiManager.getInstance().speak("已是最新版本");
 
@@ -328,6 +330,7 @@ public class SpeakActivity extends BaseActivity {
 
             @Override
             public void onUpdateAvailable(String result) {
+                PgyUpdateManager.unregister();
                 // 将新版本信息封装到AppBean中
                 appBean = getAppBeanFromString(result);
                 new AlertDialog.Builder(SpeakActivity.this)

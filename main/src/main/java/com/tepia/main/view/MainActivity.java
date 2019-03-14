@@ -180,16 +180,16 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public void initData() {
         valuestr = getIntent().getStringExtra("key");
         initTabMenu(valuestr);
-
         PgyUpdateManager.register(this, new UpdateManagerListener() {
             @Override
             public void onNoUpdateAvailable() {
-
+                PgyUpdateManager.unregister();
             }
 
             @Override
             public void onUpdateAvailable(String result) {
                 // 将新版本信息封装到AppBean中
+                PgyUpdateManager.unregister();
                 appBean = getAppBeanFromString(result);
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("更新")

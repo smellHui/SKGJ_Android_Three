@@ -108,11 +108,13 @@ public class VersionActivity extends BaseActivity implements View.OnClickListene
         PgyUpdateManager.register(this, new UpdateManagerListener() {
             @Override
             public void onNoUpdateAvailable() {
+                PgyUpdateManager.unregister();
                 ToastUtils.shortToast("已是最新版本");
             }
 
             @Override
             public void onUpdateAvailable(String result) {
+                PgyUpdateManager.unregister();
                 // 将新版本信息封装到AppBean中
                 appBean = getAppBeanFromString(result);
                 new AlertDialog.Builder(VersionActivity.this)
