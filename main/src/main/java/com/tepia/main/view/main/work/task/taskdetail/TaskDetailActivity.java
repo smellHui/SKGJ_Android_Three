@@ -19,6 +19,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClientOption;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
@@ -37,11 +38,14 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.LogUtil;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
+import com.tepia.base.view.dialog.basedailog.NormalDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.base.view.dialog.loading.LoadingDialog;
 import com.tepia.base.view.floatview.CollectionsUtil;
@@ -52,6 +56,7 @@ import com.tepia.main.model.route.RoutepointDataManager;
 import com.tepia.main.model.task.bean.PeopleBean;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
+import com.tepia.main.utils.LocationUtils;
 import com.tepia.main.utils.OSUtils;
 import com.tepia.main.utils.XiaomiDeviceUtil;
 import com.tepia.main.view.maincommon.setting.DownLoadActivity;
@@ -116,6 +121,27 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 //        initMapView();
         initMapView2();
 
+        gpsCheck();
+    }
+    /**
+     * 检查gps是否开启
+     */
+    private void gpsCheck() {
+        if (!LocationUtils.isGpsEnabled(this)) {
+            NormalDialog dialog = new NormalDialog(this);
+            dialog.content("您需要在系统设置中打开GPS以提高定位精度")
+                    .style(NormalDialog.STYLE_TWO)
+                    .btnNum(2)
+                    .btnText("知道了", "去设置")
+                    .show();
+            dialog.setOnBtnClickL(
+                    () -> dialog.dismiss(),
+                    () -> {
+                        LocationUtils.openGpsSettings(this);
+                        dialog.dismiss();
+                    }
+            );
+        }
     }
 
     /**
@@ -126,6 +152,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     private void getGaoDeLocation() {
         if (gaodeEntity == null) {
             gaodeEntity = new GaodeEntity(this, TaskDetailActivity.class, R.mipmap.logo);
+            //支持离线模式定位，并在有网时使用网络定位
+            gaodeEntity.getLocationClient().setLocationOption(getDefaultOption(5000));
         }
         if (taskBean != null && !TextUtils.isEmpty(taskBean.getExecuteStatus()) && com.tepia.main.model.user.UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
             gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
@@ -135,6 +163,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                         double[] temp = GPSUtil.gcj02_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                         double latitude = temp[0];//坐标经度
                         double longitude = temp[1];//坐标纬度
+                        LogUtil.e(TaskDetailActivity.class.getName(),"经度："+longitude);
                         if (latitude == 0 || longitude == 0) {
                             return;
                         }
@@ -158,6 +187,29 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             });
         }
 
+    }
+
+    public AMapLocationClientOption getDefaultOption(int interval) {
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        //高德地图说明，来自高德android开发常见问题：
+        //GPS模块无法计算出定位结果的情况多发生在卫星信号被阻隔时，在室内环境卫星信号会被墙体、玻璃窗阻隔反射，在“城市峡谷”（高楼林立的狭长街道）地段卫星信号也会损失比较多。
+        ////强依赖GPS模块的定位模式——如定位SDK的仅设备定位模式，需要在室外环境进行，多用于行车、骑行、室外运动等场景。
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Device_Sensors);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        /*mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setInterval(interval);//可选，设置定位间隔。默认为2秒
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差*/
+        mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+        mOption.setInterval(interval);//可选，设置定位间隔。默认为2秒
+        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
+        mOption.setOnceLocation(false);//可选，设置是否单次定位。默认是false
+        mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
+        return mOption;
     }
 
     private void initMapView2() {

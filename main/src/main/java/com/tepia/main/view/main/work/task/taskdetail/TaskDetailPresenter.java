@@ -50,6 +50,7 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
             @Override
             protected void _onNext(TaskDetailResponse taskDetailResponse) {
                 if (taskDetailResponse.getCode() == 0) {
+//                    ToastUtils.shortToast("成功getTaskDetail");
                     if (mView != null) {
                         taskDetailResponse.getData().save();
                         List<TaskBean> templist = DataSupport.where("workOrderId=?", workOrderId).find(TaskBean.class);

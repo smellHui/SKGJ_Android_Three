@@ -39,8 +39,11 @@ import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.tepia.base.R;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.TimeFormatUtils;
+import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.utils.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +145,11 @@ public class ArcgisLayout extends RelativeLayout {
         mapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getContext(), mapView) {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
+                if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+                    ToastUtils.shortToast("当前无网络，无法查看地图");
+                    return super.onSingleTapConfirmed(e);
+                }
+
                 android.graphics.Point screenPoint = new android.graphics.Point(Math.round(e.getX()), Math.round(e.getY()));
                 Point clickPoint = mapView.screenToLocation(screenPoint);
 //                LogUtil.i("地图坐标："+clickPoint.toString());
@@ -215,6 +223,7 @@ public class ArcgisLayout extends RelativeLayout {
      * @param e
      */
     private void handleSingleTapEvent(MotionEvent e) {
+
         android.graphics.Point screenPoint = new android.graphics.Point(Math.round(e.getX()), Math.round(e.getY()));
         Point clickPoint = mapView.screenToLocation(screenPoint);
         if (onLocationSelectListener != null) {
@@ -256,7 +265,9 @@ public class ArcgisLayout extends RelativeLayout {
                 //放大
                 if (isLoaded){
                     double mScale = mapView.getMapScale();
-                    mapView.setViewpointScaleAsync(mScale * 0.5);
+                    if (!Double.isNaN(mScale) &&  !Double.isInfinite(mScale)){
+                        mapView.setViewpointScaleAsync(mScale * 0.5);
+                    }
                 }
             }
         } else if (i == R.id.zoomBtnOut) {
@@ -264,7 +275,10 @@ public class ArcgisLayout extends RelativeLayout {
                 //缩小
                 if (isLoaded){
                     double mScale = mapView.getMapScale();
-                    mapView.setViewpointScaleAsync(mScale * 2);
+
+                    if (!Double.isNaN(mScale) &&  !Double.isInfinite(mScale)){
+                        mapView.setViewpointScaleAsync(mScale * 2);
+                    }
                 }
             }
         }

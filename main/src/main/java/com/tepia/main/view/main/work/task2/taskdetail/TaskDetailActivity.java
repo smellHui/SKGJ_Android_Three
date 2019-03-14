@@ -32,6 +32,7 @@ import com.google.gson.reflect.TypeToken;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
@@ -126,6 +127,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     double[] temp = GPSUtil.gcj02_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                     double latitude = temp[0];//坐标经度
                     double longitude = temp[1];//坐标纬度
+                    LogUtil.e(TaskDetailActivity.class.getName(),"经度："+longitude);
+
                     if (latitude == 0 || longitude == 0) {
                         return;
                     }
