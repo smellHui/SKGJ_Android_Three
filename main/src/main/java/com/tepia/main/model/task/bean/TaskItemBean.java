@@ -115,7 +115,7 @@ public class TaskItemBean extends DataSupport implements Serializable {
     public void setCommitLocal(boolean commitLocal) {
         if (commitLocal) {
             isCommitLocal = "true";
-        }else {
+        } else {
             isCommitLocal = "";
         }
     }
@@ -458,8 +458,7 @@ public class TaskItemBean extends DataSupport implements Serializable {
 
     public List<ImageInfoBean> getStartImages() {
         if (startImages == null) {
-            String linkId = this.getClass().getSimpleName().toLowerCase();
-            List<ImageInfoBean> temp = DataSupport.where(linkId + "_id=? AND biztype=?", getBaseObjId() + "","start").find(ImageInfoBean.class);
+            List<ImageInfoBean> temp = DataSupport.where("itemId=? AND biztype=?", itemId + "", "start").find(ImageInfoBean.class);
             if (CollectionsUtil.isEmpty(temp)) {
                 startImages = null;
             } else {
@@ -475,8 +474,7 @@ public class TaskItemBean extends DataSupport implements Serializable {
 
     public List<ImageInfoBean> getEndImages() {
         if (endImages == null) {
-            String linkId = this.getClass().getSimpleName().toLowerCase();
-            List<ImageInfoBean> temp = DataSupport.where(linkId + "_id=? AND biztype=?", getBaseObjId() + "","end").find(ImageInfoBean.class);
+            List<ImageInfoBean> temp = DataSupport.where("itemId=? AND biztype=?", itemId + "", "end").find(ImageInfoBean.class);
             if (CollectionsUtil.isEmpty(temp)) {
                 endImages = null;
             } else {
@@ -523,11 +521,13 @@ public class TaskItemBean extends DataSupport implements Serializable {
         }
         if (!CollectionsUtil.isEmpty(startImages)) {
             for (ImageInfoBean bean : startImages) {
+                bean.setItemId(itemId);
                 bean.save();
             }
         }
         if (!CollectionsUtil.isEmpty(endImages)) {
             for (ImageInfoBean bean : endImages) {
+                bean.setItemId(itemId);
                 bean.save();
             }
         }
@@ -538,15 +538,16 @@ public class TaskItemBean extends DataSupport implements Serializable {
         List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
         if (!CollectionsUtil.isEmpty(templist)) {
             this.update(templist.get(0).getBaseObjId());
-            Log.d("jfkdjskf", "update: ");
         }
         if (!CollectionsUtil.isEmpty(startImages)) {
             for (ImageInfoBean bean : startImages) {
+                bean.setItemId(itemId);
                 bean.save();
             }
         }
         if (!CollectionsUtil.isEmpty(endImages)) {
             for (ImageInfoBean bean : endImages) {
+                bean.setItemId(itemId);
                 bean.save();
             }
         }

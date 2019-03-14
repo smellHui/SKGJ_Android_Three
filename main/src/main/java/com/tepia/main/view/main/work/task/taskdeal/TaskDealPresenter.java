@@ -23,9 +23,14 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * MVPPlugin
- * 邮箱 784787081@qq.com
- */
+ * @author        :       zhang xinhua
+ * @Version       :       1.0
+ * @创建人         ：      zhang xinhua
+ * @创建时间       :       2019/3/14 9:28
+ * @修改人         ：      
+ * @修改时间       :       2019/3/14 9:28
+ * @功能描述       :
+ **/
 
 public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> implements TaskDealContract.Presenter {
 

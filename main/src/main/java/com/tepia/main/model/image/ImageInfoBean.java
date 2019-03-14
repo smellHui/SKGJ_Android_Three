@@ -36,6 +36,7 @@ public class ImageInfoBean extends DataSupport implements Serializable {
 
     @Column(unique = true)
     private String fileId;
+    private String itemId;
     private String fileName;
     private String fileType;
     private String bizKey;
@@ -50,7 +51,13 @@ public class ImageInfoBean extends DataSupport implements Serializable {
     private String fileExtension;
     private int fileSize;
 
+    public String getItemId() {
+        return itemId;
+    }
 
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
 
     public String getFileId() {
         return fileId;
