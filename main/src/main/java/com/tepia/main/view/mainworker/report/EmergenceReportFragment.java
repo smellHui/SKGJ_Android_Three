@@ -1,14 +1,20 @@
 package com.tepia.main.view.mainworker.report;
 
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
+import com.arialyy.frame.util.show.T;
 import com.example.gaodelibrary.GaodeEntity;
 import com.example.gaodelibrary.OnGaodeLibraryListen;
 import com.tepia.base.http.BaseResponse;
@@ -42,15 +49,19 @@ import com.tepia.main.common.pickview.OnItemClickListener;
 import com.tepia.main.common.pickview.PhotoRecycleViewAdapter;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
 import com.tepia.main.model.report.EmergenceListBean;
+import com.tepia.main.model.report.ShangbaoManager;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.FileUtil;
+import com.tepia.main.view.MainActivity;
 import com.tepia.main.view.main.question.TypeResponse;
 import com.tepia.main.view.mainworker.report.adapter.AdapterEmergenceReport;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -95,8 +106,15 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
     private Bitmap addBitmap;
 
     private GaodeEntity gaodeEntity;
-    private double latitude;
-    private double longitude;
+    private double latitude = 0;
+    private double longitude = 0;
+
+    protected static final String key_Title = "key_Title";
+    protected static final String key_Content = "key_Content";
+    protected static final String longitudeStr = "longitudeStr";
+    protected static final String latitudeStr = "latitudeStr";
+    protected static final String photoListStr = "photoListStr";
+    protected static final String videoPathStr = "videoPathStr";
 
     @Override
     protected int getLayoutId() {
@@ -154,7 +172,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         contentEv.setGravity(Gravity.TOP);
         //改变默认的单行模式
         contentEv.setSingleLine(false);
-         //水平滚动设置为False
+        //水平滚动设置为False
         contentEv.setHorizontallyScrolling(false);
 
 
@@ -200,11 +218,11 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
             }
         }));
 
+        getSP();
 
         photoAdapter = new PhotoRecycleViewAdapter(getBaseActivity(), selectedPhotos);
         rvImagePick.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
         rvImagePick.setAdapter(photoAdapter);
-        getSP();
 
         gaodeEntity = new GaodeEntity(getContext());
         gaodeEntity.initLocation();
@@ -212,8 +230,10 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
             @Override
             public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
-                latitude = aMapLocation.getLatitude();
-                longitude = aMapLocation.getLongitude();
+                if (TextUtils.isEmpty(SPUtils.getInstance().getString(longitudeStr, ""))) {
+                    latitude = aMapLocation.getLatitude();
+                    longitude = aMapLocation.getLongitude();
+                }
 
             }
         });
@@ -221,18 +241,74 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
 
     /**
-     * 保存数据
+     * 获取数据
      */
     private void getSP() {
-        questionTitle = SPUtils.getInstance().getString(EmergencyReportActivity.key_Title, "");
+        questionTitle = SPUtils.getInstance().getString(key_Title, "");
         LogUtil.e("questionTitle", questionTitle + "--");
 
-        titleEv.setText(questionTitle);
-        questionContent = SPUtils.getInstance().getString(EmergencyReportActivity.key_Content, "");
+        questionContent = SPUtils.getInstance().getString(key_Content, "");
         LogUtil.e("questionContent", questionContent);
 
-        contentEv.setText(questionContent);
+        String photoListStrFromSP = SPUtils.getInstance().getString(photoListStr, "");
+        if (!TextUtils.isEmpty(photoListStrFromSP)) {
+            List<String> selectedPhotosList = Arrays.asList(photoListStrFromSP.split(","));
+            for (String pathStr : selectedPhotosList) {
+                if (!TextUtils.isEmpty(pathStr)) {
+                    File file = new File(pathStr);
+                    if (file != null && file.canRead() && file.length() > 0) {
+                        selectedPhotos.add(pathStr);
+                    }
 
+                }
+            }
+        }
+
+
+        String lngStr = SPUtils.getInstance().getString(longitudeStr, "");
+        String latStr = SPUtils.getInstance().getString(latitudeStr, "");
+        if (!TextUtils.isEmpty(lngStr)) {
+            longitude = Double.valueOf(lngStr);
+
+        }
+        if (!TextUtils.isEmpty(latStr)) {
+            latitude = Double.valueOf(latStr);
+        }
+        videoPath = SPUtils.getInstance().getString(videoPathStr, "");
+
+        titleEv.setText(questionTitle);
+        contentEv.setText(questionContent);
+        if (!TextUtils.isEmpty(videoPath)) {
+            showVedio();
+        }
+
+
+    }
+
+    private void putSP() {
+        SPUtils.getInstance().putString(key_Title, questionTitle);
+        SPUtils.getInstance().putString(key_Content, questionContent);
+        SPUtils.getInstance().putString(latitudeStr, String.valueOf(latitude));
+        SPUtils.getInstance().putString(longitudeStr, String.valueOf(longitude));
+        StringBuilder stringBuilder = new StringBuilder();
+        int size = selectedPhotos.size();
+        for (int i = 0; i < size; i++) {
+            stringBuilder.append(selectedPhotos.get(i));
+            if (i < size - 1) {
+                stringBuilder.append(",");
+            }
+        }
+        SPUtils.getInstance().putString(photoListStr, stringBuilder.toString());
+        SPUtils.getInstance().putString(videoPathStr, videoPath);
+    }
+
+    private void removeSP() {
+        SPUtils.getInstance().remove(key_Title);
+        SPUtils.getInstance().remove(key_Content);
+        SPUtils.getInstance().remove(latitudeStr);
+        SPUtils.getInstance().remove(longitudeStr);
+        SPUtils.getInstance().remove(photoListStr);
+        SPUtils.getInstance().remove(videoPathStr);
     }
 
 
@@ -261,33 +337,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 Uri uri = data.getData();
                 // 视频路径
                 videoPath = FileUtil.getPath(getBaseActivity(), uri);
-                // 视频大小
-                long videoSize = 0;
-                try {
-                    videoSize = FileUtil.getFileSize(new File(videoPath));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                LogUtil.e("videoPath== " + videoPath + " videoSize== " + videoSize);
-                //转换文件大小类型
-                if (videoSize > 20 * 1024 * 1024) {
-                    ToastUtils.shortToast("大小超出限制，最大20MB");
-                    videoPath = "";
-                    return;
-                }
-                // 通过视频路径获取bitmap
-                Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Video.Thumbnails.MICRO_KIND);
-
-                Bitmap bmpVedio = CanvasnewBitmap.doodle(bitmap,
-                        addBitmap);
-                if (bitmap != null) {
-                    bitmap.recycle();
-                }
-
-                //把bitmap保存到sdcard然后得到图片的路径
-//                String imagePath = FileUtil.saveBitmapToSDCard(bitmap, System.currentTimeMillis() + ".jpg");
-                //显示到控件上
-                videoIcon.setImageBitmap(bmpVedio);
+                showVedio();
             }
         } else if (requestCode == REQUEST_DELETE_CODE) {
             if (TextUtils.isEmpty(videoPath)) {
@@ -295,6 +345,39 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
             }
         }
 
+
+    }
+
+    private void showVedio() {
+        // 视频大小
+        long videoSize = 0;
+        try {
+            videoSize = FileUtil.getFileSize(new File(videoPath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LogUtil.e("videoPath== " + videoPath + " videoSize== " + videoSize);
+        //转换文件大小类型
+        if (videoSize > 20 * 1024 * 1024) {
+            ToastUtils.shortToast("大小超出限制，最大20MB");
+            videoPath = "";
+            return;
+        }else if(videoSize == 0){
+            videoPath = "";
+            SPUtils.getInstance().remove(videoPathStr);
+            ToastUtils.shortToast("视频文件不存在，请在相册中查看");
+            return;
+        }
+        // 通过视频路径获取bitmap
+        Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, MediaStore.Video.Thumbnails.MICRO_KIND);
+        if (bitmap != null) {
+            Bitmap bmpVedio = CanvasnewBitmap.doodle(bitmap,
+                    addBitmap);
+            if (bitmap != null) {
+                bitmap.recycle();
+            }
+            videoIcon.setImageBitmap(bmpVedio);
+        }
 
     }
 
@@ -390,9 +473,11 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 return;
             }
             if (!NetUtil.isNetworkConnected(Utils.getContext())) {
-                ToastUtils.shortToast(R.string.no_network);
+//                ToastUtils.shortToast("网络质量不好，以离线存储相关数据，请在有网时再上传");
+                showDialog("没有连接网络，是否保存本次数据，以便有网时上传?");
                 return;
             }
+
 
             mPresenter.attachView(new ReportContract.View<BaseResponse>() {
 
@@ -405,6 +490,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
                 public void success(BaseResponse data) {
                     videoPath = "";
                     ToastUtils.shortToast("提交成功");
+                    removeSP();
                     Intent intent = new Intent();
                     getBaseActivity().setResult(200, intent);
                     getBaseActivity().finish();
@@ -412,6 +498,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
                 @Override
                 public void failure(String msg) {
+                    showDialog("网络质量不好，上传失败。是否保存本次数据，以便网络状况更佳时上传?");
                     LogUtil.e("EmergenceReportFragment", msg + "---");
 
                 }
@@ -439,6 +526,29 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
 
             }
         }
+    }
+
+
+    /**
+     * 提示是否保存数据
+     * @param msg
+     */
+    private void showDialog(String msg) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("温馨提示")
+                .setMessage(msg)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        removeSP();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        putSP();
+                    }
+                }).show();
     }
 
 
@@ -486,8 +596,7 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
         super.onDestroyView();
 
         clear();
-        SPUtils.getInstance().putString(EmergencyReportActivity.key_Title, questionTitle);
-        SPUtils.getInstance().putString(EmergencyReportActivity.key_Content, questionContent);
+
         if (dateBeanList != null) {
             dateBeanList.clear();
         }
@@ -501,4 +610,5 @@ public class EmergenceReportFragment extends MVPBaseFragment<ReportContract.View
             gaodeEntity.closeLocation();
         }
     }
+
 }

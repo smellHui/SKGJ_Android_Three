@@ -1,7 +1,13 @@
 package com.tepia.main.model.report;
 
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
+import android.provider.MediaStore;
+import android.text.TextUtils;
+
 import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.user.UserManager;
 
@@ -109,11 +115,20 @@ public class ShangbaoManager {
         params.put("lgtd", RetrofitManager.convertToRequestBody(lgtd));
         params.put("lttd", RetrofitManager.convertToRequestBody(lttd));
         List<File> fileList = new ArrayList<>();
+
+
         for (int i = 0; i < selectPhotos.size(); i++) {
-            File file = new File(selectPhotos.get(i));
-            fileList.add(file);
+            String pathStr = selectPhotos.get(i);
+            if (!TextUtils.isEmpty(pathStr)) {
+                File file = new File(pathStr);
+                if (file != null && file.canRead() && file.length() > 0) {
+                    fileList.add(file);
+                }
+
+            }
 
         }
+
         List<MultipartBody.Part> pathList = RetrofitManager.filesToMultipartBodyParts("files", fileList);
 
         String token = UserManager.getInstance().getToken();
