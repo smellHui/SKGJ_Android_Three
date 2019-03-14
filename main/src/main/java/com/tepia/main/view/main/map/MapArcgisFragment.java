@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -427,6 +428,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private Animator createSearchAnimation(View view, boolean isOn) {
         Animator animator;
         double radio = Math.sqrt(Math.pow(view.getWidth(), 2) + Math.pow(view.getHeight(), 2));
@@ -1524,7 +1526,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 ToastUtils.shortToast(msg);
             }
         });
-        mPresenter.findAppAllReservoir("", "");
+        mPresenter.findAppAllReservoir("", "",false);
     }
 
     /**
@@ -1709,9 +1711,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), result)).get();
             Graphic picGraphic = new Graphic(point, attributes, pictureMarkerSymbol1);
             graphicsOverlay.getGraphics().add(picGraphic);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1903,12 +1903,18 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * 默认选中矢量图
      */
     private void setTransparency() {
-        mIvVector.setBackgroundResource(R.drawable.bg_view_state_shape);
-        mIvRaster.setBackgroundResource(R.drawable.bg_view_unstate_shape);
-        mImTvVector.setBackgroundResource(R.color.color_tab_checked);
-        mTvVector.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_tab_checked));
-        mImTvRaster.setBackgroundResource(R.color.color_c8c8c8);
-        mTvRaster.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_c8c8c8));
+//        mIvVector.setBackgroundResource(R.drawable.bg_view_state_shape);
+//        mIvRaster.setBackgroundResource(R.drawable.bg_view_unstate_shape);
+//        mImTvVector.setBackgroundResource(R.color.color_tab_checked);
+//        mTvVector.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_tab_checked));
+//        mImTvRaster.setBackgroundResource(R.color.color_c8c8c8);
+//        mTvRaster.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_c8c8c8));
+        mIvRaster.setBackgroundResource(R.drawable.bg_view_state_shape);
+        mIvVector.setBackgroundResource(R.drawable.bg_view_unstate_shape);
+        mImTvVector.setBackgroundResource(R.color.color_c8c8c8);
+        mTvVector.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_c8c8c8));
+        mImTvRaster.setBackgroundResource(R.color.color_tab_checked);
+        mTvRaster.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_tab_checked));
     }
 
     /**
@@ -2292,7 +2298,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         OpenStreetMapLayer streetlayer = new OpenStreetMapLayer();
         Basemap basemap = new Basemap(streetlayer);
         layer.setVisible(false);
-        imgLayer.setVisible(false);
+        imgLayer.setVisible(true);
         ArcGISMap arcGISMap = new ArcGISMap(basemap);
         arcGISMap.getOperationalLayers().add(imgLayer);
         mapView.setMap(arcGISMap);

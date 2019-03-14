@@ -2,7 +2,9 @@ package com.tepia.main.view.maintechnology.threekeypoint;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
@@ -162,7 +164,7 @@ public class ThreePointListFragment extends BaseCommonFragment {
             startActivity(intent);
         });
         //默认加载第一个
-        initRequestResponse();
+//        initRequestResponse();
         initRecycleView();
         initClick();
     }
@@ -310,4 +312,10 @@ public class ThreePointListFragment extends BaseCommonFragment {
         }
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //默认加载第一个
+        initRequestResponse();
+    }
 }
