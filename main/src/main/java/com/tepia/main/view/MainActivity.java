@@ -99,7 +99,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     public void initView() {
         //热阿里更新，请求补丁
-//        SophixManager.getInstance().queryAndLoadNewPatch();
+        SophixManager.getInstance().queryAndLoadNewPatch();
 
         // TODO: 2018/10/22 视讯客户端初始化
         //视讯客户端初始化
@@ -338,7 +338,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             boolean isShowMap = SPUtils.getInstance().getBoolean(CacheConsts.haslook, false);
-            if (mTabHost.getCurrentTab() == 2&&isShowMap==true) {
+            if (mTabHost.getCurrentTab() == 2 && isShowMap==true) {
                 //当前显示地图界面
                 if (MapArcgisFragment.status == 1) {
                     EventBus.getDefault().post(1);

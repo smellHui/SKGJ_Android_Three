@@ -27,6 +27,7 @@ import android.widget.TabHost;
 import android.widget.TabWidget;
 
 import com.tepia.base.utils.AppManager;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.TabMainFragmentFactory;
 
@@ -314,10 +315,11 @@ public class TabFragmentHost extends TabHost implements
             super.onRestoreInstanceState(ss.getSuperState());
             setCurrentTabByTag(ss.curTab);
         }else{
-            UserManager.getInstance().clearCacheAndStopPush();
+          /*  UserManager.getInstance().clearCacheAndStopPush();
             AppManager.getInstance().finishAll();
             TabMainFragmentFactory.getInstance().clearFragment();
-            android.os.Process.killProcess(android.os.Process.myPid());
+            android.os.Process.killProcess(android.os.Process.myPid());*/
+            LogUtil.e("state is not instanceof SavedState");
         }
 
     }

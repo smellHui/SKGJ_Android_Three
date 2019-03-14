@@ -18,8 +18,7 @@ import com.tepia.main.R;
  **/
 public class EmergencyReportActivity extends BaseActivity {
 
-    protected static String key_Title = "key_Title";
-    protected static String key_Content = "key_Content";
+
 
     @Override
     public int getLayoutId() {
@@ -77,7 +76,6 @@ public class EmergencyReportActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SPUtils.getInstance().remove(key_Title);
-        SPUtils.getInstance().remove(key_Content);
+
     }
 }
