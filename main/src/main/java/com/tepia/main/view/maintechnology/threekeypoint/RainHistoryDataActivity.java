@@ -26,6 +26,7 @@ import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
 import com.tepia.main.view.maintechnology.threekeypoint.adapter.MyRainListAdapter;
 import com.tepia.main.view.maintechnology.threekeypoint.adapter.RainHistoryListAdapter;
+import com.tepia.main.view.maintechnology.threekeypoint.util.MyLineChartMarkView;
 import com.tepia.main.view.maintechnology.threekeypoint.util.ThreePointCharUtil;
 import com.tepia.main.view.maintechnology.threekeypoint.util.ThreePointMarkerView;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
@@ -135,8 +136,6 @@ public class RainHistoryDataActivity extends BaseActivity {
 
     private void initBarChart() {
         ThreePointCharUtil.initBarChart(mBarChart);
-        ThreePointMarkerView myMarkerView = new ThreePointMarkerView(this, R.layout.appraisal_custom_marker_view);
-        mBarChart.setMarker(myMarkerView);
 //        //模拟数据
 //        List<String> xValues = new ArrayList<>();
 //        for (int i = 0; i < 20; i++) {
@@ -182,6 +181,10 @@ public class RainHistoryDataActivity extends BaseActivity {
                             yValues.add ((float) item.getDrp());
                         }
                         ThreePointCharUtil.setBarCharData(mBarChart,yValues,xValues,"雨量",rgb("#2ecc71"));
+                        ThreePointMarkerView myMarkerView = new ThreePointMarkerView(RainHistoryDataActivity.this, R.layout.appraisal_custom_marker_view,mBarChart.getXAxis().getValueFormatter());
+                        myMarkerView.setChartView(mBarChart);
+                        mBarChart.setMarker(myMarkerView);
+                        mBarChart.invalidate();
                     }else {
                         mBarChart.setData(null);
                         mBarChart.notifyDataSetChanged();

@@ -465,7 +465,7 @@ public class MapSearchFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 ToastUtils.shortToast(msg);
             }
         });
-        mPresenter.findAppAllReservoir(s,"");
+        mPresenter.findAppAllReservoir(s,"",true);
     }
 
     private List<MapCommonResponse.DataBean> stRiverDatas;
