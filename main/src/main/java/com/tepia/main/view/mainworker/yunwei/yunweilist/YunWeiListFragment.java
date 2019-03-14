@@ -183,10 +183,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         mBinding.tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!NetUtil.isNetworkConnected(getContext())) {
-                    ToastUtils.shortToast(R.string.no_network);
-                    return;
-                }
+
                 if (selectedResrvoir == null) {
                     mPresenter.getPatrolWorkOrderList("", selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
                 } else {
@@ -199,10 +196,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             @Override
             public void onClick(View view) {
 //                showSelectReservoir();
-                if (!NetUtil.isNetworkConnected(getContext())) {
-                    ToastUtils.shortToast(R.string.no_network);
-                    return;
-                }
+
                 Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
                 ChoiceReservoirActivity.setIntent(intent, true);
                 startActivityForResult(intent, ChoiceReservoirActivity.resultCode);
@@ -214,10 +208,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-                if (!NetUtil.isNetworkConnected(getContext())) {
-                    ToastUtils.shortToast(R.string.no_network);
-                    return;
-                }
+
                 ARouter.getInstance().build(AppRoutePath.app_task_detail)
                         .withString("workOrderId", adapterPatrolWorkOrderList.getData().get(position).getWorkOrderId())
                         .withString("taskBean",new Gson().toJson(adapterPatrolWorkOrderList.getData().get(position)))
