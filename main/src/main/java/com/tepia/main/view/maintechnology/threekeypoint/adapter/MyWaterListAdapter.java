@@ -38,7 +38,7 @@ public class MyWaterListAdapter extends BaseQuickAdapter<WaterLevelResponse.Data
 //        tvReservoirName.setText(item.getStnm());
         tvDate.setText(item.getTm());
         tvWaterLevel.setText(item.getRz()+"");
-        if (TextUtils.isEmpty(item.getW())) {
+        if (TextUtils.isEmpty(item.getW()) || Double.parseDouble(item.getW()) == 0) {
             tvW.setText(mContext.getString(R.string.setting_t_null));
         }else{
             tvW.setText(item.getW()+"");

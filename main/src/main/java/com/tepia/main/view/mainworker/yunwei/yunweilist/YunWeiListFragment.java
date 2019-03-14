@@ -18,6 +18,8 @@ import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
@@ -181,7 +183,10 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         mBinding.tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!NetUtil.isNetworkConnected(getContext())) {
+                    ToastUtils.shortToast(R.string.no_network);
+                    return;
+                }
                 if (selectedResrvoir == null) {
                     mPresenter.getPatrolWorkOrderList("", selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
                 } else {
@@ -194,6 +199,10 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             @Override
             public void onClick(View view) {
 //                showSelectReservoir();
+                if (!NetUtil.isNetworkConnected(getContext())) {
+                    ToastUtils.shortToast(R.string.no_network);
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), ChoiceReservoirActivity.class);
                 ChoiceReservoirActivity.setIntent(intent, true);
                 startActivityForResult(intent, ChoiceReservoirActivity.resultCode);
@@ -203,6 +212,10 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (DoubleClickUtil.isFastDoubleClick()) {
+                    return;
+                }
+                if (!NetUtil.isNetworkConnected(getContext())) {
+                    ToastUtils.shortToast(R.string.no_network);
                     return;
                 }
                 ARouter.getInstance().build(AppRoutePath.app_task_detail)
