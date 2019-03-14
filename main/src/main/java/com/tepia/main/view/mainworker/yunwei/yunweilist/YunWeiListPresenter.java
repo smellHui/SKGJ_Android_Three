@@ -39,8 +39,45 @@ public class YunWeiListPresenter extends BasePresenterImpl<YunWeiListContract.Vi
             endDate = month + "-" + dayOfMonth + " 23:59:59";
         }
         currentPage = 1;
-        boolean isShow = true;
+        boolean isShow = false;
         String msg = ResUtils.getString(R.string.data_loading);
+        List<TaskBean> templist;
+        if (TextUtils.isEmpty(operationType)) {
+            if (TextUtils.isEmpty(reservoirId)) {
+                templist = DataSupport
+                        .where("username=? AND planStartTime like ?",
+                                UserManager.getInstance().getUserBean().getData().getUserCode()
+                                , month + "%")
+                        .order("planStartTime desc").limit(20).find(TaskBean.class);
+            } else {
+                templist = DataSupport
+                        .where("username=? AND reservoirId=?  AND planStartTime like ?",
+                                UserManager.getInstance().getUserBean().getData().getUserCode()
+                                , reservoirId
+                                , month + "%")
+                        .order("planStartTime desc").limit(20).find(TaskBean.class);
+            }
+        } else {
+            if (TextUtils.isEmpty(reservoirId)) {
+                templist = DataSupport
+                        .where("username=? AND operationType=? AND planStartTime like ?"
+                                , UserManager.getInstance().getUserBean().getData().getUserCode()
+                                , operationType
+                                , month + "%")
+                        .order("planStartTime desc").limit(20).find(TaskBean.class);
+            } else {
+                templist = DataSupport
+                        .where("username=? AND reservoirId=? AND operationType=? AND planStartTime like ? "
+                                , UserManager.getInstance().getUserBean().getData().getUserCode()
+                                , reservoirId
+                                , operationType
+                                , month + "%")
+                        .order("planStartTime desc").limit(20).find(TaskBean.class);
+            }
+        }
+        if (!CollectionsUtil.isEmpty(templist)) {
+            mView.getPatrolWorkOrderListSuccess(templist);
+        }
         TaskManager.getInstance().getPatrolWorkOrderList(operationType, reservoirId, startDate, endDate, currentPage + "", pageSize + "")
                 .subscribe(new LoadingSubject<TaskListResponse>(isShow, msg) {
                     @Override
@@ -101,9 +138,9 @@ public class YunWeiListPresenter extends BasePresenterImpl<YunWeiListContract.Vi
                         }
                         if (!CollectionsUtil.isEmpty(templist)) {
                             mView.getPatrolWorkOrderListSuccess(templist);
-                            ToastUtils.shortToast(ResUtils.getString(R.string.local_data_tip));
+//                            ToastUtils.shortToast(ResUtils.getString(R.string.local_data_tip));
                         } else {
-                            ToastUtils.shortToast(message);
+//                            ToastUtils.shortToast(message);
                         }
 
                     }

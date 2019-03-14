@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.SPUtils;
@@ -171,6 +172,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                         @Override
                         public void run() {
                             if (isFirstInitMap) {
+                                if (taskBean == null) {
+                                    return;
+                                }
                                 if ("2".equals(taskBean.getExecuteStatus())) {
                                     if (currentPoint != null) {
                                         mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale / 4);
@@ -637,13 +641,20 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         SpannableString spannableString;
         if (adapterTaskItemList.getAbnormalityList().size() > 0) {
             String title = "有 " + adapterTaskItemList.getAbnormalityList().size() + " 项异常项是否确定提交？  ";
+            if (!CollectionsUtil.isEmpty(adapterTaskItemList.getLocalData())) {
+                title = title + "\n有" + adapterTaskItemList.getLocalData().size() + "项离线数据没有提交，请在网络较好的情况下完成此操作";
+            }
             spannableString = new SpannableString(title);
             //设置颜色
             spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FE6026")), 2, 2 + (adapterTaskItemList.getAbnormalityList().size() + "").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         } else {
             String title = "没有异常项是否确定提交？";
+            if (!CollectionsUtil.isEmpty(adapterTaskItemList.getLocalData())) {
+                title = title + "\n有" + adapterTaskItemList.getLocalData().size() + "项离线数据没有提交，请在网络较好的情况下完成此操作";
+            }
             spannableString = new SpannableString(title);
         }
+
         TjDialogFragment tjDialogFragment = new TjDialogFragment();
         tjDialogFragment.tip = spannableString;
         tjDialogFragment.setListener(new View.OnClickListener() {
@@ -653,7 +664,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     return;
                 }
                 tjDialogFragment.dismiss();
-                LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
+
                 commitTotal();
 
 
@@ -679,14 +690,19 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
      * 最终提交
      */
     private void commitTotal() {
-        if (CollectionsUtil.isEmpty(adapterTaskItemList.getLocalData())){
+
+        if (CollectionsUtil.isEmpty(adapterTaskItemList.getLocalData())) {
+            try {
+                LoadingDialog.with(TaskDetailActivity.this).setMessage(ResUtils.getString(R.string.data_saving)).show();
+            } catch (Exception e) {
+            }
             String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
             if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
                 mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
             } else {
                 mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
             }
-        }else {
+        } else {
             mPresenter.commitTotal(adapterTaskItemList.getLocalData());
         }
     }

@@ -12,7 +12,6 @@ import com.tepia.base.utils.UnifiedErrorUtil;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 
-import org.litepal.util.LogUtil;
 
 import io.reactivex.disposables.Disposable;
 

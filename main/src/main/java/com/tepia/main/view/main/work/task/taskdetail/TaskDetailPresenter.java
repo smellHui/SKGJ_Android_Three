@@ -42,6 +42,10 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
      */
     @Override
     public void getTaskDetail(String workOrderId, boolean isShow, String msg) {
+        List<TaskBean> templist = DataSupport.where("workOrderId=?", workOrderId).find(TaskBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            mView.getTaskDetailSucess(templist.get(0));
+        }
         TaskManager.getInstance().getAppWorkByWorkId(workOrderId).subscribe(new LoadingSubject<TaskDetailResponse>(isShow, msg) {
             @Override
             protected void _onNext(TaskDetailResponse taskDetailResponse) {
@@ -64,9 +68,9 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
 
                 List<TaskBean> templist = DataSupport.where("workOrderId=?", workOrderId).find(TaskBean.class);
                 if (!CollectionsUtil.isEmpty(templist)) {
-                    mView.getTaskDetailSucess(templist.get(0));
+//                    mView.getTaskDetailSucess(templist.get(0));
                 } else {
-                    ToastUtils.shortToast(message);
+//                    ToastUtils.shortToast(message);
                 }
             }
         });
@@ -172,7 +176,6 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
 
     public void commitTotal(List<TaskItemBean> localData) {
         if (!CollectionsUtil.isEmpty(localData)) {
-            TaskItemBean bean = localData.get(0);
             appReservoirWorkOrderItemCommitOneByOne(localData, 0);
         }
     }
@@ -181,15 +184,18 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
         if (!CollectionsUtil.isEmpty(localData)) {
             if (count < localData.size()) {
                 TaskItemBean bean = localData.get(count);
-                List<String> files = new Gson().fromJson(bean.getBeforelist(),new TypeToken<List<String>>(){}.getType());
-                List<String> endfiles = new Gson().fromJson(bean.getAfterlist(),new TypeToken<List<String>>(){}.getType());
-                if (files == null){
+                List<String> files = new Gson().fromJson(bean.getBeforelist(), new TypeToken<List<String>>() {
+                }.getType());
+                List<String> endfiles = new Gson().fromJson(bean.getAfterlist(), new TypeToken<List<String>>() {
+                }.getType());
+                if (files == null) {
                     files = new ArrayList<>();
                 }
-                if (endfiles == null){
+                if (endfiles == null) {
                     endfiles = new ArrayList<>();
                 }
-                appReservoirWorkOrderItemCommitOne(localData, count, bean.getWorkOrderId(), bean.getItemId(), bean.getExResult(), bean.getExDesc(), bean.getLgtd(), bean.getLttd(), bean.getExecuteDate(), files, endfiles, false, "");
+                appReservoirWorkOrderItemCommitOne(localData, count, bean.getWorkOrderId(), bean.getItemId(), bean.getExResult(), bean.getExDesc(), bean.getLgtd(),
+                        bean.getLttd(), bean.getExecuteDate(), files, endfiles, true, "正在提交第" + bean.getReservoirSuperviseSequence() + "项离线数据");
             } else {
                 mView.appReservoirWorkOrderItemCommitOneByOneSuccess();
             }

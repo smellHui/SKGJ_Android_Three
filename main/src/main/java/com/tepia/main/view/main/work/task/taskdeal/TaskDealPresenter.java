@@ -35,6 +35,10 @@ import java.util.List;
 public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> implements TaskDealContract.Presenter {
 
     public void getTaskDetail(String workOrderId, boolean isShow, String msg) {
+        List<TaskBean> templist = DataSupport.where("workOrderId=?", workOrderId).find(TaskBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            mView.getTaskDetailSucess(templist.get(0));
+        }
         TaskManager.getInstance().getAppWorkByWorkId(workOrderId).subscribe(new LoadingSubject<TaskDetailResponse>(isShow, msg) {
             @Override
             protected void _onNext(TaskDetailResponse taskDetailResponse) {
@@ -56,9 +60,9 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
             protected void _onError(String message) {
                 List<TaskBean> templist = DataSupport.where("workOrderId=?", workOrderId).find(TaskBean.class);
                 if (!CollectionsUtil.isEmpty(templist)) {
-                    mView.getTaskDetailSucess(templist.get(0));
+//                    mView.getTaskDetailSucess(templist.get(0));
                 } else {
-                    ToastUtils.shortToast(message);
+//                    ToastUtils.shortToast(message);
                 }
 
             }
@@ -75,6 +79,23 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                                    List<String> endfiles,
                                                    boolean isShow,
                                                    String msg) {
+        List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            TaskItemBean bean = templist.get(0);
+            bean.setCommitLocal(true);
+            bean.setExResult(exResult);
+            bean.setExDesc(exDesc);
+            bean.setLgtd(lgtd);
+            bean.setLttd(lttd);
+            bean.setExecuteDate(TimeFormatUtils.getStringDate());
+            bean.setBeforelist(new Gson().toJson(files));
+            bean.setAfterlist(new Gson().toJson(endfiles));
+            bean.update();
+            if (mView != null) {
+                mView.commitSucess();
+            }
+        }
+
         if (files.size() == 0 && endfiles.size() == 0) {
             TaskManager.getInstance().appReservoirWorkOrderItemCommitOne(workOrderId, itemId, exResult, exDesc, lgtd, lttd, files, endfiles)
                     .subscribe(new LoadingSubject<BaseResponse>(isShow, msg) {
@@ -93,9 +114,7 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                     bean.update();
                                     getTaskDetail(workOrderId,false,"");
                                 }
-                                if (mView != null) {
-                                    mView.commitSucess();
-                                }
+
                             }
                         }
 
@@ -114,11 +133,8 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                 bean.setBeforelist(new Gson().toJson(files));
                                 bean.setAfterlist(new Gson().toJson(endfiles));
                                 bean.update();
-                                if (mView != null) {
-                                    mView.commitSucess();
-                                }
                             }
-                            ToastUtils.shortToast("提交数据失败，已存储到本地");
+//                            ToastUtils.shortToast("提交数据失败，已存储到本地");
                         }
                     });
         } else {
@@ -154,9 +170,9 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                                 bean.update();
                                                 getTaskDetail(workOrderId,false,"");
                                             }
-                                            if (mView != null) {
-                                                mView.commitSucess();
-                                            }
+//                                            if (mView != null) {
+//                                                mView.commitSucess();
+//                                            }
                                         }
                                     }
 
@@ -175,11 +191,11 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                             bean.setBeforelist(new Gson().toJson(files));
                                             bean.setAfterlist(new Gson().toJson(endfiles));
                                             bean.update();
-                                            if (mView != null) {
-                                                mView.commitSucess();
-                                            }
+//                                            if (mView != null) {
+//                                                mView.commitSucess();
+//                                            }
                                         }
-                                        ToastUtils.shortToast("提交数据失败，已存储到本地");
+//                                        ToastUtils.shortToast("提交数据失败，已存储到本地");
                                     }
                                 });
                     } else {

@@ -177,7 +177,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                     if (data.isFinish()) {
                         if (currentPoint != null) {
 
-                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
+//                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), currentPoint.getX() + "",
                                     currentPoint.getY() + "", data.getFiles(), data.getEndfiles(),
@@ -187,7 +187,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                             taskItemDealFragment.selectPhotosAfter.clear();
                         }else {
 
-                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
+//                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(),  "",
                                      "", data.getFiles(), data.getEndfiles(),

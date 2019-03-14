@@ -22,16 +22,22 @@ import java.util.List;
 public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContract.View> implements TaskItemDealContract.Presenter {
 
     public void getTaskItemDetail(String itemId, boolean isShow, String msg) {
+        if (mView != null) {
+            List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
+            if (!CollectionsUtil.isEmpty(templist)) {
+                mView.getTaskItemDetailSucess(templist.get(0));
+            }
+        }
         TaskManager.getInstance().getAppReservoirWorkOrderItemInfo(itemId).subscribe(new LoadingSubject<TaskItemDetailResponse>(isShow, msg) {
             @Override
             protected void _onNext(TaskItemDetailResponse taskDetailResponse) {
                 if (taskDetailResponse.getCode() == 0) {
                     if (mView != null) {
                         taskDetailResponse.getData().save();
-                        List<TaskItemBean> templist = DataSupport.where("itemId=?",itemId).find(TaskItemBean.class);
-                        if (!CollectionsUtil.isEmpty(templist)){
+                        List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
+                        if (!CollectionsUtil.isEmpty(templist)) {
                             mView.getTaskItemDetailSucess(templist.get(0));
-                        }else {
+                        } else {
                             mView.getTaskItemDetailSucess(taskDetailResponse.getData());
                         }
                     }
@@ -43,11 +49,11 @@ public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContrac
             @Override
             protected void _onError(String message) {
                 if (mView != null) {
-                    List<TaskItemBean> templist = DataSupport.where("itemId=?",itemId).find(TaskItemBean.class);
-                    if (!CollectionsUtil.isEmpty(templist)){
-                        mView.getTaskItemDetailSucess(templist.get(0));
-                    }else {
-                        ToastUtils.shortToast(message);
+                    List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
+                    if (!CollectionsUtil.isEmpty(templist)) {
+//                        mView.getTaskItemDetailSucess(templist.get(0));
+                    } else {
+//                        ToastUtils.shortToast(message);
                     }
 
                 }
