@@ -3,7 +3,9 @@ package com.tepia.main.model.task.bean;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.main.model.image.ImageInfoBean;
 
 import org.litepal.annotation.Column;
@@ -45,7 +47,7 @@ public class TaskItemBean extends DataSupport implements Serializable {
      */
 
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String itemId;
     private String reservoirSuperviseId;
     private boolean isSelected;
@@ -85,6 +87,94 @@ public class TaskItemBean extends DataSupport implements Serializable {
     private String dicName;
     private List<ImageInfoBean> startImages;
     private List<ImageInfoBean> endImages;
+
+    /**
+     * 用于存储本地编辑的数据
+     */
+    private String isCommitLocal;
+    private String exResult;
+    private String exDesc;
+    private String lgtd;
+    private String lttd;
+    private String executeDate;
+    private String beforelist;
+    private String afterlist;
+
+    public String getExecuteDate() {
+        return executeDate;
+    }
+
+    public void setExecuteDate(String executeDate) {
+        this.executeDate = executeDate;
+    }
+
+    public boolean isCommitLocal() {
+        return !TextUtils.isEmpty(isCommitLocal);
+    }
+
+    public void setCommitLocal(boolean commitLocal) {
+        if (commitLocal) {
+            isCommitLocal = "true";
+        }else {
+            isCommitLocal = "";
+        }
+    }
+
+    public String getIsCommitLocal() {
+        return isCommitLocal;
+    }
+
+    public void setIsCommitLocal(String isCommitLocal) {
+        this.isCommitLocal = isCommitLocal;
+    }
+
+    public String getExResult() {
+        return exResult;
+    }
+
+    public void setExResult(String exResult) {
+        this.exResult = exResult;
+    }
+
+    public String getExDesc() {
+        return exDesc;
+    }
+
+    public void setExDesc(String exDesc) {
+        this.exDesc = exDesc;
+    }
+
+    public String getLgtd() {
+        return lgtd;
+    }
+
+    public void setLgtd(String lgtd) {
+        this.lgtd = lgtd;
+    }
+
+    public String getLttd() {
+        return lttd;
+    }
+
+    public void setLttd(String lttd) {
+        this.lttd = lttd;
+    }
+
+    public String getBeforelist() {
+        return beforelist;
+    }
+
+    public void setBeforelist(String beforelist) {
+        this.beforelist = beforelist;
+    }
+
+    public String getAfterlist() {
+        return afterlist;
+    }
+
+    public void setAfterlist(String afterlist) {
+        this.afterlist = afterlist;
+    }
 
     public String getReservoirSuperviseId() {
         return reservoirSuperviseId;
@@ -367,6 +457,15 @@ public class TaskItemBean extends DataSupport implements Serializable {
     }
 
     public List<ImageInfoBean> getStartImages() {
+        if (startImages == null) {
+            String linkId = this.getClass().getSimpleName().toLowerCase();
+            List<ImageInfoBean> temp = DataSupport.where(linkId + "_id=? AND biztype=?", getBaseObjId() + "","start").find(ImageInfoBean.class);
+            if (CollectionsUtil.isEmpty(temp)) {
+                startImages = null;
+            } else {
+                startImages = temp;
+            }
+        }
         return startImages;
     }
 
@@ -375,6 +474,15 @@ public class TaskItemBean extends DataSupport implements Serializable {
     }
 
     public List<ImageInfoBean> getEndImages() {
+        if (endImages == null) {
+            String linkId = this.getClass().getSimpleName().toLowerCase();
+            List<ImageInfoBean> temp = DataSupport.where(linkId + "_id=? AND biztype=?", getBaseObjId() + "","end").find(ImageInfoBean.class);
+            if (CollectionsUtil.isEmpty(temp)) {
+                endImages = null;
+            } else {
+                endImages = temp;
+            }
+        }
         return endImages;
     }
 
@@ -392,7 +500,7 @@ public class TaskItemBean extends DataSupport implements Serializable {
             return false;
         }
         TaskItemBean that = (TaskItemBean) o;
-        if (TextUtils.isEmpty(itemId)){
+        if (TextUtils.isEmpty(itemId)) {
             return false;
         }
         return itemId.equals(that.itemId);
@@ -401,4 +509,46 @@ public class TaskItemBean extends DataSupport implements Serializable {
 
     }
 
+    @Override
+    public synchronized boolean save() {
+        boolean ret = false;
+        List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            int count = this.update(templist.get(0).getBaseObjId());
+            if (count > 0) {
+                ret = true;
+            }
+        } else {
+            ret = super.save();
+        }
+        if (!CollectionsUtil.isEmpty(startImages)) {
+            for (ImageInfoBean bean : startImages) {
+                bean.save();
+            }
+        }
+        if (!CollectionsUtil.isEmpty(endImages)) {
+            for (ImageInfoBean bean : endImages) {
+                bean.save();
+            }
+        }
+        return ret;
+    }
+
+    public void update() {
+        List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            this.update(templist.get(0).getBaseObjId());
+            Log.d("jfkdjskf", "update: ");
+        }
+        if (!CollectionsUtil.isEmpty(startImages)) {
+            for (ImageInfoBean bean : startImages) {
+                bean.save();
+            }
+        }
+        if (!CollectionsUtil.isEmpty(endImages)) {
+            for (ImageInfoBean bean : endImages) {
+                bean.save();
+            }
+        }
+    }
 }

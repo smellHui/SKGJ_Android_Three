@@ -3,13 +3,14 @@
     <!--数据库名称-->
     <dbname value="skgj"></dbname>
     <!--数据库版本-->
-    <version value="8"></version>
+    <version value="21"></version>
 
     <list>
         <mapping class="com.tepia.voice.xunfei.TalkBean"></mapping>
         <mapping class="com.tepia.main.model.route.RoutepointDataBean"></mapping>
         <mapping class="com.tepia.main.model.question.ReservoirDateBean"></mapping>
         <mapping class="com.tepia.main.model.task.bean.TaskBean" />
+        <mapping class="com.tepia.main.model.task.bean.BizPlanInfoBean" />
         <mapping class="com.tepia.main.model.task.bean.TaskItemBean" />
         <mapping class="com.tepia.main.model.image.ImageInfoBean" />
         <!-- <mapping class="com.tepia.main.model.user.MenuData"></mapping>

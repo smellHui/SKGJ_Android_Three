@@ -37,7 +37,10 @@ public class AdapterPatrolWorkOrderList extends BaseQuickAdapter<TaskBean, BaseV
         LvPatrolWorkorderListBinding mBinding = DataBindingUtil.bind(helper.itemView);
         if (item.getStartTime() != null && item.getStartTime().length() >= 10) {
             mBinding.tvDate.setText(item.getStartTime().substring(0, 10));
+        } else if (item.getPlanStartTime() != null && item.getPlanStartTime().length() >= 10) {
+            mBinding.tvDate.setText(item.getPlanStartTime().substring(0, 10));
         }
+
         mBinding.tvReservoir.setText(item.getReservoirName());
         mBinding.tvExecWorker.setText(item.getExecutorName());
 
@@ -91,7 +94,7 @@ public class AdapterPatrolWorkOrderList extends BaseQuickAdapter<TaskBean, BaseV
                     ToastUtils.shortToast("该工单暂时没有问题");
                 } else {
                     ARouter.getInstance().build(AppRoutePath.app_work_order_question_list)
-                            .withString("workOrderId",item.getWorkOrderId())
+                            .withString("workOrderId", item.getWorkOrderId())
                             .navigation();
                 }
             }

@@ -405,6 +405,11 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         mPresenter.getTaskDetail(id, true, ResUtils.getString(R.string.data_saving));
     }
 
+    @Override
+    public void appReservoirWorkOrderItemCommitOneByOneSuccess() {
+
+    }
+
     /**
      * 跟新ui
      */

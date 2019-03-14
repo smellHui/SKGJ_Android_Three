@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
+import com.google.gson.Gson;
 import com.jzxiang.pickerview.data.Type;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
@@ -206,6 +207,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
                 }
                 ARouter.getInstance().build(AppRoutePath.app_task_detail)
                         .withString("workOrderId", adapterPatrolWorkOrderList.getData().get(position).getWorkOrderId())
+                        .withString("taskBean",new Gson().toJson(adapterPatrolWorkOrderList.getData().get(position)))
                         .navigation();
             }
         });
@@ -237,8 +239,14 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
     }
 
     @Override
-    protected void initRequestData() {
+    public void onResume() {
+        super.onResume();
         mPresenter.getPatrolWorkOrderList("", selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
+    }
+
+    @Override
+    protected void initRequestData() {
+
     }
 
     private void showSelectYunweiType() {
@@ -325,5 +333,10 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         }
         adapterPatrolWorkOrderList.loadMoreComplete();
 
+    }
+
+    @Override
+    public void getPatrolWorkOrderListMoreFailure() {
+        adapterPatrolWorkOrderList.loadMoreEnd();
     }
 }

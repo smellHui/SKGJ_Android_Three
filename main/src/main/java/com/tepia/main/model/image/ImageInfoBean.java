@@ -1,8 +1,14 @@
 package com.tepia.main.model.image;
 
+import com.google.gson.annotations.SerializedName;
+import com.tepia.base.view.floatview.CollectionsUtil;
+import com.tepia.main.model.task.bean.TaskBean;
+
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Joeshould on 2018/6/1.
@@ -28,7 +34,7 @@ public class ImageInfoBean extends DataSupport implements Serializable {
      * fileSize : 20930
      */
 
-    private String id;
+    @Column(unique = true)
     private String fileId;
     private String fileName;
     private String fileType;
@@ -44,13 +50,7 @@ public class ImageInfoBean extends DataSupport implements Serializable {
     private String fileExtension;
     private int fileSize;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getFileId() {
         return fileId;
@@ -162,5 +162,24 @@ public class ImageInfoBean extends DataSupport implements Serializable {
 
     public void setFileSize(int fileSize) {
         this.fileSize = fileSize;
+    }
+
+    @Override
+    public synchronized boolean save() {
+        boolean ret = false;
+        List<ImageInfoBean> templist = DataSupport.where("fileId=?", fileId).find(ImageInfoBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            update();
+        } else {
+            ret = super.save();
+        }
+        return ret;
+    }
+
+    private void update() {
+        List<ImageInfoBean> templist = DataSupport.where("fileId=?", fileId).find(ImageInfoBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            super.update(templist.get(0).getBaseObjId());
+        }
     }
 }

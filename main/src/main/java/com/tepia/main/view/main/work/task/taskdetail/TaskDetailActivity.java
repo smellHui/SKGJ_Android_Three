@@ -43,6 +43,7 @@ import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.base.view.dialog.loading.LoadingDialog;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityTaskDetailBinding;
 import com.tepia.main.model.route.RoutepointDataBean;
@@ -108,6 +109,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         mBinding = DataBindingUtil.bind(mRootView);
         if (taskBean == null && TextUtils.isEmpty(temp)) {
             taskBean = new Gson().fromJson(temp, TaskBean.class);
+            refreshView();
         }
         initListView();
 //        initMapView();
@@ -397,11 +399,10 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     @Override
     public void getTaskDetailSucess(TaskBean data) {
         this.taskBean = data;
-        taskBean.save();
-        List<TaskBean> taskBeans = DataSupport.findAll(TaskBean.class);
         refreshView();
         getGaoDeLocation();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -433,6 +434,16 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     @Override
     public void sendOrderSucess() {
         mPresenter.getTaskDetail(id, true, ResUtils.getString(R.string.data_saving));
+    }
+
+    @Override
+    public void appReservoirWorkOrderItemCommitOneByOneSuccess() {
+        String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
+        if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
+            mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
+        } else {
+            mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+        }
     }
 
     /**
@@ -625,7 +636,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     private void showTjDialog() {
         SpannableString spannableString;
         if (adapterTaskItemList.getAbnormalityList().size() > 0) {
-            String title = "有 " + adapterTaskItemList.getAbnormalityList().size() + " 项异常是否确定提交";
+            String title = "有 " + adapterTaskItemList.getAbnormalityList().size() + " 项异常项是否确定提交？  ";
             spannableString = new SpannableString(title);
             //设置颜色
             spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FE6026")), 2, 2 + (adapterTaskItemList.getAbnormalityList().size() + "").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -643,12 +654,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 }
                 tjDialogFragment.dismiss();
                 LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
-                String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
-                if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
-                    mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
-                } else {
-                    mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
-                }
+                commitTotal();
+
+
             }
         }, new View.OnClickListener() {
             @Override
@@ -665,6 +673,22 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         });
         tjDialogFragment.show(getSupportFragmentManager(), "cb");
 
+    }
+
+    /**
+     * 最终提交
+     */
+    private void commitTotal() {
+        if (CollectionsUtil.isEmpty(adapterTaskItemList.getLocalData())){
+            String temp = RoutepointDataManager.getInstance().getRoutePointListString(id);
+            if (taskBean.getIsProcess() != null && "1".equals(taskBean.getIsProcess())) {
+                mPresenter.endExecute2(id, temp, false, ResUtils.getString(R.string.data_saving));
+            } else {
+                mPresenter.endExecute(id, temp, false, ResUtils.getString(R.string.data_saving));
+            }
+        }else {
+            mPresenter.commitTotal(adapterTaskItemList.getLocalData());
+        }
     }
 
 

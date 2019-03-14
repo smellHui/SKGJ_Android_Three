@@ -26,6 +26,8 @@ public class TaskDetailContract {
         void getPeopleSucess(List<PeopleBean> data);
 
         void sendOrderSucess();
+
+        void appReservoirWorkOrderItemCommitOneByOneSuccess();
     }
 
     public interface  Presenter extends BasePresenter<View> {

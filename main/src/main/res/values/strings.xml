@@ -265,4 +265,5 @@
     <string name="downloadstr">扫码下载</string>
     <string name="waterlevel_name">汛限水位</string>
     <string name="editstr"><u>修改</u></string>
+    <string name="local_data_tip">获取网络数据失败，加载离线数据！</string>
 </resources>

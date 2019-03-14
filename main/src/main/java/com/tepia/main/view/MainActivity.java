@@ -99,7 +99,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     public void initView() {
         //热阿里更新，请求补丁
-        SophixManager.getInstance().queryAndLoadNewPatch();
+//        SophixManager.getInstance().queryAndLoadNewPatch();
 
         // TODO: 2018/10/22 视讯客户端初始化
         //视讯客户端初始化

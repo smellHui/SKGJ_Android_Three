@@ -50,9 +50,14 @@ import java.util.Map;
 
 
 /**
- * MVPPlu
- * 邮箱 784787081@qq.com
- */
+ * @author        :       zhang xinhua
+ * @Version       :       1.0
+ * @创建人         ：      zhang xinhua
+ * @创建时间       :       2019/3/13 9:12
+ * @修改人         ：
+ * @修改时间       :       2019/3/13 9:12
+ * @功能描述       :        任务处理页
+ **/
 @Route(path = AppRoutePath.app_task_deal)
 public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, TaskDealPresenter> implements TaskDealContract.View {
 
@@ -176,6 +181,16 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), currentPoint.getX() + "",
                                     currentPoint.getY() + "", data.getFiles(), data.getEndfiles(),
+                                    false, ResUtils.getString(R.string.data_saving));
+
+                            taskItemDealFragment.selectPhotosBefore.clear();
+                            taskItemDealFragment.selectPhotosAfter.clear();
+                        }else {
+
+                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
+                            mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
+                                    data.getItemId(), data.getExResult(), data.getExDesc(),  "",
+                                     "", data.getFiles(), data.getEndfiles(),
                                     false, ResUtils.getString(R.string.data_saving));
 
                             taskItemDealFragment.selectPhotosBefore.clear();

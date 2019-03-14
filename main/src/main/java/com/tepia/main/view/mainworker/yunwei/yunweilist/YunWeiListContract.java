@@ -18,6 +18,8 @@ public class YunWeiListContract {
         void getPatrolWorkOrderListSuccess(List<TaskBean> list);
 
         void getPatrolWorkOrderListMoreSuccess(TaskListResponse.DataBean list);
+
+        void getPatrolWorkOrderListMoreFailure();
     }
 
     interface  Presenter extends BasePresenter<View> {

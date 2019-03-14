@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.R;
@@ -173,7 +175,6 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
     private void refreshView(TaskItemBean taskItemBean) {
         mBinding.tvItemname.setText(taskItemBean.getContent());
         initRadioView();
-
         if (TextUtils.isEmpty(etDescStr)) {
             mBinding.etDesc.setText(taskItemBean.getExecuteResultDescription());
         } else {
@@ -209,6 +210,83 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
             mBinding.tvTaskItemExamineDes.setText("审核描述：" + taskItemBean.getExaminedResultDescription());
         } else {
             mBinding.loExamine.setVisibility(View.GONE);
+        }
+        imagListBefore = taskItemBean.getStartImages();
+        imagListAfter = taskItemBean.getEndImages();
+
+        if (imagListBefore != null && imagListBefore.size() > 0) {
+            photoRecycleViewAdapterBefore.setNetData(taskItemBean.getStartImages());
+            mBinding.tvPhotoNumBefore.setText(photoRecycleViewAdapterBefore.getPhotoPaths().size() + "/5");
+        }
+        if (imagListAfter != null && imagListAfter.size() > 0) {
+            photoRecycleViewAdapterAfter.setNetData(taskItemBean.getEndImages());
+            mBinding.tvPhotoAfterNum.setText(photoRecycleViewAdapterAfter.getPhotoPaths().size() + "/5");
+        }
+
+        if (taskItemBean.isCommitLocal()) {
+            refreshViewWithLocalData();
+
+        }
+    }
+
+    private void refreshViewWithLocalData() {
+        if (TextUtils.isEmpty(taskItemBean.getExecuteDate()) && TextUtils.isEmpty(taskItemBean.getExcuteDate()) && taskItemBean.getExecuteDate().compareTo(taskItemBean.getExcuteDate()) <= 0) {
+            return;
+        }
+        if (TextUtils.isEmpty(etDescStr)) {
+            mBinding.etDesc.setText(taskItemBean.getExDesc());
+        } else {
+            mBinding.etDesc.setText(etDescStr);
+        }
+
+        switch (taskItemBean.getExResult()) {
+            case "0":
+                mBinding.rb1.setChecked(true);
+                mBinding.rb2.setChecked(false);
+                break;
+            case "1":
+                mBinding.rb1.setChecked(false);
+                mBinding.rb2.setChecked(true);
+                break;
+            default:
+                mBinding.rb1.setChecked(true);
+                mBinding.rb2.setChecked(false);
+                executeResultType = "0";
+                break;
+        }
+
+        mBinding.tvTaskItemExeTime.setText("执行时间：" + taskItemBean.getExecuteDate());
+        if (taskItemBean.getBeforelist() != null) {
+            ArrayList<String> list = new Gson().fromJson(taskItemBean.getBeforelist(), new TypeToken<ArrayList<String>>() {
+            }.getType());
+            if (list != null && list.size() > 0) {
+                if (selectPhotosBefore == null) {
+                    selectPhotosBefore = new ArrayList<>();
+                }
+                for (String temp : list) {
+                    if (!selectPhotosBefore.contains(temp)) {
+                        selectPhotosBefore.add(temp);
+                    }
+                }
+                photoRecycleViewAdapterBefore.setLocalData(selectPhotosBefore);
+                mBinding.tvPhotoNumBefore.setText(photoRecycleViewAdapterBefore.getPhotoPaths().size() + "/5");
+            }
+        }
+        if (taskItemBean.getAfterlist() != null) {
+            ArrayList<String> list = new Gson().fromJson(taskItemBean.getAfterlist(), new TypeToken<ArrayList<String>>() {
+            }.getType());
+            if (list != null && list.size() > 0) {
+                if (selectPhotosAfter == null) {
+                    selectPhotosAfter = new ArrayList<>();
+                }
+                for (String temp : list) {
+                    if (!selectPhotosAfter.contains(temp)) {
+                        selectPhotosAfter.add(temp);
+                    }
+                }
+                photoRecycleViewAdapterAfter.setLocalData(selectPhotosAfter);
+                mBinding.tvPhotoAfterNum.setText(photoRecycleViewAdapterAfter.getPhotoPaths().size() + "/5");
+            }
         }
     }
 
@@ -315,7 +393,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
 
                 @Override
                 public void ondelete(int position) {
-                    if (selectPhotosBefore.size() > 0) {
+                    if (selectPhotosBefore.size() > 0 && selectPhotosBefore.size() > position) {
                         selectPhotosBefore.remove(position);
                     }
                     photoRecycleViewAdapterBefore.setLocalData(selectPhotosBefore);
@@ -466,17 +544,9 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
     @Override
     public void getTaskItemDetailSucess(TaskItemBean data) {
         taskItemBean = data;
-        refreshView(data);
-        imagListBefore = data.getStartImages();
-        imagListAfter = data.getEndImages();
-        if (imagListBefore.size() > 0) {
-            photoRecycleViewAdapterBefore.setNetData(data.getStartImages());
-            mBinding.tvPhotoNumBefore.setText(photoRecycleViewAdapterBefore.getPhotoPaths().size() + "/5");
-        }
-        if (imagListAfter.size() > 0) {
-            photoRecycleViewAdapterAfter.setNetData(data.getEndImages());
-            mBinding.tvPhotoAfterNum.setText(photoRecycleViewAdapterAfter.getPhotoPaths().size() + "/5");
-        }
+        refreshView(taskItemBean);
+
+
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.tepia.main.model.task.bean;
 
+import com.tepia.base.view.floatview.CollectionsUtil;
+import com.tepia.main.model.plan.PlanBean;
+import com.tepia.main.model.user.UserManager;
+
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
@@ -26,8 +30,10 @@ public class TaskBean extends DataSupport implements Serializable {
      * bizReservoirWorkOrderItems : [{"itemId":"8c5fa5f84035460db6245146f7efeb39","workOrderId":"01c0b2d2b86144a78bc88638982b181e","positionId":"089b678b89e046f0a86cd85dd2fecdba","superviseItemCode":"SK-QSB-1-1","reservoirSuperviseSequence":1,"executeId":"a623db0bdb92434ebe6553561aaf2eef","executeResultType":"0","executeResultDescription":"发生的JFK时间d","excuteLongitude":"123","excuteLatitude":"123","excuteDate":"2018-07-19 00:00:00","treeNames":"土石坝/坝体/坝坡","superviseItemName":"消防器材"}]
      */
 
-    @Column(unique = true,nullable = false)
+    private String username = UserManager.getInstance().getUserBean().getData().getUserCode();
+    @Column(unique = true, nullable = false)
     private String workOrderId;
+    private String reservoirId;
     private String workOrderCode;
     private String workOrderName;
     private String planStartTime;
@@ -68,6 +74,9 @@ public class TaskBean extends DataSupport implements Serializable {
     }
 
     public String getProblemDoneNum() {
+        if (problemDoneNum == null) {
+            return "";
+        }
         return problemDoneNum;
     }
 
@@ -108,6 +117,9 @@ public class TaskBean extends DataSupport implements Serializable {
     }
 
     public String getProblemNum() {
+        if (problemNum == null) {
+            return "";
+        }
         return problemNum;
     }
 
@@ -220,6 +232,19 @@ public class TaskBean extends DataSupport implements Serializable {
     }
 
     public BizPlanInfoBean getBizPlanInfo() {
+        if (bizPlanInfo == null) {
+            String linkId = this.getClass().getSimpleName().toLowerCase();
+            List<BizPlanInfoBean> temp = DataSupport.where(linkId + "_id=?", getBaseObjId() + "").find(BizPlanInfoBean.class);
+            if (CollectionsUtil.isEmpty(temp)) {
+                bizPlanInfo = null;
+            } else {
+                bizPlanInfo = temp.get(0);
+            }
+        }
+        if (bizPlanInfo == null){
+            bizPlanInfo = new BizPlanInfoBean();
+            bizPlanInfo.setOperationType(operationType);
+        }
         return bizPlanInfo;
     }
 
@@ -236,6 +261,9 @@ public class TaskBean extends DataSupport implements Serializable {
     }
 
     public List<TaskItemBean> getBizReservoirWorkOrderItems() {
+        if (bizReservoirWorkOrderItems == null || bizReservoirWorkOrderItems.size() == 0) {
+            bizReservoirWorkOrderItems = DataSupport.where("workOrderId=?", workOrderId).find(TaskItemBean.class);
+        }
         return bizReservoirWorkOrderItems;
     }
 
@@ -243,40 +271,46 @@ public class TaskBean extends DataSupport implements Serializable {
         this.bizReservoirWorkOrderItems = bizReservoirWorkOrderItems;
     }
 
-    public static class BizPlanInfoBean extends DataSupport implements Serializable {
-        /**
-         * planType : 2
-         * planName : 2018-07-20东风水库日常巡检计划
-         * operationType : 1
-         */
 
-        private String planType;
-        private String planName;
-        private String operationType;
-
-        public String getPlanType() {
-            return planType;
+    public void update() {
+        List<TaskBean> templist = DataSupport.where("workOrderId=?", workOrderId).find(TaskBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            super.update(templist.get(0).getBaseObjId());
         }
-
-        public void setPlanType(String planType) {
-            this.planType = planType;
+        if (!executeStatus.equals("2")){
+            TaskItemBean bean = new TaskItemBean();
+            bean.setCommitLocal(false);
+            bean.updateAll("workOrderId=?", workOrderId);
         }
-
-        public String getPlanName() {
-            return planName;
+        if (bizReservoirWorkOrderItems != null) {
+            for (TaskItemBean bean : bizReservoirWorkOrderItems) {
+                bean.save();
+            }
         }
-
-        public void setPlanName(String planName) {
-            this.planName = planName;
-        }
-
-        public String getOperationType() {
-            return operationType;
-        }
-
-        public void setOperationType(String operationType) {
-            this.operationType = operationType;
+        if (bizPlanInfo != null) {
+            bizPlanInfo.save();
         }
     }
+
+    @Override
+    public synchronized boolean save() {
+        boolean ret = false;
+        List<TaskBean> templist = DataSupport.where("workOrderId=?", workOrderId).find(TaskBean.class);
+        if (!CollectionsUtil.isEmpty(templist)) {
+            update();
+        } else {
+            ret = super.save();
+        }
+        if (bizReservoirWorkOrderItems != null) {
+            for (TaskItemBean bean : bizReservoirWorkOrderItems) {
+                bean.save();
+            }
+        }
+        if (bizPlanInfo != null) {
+            bizPlanInfo.save();
+        }
+        return ret;
+    }
+
 
 }

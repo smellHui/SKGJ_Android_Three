@@ -4,9 +4,15 @@ import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
 import com.tepia.base.utils.ToastUtils;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.main.model.image.ImageInfoBean;
 import com.tepia.main.model.task.TaskManager;
+import com.tepia.main.model.task.bean.TaskItemBean;
 import com.tepia.main.model.task.response.TaskItemDetailResponse;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 /**
  * MVPPlugin
@@ -21,7 +27,13 @@ public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContrac
             protected void _onNext(TaskItemDetailResponse taskDetailResponse) {
                 if (taskDetailResponse.getCode() == 0) {
                     if (mView != null) {
-                        mView.getTaskItemDetailSucess(taskDetailResponse.getData());
+                        taskDetailResponse.getData().save();
+                        List<TaskItemBean> templist = DataSupport.where("itemId=?",itemId).find(TaskItemBean.class);
+                        if (!CollectionsUtil.isEmpty(templist)){
+                            mView.getTaskItemDetailSucess(templist.get(0));
+                        }else {
+                            mView.getTaskItemDetailSucess(taskDetailResponse.getData());
+                        }
                     }
                 } else {
                     _onError(taskDetailResponse.getMsg());
@@ -30,7 +42,15 @@ public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContrac
 
             @Override
             protected void _onError(String message) {
-                ToastUtils.shortToast(message);
+                if (mView != null) {
+                    List<TaskItemBean> templist = DataSupport.where("itemId=?",itemId).find(TaskItemBean.class);
+                    if (!CollectionsUtil.isEmpty(templist)){
+                        mView.getTaskItemDetailSucess(templist.get(0));
+                    }else {
+                        ToastUtils.shortToast(message);
+                    }
+
+                }
             }
         });
     }
@@ -42,6 +62,7 @@ public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContrac
                 if (response.getCode() == 0) {
                     if (mView != null) {
                         mView.delFileSucess(imageInfoBean, isbefore);
+                        imageInfoBean.delete();
                     }
                 }
             }

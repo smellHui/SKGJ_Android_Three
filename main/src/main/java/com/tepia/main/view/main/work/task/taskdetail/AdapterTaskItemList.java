@@ -82,23 +82,68 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
                 ivIsOver.setImageResource(R.drawable.icon_status_finish);
                 tvItemExp.setVisibility(View.GONE);
             }
+            if (item.isCommitLocal() && item.getExecuteDate().compareTo(item.getExcuteDate()) > 0) {
+                ivIsOver.setVisibility(View.VISIBLE);
+                tvTaskTime.setVisibility(View.VISIBLE);
+                if (item.getExResult() != null && item.getExResult().equals("1")) {
+                    ivIsOver.setImageResource(R.drawable.icon_status_finish_with_exp);
+                    tvItemExp.setVisibility(View.VISIBLE);
+                } else {
+                    ivIsOver.setImageResource(R.drawable.icon_status_finish);
+                    tvItemExp.setVisibility(View.GONE);
+                }
+                tvTaskTime.setText(item.getExecuteDate());
+            }
         } else {
-            ivIsOver.setVisibility(View.GONE);
-            tvItemExp.setVisibility(View.GONE);
-            tvTaskTime.setVisibility(View.GONE);
+            if (item.isCommitLocal()) {
+                ivIsOver.setVisibility(View.VISIBLE);
+                tvTaskTime.setVisibility(View.VISIBLE);
+                if (item.getExResult() != null && item.getExResult().equals("1")) {
+                    ivIsOver.setImageResource(R.drawable.icon_status_finish_with_exp);
+                    tvItemExp.setVisibility(View.VISIBLE);
+                } else {
+                    ivIsOver.setImageResource(R.drawable.icon_status_finish);
+                    tvItemExp.setVisibility(View.GONE);
+                }
+                tvTaskTime.setText(item.getExecuteDate());
+            } else {
+                ivIsOver.setVisibility(View.GONE);
+                tvItemExp.setVisibility(View.GONE);
+                tvTaskTime.setVisibility(View.GONE);
+            }
         }
     }
 
+    /**
+     * 是否所有 任务项 都完成
+     *
+     * @return
+     */
     public boolean isDealFinish() {
         for (TaskItemBean bean : getData()) {
-            if (bean.getCompleteStatus() == null) {
-                return false;
-            }
-            if (!"0".equals(bean.getCompleteStatus())) {
-                return false;
+            if (bean.getCompleteStatus() == null || !"0".equals(bean.getCompleteStatus())) {
+                if (!bean.isCommitLocal()) {
+                    return false;
+                }
             }
         }
         return true;
+    }
+
+    /**
+     * 有多少离线数据没有提交
+     *
+     * @return
+     */
+    public List<TaskItemBean> getLocalData() {
+        List<TaskItemBean> localData = new ArrayList<>();
+        for (TaskItemBean bean : getData()) {
+            if (bean.isCommitLocal()) {
+                localData.add(bean);
+            }
+
+        }
+        return localData;
     }
 
     public int getFirstExePositoin() {
@@ -117,11 +162,18 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
         return getData().size();
     }
 
+    /**
+     * 有异常的项
+     *
+     * @return
+     */
     public List<TaskItemBean> getAbnormalityList() {
         List<TaskItemBean> abnormality = new ArrayList<>();
         for (int i = 0; i < getData().size(); i++) {
             TaskItemBean bean = getData().get(i);
             if (bean.getExecuteResultType() != null && bean.getExecuteResultType().equals("1")) {
+                abnormality.add(bean);
+            } else if (bean.isCommitLocal() && bean.getExResult().equals("1")) {
                 abnormality.add(bean);
             }
         }

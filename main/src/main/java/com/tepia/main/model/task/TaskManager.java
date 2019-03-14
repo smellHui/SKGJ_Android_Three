@@ -216,6 +216,42 @@ public class TaskManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+    public Observable<BaseResponse> appReservoirWorkOrderItemCommitOne(String workOrderId,
+                                                                       String itemId,
+                                                                       String exResult,
+                                                                       String exDesc,
+                                                                       String lgtd,
+                                                                       String lttd,
+                                                                       String executeDate,
+                                                                       List<String> files,
+                                                                       List<String> endfiles) {
+        String token = UserManager.getInstance().getToken();
+        Map<String, RequestBody> params = new HashMap<>();
+        params.put("workOrderId", RetrofitManager.convertToRequestBody(workOrderId));
+        params.put("itemId", RetrofitManager.convertToRequestBody(itemId));
+        params.put("exResult", RetrofitManager.convertToRequestBody(exResult));
+        params.put("exDesc", RetrofitManager.convertToRequestBody(exDesc));
+        params.put("lgtd", RetrofitManager.convertToRequestBody(lgtd));
+        params.put("lttd", RetrofitManager.convertToRequestBody(lttd));
+        params.put("executeDate", RetrofitManager.convertToRequestBody(executeDate));
+
+        List<File> beforefileList = new ArrayList<>();
+        for (int i = 0; i < files.size(); i++) {
+            File file = new File(files.get(i));
+            beforefileList.add(file);
+        }
+        List<MultipartBody.Part> beforePathList = RetrofitManager.filesToMultipartBodyParts("files", beforefileList);
+
+        List<File> afterfileList = new ArrayList<>();
+        for (int i = 0; i < endfiles.size(); i++) {
+            File file = new File(endfiles.get(i));
+            afterfileList.add(file);
+        }
+        List<MultipartBody.Part> afterPathList = RetrofitManager.filesToMultipartBodyParts("endfiles", afterfileList);
+        return mRetrofitService.appReservoirWorkOrderItemCommitOne(token, params, beforePathList, afterPathList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 
     /**
