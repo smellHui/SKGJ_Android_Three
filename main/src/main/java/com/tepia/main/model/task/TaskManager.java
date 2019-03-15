@@ -108,6 +108,18 @@ public class TaskManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+    /**
+     * 根据工单ID查询工单信息 不在主线程
+     *
+     * @param workOrderId 工单ID
+     * @return
+     */
+    public Observable<TaskDetailResponse> getAppWorkByWorkId2(String workOrderId) {
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.getAppWorkByWorkId(token, workOrderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
 
     /**
      * 开始执行任务

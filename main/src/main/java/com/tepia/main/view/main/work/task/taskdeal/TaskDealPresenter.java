@@ -111,6 +111,9 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                     bean.setExDesc("");
                                     bean.setAfterlist("");
                                     bean.setBeforelist("");
+                                    bean.setCompleteStatus("1");
+                                    bean.setExecuteResultType(exResult);
+                                    bean.setExecuteResultDescription(exDesc);
                                     bean.update();
                                     getTaskDetail(workOrderId,false,"");
                                 }
@@ -167,6 +170,9 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                                 bean.setExDesc("");
                                                 bean.setAfterlist("");
                                                 bean.setBeforelist("");
+                                                bean.setCompleteStatus("1");
+                                                bean.setExecuteResultType(exResult);
+                                                bean.setExecuteResultDescription(exDesc);
                                                 bean.update();
                                                 getTaskDetail(workOrderId,false,"");
                                             }

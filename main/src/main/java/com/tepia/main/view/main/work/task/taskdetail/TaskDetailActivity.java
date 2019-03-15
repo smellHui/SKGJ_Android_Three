@@ -591,6 +591,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                             if (DoubleClickUtil.isFastDoubleClick()) {
                                 return;
                             }
+
                             showTjDialog();
 
 

@@ -195,7 +195,7 @@ public class YunWeiListPresenter extends BasePresenterImpl<YunWeiListContract.Vi
 
 
     public void getTaskDetail(String workOrderId) {
-        TaskManager.getInstance().getAppWorkByWorkId(workOrderId).subscribe(new LoadingSubject<TaskDetailResponse>() {
+        TaskManager.getInstance().getAppWorkByWorkId2(workOrderId).subscribe(new LoadingSubject<TaskDetailResponse>() {
             @Override
             protected void _onNext(TaskDetailResponse taskDetailResponse) {
                 if (taskDetailResponse.getCode() == 0) {

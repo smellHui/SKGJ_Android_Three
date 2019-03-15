@@ -11,10 +11,14 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.main.R;
 import com.tepia.main.model.task.bean.PositionNamesBean;
+import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
 
+
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,13 +140,30 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
      * @return
      */
     public List<TaskItemBean> getLocalData() {
-        List<TaskItemBean> localData = new ArrayList<>();
-        for (TaskItemBean bean : getData()) {
-            if (bean.isCommitLocal()) {
-                localData.add(bean);
+        TaskBean taskbean = null;
+        if (!CollectionsUtil.isEmpty(getData())){
+            List<TaskBean> templist = DataSupport.where("workOrderId=?", getData().get(0).getWorkOrderId()).find(TaskBean.class);
+            if (!CollectionsUtil.isEmpty(templist)) {
+               taskbean = templist.get(0);
             }
-
         }
+        List<TaskItemBean> localData = new ArrayList<>();
+        if (taskbean == null || CollectionsUtil.isEmpty(taskbean.getBizReservoirWorkOrderItems())){
+            for (TaskItemBean bean : getData()) {
+                if (bean.isCommitLocal()) {
+                    localData.add(bean);
+                }
+
+            }
+        }else {
+            for (TaskItemBean bean : taskbean.getBizReservoirWorkOrderItems()) {
+                if (bean.isCommitLocal()) {
+                    localData.add(bean);
+                }
+
+            }
+        }
+
         return localData;
     }
 
