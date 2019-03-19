@@ -92,7 +92,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     private Point currentPoint;
     private boolean isFirstInitMap = false;
     private int initCount;
-    private ArrayList exeline2;
+    private ArrayList<Point> exeline2;
     private List<PeopleBean> peopleList;
     private Point positionPoint;
 
@@ -123,6 +123,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
         gpsCheck();
     }
+
     /**
      * 检查gps是否开启
      */
@@ -163,7 +164,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                         double[] temp = GPSUtil.gcj02_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                         double latitude = temp[0];//坐标经度
                         double longitude = temp[1];//坐标纬度
-                        LogUtil.e(TaskDetailActivity.class.getName(),"经度："+longitude);
+                        LogUtil.e(TaskDetailActivity.class.getName(), "经度：" + longitude);
                         if (latitude == 0 || longitude == 0) {
                             return;
                         }
@@ -854,7 +855,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             List<List<Double>> list = new Gson().fromJson(temp, new TypeToken<List<List<Double>>>() {
             }.getType());
             if (list != null && list.size() >= 2) {
-                ArrayList exeline = new ArrayList();
+                ArrayList<Point> exeline = new ArrayList();
                 for (List<Double> bean : list) {
                     if (bean == null || bean.size() < 2) {
                         continue;
@@ -865,7 +866,12 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
                     exeline.add(point);
                 }
+
                 mBinding.alMapview.addPolyline(exeline, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
+                if (exeline != null && exeline.size() >= 2) {
+                    mBinding.alMapview.addPic(R.mipmap.ic_me_history_startpoint, exeline.get(0),new HashMap<>());
+                    mBinding.alMapview.addPic(R.mipmap.ic_me_history_finishpoint, exeline.get(exeline.size() - 1),new HashMap<>());
+                }
             }
         } catch (Exception e) {
         }
@@ -884,7 +890,11 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 exeline2.add(point);
             }
             try {
+
                 mBinding.alMapview.addPolyline(exeline2, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
+                if (exeline2 != null && exeline2.size() >= 2) {
+                    mBinding.alMapview.addPic(R.mipmap.ic_me_history_startpoint, exeline2.get(0));
+                }
             } catch (Exception e) {
             }
         }
