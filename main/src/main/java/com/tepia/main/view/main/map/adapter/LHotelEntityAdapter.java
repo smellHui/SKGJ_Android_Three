@@ -14,7 +14,9 @@ import java.util.ArrayList;
 
 
 public class LHotelEntityAdapter extends SectionedRecyclerViewAdapter<HeaderHolder, DescHolder, RecyclerView.ViewHolder> {
-
+    public SparseBooleanArray getmBooleanMap() {
+        return mBooleanMap;
+    }
 
     public ArrayList<LTntity> allTagList;
     private Context mContext;
@@ -96,15 +98,19 @@ public class LHotelEntityAdapter extends SectionedRecyclerViewAdapter<HeaderHold
                 notifyDataSetChanged();
             }
         });*/
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isOpen = mBooleanMap.get(section);
-                String text = isOpen ? "展开" : "关闭";
-                mBooleanMap.put(section, !isOpen);
-                holder.openView.setText(text);
-                notifyDataSetChanged();
+        holder.itemView.setOnClickListener(v -> {
+            boolean isOpen = mBooleanMap.get(section);
+            if (mBooleanMap.size()>0){
+                for (int i = 0; i < mBooleanMap.size(); i++) {
+                    if (i!=section){
+                        mBooleanMap.put(i,false);
+                    }
+                }
             }
+            String text = isOpen ? "展开" : "关闭";
+            mBooleanMap.put(section, !isOpen);
+            holder.openView.setText(text);
+            notifyDataSetChanged();
         });
 
         holder.titleView.setText(allTagList.get(section).tagsName+"("+allTagList.get(section).list.size()+")");

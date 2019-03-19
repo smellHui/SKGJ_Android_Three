@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.geometry.Geometry;
 import com.esri.arcgisruntime.geometry.GeometryType;
 import com.esri.arcgisruntime.geometry.ImmutablePartCollection;
 import com.esri.arcgisruntime.geometry.Point;
@@ -28,6 +29,7 @@ import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.location.LocationDataSource;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.Callout;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.Graphic;
@@ -40,6 +42,7 @@ import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.tepia.base.R;
 import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.TimeFormatUtils;
 import com.tepia.base.utils.ToastUtils;
@@ -65,6 +68,8 @@ public class ArcgisLayout extends RelativeLayout {
     private Polyline polyline;
     public int mapHeight;
     public boolean isLoaded = false;
+    private double minScale = 7.335451152802595E7;
+    private Point mapCenterPoint = new Point(11620672.230780,4930386.331908, 0.000000);//中国地图中心点
 
     public interface OnLocationSelectListener {
         void onSelect(Point point);
@@ -137,6 +142,7 @@ public class ArcgisLayout extends RelativeLayout {
         ArcGISMap arcGISMap = new ArcGISMap(basemap);
 //        arcGISMap.getOperationalLayers().add(layer);
         arcGISMap.getOperationalLayers().add(imgLayer);
+        arcGISMap.setMinScale(minScale);
         mapView.setMap(arcGISMap);
         //添加覆盖物
         graphicsOverlay = new GraphicsOverlay();

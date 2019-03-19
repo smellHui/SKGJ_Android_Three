@@ -561,7 +561,7 @@ public class ThreePointCharUtil {
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelCount(4);
+        xAxis.setLabelCount(3);
         xAxis.setXOffset(15);
 
         YAxis leftAxis = lineChart.getAxisLeft();
@@ -580,9 +580,9 @@ public class ThreePointCharUtil {
 
     public static void setLineData(List<Float> yAxisValue, List<String> xValues,List<Float> yAxisValueTwo,LineChart lineChart,String title1,String title2) {
         XAxis xLabels = lineChart.getXAxis();
+        xLabels.setLabelCount(3);
         //修改x轴显示文字  monthList.get((int)value%monthList.size())
         xLabels.setValueFormatter((value, axis) -> String.valueOf(xValues.get((int) value % xValues.size())));
-
         Float max = Collections.max(yAxisValue);
         Float min = Collections.min(yAxisValue);
         float v = max - min;

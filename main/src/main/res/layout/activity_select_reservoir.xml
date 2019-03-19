@@ -37,6 +37,8 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/text_et_search_hint"
+                android:lines="1"
+                android:maxLines="1"
                 android:textSize="12dp" />
 
             <ImageView

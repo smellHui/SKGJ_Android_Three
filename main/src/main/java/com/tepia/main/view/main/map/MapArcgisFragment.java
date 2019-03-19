@@ -43,6 +43,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.arcgisservices.TileInfo;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
@@ -50,6 +51,7 @@ import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
+import com.esri.arcgisruntime.layers.WebTiledLayer;
 import com.esri.arcgisruntime.location.LocationDataSource;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
@@ -62,6 +64,7 @@ import com.esri.arcgisruntime.mapping.view.IdentifyGraphicsOverlayResult;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
+import com.example.gaodelibrary.GPSUtil;
 import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
@@ -93,6 +96,7 @@ import com.tepia.main.view.main.map.adapter.SectionData;
 import com.tepia.main.view.main.map.adapter.search.SearchModel;
 import com.tepia.main.view.main.map.presenter.MainMapContract;
 import com.tepia.main.view.main.map.presenter.MainMapPresenter;
+import com.tepia.main.view.main.map.utils.GoogleMapLayer;
 import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -147,6 +151,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private LinearLayout llZoom;
     private GraphicsOverlay stRiverOverLay;
     private static MapArcgisFragment mapArcgisFragment;
+    private WebTiledLayer imgTiteLayer;
 
     public static MapArcgisFragment getInstance() {
         return mapArcgisFragment;
@@ -595,6 +600,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         dataList = new ArrayList<>();
         mAdapter = new LHotelEntityAdapter(mContext);
         tv_head = findView(R.id.tv_title_stick);
+        TextView tvOpen = findView(R.id.tv_open);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         listRecylcler.setLayoutManager(manager);
         listRecylcler.setAdapter(mAdapter);
@@ -620,6 +626,20 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                             }
                             int size = dataList.get(position).list.size();
                             tv_head.setText(dataList.get(position).tagsName + "(" + size + ")");
+                            SparseBooleanArray sparseBooleanArray = mAdapter.getmBooleanMap();
+                            if (sparseBooleanArray.size()>0){
+                                boolean b = sparseBooleanArray.get(pos);
+                                String tvOpenText = tvOpen.getText().toString();
+                                if (!b){
+                                    if (tvOpenText.equals("关闭")){
+                                        tvOpen.setText("展开");
+                                    }
+                                }else {
+                                    if (tvOpenText.equals("展开")){
+                                        tvOpen.setText("关闭");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -638,6 +658,25 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                         ll.setTranslationY(0);
                     }
                 }
+            }
+        });
+        ll.setOnClickListener(v -> {
+            try {
+                SparseBooleanArray mBooleanMap = mAdapter.getmBooleanMap();
+                if (mBooleanMap.size()>0){
+                    for (int i = 0; i < mBooleanMap.size(); i++) {
+                        if (i!=pos){
+                            mBooleanMap.put(i,false);
+                        }
+                    }
+                }
+                boolean isOpen = mBooleanMap.get(pos);
+                String text = isOpen ? "展开" : "关闭";
+                mBooleanMap.put(pos, !isOpen);
+                tvOpen.setText(text);
+                mAdapter.notifyDataSetChanged();
+            }catch (Exception e){
+                e.printStackTrace();
             }
         });
 //        initRecycleData();
@@ -1614,6 +1653,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      */
     public Point transformationPoint(double lgtd, double lttd) {
         Point point1 = new Point(lgtd, lttd, SpatialReference.create(4326));
+        //Google地图偏移
+//        double[] doubles = GPSUtil.gps84_To_Gcj02(lttd, lgtd);
+//        Point point = (Point) GeometryEngine.project(new Point(doubles[1],doubles[0],SpatialReference.create(4326)), SpatialReferences.getWebMercator());
         Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
         return point;
     }
@@ -1992,6 +2034,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             mImTvRaster.setBackgroundResource(R.color.color_c8c8c8);
             mTvRaster.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_c8c8c8));
             imgLayer.setVisible(false);
+//            imgTiteLayer.setVisible(false);google地图
         } else if (id == R.id.layer_raster) {
             mIvRaster.setBackgroundResource(R.drawable.bg_view_state_shape);
             mIvVector.setBackgroundResource(R.drawable.bg_view_unstate_shape);
@@ -2000,6 +2043,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             mImTvRaster.setBackgroundResource(R.color.color_tab_checked);
             mTvRaster.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_tab_checked));
             imgLayer.setVisible(true);
+//            imgTiteLayer.setVisible(true);google地图
         } else if (id == R.id.img_location) {
             //android 6.0动态申请权限
             if (ContextCompat.checkSelfPermission(getContext(),
@@ -2295,11 +2339,17 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //        layer = new ArcGISTiledLayer("http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer");
         layer = new ArcGISTiledLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer");
         imgLayer = new ArcGISTiledLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
+//        WebTiledLayer titeLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.VECTOR);
+//        imgTiteLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.IMAGE);
+//        WebTiledLayer webTiteLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.IMAGE_ANNOTATION);
         OpenStreetMapLayer streetlayer = new OpenStreetMapLayer();
+//        Basemap basemap = new Basemap(titeLayer);
         Basemap basemap = new Basemap(streetlayer);
         layer.setVisible(false);
         imgLayer.setVisible(true);
         ArcGISMap arcGISMap = new ArcGISMap(basemap);
+//        arcGISMap.getOperationalLayers().add(imgTiteLayer);
+//        arcGISMap.getOperationalLayers().add(webTiteLayer);
         arcGISMap.getOperationalLayers().add(imgLayer);
         mapView.setMap(arcGISMap);
         //定位
