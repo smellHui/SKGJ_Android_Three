@@ -62,6 +62,11 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
 
         tvItemCount.setText(item.getReservoirSuperviseSequence() + "");
         tvItemCount.setText(view.getLayoutPosition() + 1 + "");
+        if(item.isCommitLocal()){
+            tvTaskPeople.setVisibility(View.VISIBLE);
+        }else {
+            tvTaskPeople.setVisibility(View.GONE);
+        }
         if (item.getPositionTreeNames() != null) {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

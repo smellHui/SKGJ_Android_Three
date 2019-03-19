@@ -88,18 +88,6 @@
                             android:orientation="horizontal"
                             android:weightSum="3">
 
-                            <TextView
-                                android:id="@+id/tv_task_people"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:drawableLeft="@drawable/icon_deal_men"
-                                android:drawablePadding="8dp"
-                                android:text="fkdsjfk"
-                                android:textColor="#888888"
-                                android:textSize="12sp"
-                                android:visibility="gone" />
-
 
                             <TextView
                                 android:id="@+id/tv_task_time"
@@ -111,6 +99,18 @@
                                 android:text="jfkdsjfk"
                                 android:textColor="#888888"
                                 android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_task_people"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableLeft="@mipmap/icon_no_upload"
+                                android:drawablePadding="8dp"
+                                android:text="未上传"
+                                android:textColor="#888888"
+                                android:textSize="12sp"
+                                android:visibility="visible" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -124,6 +124,7 @@
             android:id="@+id/tv_item_exp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
             android:layout_marginLeft="10dp"
             android:background="@drawable/bg_task_item_exp"
             android:gravity="center"
@@ -133,7 +134,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="异常"
-            android:layout_gravity="top|right"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:visibility="gone" />
