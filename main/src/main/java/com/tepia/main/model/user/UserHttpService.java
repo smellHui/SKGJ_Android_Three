@@ -121,4 +121,30 @@ interface UserHttpService {
                                                    @Query("pageSize") String pageSize);
 
 
+    /**
+     * 通讯录新增
+     * @param token
+     * @param searchKey
+     *
+     * @return
+     */
+    @GET("app/appSysUser/listReservoirAddressBook")
+    Observable<ReserviorBookBean> listReservoirAddressBook(@Header("Authorization") String token,
+                                                   @Query("searchParam") String searchKey
+                                                  );
+
+    /**
+     * 三防办
+     * @param token
+     * @param searchKey
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GET("app/appSysUser/listThreeAddressBook")
+    Observable<AddressBookResponse> listThreeAddressBook(@Header("Authorization") String token,
+                                                           @Query("searchParam") String searchKey,
+                                                           @Query("currentPage")String currentPage,
+                                                           @Query("pageSize") String pageSize);
+
 }

@@ -49,7 +49,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 拨打电话权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <!-- 针对android O申请前台服务权限 -->
@@ -253,7 +252,7 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.CapacityActivity"
             android:screenOrientation="portrait" />
-        <!--配套设施页面-->
+        <!-- 配套设施页面 -->
         <activity
             android:name=".view.maincommon.reservoirs.detail.SupportingActivity"
             android:screenOrientation="portrait" />
@@ -298,12 +297,12 @@
         <activity
             android:name=".view.maincommon.reservoirs.detail.VisitLogDetailActivity"
             android:screenOrientation="portrait" />
-        <!--配套设施详细页面-->
+        <!-- 配套设施详细页面 -->
         <activity
             android:name=".view.maincommon.reservoirs.detail.SupportingDetailActivity"
             android:screenOrientation="portrait" />
 
-        <!--配套设施修改新增页面-->
+        <!-- 配套设施修改新增页面 -->
         <activity
             android:name=".view.maincommon.reservoirs.detail.SupportingChangeActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
@@ -384,10 +383,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.mainadminister.yunwei.TownOperationActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.mainadminister.yunwei.TownOperationReportActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.maincommon.reservoirs.detail.WaterLevelActivity"
             android:screenOrientation="portrait" />
@@ -402,13 +401,15 @@
 
         <service
             android:name="com.taobao.sophix.aidl.DownloadService"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.taobao.hotfix.action" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".view.maincommon.setting.contacts.ContactsNewActivity"></activity>
     </application>
 
 </manifest>

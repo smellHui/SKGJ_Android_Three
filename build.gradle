@@ -24,6 +24,7 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
         maven { url 'http://dl.bintray.com/esri/arcgis'}
+//        maven { url 'https://esri.bintray.com/arcgis' }
 //        //小米语音
 //        maven { url 'https://raw.githubusercontent.com/xiaomi-passport/maven-repository/master/releases' }
         //weakhand解决方案

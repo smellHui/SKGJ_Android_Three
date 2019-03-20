@@ -4,52 +4,49 @@ package com.tepia.main.view.maincommon.setting.contacts;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
-import com.tepia.base.AppRoutePath;
-import com.tepia.base.mvp.MVPBaseActivity;
+import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
-import com.tepia.main.databinding.ActivityContactsBinding;
+import com.tepia.main.databinding.FragmentBookSecBinding;
 import com.tepia.main.model.user.AddressBookResponse;
 import com.tepia.main.model.user.ContactBean;
 
 import java.util.List;
 
-
 /**
- * @author :      zhang xinhua
- * Version         :       1.0
- * 功能描述        :        通信录页面
- **/
-public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, ContactsPresenter> implements ContactsContract.View {
+ * A simple {@link Fragment} subclass.
+ */
+public class BookSecFragment extends MVPBaseFragment<ContactsContract.View, ContactsPresenter> implements ContactsContract.View {
 
-    private ActivityContactsBinding mBinding;
+    FragmentBookSecBinding mBinding;
     private AdapterContactsList adapterContactsList;
     private String searchKey = "";
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_contacts;
+        return R.layout.fragment_book_sec;
     }
 
     @Override
-    public void initView() {
-        mBinding = DataBindingUtil.bind(mRootView);
-        setCenterTitle("通讯录");
-        showBack();
-        mBinding.rvContact.setLayoutManager(new LinearLayoutManager(getContext()));
+    public void initView(View view) {
+        mBinding = DataBindingUtil.bind(view);
+        mBinding.secRvContact.setLayoutManager(new LinearLayoutManager(getContext()));
         adapterContactsList = new AdapterContactsList(R.layout.lv_contact_list_item, null);
-        mBinding.rvContact.setAdapter(adapterContactsList);
+        mBinding.secRvContact.setAdapter(adapterContactsList);
         adapterContactsList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -57,7 +54,7 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
             }
         });
 
-        mBinding.etSearch.addTextChangedListener(new TextWatcher() {
+        mBinding.secEtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -65,8 +62,8 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchKey = mBinding.etSearch.getText().toString().trim();
-//                mPresenter.getAddressBook(searchKey);
+                searchKey = mBinding.secEtSearch.getText().toString().trim();
+                mPresenter.getAddressBook(searchKey,false);
             }
 
             @Override
@@ -96,11 +93,11 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
         adapterContactsList.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mBinding.rvContact.postDelayed(new Runnable() {
+                mBinding.secRvContact.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (mPresenter.isCanLoadMore) {
-//                            mPresenter.getAddressBookMore(searchKey);
+                            mPresenter.getAddressBookMore(searchKey);
 
                         } else {
                             adapterContactsList.loadMoreEnd();
@@ -108,7 +105,9 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
                     }
                 }, 1000);
             }
-        }, mBinding.rvContact);
+        }, mBinding.secRvContact);
+        mPresenter.getAddressBook(searchKey,true);
+
     }
 
     @Override
@@ -116,14 +115,9 @@ public class ContactsActivity extends MVPBaseActivity<ContactsContract.View, Con
 
     }
 
-    @Override
-    protected void initListener() {
-
-    }
 
     @Override
     protected void initRequestData() {
-//        mPresenter.getAddressBook(searchKey);
     }
 
     @Override

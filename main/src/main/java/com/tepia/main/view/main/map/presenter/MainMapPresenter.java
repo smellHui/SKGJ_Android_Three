@@ -25,7 +25,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAllReservoirByRegion(reservoirName).subscribe(new LoadingSubject<ReservoirResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(ReservoirResponse reservoirResponse) {
-                if (reservoirResponse.getCode()==0){
+                if (reservoirResponse.getCode()==0 && mView != null){
                     mView.success(reservoirResponse);
                 }else {
                     if (reservoirResponse.getMsg()!=null && reservoirResponse.getMsg().length()>0){
@@ -36,7 +36,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -46,7 +48,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAllStRiver(stnm,startDate,endDate).subscribe(new LoadingSubject<StRiverResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(StRiverResponse stRiverResponse) {
-                if (stRiverResponse.getCode()==0){
+                if (stRiverResponse.getCode()==0 && mView != null){
                     mView.success(stRiverResponse);
                 }else {
                     if (stRiverResponse.getMsg()!=null && stRiverResponse.getMsg().length()>0){
@@ -57,7 +59,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -67,7 +71,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAllStWqB(stnm).subscribe(new LoadingSubject<WaterQualityResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(WaterQualityResponse waterQualityResponse) {
-                if (waterQualityResponse.getCode()==0){
+                if (waterQualityResponse.getCode()==0 && mView != null){
                     mView.success(waterQualityResponse);
                 }else {
                     if (waterQualityResponse.getMsg()!=null && waterQualityResponse.getMsg().length()>0){
@@ -78,7 +82,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                    mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -88,7 +94,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAllRainfall(stnm,startDate,endDate).subscribe(new LoadingSubject<RainfallResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(RainfallResponse rainfallResponse) {
-                if (rainfallResponse.getCode()==0){
+                if (rainfallResponse.getCode()==0 && mView != null){
                     mView.success(rainfallResponse);
                 }else {
                     if (rainfallResponse.getMsg()!=null && rainfallResponse.getMsg().length()>0){
@@ -99,7 +105,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -109,7 +117,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAllWaterLevel(stnm,startTime,endTime).subscribe(new LoadingSubject<WaterLevelResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(WaterLevelResponse waterLevelResponse) {
-                if (waterLevelResponse.getCode()==0){
+                if (waterLevelResponse.getCode()==0 && mView != null){
                     mView.success(waterLevelResponse);
                 }else {
                     if (waterLevelResponse.getMsg()!=null && waterLevelResponse.getMsg().length()>0){
@@ -120,7 +128,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -137,7 +147,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAllStPicture(stnm,reservoir,areaCode).subscribe(new LoadingSubject<PictureResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(PictureResponse pictureResponse) {
-                if (pictureResponse.getCode()==0){
+                if (pictureResponse.getCode()==0 && mView != null){
                     mView.success(pictureResponse);
                 }else {
                     if (pictureResponse.getMsg()!=null && pictureResponse.getMsg().length()>0){
@@ -148,7 +158,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -158,7 +170,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAllVsVideo(vsnm).subscribe(new LoadingSubject<VideoResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(VideoResponse videoResponse) {
-                if (videoResponse.getCode()==0){
+                if (videoResponse.getCode()==0 && mView != null){
                     mView.success(videoResponse);
                 }else {
                     if (videoResponse.getMsg()!=null && videoResponse.getMsg().length()>0){
@@ -169,7 +181,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -179,7 +193,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().getStStbprpBByType(stnm,type,areaCode).subscribe(new LoadingSubject<MapCommonResponse>(true,"正在加载中...") {
             @Override
             protected void _onNext(MapCommonResponse mapCommonResponse) {
-                if (mapCommonResponse.getCode()==0){
+                if (mapCommonResponse.getCode()==0 && mView != null){
                     mView.success(mapCommonResponse);
                 }else {
                     if (mapCommonResponse.getMsg()!=null && mapCommonResponse.getMsg().length()>0){
@@ -190,7 +204,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -200,7 +216,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().findAppAllReservoir(reservoirName,areaCode).subscribe(new LoadingSubject<ReservoirListResponse>(showloading,"正在加载中...") {
             @Override
             protected void _onNext(ReservoirListResponse reservoirListResponse) {
-                if (reservoirListResponse.getCode()==0){
+                if (reservoirListResponse.getCode()==0 && mView != null){
                     mView.success(reservoirListResponse);
                 }else {
                     if (reservoirListResponse.getMsg()!=null && reservoirListResponse.getMsg().length()>0){
@@ -211,7 +227,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }
@@ -221,7 +239,7 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
         MainMapManager.getInstance().getNearbyReservoir(longitude,latitude).subscribe(new LoadingSubject<NearReservoirResponse>(true,"正在搜索中...") {
             @Override
             protected void _onNext(NearReservoirResponse nearReservoirResponse) {
-                if (nearReservoirResponse.getCode()==0){
+                if (nearReservoirResponse.getCode()==0 && mView != null){
                     mView.success(nearReservoirResponse);
                 }else {
                     if (nearReservoirResponse.getMsg()!=null && nearReservoirResponse.getMsg().length()>0){
@@ -232,7 +250,9 @@ public class MainMapPresenter extends BasePresenterImpl<MainMapContract.View> im
 
             @Override
             protected void _onError(String message) {
-                mView.failure(message);
+                if (mView != null) {
+                    mView.failure(message + "");
+                }
             }
         });
     }

@@ -35,6 +35,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 获取配套设施
+     *
      * @param reservoirId
      * @return
      */
@@ -44,11 +45,11 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                 .subscribe(new LoadingSubject<SupportingBean>(true, Utils.getContext().getString(R.string.data_loading)) {
                     @Override
                     protected void _onNext(SupportingBean supportingBean) {
-                        if (supportingBean != null) {
+                        if (supportingBean != null && mView != null) {
                             if (supportingBean.getCode() == 0) {
                                 mView.success(supportingBean);
 
-                            }else{
+                            } else {
                                 mView.failure(supportingBean.getMsg() + "");
                             }
                         }
@@ -56,7 +57,10 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message + "");
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
+
 
                     }
                 });
@@ -64,6 +68,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 查询视频
+     *
      * @param reservoirId
      * @return
      */
@@ -73,11 +78,11 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                 .subscribe(new LoadingSubject<VideoResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
                     @Override
                     protected void _onNext(VideoResponse supportingBean) {
-                        if (supportingBean != null) {
+                        if (supportingBean != null && mView != null) {
                             if (supportingBean.getCode() == 0) {
                                 mView.success(supportingBean);
 
-                            }else{
+                            } else {
                                 mView.failure(supportingBean.getMsg() + "");
                             }
                         }
@@ -85,7 +90,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message + "");
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });
@@ -93,22 +100,23 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 水库月汛限水位-分页查询
+     *
      * @param reservoirId
      * @param currentPage
      * @param pageSize
      * @param isshowloading
      */
     @Override
-    public void getReservoirFloodSeason(String reservoirId,String currentPage, String pageSize,boolean isshowloading) {
-        ReservirosManager.getInstance().getReservoirFloodSeason(reservoirId,currentPage,pageSize)
+    public void getReservoirFloodSeason(String reservoirId, String currentPage, String pageSize, boolean isshowloading) {
+        ReservirosManager.getInstance().getReservoirFloodSeason(reservoirId, currentPage, pageSize)
                 .subscribe(new LoadingSubject<FloodSeasonBean>(isshowloading, Utils.getContext().getString(R.string.data_loading)) {
                     @Override
                     protected void _onNext(FloodSeasonBean floodSeasonBean) {
-                        if (floodSeasonBean != null) {
+                        if (floodSeasonBean != null && mView != null) {
                             if (floodSeasonBean.getCode() == 0) {
                                 mView.success(floodSeasonBean);
 
-                            }else{
+                            } else {
                                 mView.failure(floodSeasonBean.getMsg() + "");
                             }
                         }
@@ -116,7 +124,10 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message + "");
+                        if (mView != null) {
+                            mView.failure(message + "");
+
+                        }
 
                     }
                 });
@@ -124,19 +135,20 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 水库月汛限水位-修改
+     *
      * @param id
      * @param floodLevel
      */
     @Override
-    public void updateFloodSeason(String id, String floodLevel,String reservoirId,WaterLevelActivity waterLevelActivity) {
-        ReservirosManager.getInstance().updateFloodSeason(id,floodLevel,reservoirId).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+    public void updateFloodSeason(String id, String floodLevel, String reservoirId, WaterLevelActivity waterLevelActivity) {
+        ReservirosManager.getInstance().updateFloodSeason(id, floodLevel, reservoirId).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
             @Override
             protected void _onNext(BaseResponse baseResponse) {
                 if (baseResponse.getCode() == 0) {
                     ToastUtils.shortToast("修改成功");
 //                    mView.success(baseResponse);
                     waterLevelActivity.refresh(false);
-                }else{
+                } else {
                     ToastUtils.shortToast("修改失败");
 
                 }
@@ -154,20 +166,21 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 水库月汛限水位-新增
+     *
      * @param reservoirId
      * @param floodYearMonth
      * @param floodLevel
      */
     @Override
-    public void addReservoirFloodSeason(String reservoirId, String floodYearMonth, String floodLevel,WaterLevelActivity waterLevelActivity) {
-        ReservirosManager.getInstance().addReservoirFloodSeason(reservoirId,floodYearMonth,floodLevel).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+    public void addReservoirFloodSeason(String reservoirId, String floodYearMonth, String floodLevel, WaterLevelActivity waterLevelActivity) {
+        ReservirosManager.getInstance().addReservoirFloodSeason(reservoirId, floodYearMonth, floodLevel).subscribe(new LoadingSubject<BaseResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
             @Override
             protected void _onNext(BaseResponse baseResponse) {
                 if (baseResponse.getCode() == 0) {
                     ToastUtils.shortToast("提交成功");
                     waterLevelActivity.refresh(false);
 
-                }else{
+                } else {
                     ToastUtils.shortToast("提交失败");
                 }
             }
@@ -183,6 +196,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 水库安全运行报告
+     *
      * @param reservoirId
      * @return
      */
@@ -196,7 +210,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                             if (supportingBean.getCode() == 0) {
                                 mView.success(supportingBean);
 
-                            }else{
+                            } else {
                                 mView.failure(supportingBean.getMsg() + "");
                             }
                         }
@@ -204,7 +218,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });
@@ -213,6 +229,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 查询防汛物资
+     *
      * @param reservoirId
      */
     @Override
@@ -225,7 +242,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                             if (floodBean.getCode() == 0) {
                                 mView.success(floodBean);
 
-                            }else{
+                            } else {
                                 mView.failure(floodBean.getMsg() + "");
                             }
                         }
@@ -233,7 +250,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });
@@ -241,6 +260,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 查询水库安全管理应急预案
+     *
      * @param reservoirId
      */
     @Override
@@ -253,7 +273,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                             if (operationPlanBean.getCode() == 0) {
                                 mView.success(operationPlanBean);
 
-                            }else{
+                            } else {
                                 mView.failure(operationPlanBean.getMsg() + "");
                             }
                         }
@@ -261,7 +281,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });
@@ -270,6 +292,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 查询调度运行方案
+     *
      * @param reservoirId
      */
     @Override
@@ -282,7 +305,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                             if (operationPlanBean.getCode() == 0) {
                                 mView.success(operationPlanBean);
 
-                            }else{
+                            } else {
                                 mView.failure(operationPlanBean.getMsg() + "");
                             }
                         }
@@ -290,7 +313,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });
@@ -298,6 +323,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 查询水库简介
+     *
      * @param reservoirId
      * @return
      */
@@ -311,7 +337,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                             if (reservoirBean.getCode() == 0) {
                                 mView.success(reservoirBean);
 
-                            }else{
+                            } else {
                                 mView.failure(reservoirBean.getMsg() + "");
                             }
                         }
@@ -319,7 +345,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });
@@ -327,6 +355,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
     /**
      * 查询水库库容曲线
+     *
      * @param reservoirId
      */
     @Override
@@ -339,7 +368,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                             if (capacityBean.getCode() == 0) {
                                 mView.success(capacityBean);
 
-                            }else{
+                            } else {
                                 mView.failure(capacityBean.getMsg() + "");
                             }
                         }
@@ -347,7 +376,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });
@@ -363,7 +394,7 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
                             if (bizkeyBean.getCode() == 0) {
                                 mView.success(bizkeyBean);
 
-                            }else{
+                            } else {
                                 mView.failure(bizkeyBean.getMsg() + "");
                             }
                         }
@@ -371,7 +402,9 @@ public class ReserviorPresent extends BasePresenterImpl<ReserviorContract.View> 
 
                     @Override
                     protected void _onError(String message) {
-                        mView.failure(message);
+                        if (mView != null) {
+                            mView.failure(message + "");
+                        }
 
                     }
                 });

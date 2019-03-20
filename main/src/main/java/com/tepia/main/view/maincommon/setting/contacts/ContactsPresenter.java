@@ -2,6 +2,7 @@ package com.tepia.main.view.maincommon.setting.contacts;
 
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
@@ -16,12 +17,16 @@ import com.tepia.main.model.user.UserManager;
 
 public class ContactsPresenter extends BasePresenterImpl<ContactsContract.View> implements ContactsContract.Presenter {
     int currentPage = 1;
-    String pageSize = "20";
+    String pageSize = "15";
     public boolean isCanLoadMore = true;
 
-    public void getAddressBook(String searchKey) {
+    public void getAddressBook(String searchKey,boolean isloading) {
+        if (!NetUtil.isNetworkConnected(Utils.getContext())) {
+            ToastUtils.shortToast(R.string.no_network);
+            return;
+        }
         currentPage = 1;
-        UserManager.getInstance_ADMIN().getAddressBook(searchKey, currentPage + "", pageSize).safeSubscribe(new LoadingSubject<AddressBookResponse>(true, Utils.getContext().getString(R.string.data_loading)) {
+        UserManager.getInstance_ADMIN().listThreeAddressBook(searchKey, currentPage + "", pageSize).safeSubscribe(new LoadingSubject<AddressBookResponse>(isloading, Utils.getContext().getString(R.string.data_loading)) {
             @Override
             protected void _onNext(AddressBookResponse addressBookResponse) {
                 currentPage = addressBookResponse.getData().getPageNum();
@@ -44,7 +49,7 @@ public class ContactsPresenter extends BasePresenterImpl<ContactsContract.View> 
         if (!isCanLoadMore) {
             return;
         }
-        UserManager.getInstance_ADMIN().getAddressBook(searchKey, currentPage + 1 + "", pageSize).safeSubscribe(new LoadingSubject<AddressBookResponse>() {
+        UserManager.getInstance_ADMIN().listThreeAddressBook(searchKey, currentPage + 1 + "", pageSize).safeSubscribe(new LoadingSubject<AddressBookResponse>() {
             @Override
             protected void _onNext(AddressBookResponse addressBookResponse) {
                 currentPage = addressBookResponse.getData().getPageNum();

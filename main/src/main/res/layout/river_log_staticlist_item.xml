@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/bg_map_shape"
+        android:orientation="vertical"
+
+        >
+
+        <RelativeLayout
+            android:id="@+id/rl_river_patrol_title"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <View
+                android:id="@+id/v_left"
+                android:layout_width="10dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/river_course_left_green" />
+
+            <!-- <ImageView
+                 android:id="@+id/iv_item_left1"
+                 android:layout_width="12dp"
+                 android:layout_height="match_parent"
+                 android:layout_centerVertical="true"
+                 android:background="@mipmap/bg_item_right" />
+
+             <ImageView
+                 android:id="@+id/iv_item_left2"
+                 android:layout_width="5dp"
+                 android:layout_height="20dp"
+                 android:layout_centerVertical="true"
+                 android:layout_marginTop="20dp"
+                 android:background="#3077ff"
+                 android:visibility="gone" />-->
+
+
+            <ImageView
+                android:id="@+id/iv_river_course_expend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/river_course_detail_dropdown" />
+
+
+            <TextView
+                android:id="@+id/patroluserNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_toLeftOf="@+id/iv_river_course_expend"
+                android:layout_toRightOf="@+id/v_left"
+                android:maxLines="2"
+                android:text="--"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="@integer/duration1"
+            app:el_expanded="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/right_semicircle1" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dash_line"
+                        android:layerType="software" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/left_semicircle1" />
+                </LinearLayout>
+
+
+           <!--     <include
+                    android:id="@+id/layoutinclude"
+                    layout="@layout/lv_contact_list_item_first" />-->
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/nameOfRec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp" />
+            </LinearLayout>
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </LinearLayout>

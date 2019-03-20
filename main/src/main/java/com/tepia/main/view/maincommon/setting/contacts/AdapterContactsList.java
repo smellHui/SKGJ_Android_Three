@@ -3,6 +3,7 @@ package com.tepia.main.view.maincommon.setting.contacts;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -55,7 +56,7 @@ public class AdapterContactsList extends BaseQuickAdapter<ContactBean, BaseViewH
         if (TextUtils.isEmpty(jobname)) {
             jobname = "暂无";
         }
-        mBingding.tvReservoir.setText(item.getReservoir()+"");
+        mBingding.tvReservoir.setVisibility(View.GONE);
         mBingding.tvPositoin.setText(jobname);
         mBingding.tvMobile.setText(mobileStr);
 

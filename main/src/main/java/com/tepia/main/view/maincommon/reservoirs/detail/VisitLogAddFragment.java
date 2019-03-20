@@ -40,12 +40,14 @@ import com.tepia.main.R;
 import com.tepia.main.common.pickview.OnItemClickListener;
 import com.tepia.main.common.pickview.PhotoRecycleViewAdapter;
 import com.tepia.main.common.pickview.RecyclerItemClickListener;
+import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.TimePickerDialogUtil;
 import com.tepia.main.view.main.question.TypeResponse;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.VisitLogContract;
 import com.tepia.main.view.maincommon.reservoirs.mvpreservoir.VisitLogPresenter;
+import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 import com.tepia.main.view.mainworker.report.adapter.AdapterEmergenceReport;
 import com.tepia.photo_picker.PhotoPicker;
 import com.tepia.photo_picker.PhotoPreview;
@@ -86,7 +88,7 @@ public class VisitLogAddFragment extends MVPBaseFragment<VisitLogContract.View,V
     private PhotoRecycleViewAdapter photoAdapter;
     private ArrayList<String> selectedPhotos = new ArrayList<>();
     private List<TypeResponse> data = new ArrayList<>();
-    private List<com.tepia.main.model.detai.ReservoirBean> dateBeanList;
+//    private List<com.tepia.main.model.detai.ReservoirBean> dateBeanList;
 
     @Override
     protected int getLayoutId() {
@@ -113,7 +115,7 @@ public class VisitLogAddFragment extends MVPBaseFragment<VisitLogContract.View,V
         visitTimeTv.setOnClickListener(this);
         typeTv.setOnClickListener(this);
 
-        dateBeanList = UserManager.getInstance().getLocalReservoirList();
+//        dateBeanList = UserManager.getInstance().getLocalReservoirList();
 
         titleEv = findView(R.id.titleEv);
         titleEv.addTextChangedListener(new TextWatcher() {
@@ -229,6 +231,11 @@ public class VisitLogAddFragment extends MVPBaseFragment<VisitLogContract.View,V
                 photoAdapter.notifyDataSetChanged();
             }
             photoTitleTv.setText(getString(R.string.picstr, selectedPhotos.size()));
+        }else if(requestCode == ChoiceReservoirActivity.resultCode){
+            ReservoirBean defaultReservoir = UserManager.getInstance().getDefaultReservoir();
+            resviorTv.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+            resviorTv.setText(defaultReservoir.getReservoir());
+            reservoirId = defaultReservoir.getReservoirId();
         }
 
 
@@ -367,9 +374,12 @@ public class VisitLogAddFragment extends MVPBaseFragment<VisitLogContract.View,V
 
 
         } else if (viewID == R.id.resviorTv) {
-            if (dateBeanList != null && dateBeanList.size() > 0) {
+            startActivityForResult(new Intent(getBaseActivity(), ChoiceReservoirActivity.class), ChoiceReservoirActivity.resultCode);
+
+           /* if (dateBeanList != null && dateBeanList.size() > 0) {
                 showRiverDialog(dateBeanList);
-            }
+
+            }*/
         }else if (viewID == R.id.visitTimeTv) {
             if (timePickerDialogUtil.startDialog != null) {
                 timePickerDialogUtil.startDialog = null;
@@ -460,9 +470,9 @@ public class VisitLogAddFragment extends MVPBaseFragment<VisitLogContract.View,V
         clear();
         SPUtils.getInstance().putString(VisitLogAddActivity.key_Title, visitCause);
         SPUtils.getInstance().putString(VisitLogAddActivity.key_Content, workContent);
-        if (dateBeanList != null) {
+       /* if (dateBeanList != null) {
             dateBeanList.clear();
-        }
+        }*/
         if (selectedPhotos != null) {
             selectedPhotos.clear();
         }

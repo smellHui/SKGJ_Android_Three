@@ -377,6 +377,33 @@ public class UserManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 新增通讯录接口
+     * @param searchKey
+     * @return
+     */
+    public Observable<ReserviorBookBean> listReservoirAddressBook(String searchKey) {
+        String token = getToken();
+        return mRetrofitService.listReservoirAddressBook(token, searchKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 三防办
+     * @param searchKey
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public Observable<AddressBookResponse> listThreeAddressBook(String searchKey, String currentPage, String pageSize) {
+        String token = getToken();
+        return mRetrofitService.listThreeAddressBook(token, searchKey, currentPage, pageSize)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
     public Map<String, String> getYunWeiTypeList() {
         Map<String, String> yunweitypelist = null;
         if (UserManager.getInstance().getMenuList() == null) {

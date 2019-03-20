@@ -36,4 +36,5 @@
     <dimen name="shangbaopadding">12dp</dimen>
     <dimen name="alldetailly_dimen">10dp</dimen>
     <dimen name="waterlevel_size">16sp</dimen>
+    <integer name="duration1">300</integer>
 </resources>

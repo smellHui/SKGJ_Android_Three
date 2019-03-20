@@ -15,7 +15,7 @@ ext {
     ]
 
     libsVersion = [
-            supportLibraryVersion = "27.0.0",
+            supportLibraryVersion = "27.0.0"
     ]
 
 
@@ -116,6 +116,8 @@ ext {
             statusbaruitl                : 'com.githang:status-bar-compat:0.7',
             //解决部分机型上关闭通知栏权限后吐司无法显示问题
             toast                        : 'com.hjq:toast:5.2',
+            //展开布局
+            expandablelayout             :'net.cachapa.expandablelayout:expandablelayout:2.9.2',
             alicloud_android_hotfix      : 'com.aliyun.ams:alicloud-android-hotfix:3.2.8'
 
 
