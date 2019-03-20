@@ -71,7 +71,7 @@ public class ArcgisLayout extends RelativeLayout {
     public int mapHeight;
     public boolean isLoaded = false;
     private double minScale = 7.335451152802595E7;
-    private Point mapCenterPoint = new Point(11620672.230780,4930386.331908, 0.000000);//中国地图中心点
+    public Point mapCenterPoint = new Point(11620672.230780,4930386.331908, 0.000000);//中国地图中心点
 
     public interface OnLocationSelectListener {
         void onSelect(Point point);
@@ -504,7 +504,7 @@ public class ArcgisLayout extends RelativeLayout {
      *
      * @param points
      */
-    private void setMapViewVisibleExtent(List<Point> points) {
+    public void setMapViewVisibleExtent(List<Point> points) {
         if (points != null && points.size() > 0) {
             double numx = (double) points.get(0).getX();
             double numy = (double) points.get(0).getY();
