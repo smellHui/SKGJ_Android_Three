@@ -34,7 +34,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="@string/text_et_search_hint"
+                android:hint="请输入人名信息"
                 android:textSize="12sp" />
 
             <ImageView
