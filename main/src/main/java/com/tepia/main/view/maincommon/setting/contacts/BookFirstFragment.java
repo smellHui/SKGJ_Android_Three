@@ -120,6 +120,7 @@ public class BookFirstFragment extends MVPBaseFragment<ContactsContract.ViewNew,
             dataList.addAll(data);
             patrolListAdapter.notifyDataSetChanged();
             patrolListAdapter.loadMoreComplete();
+            patrolListAdapter.loadMoreEnd();
 
         }
     }
