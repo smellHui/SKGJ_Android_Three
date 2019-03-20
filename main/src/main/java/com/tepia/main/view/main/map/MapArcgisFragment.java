@@ -45,6 +45,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.arcgisservices.TileInfo;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
+import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReference;
@@ -116,11 +117,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
-  * Created by      Android studio
-  * @author :ly (from Center Of Wuhan)
-  * Date    :
-  * Version :1.0
-  * 功能描述 : 综合监控
+ * Created by      Android studio
+ *
+ * @author :ly (from Center Of Wuhan)
+ * Date    :
+ * Version :1.0
+ * 功能描述 : 综合监控
  **/
 @Route(path = AppRoutePath.app_main_fragment_look)
 public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, MainMapPresenter> {
@@ -152,6 +154,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private GraphicsOverlay stRiverOverLay;
     private static MapArcgisFragment mapArcgisFragment;
     private WebTiledLayer imgTiteLayer;
+    private ImageView mImageViewLocation;
 
     public static MapArcgisFragment getInstance() {
         return mapArcgisFragment;
@@ -262,6 +265,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 
 
     private NearReservoirFragment nearReservoirFragment = null;
+
     private void initNearReservoir() {
         ImageView nearImgSearch = findView(R.id.near_img_search);
         nearImgSearch.setOnClickListener(v -> {
@@ -269,20 +273,20 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             Point position = mLocationDisplay.getLocation().getPosition();
 //            LogUtil.i("position:"+position.toString());
             transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                nearReservoirFragment = NearReservoirFragment.newInstance(position.getX(),position.getY());
-                nearReservoirFragment.setOnAddBackClickListener(() -> {
-                    setSearchLayoutHide();
-                });
-                nearReservoirFragment.setOnSearchListClickListener(searchModel -> {
-                    if (llTitleMap.getVisibility()!= View.VISIBLE){
-                        llTitleMap.setVisibility(View.VISIBLE);
-                    }
-                    setSearchListAdapterClick(searchModel);
-                });
-                transaction.replace(R.id.fl_search_layout, nearReservoirFragment);
-                transaction.show(nearReservoirFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+            nearReservoirFragment = NearReservoirFragment.newInstance(position.getX(), position.getY());
+            nearReservoirFragment.setOnAddBackClickListener(() -> {
+                setSearchLayoutHide();
+            });
+            nearReservoirFragment.setOnSearchListClickListener(searchModel -> {
+                if (llTitleMap.getVisibility() != View.VISIBLE) {
+                    llTitleMap.setVisibility(View.VISIBLE);
+                }
+                setSearchListAdapterClick(searchModel);
+            });
+            transaction.replace(R.id.fl_search_layout, nearReservoirFragment);
+            transaction.show(nearReservoirFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
 //                ObjectAnimator animator = ObjectAnimator.ofFloat(flSearchLayout, "alpha", 0, 1);
 //                animator.addListener(new Animator.AnimatorListener() {
 //                    @Override
@@ -308,7 +312,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //                animator.setDuration(300);
 //                animator.start();
 //            }else {
-                setSearchLayoutVisible();
+            setSearchLayoutVisible();
 //            }
             MapArcgisFragment.status = 1;
         });
@@ -322,21 +326,21 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         flSearchLayout.setPadding(0, ScreenUtil.getStatusBarHeight(), 0, 0);
         imgSearch.setOnClickListener(v -> {
 //            if (null == detailFragment) {
-                transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                detailFragment = new MapSearchFragment();
-                detailFragment.setOnAddBackClickListener(() -> {
-                    setSearchLayoutHide();
-                });
-                detailFragment.setOnSearchListClickListener(searchModel -> {
-                    if (llTitleMap.getVisibility()!= View.VISIBLE){
-                        llTitleMap.setVisibility(View.VISIBLE);
-                    }
-                    setSearchListAdapterClick(searchModel);
-                });
-                transaction.replace(R.id.fl_search_layout, detailFragment);
-                transaction.show(detailFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+            transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            detailFragment = new MapSearchFragment();
+            detailFragment.setOnAddBackClickListener(() -> {
+                setSearchLayoutHide();
+            });
+            detailFragment.setOnSearchListClickListener(searchModel -> {
+                if (llTitleMap.getVisibility() != View.VISIBLE) {
+                    llTitleMap.setVisibility(View.VISIBLE);
+                }
+                setSearchListAdapterClick(searchModel);
+            });
+            transaction.replace(R.id.fl_search_layout, detailFragment);
+            transaction.show(detailFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
             /*    ObjectAnimator animator = ObjectAnimator.ofFloat(flSearchLayout, "alpha", 0, 1);
                 animator.addListener(new Animator.AnimatorListener() {
                     @Override
@@ -362,13 +366,13 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 animator.setDuration(300);
                 animator.start();*/
 //            }else {
-                setSearchLayoutVisible();
+            setSearchLayoutVisible();
 //            }
             MapArcgisFragment.status = 1;
         });
     }
 
-    private void setSearchLayoutVisible(){
+    private void setSearchLayoutVisible() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             Animator animator = createSearchAnimation(flSearchLayout, false);
@@ -395,13 +399,13 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 }
             });
             animator.start();
-        }else {
+        } else {
             flSearchLayout.setVisibility(View.VISIBLE);
 
         }
     }
 
-    private void setSearchLayoutHide(){
+    private void setSearchLayoutHide() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             Animator searchAnimation = createSearchAnimation(flSearchLayout, true);
@@ -427,7 +431,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 }
             });
             searchAnimation.start();
-        }else{
+        } else {
             flSearchLayout.setVisibility(View.GONE);
 
         }
@@ -459,7 +463,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     }
 
     //是否是从搜索界面到的详情界面
-   public static boolean isSearchToDetail = false;
+    public static boolean isSearchToDetail = false;
 
     /**
      * 搜索列表的点击事件
@@ -467,7 +471,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * @param searchModel
      */
     private void setSearchListAdapterClick(SearchModel searchModel) {
-       MapArcgisFragment.isSearchToDetail = true;
+        MapArcgisFragment.isSearchToDetail = true;
         Gson gson = new Gson();
         Map<Integer, SparseBooleanArray> map = dHotelEntityAdapter.getMap();
         SparseBooleanArray sparseBooleanArray = map.get(0);
@@ -497,40 +501,40 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //                ReservoirResponse.DataBean dataBean = gson.fromJson(searchString, ReservoirResponse.DataBean.class);
                 initReservoirDetailFragment(stcd);
             }
-            scrollItemTitleName = name+"详情";
+            scrollItemTitleName = name + "详情";
         } else if (searchModel.getTypeId() == 1) {
             //点击的是流量站
             String stcd = searchModel.getStcd();
             initStRiverDetailFragment(stcd);
-            scrollItemTitleName = name+"流量站详情";
+            scrollItemTitleName = name + "流量站详情";
         } else if (searchModel.getTypeId() == 2) {
             //点击的是水质站
             String searchString = searchModel.getSearchString();
 //            if (null != searchString) {
-                String stcd = searchModel.getStcd();
+            String stcd = searchModel.getStcd();
 //                WaterQualityResponse.DataBean bean = gson.fromJson(searchString, WaterQualityResponse.DataBean.class);
-                initWaterQualityDetailFragment(stcd);
+            initWaterQualityDetailFragment(stcd);
 //            }
-            scrollItemTitleName = name+"水质站详情";
+            scrollItemTitleName = name + "水质站详情";
         } else if (searchModel.getTypeId() == 3) {
             //点击的是雨量站
             String searchString = searchModel.getSearchString();
-                String stcd = searchModel.getStcd();
-                initRainfallDetailFragment(stcd);
-            scrollItemTitleName = name+"雨量站详情";
+            String stcd = searchModel.getStcd();
+            initRainfallDetailFragment(stcd);
+            scrollItemTitleName = name + "雨量站详情";
         } else if (searchModel.getTypeId() == 4) {
             //点击的是水位站
             String searchString = searchModel.getSearchString();
             String stcd = searchModel.getStcd();
-            LogUtil.i("stcd:"+stcd);
+            LogUtil.i("stcd:" + stcd);
 //            WaterLevelResponse.DataBean.StStbprpBBean stStbprpB = gson.fromJson(searchString, WaterLevelResponse.DataBean.class).getStStbprpB();
             initWaterLevelDetailFragment(stcd);//initWaterLevelDetailFragment
-            scrollItemTitleName = name+"水位站详情";
+            scrollItemTitleName = name + "水位站详情";
         } else if (searchModel.getTypeId() == 5) {
             //点击的是图像站
             String stcd = searchModel.getStcd();
             initPicDetailFragment(stcd);
-            scrollItemTitleName = name+"图像站详情";
+            scrollItemTitleName = name + "图像站详情";
         } else if (searchModel.getTypeId() == 6) {
             //点击的是视频站
             String searchString = searchModel.getSearchString();
@@ -538,14 +542,14 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 VideoResponse.DataBean dataBean = gson.fromJson(searchString, VideoResponse.DataBean.class);
                 initVedioDetailFragment(dataBean);
             }
-            scrollItemTitleName = name+"视频站详情";
+            scrollItemTitleName = name + "视频站详情";
         }
         double lgtd = searchModel.getLgtd();
         double lttd = searchModel.getLttd();
         Point point = transformationPoint(lgtd, lttd);
         Map<String, Object> attrs = new HashMap<>(1);
 
-        addPic(searchOverlay, picMap.get(0)[searchModel.getTypeId()], point,attrs);
+        addPic(searchOverlay, picMap.get(0)[searchModel.getTypeId()], point, attrs);
         if (73.66 < lgtd && lgtd < 135.05 && lttd > 3.86 && lttd < 53.55) {
             mapView.setViewpointCenterAsync(transformationPoint(lgtd, lttd), itemScale).addDoneListener(() -> {
                 if (scroll_item_layout.getCurrentStatus() != ScrollLayout.Status.EXIT) {
@@ -627,15 +631,15 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                             int size = dataList.get(position).list.size();
                             tv_head.setText(dataList.get(position).tagsName + "(" + size + ")");
                             SparseBooleanArray sparseBooleanArray = mAdapter.getmBooleanMap();
-                            if (sparseBooleanArray.size()>0){
+                            if (sparseBooleanArray.size() > 0) {
                                 boolean b = sparseBooleanArray.get(pos);
                                 String tvOpenText = tvOpen.getText().toString();
-                                if (!b){
-                                    if (tvOpenText.equals("关闭")){
+                                if (!b) {
+                                    if (tvOpenText.equals("关闭")) {
                                         tvOpen.setText("展开");
                                     }
-                                }else {
-                                    if (tvOpenText.equals("展开")){
+                                } else {
+                                    if (tvOpenText.equals("展开")) {
                                         tvOpen.setText("关闭");
                                     }
                                 }
@@ -663,10 +667,10 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         ll.setOnClickListener(v -> {
             try {
                 SparseBooleanArray mBooleanMap = mAdapter.getmBooleanMap();
-                if (mBooleanMap.size()>0){
+                if (mBooleanMap.size() > 0) {
                     for (int i = 0; i < mBooleanMap.size(); i++) {
-                        if (i!=pos){
-                            mBooleanMap.put(i,false);
+                        if (i != pos) {
+                            mBooleanMap.put(i, false);
                         }
                     }
                 }
@@ -675,7 +679,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 mBooleanMap.put(pos, !isOpen);
                 tvOpen.setText(text);
                 mAdapter.notifyDataSetChanged();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -689,7 +693,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private void setListAdapterClick() {
         //列表点击事件
         mAdapter.setmOnRecyclerviewItemClickListener((v, section, position) -> {
-            if (llTitleMap.getVisibility()!= View.VISIBLE){
+            if (llTitleMap.getVisibility() != View.VISIBLE) {
                 llTitleMap.setVisibility(View.VISIBLE);
             }
             MapArcgisFragment.isSearchToDetail = false;
@@ -740,7 +744,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             transaction.show(detailFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-        }else{
+        } else {
             ToastUtils.shortToast("手机系统版本太低无法查看视频，请将手机系统升级至5.0及以上版本");
         }
 
@@ -1516,6 +1520,10 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 
     private List<ReservoirBean> reservoirDatas;
     ArrayList<CommonModel> reservoirCommonModel = new ArrayList<>();
+    List<Point> reservoirPoints = new ArrayList<>();
+
+    //是否是定位在水库范围
+    private boolean isLocationReservoir = true;
 
     /**
      * 请求水库信息
@@ -1532,9 +1540,10 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             public void success(ReservoirListResponse reservoirResponse) {
                 int code = reservoirResponse.getCode();
                 if (code == 0) {
-                    setlayerMap(0,0,true);
+                    setlayerMap(0, 0, true);
                     reservoirDatas = reservoirResponse.getData();
                     if (reservoirDatas != null && reservoirDatas.size() > 0) {
+                        reservoirPoints.clear();
                         if (reservoirCommonModel == null || reservoirCommonModel.size() == 0) {
                             for (int i = 0; i < reservoirDatas.size(); i++) {
                                 CommonModel commonModel = new CommonModel();
@@ -1543,12 +1552,14 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                                 if (null != lgtd && null != lttd && lgtd.length() > 0 && lttd.length() > 0) {
                                     commonModel.setLgtd(Double.parseDouble(lgtd));
                                     commonModel.setLttd(Double.parseDouble(lttd));
+                                    Point point = transformationPoint(commonModel.getLgtd(), commonModel.getLttd());
+                                    reservoirPoints.add(point);
                                 }
                                 commonModel.setName(reservoirDatas.get(i).getReservoir());
                                 reservoirCommonModel.add(commonModel);
                             }
                         }
-
+                        setMapViewVisibleExtent(reservoirPoints);
                     }
                     boolean isContains = isListContains(section, position);
                     if (!isContains) {
@@ -1565,7 +1576,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 ToastUtils.shortToast(msg);
             }
         });
-        mPresenter.findAppAllReservoir("", "",false);
+        mPresenter.findAppAllReservoir("", "", false);
     }
 
     /**
@@ -1647,6 +1658,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 
     /**
      * 地图坐标转换
+     *
      * @param lgtd
      * @param lttd
      * @return
@@ -1703,6 +1715,39 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     }
 
     /**
+     * 设置地图的可见范围
+     *
+     * @param points
+     */
+    private void setMapViewVisibleExtent(List<Point> points) {
+        if (points != null && points.size() > 0) {
+            isLocationReservoir = true;
+            double numx = (double) points.get(0).getX();
+            double numy = (double) points.get(0).getY();
+            double minx = (double) points.get(0).getX();
+            double miny = (double) points.get(0).getY();
+            for (int i = 0; i < points.size(); i++) {
+                double x = (double) points.get(i).getX();
+                double y = (double) points.get(i).getY();
+                numx = x < numx ? numx : x;
+                numy = y < numy ? numy : y;
+                minx = x > minx ? minx : x;
+                miny = y > miny ? miny : y;
+            }
+            double xcen = (numx - minx) > 0 ? (numx - minx) : 0;
+            double ycen = (numy - miny) > 0 ? (numy - miny) : 0;
+//            Envelope envelope = new Envelope();
+//            envelope.setXMin(minPoint.getX() - xcen / 10);
+//            envelope.setYMin(minPoint.getY() - ycen / 10);
+//            envelope.setXMax(maxPoint.getX() + xcen / 10);
+//            envelope.setYMax(maxPoint.getY() + ycen / 10);
+//            mapView.setExtent(envelope);
+            Envelope envelope = new Envelope(minx - xcen / 10, miny- ycen / 10, numx+ xcen / 10, numy+ ycen / 10, SpatialReference.create(3857));
+            mapView.setViewpointGeometryAsync(envelope);
+        }
+    }
+
+    /**
      * 添加图片
      *
      * @param id    图片id
@@ -1745,8 +1790,10 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         PictureMarkerSymbol pictureMarkerSymbol1 = null;
         try {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
-            if (bitmap == null) {return;}
-            Bitmap result =   Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight()*2, Bitmap.Config.ARGB_8888);
+            if (bitmap == null) {
+                return;
+            }
+            Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() * 2, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(result);
             canvas.drawBitmap(bitmap, 0, 0, null);
 //            canvas.drawBitmap(bitmap, bitmap.getHeight(), 0, null);
@@ -1780,7 +1827,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * 隐藏列表，显示详情
      */
     public void hideListShowDetail() {
-        if (llTitleMap.getVisibility()!= View.VISIBLE){
+        if (llTitleMap.getVisibility() != View.VISIBLE) {
             llTitleMap.setVisibility(View.VISIBLE);
         }
         status = 1;
@@ -1822,7 +1869,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * 隐藏详情，显示列表
      */
     public void hideDetailShowList() {
-        if (llTitleMap.getVisibility()== View.VISIBLE){
+        if (llTitleMap.getVisibility() == View.VISIBLE) {
             llTitleMap.setVisibility(View.GONE);
         }
 //        LogUtil.i("scrollView当前滑动的位置:"+itemScrollView.getScrollY());
@@ -1974,7 +2021,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         LinearLayout mIvVector = drawerLayout.findViewById(R.id.layer_vector);
         ivArrowBack = findView(R.id.iv_arrow_back);
         ivArrowBack.setVisibility(View.GONE);
-        ImageView mImageViewLocation = findView(R.id.img_location);
+        mImageViewLocation = findView(R.id.img_location);
         zoomBtnIn.setOnClickListener(this::btnClick);
         zoomBtnOut.setOnClickListener(this::btnClick);
         ivDrawer.setOnClickListener(this::btnClick);
@@ -2059,22 +2106,30 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             Point mapLocation = mLocationDisplay.getMapLocation();
             if (mapLocation != null) {
                 if (isLoaded) {
-                    mapView.setViewpointCenterAsync(mapLocation);
+                    if (isLocationReservoir){
+                        mapView.setViewpointCenterAsync(mapLocation);
+//                        bg_map_shape_1
+                        mImageViewLocation.setImageResource(R.drawable.detail_resorvior);
+                        isLocationReservoir = false;
+                    }else {
+                        setMapViewVisibleExtent(reservoirPoints);
+                        mImageViewLocation.setImageResource(R.drawable.map_nav_btn_location);
+                    }
                 }
             }
         } else if (id == R.id.iv_arrow_back) {
-            if (MapArcgisFragment.isSearchToDetail){
-                MapArcgisFragment.isSearchToDetail=false;
+            if (MapArcgisFragment.isSearchToDetail) {
+                MapArcgisFragment.isSearchToDetail = false;
                 setSearchLayoutVisible();
-            }else {
+            } else {
                 backClickFun();
             }
 //            backClickFun();
         } else if (id == R.id.iv_ll_arrow_back) {
-            if (MapArcgisFragment.isSearchToDetail){
-                MapArcgisFragment.isSearchToDetail=false;
+            if (MapArcgisFragment.isSearchToDetail) {
+                MapArcgisFragment.isSearchToDetail = false;
                 setSearchLayoutVisible();
-            }else {
+            } else {
                 backClickFun();
             }
 //            backClickFun();
@@ -2362,7 +2417,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
 //            LogUtil.i("point:"+point.toString());
         });
-        mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.RECENTER);
+        mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.OFF);
         //android 6.0动态申请权限
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -2750,20 +2805,20 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 
     @Subscribe
     public void getEventBus(Integer num) {
-        if (num != null&&num==1) {
+        if (num != null && num == 1) {
 //            Log.i("num", "num" + num);
 //            Log.i("列表状态:", (scroll_item_layout.getVisibility() == View.VISIBLE) + "");
             if (flSearchLayout.getVisibility() == View.VISIBLE) {
                 setSearchLayoutHide();
                 if (scroll_item_layout.getVisibility() != View.VISIBLE) {
-                   MapArcgisFragment.status = 0;
+                    MapArcgisFragment.status = 0;
                 }
-            }else {
+            } else {
                 if (scroll_item_layout.getVisibility() == View.VISIBLE) {
-                    if (MapArcgisFragment.isSearchToDetail){
-                        MapArcgisFragment.isSearchToDetail=false;
+                    if (MapArcgisFragment.isSearchToDetail) {
+                        MapArcgisFragment.isSearchToDetail = false;
                         setSearchLayoutVisible();
-                    }else {
+                    } else {
                         backClickFun();
                     }
                 }

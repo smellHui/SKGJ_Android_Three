@@ -17,12 +17,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.geometry.Geometry;
 import com.esri.arcgisruntime.geometry.GeometryType;
 import com.esri.arcgisruntime.geometry.ImmutablePartCollection;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.PointCollection;
 import com.esri.arcgisruntime.geometry.Polyline;
+import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
 import com.esri.arcgisruntime.loadable.LoadStatus;
@@ -496,6 +498,39 @@ public class ArcgisLayout extends RelativeLayout {
         callout.setLocation(point);
         callout.show();
     }
+
+    /**
+     * 设置地图的可见范围
+     *
+     * @param points
+     */
+    private void setMapViewVisibleExtent(List<Point> points) {
+        if (points != null && points.size() > 0) {
+            double numx = (double) points.get(0).getX();
+            double numy = (double) points.get(0).getY();
+            double minx = (double) points.get(0).getX();
+            double miny = (double) points.get(0).getY();
+            for (int i = 0; i < points.size(); i++) {
+                double x = (double) points.get(i).getX();
+                double y = (double) points.get(i).getY();
+                numx = x < numx ? numx : x;
+                numy = y < numy ? numy : y;
+                minx = x > minx ? minx : x;
+                miny = y > miny ? miny : y;
+            }
+            double xcen = (numx - minx) > 0 ? (numx - minx) : 0;
+            double ycen = (numy - miny) > 0 ? (numy - miny) : 0;
+//            Envelope envelope = new Envelope();
+//            envelope.setXMin(minPoint.getX() - xcen / 10);
+//            envelope.setYMin(minPoint.getY() - ycen / 10);
+//            envelope.setXMax(maxPoint.getX() + xcen / 10);
+//            envelope.setYMax(maxPoint.getY() + ycen / 10);
+//            mapView.setExtent(envelope);
+            Envelope envelope = new Envelope(minx - xcen / 10, miny- ycen / 10, numx+ xcen / 10, numy+ ycen / 10, SpatialReference.create(3857));
+            mapView.setViewpointGeometryAsync(envelope);
+        }
+    }
+
 
     public void onMapResume() {
         if (mapView != null) {
