@@ -31,7 +31,7 @@ android {
         ]
     }
 
-   /* productFlavors {
+    /* productFlavors {
         dev {
             // Enable pre-dexing to produce an APK that can be tested on
             // Android 5.0+ without the time-consuming DEX build processes.
@@ -106,6 +106,7 @@ dependencies {
 
 //    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 //    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:support-v4:28.0.0'
     configurations.all {
         resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
         resolutionStrategy.force "com.android.support:support-v4:$rootProject.supportLibraryVersion"
@@ -200,6 +201,7 @@ dependencies {
     implementation rootProject.ext.dependencies.statusbaruitl
     implementation rootProject.ext.dependencies.EventBus
     implementation rootProject.ext.dependencies.toast
+    implementation rootProject.ext.dependencies.expandablelayout
 //    implementation rootProject.ext.dependencies.alicloud_android_hotfix
 
     /*implementation('com.aliyun.ams:alicloud-android-hotfix:3.2.8'){

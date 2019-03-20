@@ -55,5 +55,10 @@ public class ConfigConsts {
     public static String TECHNOLOGRROLE = "210";
     public static final String Telphone = "4001522300";
 
+    /**
+     * 动画伸缩时间
+     */
+    public static final int duration = 100;
+
 
 }

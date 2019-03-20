@@ -17,17 +17,7 @@
                 android:layout_height="70dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-                <!-- <TextView
-                     android:id="@+id/nameTv"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content" />
 
-                 <com.tepia.photo_picker.widget.CircleImageView
-                     android:id="@+id/iv_header"
-                     android:layout_width="48dp"
-                     android:layout_height="48dp"
-                     android:layout_marginLeft="5dp"
-                     android:src="@drawable/icon_worker_head_default" />-->
                 <FrameLayout
 
                     android:layout_width="wrap_content"
@@ -74,6 +64,7 @@
                             android:textSize="20sp" />
 
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/tv_reservoir"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

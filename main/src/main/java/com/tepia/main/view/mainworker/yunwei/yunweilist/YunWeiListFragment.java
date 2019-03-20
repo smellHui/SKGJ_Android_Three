@@ -3,6 +3,9 @@ package com.tepia.main.view.mainworker.yunwei.yunweilist;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -86,7 +89,6 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
             mBinding.loSelectYunweiType.setVisibility(View.GONE);
         }
         initMonthDate();
-        initListener();
 
     }
 
@@ -151,6 +153,14 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         }
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initListener();
+        mPresenter.getPatrolWorkOrderList("", selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
+
+
+    }
 
     private void initListener() {
         mBinding.srflContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -245,7 +255,7 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.getPatrolWorkOrderList("", selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
+//        mPresenter.getPatrolWorkOrderList("", selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
     }
 
     @Override

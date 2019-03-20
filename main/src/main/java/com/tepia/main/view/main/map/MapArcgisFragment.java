@@ -97,8 +97,6 @@ import com.tepia.main.view.main.map.adapter.SectionData;
 import com.tepia.main.view.main.map.adapter.search.SearchModel;
 import com.tepia.main.view.main.map.presenter.MainMapContract;
 import com.tepia.main.view.main.map.presenter.MainMapPresenter;
-import com.tepia.main.view.main.map.utils.GoogleMapLayer;
-import com.tepia.main.view.maincommon.reservoirs.detail.VedioOfReservoirActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
