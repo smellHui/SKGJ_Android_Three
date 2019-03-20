@@ -233,13 +233,17 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                                         mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale / 4);
                                         isFirstInitMap = false;
                                     } else {
-                                        mBinding.alMapview.postDelayed(this, 500);
+                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
+                                        mBinding.alMapview.postDelayed(this, 1500);
+
                                     }
                                 } else {
                                     if (positionPoint != null) {
                                         mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale / 4);
                                         isFirstInitMap = false;
                                     } else {
+                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
+                                        isFirstInitMap = false;
                                         mBinding.alMapview.postDelayed(this, 500);
                                     }
                                 }
@@ -869,8 +873,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
                 mBinding.alMapview.addPolyline(exeline, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
                 if (exeline != null && exeline.size() >= 2) {
-                    mBinding.alMapview.addPic(R.mipmap.ic_me_history_startpoint, exeline.get(0),new HashMap<>());
-                    mBinding.alMapview.addPic(R.mipmap.ic_me_history_finishpoint, exeline.get(exeline.size() - 1),new HashMap<>());
+                    mBinding.alMapview.setMapViewVisibleExtent(exeline);
+                    mBinding.alMapview.addPic(R.mipmap.ic_me_history_startpoint, exeline.get(0), new HashMap<>());
+                    mBinding.alMapview.addPic(R.mipmap.ic_me_history_finishpoint, exeline.get(exeline.size() - 1), new HashMap<>());
                 }
             }
         } catch (Exception e) {
@@ -890,7 +895,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 exeline2.add(point);
             }
             try {
-
+                mBinding.alMapview.setMapViewVisibleExtent(exeline2);
                 mBinding.alMapview.addPolyline(exeline2, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
                 if (exeline2 != null && exeline2.size() >= 2) {
                     mBinding.alMapview.addPic(R.mipmap.ic_me_history_startpoint, exeline2.get(0));
