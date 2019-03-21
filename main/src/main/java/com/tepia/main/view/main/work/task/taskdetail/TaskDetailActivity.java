@@ -233,7 +233,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                                         mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale / 4);
                                         isFirstInitMap = false;
                                     } else {
-                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
+//                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
                                         mBinding.alMapview.postDelayed(this, 1500);
 
                                     }
@@ -242,8 +242,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                                         mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale / 4);
                                         isFirstInitMap = false;
                                     } else {
-                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
-                                        isFirstInitMap = false;
+//                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
+//                                        isFirstInitMap = false;
                                         mBinding.alMapview.postDelayed(this, 500);
                                     }
                                 }
