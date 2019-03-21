@@ -1557,7 +1557,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                                 reservoirCommonModel.add(commonModel);
                             }
                         }
-                        setMapViewVisibleExtent(reservoirPoints);
+                        setMapViewVisibleExtent(reservoirPoints,mapView);
                     }
                     boolean isContains = isListContains(section, position);
                     if (!isContains) {
@@ -1713,11 +1713,11 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     }
 
     /**
-     * 设置地图的可见范围
-     *
+     * 根据点集合设置地图的可见范围
+     * @param mMapView
      * @param points
      */
-    private void setMapViewVisibleExtent(List<Point> points) {
+    private void setMapViewVisibleExtent(List<Point> points,MapView mMapView) {
         if (points != null && points.size() > 0) {
             isLocationReservoir = true;
             double numx = (double) points.get(0).getX();
@@ -1741,7 +1741,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //            envelope.setYMax(maxPoint.getY() + ycen / 10);
 //            mapView.setExtent(envelope);
             Envelope envelope = new Envelope(minx - xcen / 10, miny- ycen / 10, numx+ xcen / 10, numy+ ycen / 10, SpatialReference.create(3857));
-            mapView.setViewpointGeometryAsync(envelope);
+            mMapView.setViewpointGeometryAsync(envelope);
         }
     }
 
@@ -2110,7 +2110,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                         mImageViewLocation.setImageResource(R.drawable.detail_resorvior);
                         isLocationReservoir = false;
                     }else {
-                        setMapViewVisibleExtent(reservoirPoints);
+                        setMapViewVisibleExtent(reservoirPoints,mapView);
                         mImageViewLocation.setImageResource(R.drawable.map_nav_btn_location);
                     }
                 }

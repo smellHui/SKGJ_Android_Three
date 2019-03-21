@@ -101,8 +101,9 @@ public class BookFirstFragment extends MVPBaseFragment<ContactsContract.ViewNew,
             ToastUtils.shortToast(R.string.no_network);
             return;
         }
-
+        patrolListAdapter.expendFirst();
         mPresenter.listReservoirAddressBook(searchKey,isshowloadiing);
+
     }
 
     @Override
@@ -118,6 +119,7 @@ public class BookFirstFragment extends MVPBaseFragment<ContactsContract.ViewNew,
             dataList.clear();
             //首次加载
             dataList.addAll(data);
+            patrolListAdapter.expendFirst();
             patrolListAdapter.notifyDataSetChanged();
             patrolListAdapter.loadMoreComplete();
             patrolListAdapter.loadMoreEnd();
