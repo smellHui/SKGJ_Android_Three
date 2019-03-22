@@ -63,7 +63,8 @@
                 android:text="选择职位查看工作内容"
                 android:textColor="#999999"
                 android:textSize="14sp"
-                 />
+                android:textIsSelectable="true"
+                />
             <android.support.v7.widget.RecyclerView
 
                 android:layout_marginLeft="@dimen/left_15"
@@ -110,6 +111,8 @@
                 android:text="--"
                 android:textColor="#666666"
                 android:textSize="14sp"
+                android:textIsSelectable="true"
+
                 />
         </LinearLayout>
 
