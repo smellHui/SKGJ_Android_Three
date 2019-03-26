@@ -13,5 +13,6 @@ package com.tepia.main;
 public class CacheConsts {
     public static final String haslook = "haslook";
     public static final String USERNAME_LOGIN = "USERNAME_LOGIN";
+    public static final String ROLEWHICH = "ROLEWHICH";
 
 }

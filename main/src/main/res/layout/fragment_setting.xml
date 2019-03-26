@@ -163,7 +163,18 @@
                 style="@style/LineH"
                 android:layout_marginLeft="@dimen/autodimen_setting"
                 android:layout_marginRight="@dimen/autodimen_setting"
-                android:visibility="gone" />
+                 />
+
+            <com.tepia.main.common.MySettingView
+                android:id="@+id/roleSwitchMv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                style="@style/LineH"
+                android:layout_marginLeft="@dimen/autodimen_setting"
+                android:layout_marginRight="@dimen/autodimen_setting"
+                 />
 
             <com.tepia.main.common.MySettingView
                 android:id="@+id/loginOutMv"

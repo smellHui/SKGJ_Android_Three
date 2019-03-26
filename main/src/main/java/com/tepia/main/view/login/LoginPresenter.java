@@ -1,11 +1,15 @@
 package com.tepia.main.view.login;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Base64;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
+import com.pgyersdk.update.PgyUpdateManager;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
@@ -16,6 +20,7 @@ import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
+import com.tepia.main.CacheConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.dictmap.DictMapManager;
 import com.tepia.main.model.map.ReservoirListResponse;
@@ -25,6 +30,8 @@ import com.tepia.main.model.user.MenuListResponse;
 import com.tepia.main.model.user.UserInfoBean;
 import com.tepia.main.model.user.UserLoginResponse;
 import com.tepia.main.model.user.UserManager;
+import com.tepia.main.view.MainActivity;
+import com.tepia.main.view.TabMainFragmentFactory;
 
 import org.litepal.crud.DataSupport;
 
@@ -36,21 +43,24 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-
 /**
- * 登陆页
- * 邮箱 784787081@qq.com
- */
+ * Created by      Android studio
+ *
+ * @author :ly (from Center Of Wuhan)
+ * 创建时间 :
+ * 更新时间 : 2019-3-26 改为根据用户信息返回角色list来切换角色
+ * Version :1.0
+ * 功能描述 :
+ **/
 
 public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implements LoginContract.Presenter {
     public static String prefence_menu = "prefence_menu";
     public static String key_menu = "key_menu";
-    private SimpleLoadDialog simpleLoadDialog;
-
 
     /**
      * 登录
@@ -59,7 +69,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
      * @param password
      */
     @Override
-    public void login(String username, String password, String registId) {
+    public void login(Context mContext, String username, String password, String registId) {
         Boolean isShow = true;
         String msg = "正在登录中";
         /*simpleLoadDialog = new SimpleLoadDialog(AppManager.getInstance().getCurrentActivity(), msg, true);
@@ -74,25 +84,20 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
 //                    mView.loginSuccess();
 
                     UserManager.getInstance().saveToken(userLoginResponse);
-                    getByTokenMenu2();
+//                    getByTokenMenu2();
                     DictMapManager.getInstance().getDictMapEntity();
-                    saveUserInfoBean();
-//                    getByTokenMenu();
+                    saveUserInfoBean(mContext,false);
 
                 } else {
                     ToastUtils.shortToast(R.string.errro_login);
-                    if (simpleLoadDialog != null) {
-                        simpleLoadDialog.dismiss();
-                    }
+
                 }
 
             }
 
             @Override
             protected void _onError(String message) {
-                if (simpleLoadDialog != null) {
-                    simpleLoadDialog.dismiss();
-                }
+
                 ToastUtils.shortToast(message);
             }
         });
@@ -110,7 +115,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
     /**
      * 获取用户信息并保存
      */
-    private void saveUserInfoBean() {
+    public void saveUserInfoBean(Context mContext,boolean loginAgain) {
         if (!NetUtil.isNetworkConnected(Utils.getContext())) {
             ToastUtils.shortToast(R.string.no_network);
             return;
@@ -120,8 +125,19 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             protected void _onNext(UserInfoBean userInfoBean) {
                 if (userInfoBean != null) {
                     if (userInfoBean.getCode() == 0) {
+
                         LogUtil.e("getLoginUser", "getLoginUser:成功获取用户信息------");
                         UserManager.getInstance().setUserBean(userInfoBean);
+                        List<UserInfoBean.DataBean.SysRolesBean> sysRolesBeanList = userInfoBean.getData().getSysRoles();
+                        if (sysRolesBeanList != null) {
+                            if (sysRolesBeanList.size() > 1) {
+                                choiceRole(mContext, sysRolesBeanList,loginAgain);
+                            } else if (sysRolesBeanList.size() == 1) {
+                                getByTokenMenuByRole(sysRolesBeanList.get(0).getRoleCode(),loginAgain);
+                            }
+                        }
+
+
                     } else {
                         ToastUtils.longToast(userInfoBean.getMsg());
 
@@ -141,6 +157,49 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
         });
     }
 
+
+    /**
+     * 如果是多个角色则可以单选
+     * @param mContext
+     * @param sysRolesBeanList
+     */
+    private int choiceWhich = 0;
+    private void choiceRole(Context mContext, List<UserInfoBean.DataBean.SysRolesBean> sysRolesBeanList,boolean loginAgain) {
+        choiceWhich =  SPUtils.getInstance().getInt(CacheConsts.ROLEWHICH,0);
+        int size = sysRolesBeanList.size();
+        String[] items = new String[size];
+        for (int i = 0; i < size; i++) {
+            items[i] = sysRolesBeanList.get(i).getRoleName();
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("您有多个身份，请选择其中一个登录")
+                .setSingleChoiceItems(items, choiceWhich, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        String itemStr = items[which];
+                        choiceWhich = which;
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (choiceWhich == -1) {
+                            ToastUtils.shortToast("请选择一个身份");
+                            return;
+                        }
+                        SPUtils.getInstance().putInt(CacheConsts.ROLEWHICH,choiceWhich);
+                        getByTokenMenuByRole(sysRolesBeanList.get(choiceWhich).getRoleCode(),loginAgain);
+
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        choiceWhich = -1;
+                    }
+                }).show();
+    }
+
     /**
      * 获取动态菜单2
      *
@@ -152,15 +211,36 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
             protected void _onNext(MenuListResponse menuListResponse) {
                 if (menuListResponse.getCode() == 0) {
                     UserManager.getInstance().saveMenuList(menuListResponse.getData());
-                    getReservoirList();
+                    getReservoirList(false);
                 }
             }
 
             @Override
             protected void _onError(String message) {
-                if (simpleLoadDialog != null) {
-                    simpleLoadDialog.dismiss();
+
+                ToastUtils.shortToast(message);
+            }
+        });
+    }
+
+    /**
+     * 通过角色id获取相应菜单
+     *
+     * @param roleCode
+     */
+    private void getByTokenMenuByRole(String roleCode,boolean loginAgain) {
+        UserManager.getInstance_ADMIN().getByTokenMenuByRole(roleCode).safeSubscribe(new LoadingSubject<MenuListResponse>(true, "正在获取动态菜单...") {
+            @Override
+            protected void _onNext(MenuListResponse menuListResponse) {
+                if (menuListResponse.getCode() == 0) {
+                    UserManager.getInstance().saveMenuList(menuListResponse.getData());
+                    getReservoirList(loginAgain);
                 }
+            }
+
+            @Override
+            protected void _onError(String message) {
+
                 ToastUtils.shortToast(message);
             }
         });
@@ -171,7 +251,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
      *
      * @return
      */
-    private void getReservoirList() {
+    private void getReservoirList(boolean loginAgain) {
         UserManager.getInstance_ADMIN().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>() {
             @Override
             protected void _onNext(ReservoirListResponse response) {
@@ -180,23 +260,27 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
                     if (response.getData() != null && response.getData().size() > 0) {
                         UserManager.getInstance().saveDefaultReservoir(response.getData().get(0));
                     }
-                    mView.loginSuccess();
-                    if (simpleLoadDialog != null) {
-                        simpleLoadDialog.dismiss();
+                    if (loginAgain){
+                        SPUtils.getInstance(Utils.getContext()).remove(LoginPresenter.prefence_menu);
+                        JPushInterface.stopPush(Utils.getContext());
+                        //综合监控标志为置空
+                        SPUtils.getInstance(Utils.getContext()).putBoolean(CacheConsts.haslook,false);
+                        PgyUpdateManager.unregister();
+                        AppManager.getInstance().finishAll();
+                        TabMainFragmentFactory.getInstance().clearFragment();
+                        ARouter.getInstance().build(AppRoutePath.appMain).navigation();
+
+                    }else {
+                        mView.loginSuccess();
                     }
-                } else {
-                    if (simpleLoadDialog != null) {
-                        simpleLoadDialog.dismiss();
-                    }
+
                 }
             }
 
             @Override
             protected void _onError(String message) {
                 ToastUtils.shortToast(message);
-                if (simpleLoadDialog != null) {
-                    simpleLoadDialog.dismiss();
-                }
+
             }
         });
 
@@ -210,9 +294,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
     private void getByTokenMenu() {
         if (!NetUtil.isNetworkConnected(Utils.getContext())) {
             ToastUtils.shortToast(R.string.no_network);
-            if (simpleLoadDialog != null) {
-                simpleLoadDialog.dismiss();
-            }
+
             return;
         }
         UserManager.getInstance_ADMIN().getByTokenMenu().subscribe(new LoadingSubject<MenuBean>(false, "") {
@@ -226,29 +308,20 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
                             MenuBean menuBean_get = getMenu(Utils.getContext(), prefence_menu, key_menu);
                             if (menuBean_get != null && menuBean_get.getData().get(0).getChildren() != null
                                     && menuBean_get.getData().get(0).getChildren().size() > 0) {
-                                if (simpleLoadDialog != null) {
-                                    simpleLoadDialog.dismiss();
-                                }
-                                mView.loginSuccess();
+
                             } else {
                                 ToastUtils.shortToast("未能获取到菜单");
-                                if (simpleLoadDialog != null) {
-                                    simpleLoadDialog.dismiss();
-                                }
+
                             }
                         } catch (Exception e) {
-                            if (simpleLoadDialog != null) {
-                                simpleLoadDialog.dismiss();
-                            }
+
                             e.printStackTrace();
                             ToastUtils.shortToast("未能获取到菜单");
                         }
 
 
                     } else {
-                        if (simpleLoadDialog != null) {
-                            simpleLoadDialog.dismiss();
-                        }
+
                         ToastUtils.longToast(menuBean.getMsg());
 
 
@@ -258,9 +331,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
 
             @Override
             protected void _onError(String message) {
-                if (simpleLoadDialog != null) {
-                    simpleLoadDialog.dismiss();
-                }
+
                 LogUtil.e("getByTokenMenu:获取动态菜单失败-----");
                 ToastUtils.shortToast("未能获取到菜单");
 

@@ -81,6 +81,26 @@ public class TabMainFragmentFactory {
         if (menuData == null) {
             return;
         }
+
+        //如果后台配置项中没有"我的"模块则默认加载一个
+        boolean isContain040 = false;
+        for (MenuItemBean menuItemBean : menuData){
+            String menuCode = menuItemBean.getMenuIcon();
+            if ("040".equals(menuCode)) {
+                isContain040 = true;
+            }
+        }
+
+        if (!isContain040) {
+            MenuItemBean bean = new MenuItemBean();
+            bean.setMenuHref(AppRoutePath.app_main_fragment_mine);
+            bean.setMenuName("我的");
+            bean.setMenuCode("040");
+            bean.setMenuIcon("040");
+            menuData.add(bean);
+        }
+
+
         if (tabMianfragments == null) {
             tabMianfragments = new ArrayList();
         }

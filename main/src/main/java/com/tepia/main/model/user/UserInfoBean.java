@@ -2,6 +2,8 @@ package com.tepia.main.model.user;
 
 import com.tepia.base.http.BaseResponse;
 
+import java.util.List;
+
 /**
  * APP查询当前登录用户信息
  * @author ly
@@ -11,7 +13,7 @@ public class UserInfoBean extends BaseResponse {
 
 
     /**
-     * data : {"userCode":"a623db0bdb92434ebe6553561aaf2eef","loginCode":"bozhou","userName":"2222222","email":"bozhou@163.com","mobile":"15107132761","sex":"1","address":"贵州遵义播州区111号","userType":"0","officeCode":"741fab72b9b74ed0a06424d93c4d7ee5","officeName":"太比雅贵州分公司","loginScope":"1","lastLoginIp":"127.0.0.1","lastLoginDate":"2018-07-19 12:04:18","status":"0","createDate":"2018-07-19 10:18:02","updateDate":"2018-07-19 12:04:18"}
+     * data : {"userCode":"a9adb6787a444c61b7905d7ab490dcc5","loginCode":"dycountyadmin","userName":"东源县责任人","email":"qq","mobile":"","sex":"1","address":"东1","userType":"0","officeCode":"c4d9631f345f474e878fa29f66e216fe","officeName":"东源县水务局","loginScope":"0,1","lastLoginIp":"127.0.0.1","lastLoginDate":"2019-01-15 09:56:51","status":"0","createDate":"2018-11-15 14:59:04","updateDate":"2019-01-15 09:56:51","registId":"120c83f76008d52169a","sysRoles":[{"roleCode":"2f0573c69ae74edf919d8332d04884a9","roleName":"东源县负责人"}],"areaCode":"441625","countSymbol":"1"}
      */
 
     private DataBean data;
@@ -26,22 +28,26 @@ public class UserInfoBean extends BaseResponse {
 
     public static class DataBean {
         /**
-         * userCode : a623db0bdb92434ebe6553561aaf2eef
-         * loginCode : bozhou
-         * userName : 2222222
-         * email : bozhou@163.com
-         * mobile : 15107132761
+         * userCode : a9adb6787a444c61b7905d7ab490dcc5
+         * loginCode : dycountyadmin
+         * userName : 东源县责任人
+         * email : qq
+         * mobile :
          * sex : 1
-         * address : 贵州遵义播州区111号
+         * address : 东1
          * userType : 0
-         * officeCode : 741fab72b9b74ed0a06424d93c4d7ee5
-         * officeName : 太比雅贵州分公司
-         * loginScope : 1
+         * officeCode : c4d9631f345f474e878fa29f66e216fe
+         * officeName : 东源县水务局
+         * loginScope : 0,1
          * lastLoginIp : 127.0.0.1
-         * lastLoginDate : 2018-07-19 12:04:18
+         * lastLoginDate : 2019-01-15 09:56:51
          * status : 0
-         * createDate : 2018-07-19 10:18:02
-         * updateDate : 2018-07-19 12:04:18
+         * createDate : 2018-11-15 14:59:04
+         * updateDate : 2019-01-15 09:56:51
+         * registId : 120c83f76008d52169a
+         * sysRoles : [{"roleCode":"2f0573c69ae74edf919d8332d04884a9","roleName":"东源县负责人"}]
+         * areaCode : 441625
+         * countSymbol : 1
          */
 
         private String userCode;
@@ -60,8 +66,10 @@ public class UserInfoBean extends BaseResponse {
         private String status;
         private String createDate;
         private String updateDate;
-        private String countSymbol;
+        private String registId;
         private String areaCode;
+        private String countSymbol;
+        private List<SysRolesBean> sysRoles;
 
         public String getUserCode() {
             return userCode;
@@ -191,12 +199,12 @@ public class UserInfoBean extends BaseResponse {
             this.updateDate = updateDate;
         }
 
-        public String getCountSymbol() {
-            return countSymbol;
+        public String getRegistId() {
+            return registId;
         }
 
-        public void setCountSymbol(String countSymbol) {
-            this.countSymbol = countSymbol;
+        public void setRegistId(String registId) {
+            this.registId = registId;
         }
 
         public String getAreaCode() {
@@ -205,6 +213,48 @@ public class UserInfoBean extends BaseResponse {
 
         public void setAreaCode(String areaCode) {
             this.areaCode = areaCode;
+        }
+
+        public String getCountSymbol() {
+            return countSymbol;
+        }
+
+        public void setCountSymbol(String countSymbol) {
+            this.countSymbol = countSymbol;
+        }
+
+        public List<SysRolesBean> getSysRoles() {
+            return sysRoles;
+        }
+
+        public void setSysRoles(List<SysRolesBean> sysRoles) {
+            this.sysRoles = sysRoles;
+        }
+
+        public static class SysRolesBean {
+            /**
+             * roleCode : 2f0573c69ae74edf919d8332d04884a9
+             * roleName : 东源县负责人
+             */
+
+            private String roleCode;
+            private String roleName;
+
+            public String getRoleCode() {
+                return roleCode;
+            }
+
+            public void setRoleCode(String roleCode) {
+                this.roleCode = roleCode;
+            }
+
+            public String getRoleName() {
+                return roleName;
+            }
+
+            public void setRoleName(String roleName) {
+                this.roleName = roleName;
+            }
         }
     }
 }

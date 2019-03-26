@@ -65,6 +65,10 @@ interface UserHttpService {
     @GET("app/sysMenu/getByToken")
     Observable<MenuListResponse> getByTokenMenu2(@Header("Authorization") String token);
 
+    @GET("app/sysMenu/getByToken")
+    Observable<MenuListResponse> getByTokenMenuByRole(@Header("Authorization") String token,
+                                                      @Query("roleCode") String roleCode);
+
     /**
      * 编辑用户信息
      *

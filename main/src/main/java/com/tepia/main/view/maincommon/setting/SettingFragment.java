@@ -28,8 +28,11 @@ import com.tepia.main.model.worknotification.WorkNotificationManager;
 import com.tepia.main.view.MenuItemBean;
 import com.tepia.main.view.TabMainFragmentFactory;
 import com.tepia.main.view.login.LoginActivity;
+import com.tepia.main.view.login.LoginPresenter;
 import com.tepia.main.view.maincommon.setting.train.TrainActivity;
 import com.tepia.main.view.maincommon.setting.voiceassistant.VoiceAssistantSettingActivity;
+
+import java.util.List;
 
 
 /**
@@ -49,11 +52,14 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     private MySettingView peixunMv;
     private MySettingView zhizeMvMv;
     private MySettingView loginOutMv;
+    private MySettingView roleSwitchMv;
     private EditText changeipEv;
 
     private Context mContext;
     private MySettingView worknotificationMv;
     private BadgeView badgeView;
+
+    private List<UserInfoBean.DataBean.SysRolesBean> sysRolesBeanList;
 
 
     @Override
@@ -174,6 +180,10 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
             builder.create().show();
 
 
+        }else if(view.getId() == R.id.roleSwitchMv){
+
+            LoginPresenter loginPresenter = new LoginPresenter();
+            loginPresenter.saveUserInfoBean(getBaseActivity(),true);
         }
     }
 
@@ -193,7 +203,8 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         peixunMv = findView(R.id.peixunMv);
         zhizeMvMv = findView(R.id.zhizeMvMv);
         loginOutMv = findView(R.id.loginOutMv);
-
+        roleSwitchMv = findView(R.id.roleSwitchMv);
+        roleSwitchMv.setVisibility(View.GONE);
 
         headIv.setOnClickListener(SettingFragment.this);
         userTv.setOnClickListener(SettingFragment.this);
@@ -205,6 +216,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         zhizeMvMv.setOnClickListener(SettingFragment.this);
         loginOutMv.setOnClickListener(SettingFragment.this);
         worknotificationMv.setOnClickListener(SettingFragment.this);
+        roleSwitchMv.setOnClickListener(SettingFragment.this);
         setItem();
 
 
@@ -233,6 +245,9 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         loginOutMv.setTitle(getString(R.string.loginout));
         loginOutMv.setIvLeft(R.drawable.s_loginout);
 
+        roleSwitchMv.setTitle("切换登录身份");
+        roleSwitchMv.setIvLeft(R.drawable.s_loginout);
+
 
     }
 
@@ -249,6 +264,13 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
                         UserManager.getInstance().setUserBean(userInfoBean);
                         userTv.setText(userInfoBean.getData().getUserName());
                         zhizeTv.setText(userInfoBean.getData().getOfficeName());
+                        sysRolesBeanList = userInfoBean.getData().getSysRoles();
+                        if (sysRolesBeanList != null && sysRolesBeanList.size() > 1) {
+                            roleSwitchMv.setVisibility(View.VISIBLE);
+                        }else{
+                            roleSwitchMv.setVisibility(View.GONE);
+                        }
+
                     } else {
                         ToastUtils.longToast(userInfoBean.getMsg());
 

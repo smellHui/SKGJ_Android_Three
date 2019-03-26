@@ -53,6 +53,7 @@ import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.model.worknotification.NotFeedBackCountResponse;
 import com.tepia.main.model.worknotification.WorkNotificationManager;
+import com.tepia.main.view.login.LoginActivity;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
 
@@ -150,6 +151,12 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             EventBus.getDefault().post(100);
         });
 
+        /*UserManager.getInstance().clearCacheAndStopPush();
+        AppManager.getInstance().finishAll();
+        TabMainFragmentFactory.getInstance().clearFragment();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();*/
     }
 
 

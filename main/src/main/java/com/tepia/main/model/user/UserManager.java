@@ -127,6 +127,19 @@ public class UserManager {
 
 
     /**
+     * 根据角色roleCode
+     * @param roleCode
+     * @return
+     */
+    public Observable<MenuListResponse> getByTokenMenuByRole(String roleCode) {
+        String token = getToken();
+        return mRetrofitService.getByTokenMenuByRole(token,roleCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
      * 编辑用户信息
      *
      * @param userName

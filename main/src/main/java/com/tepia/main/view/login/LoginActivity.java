@@ -102,9 +102,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
     @Override
     public void loginSuccess() {
-
-        ARouter.getInstance().build(AppRoutePath.appMain).navigation();
         finish();
+        ARouter.getInstance().build(AppRoutePath.appMain).navigation();
     }
 
     private void initLayout(){
@@ -160,7 +159,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             String registId = JPushInterface.getRegistrationID(Utils.getContext());
             LogUtil.e("LoginActivity","获取极光推送注册："+registId);
             SPUtils.getInstance().putString(CacheConsts.USERNAME_LOGIN,usernameEt.getText().toString());
-            mPresenter.login(usernameEt.getText().toString(),psEt.getText().toString(),registId);
+            mPresenter.login(this, usernameEt.getText().toString(), psEt.getText().toString(), registId);
 
 //            Intent intent = new Intent();
 //            intent.setClass(this, MainActivity.class);
