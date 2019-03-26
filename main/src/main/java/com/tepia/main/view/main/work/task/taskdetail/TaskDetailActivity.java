@@ -234,16 +234,15 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                                         isFirstInitMap = false;
                                     } else {
                                         mBinding.alMapview.postDelayed(this, 1500);
-                                        isFirstInitMap = false;
                                     }
                                 } else {
-                                    if (positionPoint != null) {
-                                        mBinding.alMapview.setCenterPoint(positionPoint, ArcgisLayout.maxScale);
-                                        isFirstInitMap = false;
-                                    } else {
-                                        isFirstInitMap = false;
-                                        mBinding.alMapview.postDelayed(this, 500);
-                                    }
+
+                                }
+                                if (positionPoint != null) {
+                                    mBinding.alMapview.setCenterPoint(positionPoint,ArcgisLayout.maxScale*8);
+                                    isFirstInitMap = false;
+                                } else {
+                                    mBinding.alMapview.postDelayed(this, 500);
                                 }
                             }
                         }
