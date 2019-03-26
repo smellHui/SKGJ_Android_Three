@@ -175,9 +175,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                             if (initCount < 3) {
                                 refreshMapView();
                             } else {
-                                Point point1 = (Point) GeometryEngine.project(currentPoint, SpatialReferences.getWebMercator());
+//                                Point point1 = (Point) GeometryEngine.project(currentPoint, SpatialReferences.getWebMercator());
                                 if (exeline2 != null) {
-                                    exeline2.add(point1);
+                                    exeline2.add(currentPoint);
                                     mBinding.alMapview.addPolyline(exeline2, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
                                     refreshMapViewPoint();
                                 }
@@ -230,20 +230,18 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                                 }
                                 if ("2".equals(taskBean.getExecuteStatus())) {
                                     if (currentPoint != null) {
-                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale / 4);
+                                        mBinding.alMapview.setCenterPoint(currentPoint, ArcgisLayout.maxScale);
                                         isFirstInitMap = false;
                                     } else {
-//                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
                                         mBinding.alMapview.postDelayed(this, 1500);
-
+                                        isFirstInitMap = false;
                                     }
                                 } else {
                                     if (positionPoint != null) {
-                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale / 4);
+                                        mBinding.alMapview.setCenterPoint(positionPoint, ArcgisLayout.maxScale);
                                         isFirstInitMap = false;
                                     } else {
-//                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(mBinding.alMapview.mapCenterPoint);
-//                                        isFirstInitMap = false;
+                                        isFirstInitMap = false;
                                         mBinding.alMapview.postDelayed(this, 500);
                                     }
                                 }
@@ -294,8 +292,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                         refreshMapView();
                     } else if (initCount > 12) {
                         RoutepointDataManager.getInstance().addPoint(new RoutepointDataBean(id, point.getX() + "", point.getY() + ""));
-                        Point point1 = (Point) GeometryEngine.project(point, SpatialReferences.getWebMercator());
-                        mBinding.alMapview.addPolylineByPoint(point1, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
+//                        Point point1 = (Point) GeometryEngine.project(point, SpatialReferences.getWebMercator());
+                        mBinding.alMapview.addPolylineByPoint(point, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
                     }
                 }
             }
@@ -804,23 +802,23 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 double longitude = Double.parseDouble(taskItemBean.getExcuteLongitude());
                 double Latitude = Double.parseDouble(taskItemBean.getExcuteLatitude());
                 Point point1 = new Point(longitude, Latitude, SpatialReference.create(4326));
-                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+//                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
                 Map<String, Object> attrs = new HashMap<>();
                 attrs.put("taskItemBean", new Gson().toJson(taskItemBean));
-                mBinding.alMapview.addPic(R.drawable.icon_taskitem_exe, point, attrs);
-                positionPoint = point;
-                exeLine.add(point);
+                mBinding.alMapview.addPic(R.drawable.icon_taskitem_exe, point1, attrs);
+                positionPoint = point1;
+                exeLine.add(point1);
             }
             if (TextUtils.isEmpty(taskItemBean.getPositionLongitude()) || TextUtils.isEmpty(taskItemBean.getPositionLatitude())) {
             } else {
                 double longitude = Double.parseDouble(taskItemBean.getPositionLongitude());
                 double Latitude = Double.parseDouble(taskItemBean.getPositionLatitude());
                 Point point1 = new Point(longitude, Latitude, SpatialReference.create(4326));
-                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+//                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
                 Map<String, Object> attrs = new HashMap<>();
                 attrs.put("taskItemBean", new Gson().toJson(taskItemBean));
-                positionPoint = point;
-                mBinding.alMapview.addPic(R.drawable.icon_taskitem_temp, point, attrs);
+                positionPoint = point1;
+                mBinding.alMapview.addPic(R.drawable.icon_taskitem_temp, point1, attrs);
             }
         }
         mBinding.alMapview.setOnAddPointClickListener(new ArcgisLayout.OnAddPointClickListener() {
@@ -867,8 +865,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     double longitude = bean.get(0);
                     double Latitude = bean.get(1);
                     Point point1 = new Point(longitude, Latitude, SpatialReference.create(4326));
-                    Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
-                    exeline.add(point);
+//                    Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+                    exeline.add(point1);
                 }
 
                 mBinding.alMapview.addPolyline(exeline, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
@@ -891,8 +889,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 double longitude = Double.parseDouble(bean.getLgtd());
                 double Latitude = Double.parseDouble(bean.getLttd());
                 Point point1 = new Point(longitude, Latitude, SpatialReference.create(4326));
-                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
-                exeline2.add(point);
+//                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+                exeline2.add(point1);
             }
             try {
                 mBinding.alMapview.setMapViewVisibleExtent(exeline2);

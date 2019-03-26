@@ -12,11 +12,13 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +28,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -42,15 +45,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.arialyy.frame.util.show.L;
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.arcgisservices.TileInfo;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
+import com.esri.arcgisruntime.data.ServiceFeatureTable;
 import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
+import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
 import com.esri.arcgisruntime.layers.WebTiledLayer;
 import com.esri.arcgisruntime.location.LocationDataSource;
@@ -64,7 +70,12 @@ import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.IdentifyGraphicsOverlayResult;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.symbology.FillSymbol;
 import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
+import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
+import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
+import com.esri.arcgisruntime.symbology.SimpleRenderer;
+import com.esri.arcgisruntime.util.ListenableList;
 import com.example.gaodelibrary.GPSUtil;
 import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
@@ -76,12 +87,15 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.ScrollLayout.ContentRecyclerView;
 import com.tepia.base.view.ScrollLayout.ContentScrollView;
 import com.tepia.base.view.ScrollLayout.ScrollLayout;
+import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.main.R;
 import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.map.MapCommonResponse;
 import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.map.VideoResponse;
+import com.tepia.main.model.user.UserInfoBean;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.detail.imageshow.ImageFragment;
 import com.tepia.main.view.main.detail.liuliangzhanandrainfull.LiuliangFragment;
 import com.tepia.main.view.main.detail.liuliangzhanandrainfull.RainFullFragment;
@@ -97,6 +111,7 @@ import com.tepia.main.view.main.map.adapter.SectionData;
 import com.tepia.main.view.main.map.adapter.search.SearchModel;
 import com.tepia.main.view.main.map.presenter.MainMapContract;
 import com.tepia.main.view.main.map.presenter.MainMapPresenter;
+import com.tepia.main.view.main.map.utils.GoogleMapLayer;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -151,8 +166,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private LinearLayout llZoom;
     private GraphicsOverlay stRiverOverLay;
     private static MapArcgisFragment mapArcgisFragment;
-    private WebTiledLayer imgTiteLayer;
+    private WebTiledLayer imgTitleLayer;
     private ImageView mImageViewLocation;
+    private WebTiledLayer titleLayer;
 
     public static MapArcgisFragment getInstance() {
         return mapArcgisFragment;
@@ -1557,11 +1573,13 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                                 reservoirCommonModel.add(commonModel);
                             }
                         }
-                        setMapViewVisibleExtent(reservoirPoints,mapView);
                     }
                     boolean isContains = isListContains(section, position);
                     if (!isContains) {
-                        addMarkersAndList(reservoirOverlay, reservoirCommonModel, section, position);
+                        new Handler().postDelayed(() -> {
+                            setMapViewVisibleExtent(reservoirPoints,mapView);
+                            addMarkersAndList(reservoirOverlay, reservoirCommonModel, section, position);
+                        },1000);
                     }
                 }
             }
@@ -1663,10 +1681,10 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      */
     public Point transformationPoint(double lgtd, double lttd) {
         Point point1 = new Point(lgtd, lttd, SpatialReference.create(4326));
-        //Google地图偏移
-//        double[] doubles = GPSUtil.gps84_To_Gcj02(lttd, lgtd);
-//        Point point = (Point) GeometryEngine.project(new Point(doubles[1],doubles[0],SpatialReference.create(4326)), SpatialReferences.getWebMercator());
-        Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+//        Google地图偏移
+        double[] doubles = GPSUtil.gps84_To_Gcj02(lttd, lgtd);
+        Point point = (Point) GeometryEngine.project(new Point(doubles[1],doubles[0],SpatialReference.create(4326)), SpatialReferences.getWebMercator());
+//        Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
         return point;
     }
 
@@ -1684,23 +1702,24 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             for (int i = 0; i < mListData.size(); i++) {
                 list.add(mListData.get(i).getName());
             }
-            Observable.create((ObservableOnSubscribe<String>) e -> {
-                if (graphicsOverlay.getGraphics().size() != mListData.size()) {
-                    for (int i = 0; i < mListData.size(); i++) {
-                        HashMap<String, Object> map = new HashMap<>();
-                        //传入对应集合的position
-                        map.put("id", i);
-                        //传入对应类型的position
-                        map.put("groupId", position);
-                        Point point = transformationPoint(mListData.get(i).getLgtd(), mListData.get(i).getLttd());
-                        Map<String, Object> attrs = new HashMap<>(1);
+//            Observable.create((ObservableOnSubscribe<String>) e -> {
+//                e.onNext("完成");
+//            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
+//            });
+            if (graphicsOverlay.getGraphics().size() != mListData.size()) {
+                for (int i = 0; i < mListData.size(); i++) {
+                    HashMap<String, Object> map = new HashMap<>();
+                    //传入对应集合的position
+                    map.put("id", i);
+                    //传入对应类型的position
+                    map.put("groupId", position);
+                    Point point = transformationPoint(mListData.get(i).getLgtd(), mListData.get(i).getLttd());
+                    Map<String, Object> attrs = new HashMap<>(1);
 
-                        addPic(graphicsOverlay, picMap.get(section)[position], point, map);
-                    }
-                    e.onNext("完成");
+                    addPic(graphicsOverlay, picMap.get(section)[position], point, map);
                 }
-            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
-            });
+
+            }
         }
         LTntity lTntity = new LTntity();
         lTntity.tagsName = drawerLayoutDatas.get(section).list.get(position);
@@ -1718,30 +1737,66 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
      * @param points
      */
     private void setMapViewVisibleExtent(List<Point> points,MapView mMapView) {
-        if (points != null && points.size() > 0) {
-            isLocationReservoir = true;
-            double numx = (double) points.get(0).getX();
-            double numy = (double) points.get(0).getY();
-            double minx = (double) points.get(0).getX();
-            double miny = (double) points.get(0).getY();
-            for (int i = 0; i < points.size(); i++) {
-                double x = (double) points.get(i).getX();
-                double y = (double) points.get(i).getY();
-                numx = x < numx ? numx : x;
-                numy = y < numy ? numy : y;
-                minx = x > minx ? minx : x;
-                miny = y > miny ? miny : y;
-            }
-            double xcen = (numx - minx) > 0 ? (numx - minx) : 0;
-            double ycen = (numy - miny) > 0 ? (numy - miny) : 0;
+        try{
+            if (points != null && points.size() > 0) {
+                isLocationReservoir = true;
+                double numx = (double) points.get(0).getX();
+                double numy = (double) points.get(0).getY();
+                double minx = (double) points.get(0).getX();
+                double miny = (double) points.get(0).getY();
+                for (int i = 0; i < points.size(); i++) {
+                    double x = (double) points.get(i).getX();
+                    double y = (double) points.get(i).getY();
+                    numx = x < numx ? numx : x;
+                    numy = y < numy ? numy : y;
+                    minx = x > minx ? minx : x;
+                    miny = y > miny ? miny : y;
+                }
+                double xcen = (numx - minx) > 0 ? (numx - minx) : 0;
+                double ycen = (numy - miny) > 0 ? (numy - miny) : 0;
 //            Envelope envelope = new Envelope();
 //            envelope.setXMin(minPoint.getX() - xcen / 10);
 //            envelope.setYMin(minPoint.getY() - ycen / 10);
 //            envelope.setXMax(maxPoint.getX() + xcen / 10);
 //            envelope.setYMax(maxPoint.getY() + ycen / 10);
 //            mapView.setExtent(envelope);
-            Envelope envelope = new Envelope(minx - xcen / 10, miny- ycen / 10, numx+ xcen / 10, numy+ ycen / 10, SpatialReference.create(3857));
-            mMapView.setViewpointGeometryAsync(envelope);
+                Envelope envelope = new Envelope(minx - xcen / 10, miny- ycen / 10, numx+ xcen / 10, numy+ ycen / 10, SpatialReference.create(3857));
+                mMapView.setViewpointGeometryAsync(envelope);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 添加定位图标
+     * @param graphicsOverlay
+     * @param id
+     * @param point
+     */
+    public void addLocationPic(GraphicsOverlay graphicsOverlay, int id, Point point) {
+        PictureMarkerSymbol pictureMarkerSymbol1 = null;
+        try {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
+            if (bitmap == null) {
+                return;
+            }
+            Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() * 2, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(bitmap, 0, 0, null);
+//            canvas.drawBitmap(bitmap, bitmap.getHeight(), 0, null);
+            pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), result)).get();
+            Graphic picGraphic = new Graphic(point, pictureMarkerSymbol1);
+            ListenableList<Graphic> graphics = graphicsOverlay.getGraphics();
+            if (graphics!=null&&graphics.size()>0){
+                graphics.set(0,picGraphic);
+            }else {
+                graphicsOverlay.getGraphics().add(picGraphic);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -1755,7 +1810,14 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         PictureMarkerSymbol pictureMarkerSymbol1 = null;
         try {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), id);
-            pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), bitmap)).get();
+            if (bitmap == null) {
+                return;
+            }
+            Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() * 2, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+            canvas.drawBitmap(bitmap, 0, 0, null);
+//            canvas.drawBitmap(bitmap, bitmap.getHeight(), 0, null);
+            pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(new BitmapDrawable(getResources(), result)).get();
             Graphic picGraphic = new Graphic(point, pictureMarkerSymbol1);
             graphicsOverlay.getGraphics().add(picGraphic);
         } catch (InterruptedException e) {
@@ -1880,6 +1942,8 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         ObjectAnimator objectAnimator = objectAnimation(scroll_item_layout, 1f, 0f, 300);
         objectAnimator.start();
         ivArrowBack.setVisibility(View.GONE);
+        isLocationReservoir = true;
+        mImageViewLocation.setImageResource(R.drawable.map_nav_btn_location);
     }
 
     /**
@@ -2079,7 +2143,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             mImTvRaster.setBackgroundResource(R.color.color_c8c8c8);
             mTvRaster.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_c8c8c8));
             imgLayer.setVisible(false);
-//            imgTiteLayer.setVisible(false);google地图
+            imgTitleLayer.setVisible(false);//google地图
         } else if (id == R.id.layer_raster) {
             mIvRaster.setBackgroundResource(R.drawable.bg_view_state_shape);
             mIvVector.setBackgroundResource(R.drawable.bg_view_unstate_shape);
@@ -2088,7 +2152,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             mImTvRaster.setBackgroundResource(R.color.color_tab_checked);
             mTvRaster.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_tab_checked));
             imgLayer.setVisible(true);
-//            imgTiteLayer.setVisible(true);google地图
+            imgTitleLayer.setVisible(true);//google地图
         } else if (id == R.id.img_location) {
             //android 6.0动态申请权限
             if (ContextCompat.checkSelfPermission(getContext(),
@@ -2101,11 +2165,15 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                     mLocationDisplay.startAsync();//开始定位
                 }
             }
-            Point mapLocation = mLocationDisplay.getMapLocation();
-            if (mapLocation != null) {
+//            Point mapLocation = mLocationDisplay.getMapLocation();
+            Point position = mLocationDisplay.getLocation().getPosition();
+//            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
+//            LogUtil.i("point:"+point.toString());
+            Point locationPoint = transformationPoint(position.getX(), position.getY());
+            if (locationPoint != null) {
                 if (isLoaded) {
                     if (isLocationReservoir){
-                        mapView.setViewpointCenterAsync(mapLocation);
+                        mapView.setViewpointCenterAsync(locationPoint,ArcgisLayout.maxScale);
 //                        bg_map_shape_1
                         mImageViewLocation.setImageResource(R.drawable.detail_resorvior);
                         isLocationReservoir = false;
@@ -2392,41 +2460,36 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //        layer = new ArcGISTiledLayer("http://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer");
         layer = new ArcGISTiledLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer");
         imgLayer = new ArcGISTiledLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer");
-//        WebTiledLayer titeLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.VECTOR);
-//        imgTiteLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.IMAGE);
-//        WebTiledLayer webTiteLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.IMAGE_ANNOTATION);
+        //google地图
+        titleLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.VECTOR);
+        //google影像图
+        imgTitleLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.IMAGE);
+        ServiceFeatureTable serviceFeatureTable = new ServiceFeatureTable("http://202.98.201.102:1342/arcgis/rest/services/countrywideMapService/MapServer/0");
+        SimpleFillSymbol sfs = new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID,Color.TRANSPARENT,new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID,Color.rgb(176,222,255),2)
+                );
+        FeatureLayer featureLayer = new FeatureLayer(serviceFeatureTable);
+        featureLayer.setRenderer(new SimpleRenderer(sfs));
+        UserManager instance = UserManager.getInstance();
+        UserInfoBean userBean = instance.getUserBean();
+        String areaCode = userBean.getData().getAreaCode();
+        featureLayer.setDefinitionExpression("areacode="+areaCode);
+        WebTiledLayer webTitleLayer = GoogleMapLayer.createWebTiteLayer(GoogleMapLayer.Type.IMAGE_ANNOTATION);
         OpenStreetMapLayer streetlayer = new OpenStreetMapLayer();
-//        Basemap basemap = new Basemap(titeLayer);
+//        Basemap basemap = new Basemap(titleLayer);
         Basemap basemap = new Basemap(streetlayer);
         layer.setVisible(false);
         imgLayer.setVisible(true);
         ArcGISMap arcGISMap = new ArcGISMap(basemap);
-//        arcGISMap.getOperationalLayers().add(imgTiteLayer);
-//        arcGISMap.getOperationalLayers().add(webTiteLayer);
-        arcGISMap.getOperationalLayers().add(imgLayer);
+        arcGISMap.getOperationalLayers().add(imgTitleLayer);
+        arcGISMap.getOperationalLayers().add(webTitleLayer);
+        arcGISMap.getOperationalLayers().add(featureLayer);
+//        arcGISMap.getOperationalLayers().add(imgLayer);
+        arcGISMap.setMinScale(ArcgisLayout.minScale);
+        Point point1 = new Point(1.1992433073197773E7, 4885139.106039485,SpatialReference.create(3857));
+        Point point2 = new Point(1.3532164647994766E7, 2329702.2487083403,SpatialReference.create(3857));
+        Envelope initEnvelope = new Envelope(point1,point2);
+        arcGISMap.setInitialViewpoint(new Viewpoint(initEnvelope));
         mapView.setMap(arcGISMap);
-        //定位
-        mLocationDisplay = mapView.getLocationDisplay();
-        mLocationDisplay.addLocationChangedListener(locationChangedEvent -> {
-            //getMapLocation获取的点是基于当前地图坐标系的点
-            //getPosition是获取基于GPS的位置信息，再获取的点是基于WGS84的经纬度坐标。
-            LocationDataSource.Location location = locationChangedEvent.getLocation();
-            Point point = mLocationDisplay.getMapLocation();
-//            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
-//            LogUtil.i("point:"+point.toString());
-        });
-        mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.OFF);
-        //android 6.0动态申请权限
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION);
-        } else {
-            if (mLocationDisplay != null && !mLocationDisplay.isStarted()) {
-                mLocationDisplay.startAsync();//开始定位
-            }
-        }
         //初始化要素图层
         overlayList = new ArrayList<>();
         overlayStateMap = new SparseBooleanArray();
@@ -2461,6 +2524,35 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         //搜索图层
         searchOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(searchOverlay);
+        //模拟定位图标
+        GraphicsOverlay locationOverlay = new GraphicsOverlay();
+        mapView.getGraphicsOverlays().add(locationOverlay);
+        //定位
+        mLocationDisplay = mapView.getLocationDisplay();
+        mLocationDisplay.addLocationChangedListener(locationChangedEvent -> {
+            //getMapLocation获取的点是基于当前地图坐标系的点
+            //getPosition是获取基于GPS的位置信息，再获取的点是基于WGS84的经纬度坐标。
+            LocationDataSource.Location location = locationChangedEvent.getLocation();
+            Point point = mLocationDisplay.getMapLocation();
+            Point position = location.getPosition();
+//            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
+//            LogUtil.i("point:"+point.toString());
+            Point locationPoint = transformationPoint(position.getX(), position.getY());
+            addLocationPic(locationOverlay,R.drawable.google_location,locationPoint);
+        });
+        mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.OFF);
+        mLocationDisplay.setShowLocation(false);//设置不显示定位图标
+        //android 6.0动态申请权限
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+        } else {
+            if (mLocationDisplay != null && !mLocationDisplay.isStarted()) {
+                mLocationDisplay.startAsync();//开始定位
+            }
+        }
         callout = mapView.getCallout();
         //设置地图点击事件
         mapView.setOnTouchListener(new DefaultMapViewOnTouchListener(mContext, mapView) {
@@ -2498,8 +2590,11 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         }
         android.graphics.Point screenPoint = new android.graphics.Point(Math.round(e.getX()), Math.round(e.getY()));
         Point clickPoint = mapView.screenToLocation(screenPoint);
+        Log.i("坐标:","坐标:x:"+clickPoint.getX()+"y:"+clickPoint.getY());
         SpatialReference spatialReference = mapView.getSpatialReference();
-//        LogUtil.i("坐标系:"+spatialReference);
+        Log.i("坐标系","坐标系:"+spatialReference.getWKText());
+        double mapScale = mapView.getMapScale();
+        Log.i("缩放比例","缩放比例:"+mapScale);
         //要素图层点击事件
         overlayOnClick(screenPoint);
     }

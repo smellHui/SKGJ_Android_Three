@@ -37,12 +37,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-  * Created by      Android studio
-  *
-  * @author         :       ly(from Center Of Wuhan)
-  * Date            :       2018-9-18
-  * Version         :       1.0
-  * 功能描述         :       水库简介
+ * Created by      Android studio
+ *
+ * @author         :       ly(from Center Of Wuhan)
+ * Date            :       2018-9-18
+ * Version         :       1.0
+ * 功能描述         :       水库简介
  **/
 public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<IntroduceOfReservoirsBean> {
 
@@ -235,11 +235,9 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
             try{
                 Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
                         Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));
-                Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
                 Map<String, Object> attrs = new HashMap<>(1);
-
-                arcgisLayout.addPic(R.drawable.m_reservior, point,attrs);
-                arcgisLayout.setCenterPoint(point, arcgisLayout.groupScale);
+                arcgisLayout.addPic(R.drawable.m_reservior, point1,attrs);
+                arcgisLayout.setCenterPoint(point1, ArcgisLayout.maxScale);
             }catch (NumberFormatException e){
                 LogUtil.e(e.getMessage());
             }

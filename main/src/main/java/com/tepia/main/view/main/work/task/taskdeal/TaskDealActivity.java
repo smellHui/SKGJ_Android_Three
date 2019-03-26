@@ -118,14 +118,24 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                     if (isFirstInitMap) {
                         if (currentPoint != null) {
                             if ("2".equals(taskBean.getExecuteStatus())) {
-                                mBinding.alMapview.getMapView().setViewpointCenterAsync(currentPoint, mBinding.alMapview.itemScale).addDoneListener(() -> {
-                                    moveMap(true);
-                                });
-                            } else {
-                                if (positionPoint != null) {
-                                    mBinding.alMapview.getMapView().setViewpointCenterAsync(positionPoint, mBinding.alMapview.itemScale).addDoneListener(() -> {
+                                try{
+                                    Point point = ArcgisLayout.transformationPoint(currentPoint.getX(),currentPoint.getY());
+                                    mBinding.alMapview.getMapView().setViewpointCenterAsync(point, mBinding.alMapview.itemScale).addDoneListener(() -> {
                                         moveMap(true);
                                     });
+                                }catch (Exception e){
+
+                                }
+                            } else {
+                                if (positionPoint != null) {
+                                    try{
+                                        Point point = ArcgisLayout.transformationPoint(positionPoint.getX(),positionPoint.getY());
+                                        mBinding.alMapview.getMapView().setViewpointCenterAsync(point, mBinding.alMapview.itemScale).addDoneListener(() -> {
+                                            moveMap(true);
+                                        });
+                                    }catch (Exception e){
+
+                                    }
                                 }
                             }
                         }
@@ -190,7 +200,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
 //                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(),  "",
-                                     "", data.getFiles(), data.getEndfiles(),
+                                    "", data.getFiles(), data.getEndfiles(),
                                     false, ResUtils.getString(R.string.data_saving));
 
                             taskItemDealFragment.selectPhotosBefore.clear();
@@ -304,11 +314,11 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                     double longitude = Double.parseDouble(taskItemBean.getExcuteLongitude());
                     double Latitude = Double.parseDouble(taskItemBean.getExcuteLatitude());
                     Point point1 = new Point(longitude, Latitude, SpatialReference.create(4326));
-                    Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+//                    Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
                     Map<String, Object> attrs = new HashMap<>();
                     attrs.put("taskItemBean", new Gson().toJson(taskItemBean));
-                    mBinding.alMapview.addPic(R.drawable.icon_taskitem_exe, point, attrs);
-                    positionPoint = point;
+                    mBinding.alMapview.addPic(R.drawable.icon_taskitem_exe, point1, attrs);
+                    positionPoint = point1;
                 }
             }
             {   //添加任务点
@@ -317,11 +327,11 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                     double longitude = Double.parseDouble(taskItemBean.getPositionLongitude());
                     double Latitude = Double.parseDouble(taskItemBean.getPositionLatitude());
                     Point point1 = new Point(longitude, Latitude, SpatialReference.create(4326));
-                    Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+//                    Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
                     Map<String, Object> attrs = new HashMap<>();
                     attrs.put("taskItemBean", new Gson().toJson(taskItemBean));
-                    mBinding.alMapview.addPic(R.drawable.icon_taskitem_temp, point, attrs);
-                    positionPoint = point;
+                    mBinding.alMapview.addPic(R.drawable.icon_taskitem_temp, point1, attrs);
+                    positionPoint = point1;
                 }
 
             }

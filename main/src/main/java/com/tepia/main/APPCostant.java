@@ -26,7 +26,7 @@ public class APPCostant {
      * 华为服务器（正式地址）  202.98.201.126:1341
      *
      */
-    public static String API_SERVER_URL = "http://172.17.17.126:8765/";
+    public static String API_SERVER_URL = "http://172.17.17.220:8765/";
     /**
      * 图片服务器地址
      */
