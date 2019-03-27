@@ -77,6 +77,7 @@ public class BookFirstFragment extends MVPBaseFragment<ContactsContract.ViewNew,
 
         initRecycleView();
         search(true);
+
     }
 
     @Override
@@ -93,12 +94,14 @@ public class BookFirstFragment extends MVPBaseFragment<ContactsContract.ViewNew,
         binding.rvContact.setAdapter(patrolListAdapter);
 
 
+
     }
 
     private void search(boolean isshowloadiing) {
 
         if (!NetUtil.isNetworkConnected(Utils.getContext())) {
-            ToastUtils.shortToast(R.string.no_network);
+//            ToastUtils.shortToast(R.string.no_network);
+            patrolListAdapter.setEmptyView(EmptyLayoutUtil.show(getString(R.string.no_network)));
             return;
         }
         patrolListAdapter.expendFirst();

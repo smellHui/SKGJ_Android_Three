@@ -23,7 +23,10 @@ public class APPCostant {
      * 外网地址    http://weish.vipgz1.idcfengye.com
      * 鸭溪正式地址 http://218.201.212.243:8765
      * 王志敏ip  http://172.17.17.126:8765
-     * 华为服务器（正式地址）  202.98.201.126:1341
+     *
+     *
+     *
+     * 华为服务器（正式地址）  202.98.201.102:1341
      *
      */
     public static String API_SERVER_URL = "http://172.17.17.220:8765/";

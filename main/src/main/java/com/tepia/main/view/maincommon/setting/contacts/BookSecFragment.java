@@ -19,11 +19,13 @@ import com.chad.library.adapter.base.loadmore.SimpleLoadMoreView;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.FragmentBookSecBinding;
 import com.tepia.main.model.user.AddressBookResponse;
 import com.tepia.main.model.user.ContactBean;
+import com.tepia.main.utils.EmptyLayoutUtil;
 
 import java.util.List;
 
@@ -63,7 +65,8 @@ public class BookSecFragment extends MVPBaseFragment<ContactsContract.View, Cont
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchKey = mBinding.secEtSearch.getText().toString().trim();
-                mPresenter.getAddressBook(searchKey,false);
+//                mPresenter.getAddressBook(searchKey,false);
+                search(false);
             }
 
             @Override
@@ -106,7 +109,23 @@ public class BookSecFragment extends MVPBaseFragment<ContactsContract.View, Cont
                 }, 1000);
             }
         }, mBinding.secRvContact);
-        mPresenter.getAddressBook(searchKey,true);
+
+        if(!NetUtil.isNetworkConnected(Utils.getContext())){
+            adapterContactsList.setEmptyView(EmptyLayoutUtil.show(getString(R.string.no_network)));
+            return;
+
+        }
+//        mPresenter.getAddressBook(searchKey,true);
+        search(true);
+    }
+
+    private void search(boolean isloading){
+        if(!NetUtil.isNetworkConnected(Utils.getContext())){
+            adapterContactsList.setEmptyView(EmptyLayoutUtil.show(getString(R.string.no_network)));
+            return;
+
+        }
+        mPresenter.getAddressBook(searchKey,isloading);
 
     }
 

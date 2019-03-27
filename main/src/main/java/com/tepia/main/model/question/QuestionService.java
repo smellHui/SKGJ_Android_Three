@@ -1,7 +1,6 @@
 package com.tepia.main.model.question;
 
 import com.tepia.base.http.BaseResponse;
-import com.tepia.main.model.user.UserLoginResponse;
 
 import java.util.List;
 import java.util.Map;

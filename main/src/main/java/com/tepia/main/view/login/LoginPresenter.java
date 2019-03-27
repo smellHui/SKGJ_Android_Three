@@ -83,10 +83,19 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
                     // TODO: 2018/8/28 动态菜单跟换后需要调整
 //                    mView.loginSuccess();
 
-                    UserManager.getInstance().saveToken(userLoginResponse);
+                    if(mContext != null) {
+                        UserManager.getInstance().saveToken(userLoginResponse);
 //                    getByTokenMenu2();
-                    DictMapManager.getInstance().getDictMapEntity();
-                    saveUserInfoBean(mContext,false);
+                        DictMapManager.getInstance().getDictMapEntity();
+                        saveUserInfoBean(mContext, false);
+                    }else{
+                        UserManager.getInstance().saveToken(userLoginResponse);
+                        DictMapManager.getInstance().getDictMapEntity();
+                        saveUserInfoBean(mContext, false);
+                        getByTokenMenu2();
+
+
+                    }
 
                 } else {
                     ToastUtils.shortToast(R.string.errro_login);
@@ -163,31 +172,37 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
      * @param mContext
      * @param sysRolesBeanList
      */
-    private int choiceWhich = 0;
+//    private int choiceWhich = 0;
     private void choiceRole(Context mContext, List<UserInfoBean.DataBean.SysRolesBean> sysRolesBeanList,boolean loginAgain) {
-        choiceWhich =  SPUtils.getInstance().getInt(CacheConsts.ROLEWHICH,0);
+        int choiceWhich =  SPUtils.getInstance().getInt(CacheConsts.ROLEWHICH,-1);
         int size = sysRolesBeanList.size();
         String[] items = new String[size];
         for (int i = 0; i < size; i++) {
-            items[i] = sysRolesBeanList.get(i).getRoleName();
+            if(choiceWhich == i) {
+                items[i] = sysRolesBeanList.get(i).getRoleName()+"(上一次登录时身份)";
+            }else{
+                items[i] = sysRolesBeanList.get(i).getRoleName();
+
+            }
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("您有多个身份，请选择其中一个登录")
                 .setSingleChoiceItems(items, choiceWhich, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        String itemStr = items[which];
-                        choiceWhich = which;
+                        SPUtils.getInstance().putInt(CacheConsts.ROLEWHICH,which);
+
+
                     }
                 })
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        int choiceWhich =  SPUtils.getInstance().getInt(CacheConsts.ROLEWHICH,-1);
                         if (choiceWhich == -1) {
                             ToastUtils.shortToast("请选择一个身份");
                             return;
                         }
-                        SPUtils.getInstance().putInt(CacheConsts.ROLEWHICH,choiceWhich);
                         getByTokenMenuByRole(sysRolesBeanList.get(choiceWhich).getRoleCode(),loginAgain);
 
                     }
@@ -195,7 +210,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        choiceWhich = -1;
+
                     }
                 }).show();
     }
@@ -252,7 +267,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
      * @return
      */
     private void getReservoirList(boolean loginAgain) {
-        UserManager.getInstance_ADMIN().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>() {
+        UserManager.getInstance_ADMIN().getReservoirList().safeSubscribe(new LoadingSubject<ReservoirListResponse>(true,"正在获取水库列表...") {
             @Override
             protected void _onNext(ReservoirListResponse response) {
                 if (response.getCode() == 0) {

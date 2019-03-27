@@ -181,7 +181,7 @@ public class HomeXunChaFragment extends MVPBaseFragment<HomeXunChaContract.View,
         mBinding.tvShowMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (homeGetReservoirInfoBean.getMaterial() != null && homeGetReservoirInfoBean.getMaterial().size() > 4) {
+                if (homeGetReservoirInfoBean != null && homeGetReservoirInfoBean.getMaterial() != null && homeGetReservoirInfoBean.getMaterial().size() > 4) {
                     if (adapterFloodControlMaterialList.getData().size() == 4) {
                         adapterFloodControlMaterialList.setNewData(homeGetReservoirInfoBean.getMaterial());
                         mBinding.tvShowMore.setText("收起");

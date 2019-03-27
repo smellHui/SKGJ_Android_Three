@@ -287,7 +287,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             Point position = mLocationDisplay.getLocation().getPosition();
 //            LogUtil.i("position:"+position.toString());
             transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            nearReservoirFragment = NearReservoirFragment.newInstance(position.getX(), position.getY());
+            if (position != null) {
+                nearReservoirFragment = NearReservoirFragment.newInstance(position.getX(), position.getY());
+            }
             nearReservoirFragment.setOnAddBackClickListener(() -> {
                 setSearchLayoutHide();
             });
@@ -2169,20 +2171,23 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             Point position = mLocationDisplay.getLocation().getPosition();
 //            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
 //            LogUtil.i("point:"+point.toString());
-            Point locationPoint = transformationPoint(position.getX(), position.getY());
-            if (locationPoint != null) {
-                if (isLoaded) {
-                    if (isLocationReservoir){
-                        mapView.setViewpointCenterAsync(locationPoint,ArcgisLayout.maxScale);
+            if (position != null) {
+                Point locationPoint = transformationPoint(position.getX(), position.getY());
+                if (locationPoint != null) {
+                    if (isLoaded) {
+                        if (isLocationReservoir){
+                            mapView.setViewpointCenterAsync(locationPoint,ArcgisLayout.maxScale);
 //                        bg_map_shape_1
-                        mImageViewLocation.setImageResource(R.drawable.detail_resorvior);
-                        isLocationReservoir = false;
-                    }else {
-                        setMapViewVisibleExtent(reservoirPoints,mapView);
-                        mImageViewLocation.setImageResource(R.drawable.map_nav_btn_location);
+                            mImageViewLocation.setImageResource(R.drawable.detail_resorvior);
+                            isLocationReservoir = false;
+                        }else {
+                            setMapViewVisibleExtent(reservoirPoints,mapView);
+                            mImageViewLocation.setImageResource(R.drawable.map_nav_btn_location);
+                        }
                     }
                 }
             }
+
         } else if (id == R.id.iv_arrow_back) {
             if (MapArcgisFragment.isSearchToDetail) {
                 MapArcgisFragment.isSearchToDetail = false;

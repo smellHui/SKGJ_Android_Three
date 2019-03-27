@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,8 +18,10 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.BadgeView;
+import com.tepia.main.CacheConsts;
 import com.tepia.main.R;
 import com.tepia.main.common.MySettingView;
 import com.tepia.main.model.user.UserInfoBean;
@@ -246,7 +249,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         loginOutMv.setIvLeft(R.drawable.s_loginout);
 
         roleSwitchMv.setTitle("切换登录身份");
-        roleSwitchMv.setIvLeft(R.drawable.s_loginout);
+        roleSwitchMv.setIvLeft(R.drawable.p_switchrole);
 
 
     }
@@ -262,14 +265,31 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
                     if (userInfoBean.getCode() == 0) {
                         LogUtil.e("getLoginUser", "getLoginUser:成功获取用户信息------");
                         UserManager.getInstance().setUserBean(userInfoBean);
-                        userTv.setText(userInfoBean.getData().getUserName());
-                        zhizeTv.setText(userInfoBean.getData().getOfficeName());
+//                        zhizeTv.setText(userInfoBean.getData().getOfficeName());
                         sysRolesBeanList = userInfoBean.getData().getSysRoles();
+                        String roleName = "";
                         if (sysRolesBeanList != null && sysRolesBeanList.size() > 1) {
                             roleSwitchMv.setVisibility(View.VISIBLE);
+                            int choiceWhich =  SPUtils.getInstance().getInt(CacheConsts.ROLEWHICH,-1);
+                            if(choiceWhich < sysRolesBeanList.size() && choiceWhich >= 0) {
+                                roleName = sysRolesBeanList.get(choiceWhich).getRoleName();
+                            }
                         }else{
+                            if (sysRolesBeanList != null && sysRolesBeanList.size() == 1) {
+                                roleName = sysRolesBeanList.get(0).getRoleName();
+
+                            }
                             roleSwitchMv.setVisibility(View.GONE);
                         }
+                        if(TextUtils.isEmpty(roleName)) {
+                            zhizeTv.setText(userInfoBean.getData().getOfficeName());
+
+                        }else{
+//                            userTv.setText(userInfoBean.getData().getUserName() + "("+ roleName + ")");
+                            zhizeTv.setText(roleName);
+
+                        }
+                        userTv.setText(userInfoBean.getData().getUserName());
 
                     } else {
                         ToastUtils.longToast(userInfoBean.getMsg());
