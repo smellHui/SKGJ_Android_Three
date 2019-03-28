@@ -45,6 +45,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClientOption;
 import com.arialyy.frame.util.show.L;
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.arcgisservices.TileInfo;
@@ -77,6 +79,8 @@ import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleRenderer;
 import com.esri.arcgisruntime.util.ListenableList;
 import com.example.gaodelibrary.GPSUtil;
+import com.example.gaodelibrary.GaodeEntity;
+import com.example.gaodelibrary.OnGaodeLibraryListen;
 import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
@@ -112,6 +116,7 @@ import com.tepia.main.view.main.map.adapter.search.SearchModel;
 import com.tepia.main.view.main.map.presenter.MainMapContract;
 import com.tepia.main.view.main.map.presenter.MainMapPresenter;
 import com.tepia.main.view.main.map.utils.GoogleMapLayer;
+import com.tepia.main.view.main.work.task.taskdetail.TaskDetailActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -169,6 +174,9 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private WebTiledLayer imgTitleLayer;
     private ImageView mImageViewLocation;
     private WebTiledLayer titleLayer;
+    private GraphicsOverlay locationOverlay;
+    private double locationX;
+    private double locationY;
 
     public static MapArcgisFragment getInstance() {
         return mapArcgisFragment;
@@ -287,9 +295,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
             Point position = mLocationDisplay.getLocation().getPosition();
 //            LogUtil.i("position:"+position.toString());
             transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            if (position != null) {
-                nearReservoirFragment = NearReservoirFragment.newInstance(position.getX(), position.getY());
-            }
+            nearReservoirFragment = NearReservoirFragment.newInstance(locationX,locationY);
             nearReservoirFragment.setOnAddBackClickListener(() -> {
                 setSearchLayoutHide();
             });
@@ -1691,6 +1697,23 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     }
 
     /**
+     * 高德地图坐标转换
+     *
+     * @param lgtd
+     * @param lttd
+     * @return
+     */
+    public Point gaoDeTransformationPoint(double lgtd, double lttd) {
+        Point point1 = new Point(lgtd, lttd, SpatialReference.create(4326));
+//        Google地图偏移
+//        double[] doubles = GPSUtil.gps84_To_Gcj02(lttd, lgtd);
+        Point point = (Point) GeometryEngine.project(new Point(lgtd,lttd,SpatialReference.create(4326)), SpatialReferences.getWebMercator());
+//        Point point = (Point) GeometryEngine.project(point1, SpatialReferences.getWebMercator());
+        return point;
+    }
+
+
+    /**
      * 添加地图图标和刷新列表
      *
      * @param graphicsOverlay 要素图层
@@ -2166,28 +2189,28 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 if (mLocationDisplay != null && !mLocationDisplay.isStarted()) {
                     mLocationDisplay.startAsync();//开始定位
                 }
+//                gaodeEntity.startLocation();
             }
-//            Point mapLocation = mLocationDisplay.getMapLocation();
+            Point mapLocation = mLocationDisplay.getMapLocation();
             Point position = mLocationDisplay.getLocation().getPosition();
-//            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
+            double[] temp = GPSUtil.gcj02_To_Gps84(locationX, locationY);
+//            LogUtil.i(" LocationDataSource.Location:"+position);
+//            LogUtil.i(" 高德定位:"+temp[0]+"..."+temp[1]);
 //            LogUtil.i("point:"+point.toString());
-            if (position != null) {
-                Point locationPoint = transformationPoint(position.getX(), position.getY());
-                if (locationPoint != null) {
-                    if (isLoaded) {
-                        if (isLocationReservoir){
-                            mapView.setViewpointCenterAsync(locationPoint,ArcgisLayout.maxScale);
+            Point locationPoint = gaoDeTransformationPoint(temp[0], temp[1]);
+            if (null != locationPoint) {
+                if (isLoaded) {
+                    if (isLocationReservoir){
+                        mapView.setViewpointCenterAsync(locationPoint,ArcgisLayout.maxScale);
 //                        bg_map_shape_1
-                            mImageViewLocation.setImageResource(R.drawable.detail_resorvior);
-                            isLocationReservoir = false;
-                        }else {
-                            setMapViewVisibleExtent(reservoirPoints,mapView);
-                            mImageViewLocation.setImageResource(R.drawable.map_nav_btn_location);
-                        }
+                        mImageViewLocation.setImageResource(R.drawable.detail_resorvior);
+                        isLocationReservoir = false;
+                    }else {
+                        setMapViewVisibleExtent(reservoirPoints,mapView);
+                        mImageViewLocation.setImageResource(R.drawable.map_nav_btn_location);
                     }
                 }
             }
-
         } else if (id == R.id.iv_arrow_back) {
             if (MapArcgisFragment.isSearchToDetail) {
                 MapArcgisFragment.isSearchToDetail = false;
@@ -2530,7 +2553,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         searchOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(searchOverlay);
         //模拟定位图标
-        GraphicsOverlay locationOverlay = new GraphicsOverlay();
+        locationOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(locationOverlay);
         //定位
         mLocationDisplay = mapView.getLocationDisplay();
@@ -2543,10 +2566,11 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
 //            LogUtil.i("point:"+point.toString());
             Point locationPoint = transformationPoint(position.getX(), position.getY());
-            addLocationPic(locationOverlay,R.drawable.google_location,locationPoint);
+//            addLocationPic(locationOverlay,R.drawable.google_location,locationPoint);
         });
         mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.OFF);
         mLocationDisplay.setShowLocation(false);//设置不显示定位图标
+        initGaoDeLocation();
         //android 6.0动态申请权限
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -2556,6 +2580,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
         } else {
             if (mLocationDisplay != null && !mLocationDisplay.isStarted()) {
                 mLocationDisplay.startAsync();//开始定位
+                gaodeEntity.startLocation();
             }
         }
         callout = mapView.getCallout();
@@ -2582,6 +2607,48 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                 isLoaded = true;
             }
         });
+    }
+
+    /**
+     * 高德地图定位
+     */
+    private GaodeEntity gaodeEntity;
+    private void initGaoDeLocation() {
+        gaodeEntity = new GaodeEntity(getContext());
+        gaodeEntity.initLocation();
+        //支持离线模式定位，并在有网时使用网络定位
+        gaodeEntity.getLocationClient().setLocationOption(getDefaultOption(5000));
+        gaodeEntity.setLocationListen(aMapLocation -> {
+//            LogUtil.i("高德经纬度:"+aMapLocation.getLatitude()+"..."+aMapLocation.getLongitude());
+            double[] temp = GPSUtil.gcj02_To_Gps84(locationX, locationY);
+            Point locationPoint = gaoDeTransformationPoint(temp[0], temp[1]);
+            addLocationPic(locationOverlay,R.drawable.google_location,locationPoint);
+            locationX = aMapLocation.getLongitude();
+            locationY = aMapLocation.getLatitude();
+        });
+    }
+
+    public AMapLocationClientOption getDefaultOption(int interval) {
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        //高德地图说明，来自高德android开发常见问题：
+        //GPS模块无法计算出定位结果的情况多发生在卫星信号被阻隔时，在室内环境卫星信号会被墙体、玻璃窗阻隔反射，在“城市峡谷”（高楼林立的狭长街道）地段卫星信号也会损失比较多。
+        ////强依赖GPS模块的定位模式——如定位SDK的仅设备定位模式，需要在室外环境进行，多用于行车、骑行、室外运动等场景。
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        /*mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setInterval(interval);//可选，设置定位间隔。默认为2秒
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差*/
+        mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+        mOption.setInterval(interval);//可选，设置定位间隔。默认为2秒
+        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
+        mOption.setOnceLocation(false);//可选，设置是否单次定位。默认是false
+        mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
+        return mOption;
     }
 
     /**
