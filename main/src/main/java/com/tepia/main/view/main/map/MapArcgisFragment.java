@@ -164,7 +164,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private ContentRecyclerView listRecylcler;
     private ImageView ivArrowBack;
     private ArrayList<LTntity> drawerLayoutDatas;
-    private double itemScale = 72223.819286;
+    private double itemScale = 9000.819286;
     private double groupScale = 1155581.108577;
     private TextView tvMapTitle;
     private Callout callout;
