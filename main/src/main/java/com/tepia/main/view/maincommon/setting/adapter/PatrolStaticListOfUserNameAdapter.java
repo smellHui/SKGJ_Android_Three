@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.dialog.permissiondialog.Px2dpUtils;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
@@ -191,6 +192,8 @@ public class PatrolStaticListOfUserNameAdapter extends BaseQuickAdapter<Reservio
                         Uri data = Uri.parse("tel:" + mobileStr);
                         intent.setData(data);
                         mContext.startActivity(intent);
+                    }else{
+                        ToastUtils.shortToast("手机号码为空");
                     }
 
 

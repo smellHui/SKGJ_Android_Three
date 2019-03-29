@@ -156,9 +156,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
 
             @Override
             protected void _onError(String message) {
-                UserInfoBean userInfoBean = UserManager.getInstance().getUserBean();
-                if (userInfoBean != null) {
-                }
+                ToastUtils.shortToast(message + " ");
                 LogUtil.e("getLoginUser:获取用户信息失败-----");
 
 
@@ -286,7 +284,9 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
                         ARouter.getInstance().build(AppRoutePath.appMain).navigation();
 
                     }else {
-                        mView.loginSuccess();
+                        if (mView != null) {
+                            mView.loginSuccess();
+                        }
                     }
 
                 }

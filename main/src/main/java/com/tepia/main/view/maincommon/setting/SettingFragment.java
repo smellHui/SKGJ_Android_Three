@@ -7,6 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.utils.AppManager;
+import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.SPUtils;
@@ -57,6 +60,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
     private MySettingView loginOutMv;
     private MySettingView roleSwitchMv;
     private EditText changeipEv;
+    private FrameLayout switchFv;
 
     private Context mContext;
     private MySettingView worknotificationMv;
@@ -121,6 +125,9 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
     @Override
     public void onClick(View view) {
+        if (DoubleClickUtil.isFastDoubleClick()) {
+            return;
+        }
         Intent intent;
         if (view.getId() == R.id.headIv) {
 
@@ -187,6 +194,9 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
 
             LoginPresenter loginPresenter = new LoginPresenter();
             loginPresenter.saveUserInfoBean(getBaseActivity(),true);
+        }else if(view.getId() == R.id.switchFv){
+            LoginPresenter loginPresenter = new LoginPresenter();
+            loginPresenter.saveUserInfoBean(getBaseActivity(),true);
         }
     }
 
@@ -207,7 +217,9 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         zhizeMvMv = findView(R.id.zhizeMvMv);
         loginOutMv = findView(R.id.loginOutMv);
         roleSwitchMv = findView(R.id.roleSwitchMv);
+        switchFv = findView(R.id.switchFv);
         roleSwitchMv.setVisibility(View.GONE);
+        switchFv.setVisibility(View.GONE);
 
         headIv.setOnClickListener(SettingFragment.this);
         userTv.setOnClickListener(SettingFragment.this);
@@ -220,6 +232,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
         loginOutMv.setOnClickListener(SettingFragment.this);
         worknotificationMv.setOnClickListener(SettingFragment.this);
         roleSwitchMv.setOnClickListener(SettingFragment.this);
+        switchFv.setOnClickListener(SettingFragment.this);
         setItem();
 
 
@@ -270,6 +283,7 @@ public class SettingFragment extends BaseCommonFragment implements View.OnClickL
                         String roleName = "";
                         if (sysRolesBeanList != null && sysRolesBeanList.size() > 1) {
                             roleSwitchMv.setVisibility(View.VISIBLE);
+                            switchFv.setVisibility(View.VISIBLE);
                             int choiceWhich =  SPUtils.getInstance().getInt(CacheConsts.ROLEWHICH,-1);
                             if(choiceWhich < sysRolesBeanList.size() && choiceWhich >= 0) {
                                 roleName = sysRolesBeanList.get(choiceWhich).getRoleName();

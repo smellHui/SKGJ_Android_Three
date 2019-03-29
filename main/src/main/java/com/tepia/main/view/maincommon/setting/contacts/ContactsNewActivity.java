@@ -63,7 +63,7 @@ public class ContactsNewActivity extends BaseActivity {
 
     private void initTabLayout() {
         tabLayout.addTab(tabLayout.newTab().setText("水库"));
-        tabLayout.addTab(tabLayout.newTab().setText("防汛办"));
+        tabLayout.addTab(tabLayout.newTab().setText("防汛人员"));
 //        tabLayout.addTab(tabLayout.newTab().setCustomView(getTabCustomView(tpTabNames[0], R.drawable.bg_log_river_tab)));
 //        tabLayout.addTab(tabLayout.newTab().setCustomView(getTabCustomView(tpTabNames[1], R.drawable.bg_log_river_baseinfo_tab)));
         //设置分割线

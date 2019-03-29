@@ -20,6 +20,7 @@ import com.tepia.base.mvp.BaseCommonFragment;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.NetUtil;
+import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.main.R;
 import com.tepia.main.databinding.FragmentBookSecBinding;
@@ -81,11 +82,14 @@ public class BookSecFragment extends MVPBaseFragment<ContactsContract.View, Cont
                 if (DoubleClickUtil.isFastDoubleClick()){
                     return;
                 }
-                if (!TextUtils.isEmpty(adapterContactsList.getData().get(position).getMobile())) {
+                String mobileStr = adapterContactsList.getData().get(position).getMobile();
+                if (!TextUtils.isEmpty(mobileStr)) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
-                    Uri data = Uri.parse("tel:" + adapterContactsList.getData().get(position).getMobile());
+                    Uri data = Uri.parse("tel:" + mobileStr);
                     intent.setData(data);
                     startActivity(intent);
+                }else{
+                    ToastUtils.shortToast("手机号码为空");
                 }
             }
         });
