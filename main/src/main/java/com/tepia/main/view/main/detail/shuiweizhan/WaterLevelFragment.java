@@ -54,6 +54,7 @@ import java.util.Locale;
 
 /**
  * 水位站站详情页面
+ * update by liying on 2019-4-2
  *
  * @author liying
  * @date 2018/7/26
@@ -286,13 +287,14 @@ public class WaterLevelFragment extends MVPBaseFragment<DetailContract.View, Det
                 WaterlevelBean.DataBean.StRsvrRSBean stRsvrRSBean = dataBean.getStRsvrRS().get(0);
                 if (stRsvrRSBean != null) {
                     list_add_baseinfo(getString(R.string.time_unit), stRsvrRSBean.getTm());
-                    double w = stRsvrRSBean.getW();
+                    //水位和库容取反了
+                    double w = stRsvrRSBean.getRz();
                     if (TextUtils.isEmpty(w + "") || w == 0) {
                         list_add_baseinfo("水位", getString(R.string.setting_t_null) + "(m)");
                     }else {
                         list_add_baseinfo("水位", w + "(m)");
                     }
-                    list_add_baseinfo("库容", stRsvrRSBean.getRz()+"(万m³)");
+                    list_add_baseinfo("库容", stRsvrRSBean.getW()+"(万m³)");
 
                 }
             }
