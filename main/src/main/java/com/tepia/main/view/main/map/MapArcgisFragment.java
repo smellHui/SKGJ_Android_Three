@@ -55,8 +55,10 @@ import com.esri.arcgisruntime.data.ServiceFeatureTable;
 import com.esri.arcgisruntime.geometry.Envelope;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.Polygon;
 import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
+import com.esri.arcgisruntime.internal.jni.CorePolygon;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
@@ -1724,6 +1726,26 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
     private void addMarkersAndList(GraphicsOverlay graphicsOverlay, ArrayList<CommonModel> mListData, int section, int position) {
         ArrayList<String> list = new ArrayList<>();
         if (mListData != null && mListData.size() > 0) {
+            BitmapDrawable bitmapDrawable = null;
+            try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds =true;
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), picMap.get(section)[position],options);
+                if (bitmap == null) {
+                    return;
+                }
+                Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() * 2, Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(result);
+                canvas.drawBitmap(bitmap, 0, 0, null);
+//            canvas.drawBitmap(bitmap, bitmap.getHeight(), 0, null);
+                bitmapDrawable = new BitmapDrawable(getResources(), result);
+                if (result!=null){
+                    result.recycle();
+                    result = null;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             for (int i = 0; i < mListData.size(); i++) {
                 list.add(mListData.get(i).getName());
             }
@@ -1732,6 +1754,7 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
 //            }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
 //            });
             if (graphicsOverlay.getGraphics().size() != mListData.size()) {
+                PictureMarkerSymbol pictureMarkerSymbol1 = null;
                 for (int i = 0; i < mListData.size(); i++) {
                     HashMap<String, Object> map = new HashMap<>();
                     //传入对应集合的position
@@ -1740,10 +1763,15 @@ public class MapArcgisFragment extends MVPBaseFragment<MainMapContract.View, Mai
                     map.put("groupId", position);
                     Point point = transformationPoint(mListData.get(i).getLgtd(), mListData.get(i).getLttd());
                     Map<String, Object> attrs = new HashMap<>(1);
-
-                    addPic(graphicsOverlay, picMap.get(section)[position], point, map);
+//                    addPic(graphicsOverlay, picMap.get(section)[position], point, map);
+                    try{
+                        pictureMarkerSymbol1 = PictureMarkerSymbol.createAsync(bitmapDrawable).get();
+                        Graphic picGraphic = new Graphic(point, map, pictureMarkerSymbol1);
+                        graphicsOverlay.getGraphics().add(picGraphic);
+                    }catch (Exception e){
+                       e.printStackTrace();
+                    }
                 }
-
             }
         }
         LTntity lTntity = new LTntity();
