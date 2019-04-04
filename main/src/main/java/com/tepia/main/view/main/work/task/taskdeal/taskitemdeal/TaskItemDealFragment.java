@@ -99,7 +99,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
         });
         switch (taskBean.getBizPlanInfo().getOperationType()) {
             case "1":
-                mBinding.tvBeforeHint.setText("巡检照片");
+                mBinding.tvBeforeHint.setText("巡检的照片");
                 mBinding.loAfter.setVisibility(View.GONE);
                 break;
             case "2":
