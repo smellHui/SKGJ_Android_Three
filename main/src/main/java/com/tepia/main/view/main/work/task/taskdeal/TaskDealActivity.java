@@ -27,6 +27,7 @@ import com.tepia.base.AppRoutePath;
 import com.tepia.base.common.CommonFragmentPagerAdapter;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.DoubleClickUtil;
+import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.ScreenUtil;
 import com.tepia.base.utils.ToastUtils;
@@ -107,6 +108,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
             @Override
             public void getLocation(Point point) {
                 currentPoint = point;
+//                LogUtil.i("坐标:"+currentPoint.getX()+"..."+currentPoint.getY());
             }
         });
 

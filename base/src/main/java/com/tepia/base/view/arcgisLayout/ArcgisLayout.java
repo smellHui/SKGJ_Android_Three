@@ -233,7 +233,7 @@ public class ArcgisLayout extends RelativeLayout {
             addLocationPic(locationOverlay,R.drawable.google_location,locationPoint);
 //            LogUtil.i("point:"+point.toString());
             if (onAddLocationChangedListener != null) {
-                onAddLocationChangedListener.getLocation(locationPoint);
+                onAddLocationChangedListener.getLocation(currentPoint);
             }
         });
 //        mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.RECENTER);
