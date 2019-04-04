@@ -53,7 +53,10 @@ public class RoutepointDataManager {
         for (RoutepointDataBean bean : data) {
             temp = temp + "{" + bean.getLgtd() + "," + bean.getLttd() + "}" + ",";
         }
-        temp = temp.substring(0, temp.length() - 1);
+        if (data != null && data.size() > 0) {
+            temp = temp.substring(0, temp.length() - 1);
+        }
+
         temp = temp + "]";
         return temp;
     }
