@@ -24,12 +24,13 @@ public class APPCostant {
      * 鸭溪正式地址 http://218.201.212.243:8765
      * 王志敏ip  http://172.17.17.126:8765
      *
+     *            202.99.52.110:19261（外网）
      *
      *
      * 华为服务器（正式地址）  202.98.201.102:1341
      *
      */
-    public static String API_SERVER_URL = "http://202.98.201.102:1341/";
+    public static String API_SERVER_URL = "http://202.99.52.110:19261/";
     /**
      * 图片服务器地址
      */
