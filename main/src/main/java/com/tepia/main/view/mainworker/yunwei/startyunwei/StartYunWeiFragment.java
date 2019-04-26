@@ -336,6 +336,10 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
+                            if (TextUtils.isEmpty(superviseIds) || superviseIds.length() == 0) {
+                                ToastUtils.shortToast("请查看巡检项列表是否存在并勾选");
+                                return;
+                            }
                             mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType,superviseIds);
                         }
                     })
@@ -356,6 +360,10 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.dismiss();
+                            if (TextUtils.isEmpty(superviseIds) || superviseIds.length() == 0) {
+                                ToastUtils.shortToast("请查看巡检项列表是否存在并勾选");
+                                return;
+                            }
                             mPresenter.newStartExecute(selectedResrvoir.getReservoirId(), selectedResrvoir.getReservoir(), selectedYunWeiType,superviseIds);
                         }
                     })
