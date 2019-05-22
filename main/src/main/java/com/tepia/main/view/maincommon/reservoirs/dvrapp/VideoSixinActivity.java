@@ -145,7 +145,6 @@ public class VideoSixinActivity extends BaseActivity {
             }
             VideoAPI oVideoActivity = new VideoAPI();
             //VideoAPI.startConnect(ipAddr, port);
-            //new Client_5205_RunnableTask(deviceId, iViewChannel).start();
 
             LogUtil.e("[VideoSixinActivity.onCreate]ipAddr  " + ipAddr);
             LogUtil.e("[VideoSixinActivity.onCreate]port  " + port);

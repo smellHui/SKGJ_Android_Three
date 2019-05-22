@@ -265,6 +265,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                 sixin_pwd = dataBean.getPwd();
                 String webPort = sharedPreferences.getString("webport","");
 //                initPostLogin(dataBeanList.get(0).getIp(), webPort);
+
             }else{
                 ToastUtils.shortToast("暂无指定视频接入");
                 return;
