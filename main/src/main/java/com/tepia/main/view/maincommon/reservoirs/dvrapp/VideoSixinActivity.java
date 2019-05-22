@@ -133,7 +133,7 @@ public class VideoSixinActivity extends BaseActivity {
             deviceId = extras.getString("deviceId");
             //surl = extras.getString("surl");
             sRemark = extras.getString("sRemark");
-            iChannelAmt = extras.getInt("currentChannelId");
+            iViewChannel = extras.getInt("currentChannelId");
 
             deviceName.setText(sRemark);
             setCenterTitle(sRemark);
@@ -145,7 +145,6 @@ public class VideoSixinActivity extends BaseActivity {
             }
             VideoAPI oVideoActivity = new VideoAPI();
             //VideoAPI.startConnect(ipAddr, port);
-            iViewChannel = 0;
             //new Client_5205_RunnableTask(deviceId, iViewChannel).start();
 
             LogUtil.e("[VideoSixinActivity.onCreate]ipAddr  " + ipAddr);

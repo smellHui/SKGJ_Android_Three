@@ -176,7 +176,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                     Bundle bundle = new Bundle();
                     bundle.putString("deviceId", defaultDvrId);
                     bundle.putString("sRemark", dataBean.getVsnm());
-                    bundle.putInt("currentChannelId", Integer.valueOf(dataBean.getChannelId()));
+                    bundle.putInt("currentChannelId", Integer.valueOf(dataBean.getChannelId()) - 1);
                     intent.putExtras(bundle);
                     startActivity(intent);
 
@@ -264,7 +264,7 @@ public class VedioOfReservoirActivity extends MVPBaseActivity<ReserviorContract.
                 sixin_account = dataBean.getAccount();
                 sixin_pwd = dataBean.getPwd();
                 String webPort = sharedPreferences.getString("webport","");
-                initPostLogin(dataBeanList.get(0).getIp(), webPort);
+//                initPostLogin(dataBeanList.get(0).getIp(), webPort);
             }else{
                 ToastUtils.shortToast("暂无指定视频接入");
                 return;
