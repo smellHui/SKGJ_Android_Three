@@ -4,6 +4,7 @@ package com.tepia.main.view;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseCommonFragment;
+import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.main.CacheConsts;
 import com.tepia.main.ConfigConsts;
@@ -47,7 +48,6 @@ public class TabMainFragmentFactory {
      * 清空静态变量fragment
      */
     public void clearFragment() {
-
 
         if (tabMianfragments != null) {
             tabMianfragments.clear();

@@ -33,26 +33,30 @@ public class TabReportFragmentFactory {
     public WaterLevelFragment waterLevelFragment;
 
     public WaterLevelFragment getWaterLevelFragment() {
-        if (waterLevelFragment == null) {
+       /* if (waterLevelFragment == null) {
             synchronized (WaterLevelFragment.class) {
                 if (waterLevelFragment == null) {
                     waterLevelFragment = new WaterLevelFragment();
                 }
             }
-        }
+        }*/
+        waterLevelFragment = new WaterLevelFragment();
+
         return waterLevelFragment;
     }
 
     public EmergencyFragment emergencyFragment;
 
     public EmergencyFragment getEmergencyFragment() {
-        if (emergencyFragment == null) {
+       /* if (emergencyFragment == null) {
             synchronized (EmergencyFragment.class) {
                 if (emergencyFragment == null) {
                     emergencyFragment = new EmergencyFragment();
                 }
             }
-        }
+        }*/
+        emergencyFragment = new EmergencyFragment();
+
         return emergencyFragment;
     }
 }
