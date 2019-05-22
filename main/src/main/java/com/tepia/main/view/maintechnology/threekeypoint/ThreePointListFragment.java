@@ -80,23 +80,27 @@ public class ThreePointListFragment extends BaseCommonFragment {
             public void success(RainConditionResponse rainConditionResponse) {
                 RainConditionResponse.DataBean dataBean = rainConditionResponse.getData();
                 List<RainConditionResponse.DataBean.ListBean> data = dataBean.getList();
-                if (data == null || data.size() == 0) {
+                if (isAdded()){
+                    if (data == null || data.size() == 0) {
 //                    LogUtil.i("搜索为空");
-                    rainDataList.clear();
-                    rainListAdapter.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
-                    rainListAdapter.notifyDataSetChanged();
-                } else {
-                    rainDataList.clear();
-                    rainDataList.addAll(data);
-                    rainListAdapter.notifyDataSetChanged();
+                        rainDataList.clear();
+                        rainListAdapter.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
+                        rainListAdapter.notifyDataSetChanged();
+                    } else {
+                        rainDataList.clear();
+                        rainDataList.addAll(data);
+                        rainListAdapter.notifyDataSetChanged();
+                    }
+                    srl.setRefreshing(false);
                 }
-                srl.setRefreshing(false);
             }
 
             @Override
             public void failure(String msg) {
-                rainListAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
-                srl.setRefreshing(false);
+                if (isAdded()){
+                    rainListAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
+                    srl.setRefreshing(false);
+                }
             }
 
             @Override
@@ -109,23 +113,27 @@ public class ThreePointListFragment extends BaseCommonFragment {
             public void success(WaterLevelResponse waterLevelResponse) {
                 WaterLevelResponse.DataBean dataBean = waterLevelResponse.getData();
                 List<WaterLevelResponse.DataBean.ListBean> data = dataBean.getList();
-                if (data == null || data.size() == 0) {
+                if (isAdded()){
+                    if (data == null || data.size() == 0) {
 //                    LogUtil.i("搜索为空");
-                    waterDataList.clear();
-                    waterListAdapter.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
-                    waterListAdapter.notifyDataSetChanged();
-                } else {
-                    waterDataList.clear();
-                    waterDataList.addAll(data);
-                    waterListAdapter.notifyDataSetChanged();
+                        waterDataList.clear();
+                        waterListAdapter.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
+                        waterListAdapter.notifyDataSetChanged();
+                    } else {
+                        waterDataList.clear();
+                        waterDataList.addAll(data);
+                        waterListAdapter.notifyDataSetChanged();
+                    }
+                    srl.setRefreshing(false);
                 }
-                srl.setRefreshing(false);
             }
 
             @Override
             public void failure(String msg) {
-                waterListAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
-                srl.setRefreshing(false);
+                if (isAdded()){
+                    waterListAdapter.setEmptyView(EmptyLayoutUtil.show(msg));
+                    srl.setRefreshing(false);
+                }
             }
 
             @Override

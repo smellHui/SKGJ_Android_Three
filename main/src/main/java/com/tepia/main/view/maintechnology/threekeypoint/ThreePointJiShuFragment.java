@@ -146,7 +146,7 @@ public class ThreePointJiShuFragment extends BaseCommonFragment {
     protected void initRequestData() {
 //        LogUtil.i("三个责任人");
 //        ToastUtils.longToast("三个责任人");
-        refreshPage();
+//        refreshPage();
     }
 
     private void refreshPage(){
