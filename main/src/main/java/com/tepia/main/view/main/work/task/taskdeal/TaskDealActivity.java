@@ -3,6 +3,7 @@ package com.tepia.main.view.main.work.task.taskdeal;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.view.ScrollLayout.ScrollLayout;
 import com.tepia.base.view.arcgisLayout.ArcgisLayout;
 import com.tepia.base.view.dialog.loading.LoadingDialog;
+import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.common.KeyboardLayout;
 import com.tepia.main.databinding.ActivityTaskDeal2Binding;
@@ -51,13 +53,13 @@ import java.util.Map;
 
 
 /**
- * @author        :       zhang xinhua
- * @Version       :       1.0
- * @创建人         ：      zhang xinhua
- * @创建时间       :       2019/3/13 9:12
- * @修改人         ：
- * @修改时间       :       2019/3/13 9:12
- * @功能描述       :        任务处理页
+ * @author :       zhang xinhua
+ * @Version :       1.0
+ * @创建人 ：      zhang xinhua
+ * @创建时间 :       2019/3/13 9:12
+ * @修改人 ：
+ * @修改时间 :       2019/3/13 9:12
+ * @功能描述 :        任务处理页
  **/
 @Route(path = AppRoutePath.app_task_deal)
 public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, TaskDealPresenter> implements TaskDealContract.View {
@@ -99,7 +101,12 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
         mBinding = DataBindingUtil.bind(mRootView);
         ImmersionBar.setTitleBar(this, mBinding.loTitle);
         initScrllLayout();
-        initMapView();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initMapView();
+            }
+        }, 2000);
     }
 
     private void initMapView() {
@@ -120,22 +127,22 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                     if (isFirstInitMap) {
                         if (currentPoint != null) {
                             if ("2".equals(taskBean.getExecuteStatus())) {
-                                try{
-                                    Point point = ArcgisLayout.transformationPoint(currentPoint.getX(),currentPoint.getY());
+                                try {
+                                    Point point = ArcgisLayout.transformationPoint(currentPoint.getX(), currentPoint.getY());
                                     mBinding.alMapview.getMapView().setViewpointCenterAsync(point, mBinding.alMapview.itemScale).addDoneListener(() -> {
                                         moveMap(true);
                                     });
-                                }catch (Exception e){
+                                } catch (Exception e) {
 
                                 }
                             } else {
                                 if (positionPoint != null) {
-                                    try{
-                                        Point point = ArcgisLayout.transformationPoint(positionPoint.getX(),positionPoint.getY());
+                                    try {
+                                        Point point = ArcgisLayout.transformationPoint(positionPoint.getX(), positionPoint.getY());
                                         mBinding.alMapview.getMapView().setViewpointCenterAsync(point, mBinding.alMapview.itemScale).addDoneListener(() -> {
                                             moveMap(true);
                                         });
-                                    }catch (Exception e){
+                                    } catch (Exception e) {
 
                                     }
                                 }
@@ -197,11 +204,11 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
 
                             taskItemDealFragment.selectPhotosBefore.clear();
                             taskItemDealFragment.selectPhotosAfter.clear();
-                        }else {
+                        } else {
 
 //                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
-                                    data.getItemId(), data.getExResult(), data.getExDesc(),  "",
+                                    data.getItemId(), data.getExResult(), data.getExDesc(), "",
                                     "", data.getFiles(), data.getEndfiles(),
                                     false, ResUtils.getString(R.string.data_saving));
 
@@ -257,23 +264,34 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
         if (taskBean == null) {
             taskBean = new Gson().fromJson(temp, TaskBean.class);
         }
-        if (taskBean != null) {
-            refreshView(taskBean);
-        }
+        SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(this,ResUtils.getString(R.string.data_loading),true);
+        simpleLoadDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (simpleLoadDialog != null) {
+                    simpleLoadDialog.dismiss();
+                }
+                if (taskBean != null) {
+                    refreshView(taskBean);
+                    if (taskBean == null) {
+                        mPresenter.getTaskDetail(workOrderId, true, getString(R.string.data_loading));
+                    } else {
+                        mPresenter.getTaskDetail(workOrderId, false, "");
+                    }
+                }
+            }
+        },1000);
 
-        if (taskBean == null) {
-            mPresenter.getTaskDetail(workOrderId, true, getString(R.string.data_loading));
-        } else {
-            mPresenter.getTaskDetail(workOrderId, false, "");
-        }
     }
 
     private void refreshView(TaskBean taskBean) {
-        if (taskBean.getBizReservoirWorkOrderItems() == null || taskBean.getBizReservoirWorkOrderItems().size() == 0) {
+        List<TaskItemBean> taskItemBeanList = taskBean.getBizReservoirWorkOrderItems();
+        if (taskItemBeanList == null || taskItemBeanList.size() == 0) {
             return;
         }
 
-        initPositoinTitle(taskBean.getBizReservoirWorkOrderItems().get(position).getPositionTreeNames());
+        initPositoinTitle(taskItemBeanList.get(position).getPositionTreeNames());
 
         initViewPager();
         initBottomBtn(taskBean);
@@ -283,10 +301,11 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
     private void initViewPager() {
         adapter = new CommonFragmentPagerAdapter(getSupportFragmentManager());
         for (TaskItemBean bean : taskBean.getBizReservoirWorkOrderItems()) {
+
             adapter.addFragment(TaskItemDealFragment.newInstance(taskBean, workOrderId, bean.getItemId(), bean, taskBean.getExecuteStatus()));
+
         }
         mBinding.viewPager.setAdapter(adapter);
-//        mBinding.viewPager.setOffscreenPageLimit(0);
         mBinding.viewPager.setCurrentItem(position);
         mBinding.viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

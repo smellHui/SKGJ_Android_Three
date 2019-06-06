@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.SpannableString;
@@ -48,6 +49,7 @@ import com.tepia.base.view.dialog.basedailog.ActionSheetDialog;
 import com.tepia.base.view.dialog.basedailog.NormalDialog;
 import com.tepia.base.view.dialog.basedailog.OnOpenItemClick;
 import com.tepia.base.view.dialog.loading.LoadingDialog;
+import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.main.R;
 import com.tepia.main.databinding.ActivityTaskDetailBinding;
@@ -119,7 +121,13 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         }
         initListView();
 //        initMapView();
-        initMapView2();
+        getGaoDeLocation();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initMapView2();
+            }
+        },2000);
 
         gpsCheck();
     }
@@ -214,7 +222,6 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     }
 
     private void initMapView2() {
-        getGaoDeLocation();
         mBinding.alMapview.startLocation();
         mBinding.alMapview.getMapView().addDrawStatusChangedListener(new DrawStatusChangedListener() {
             @Override
@@ -274,46 +281,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         });*/
     }
 
-    private void initMapView() {
-        mBinding.alMapview.startLocation();
 
-        mBinding.alMapview.setOnAddLocationChangedListener(new ArcgisLayout.OnAddLocationChangedListener() {
-            @Override
-            public void getLocation(Point point) {
-                if (point == null) {
-                    return;
-                }
-                currentPoint = point;
-                if ("2".equals(taskBean.getExecuteStatus())) {
-                    initCount++;
-                    if (initCount > 10 && initCount < 12) {
-                        RoutepointDataManager.getInstance().addPoint(new RoutepointDataBean(id, point.getX() + "", point.getY() + ""));
-                        refreshMapView();
-                    } else if (initCount > 12) {
-                        RoutepointDataManager.getInstance().addPoint(new RoutepointDataBean(id, point.getX() + "", point.getY() + ""));
-//                        Point point1 = (Point) GeometryEngine.project(point, SpatialReferences.getWebMercator());
-                        mBinding.alMapview.addPolylineByPoint(point, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
-                    }
-                }
-            }
-        });
-
-        mBinding.alMapview.getMapView().addDrawStatusChangedListener(new DrawStatusChangedListener() {
-            @Override
-            public void drawStatusChanged(DrawStatusChangedEvent drawStatusChangedEvent) {
-                DrawStatus drawStatus = drawStatusChangedEvent.getDrawStatus();
-                if (drawStatus == DrawStatus.COMPLETED) {
-                    if (isFirstInitMap) {
-                        if (currentPoint != null) {
-                            mBinding.alMapview.setCenterPoint(currentPoint, mBinding.alMapview.itemScale);
-                        }
-                        isFirstInitMap = false;
-                    }
-                }
-            }
-        });
-
-    }
 
     private void initListView() {
         mBinding.rvTaskItemList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -560,8 +528,20 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             mBinding.loTaskDesc.setVisibility(View.GONE);
         }
         if (taskBean.getBizReservoirWorkOrderItems() != null) {
-            adapterTaskItemList.setNewData(taskBean.getBizReservoirWorkOrderItems());
-            refreshMapView();
+            SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(this,ResUtils.getString(R.string.data_loading),true);
+            simpleLoadDialog.show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    adapterTaskItemList.setNewData(taskBean.getBizReservoirWorkOrderItems());
+                    if (simpleLoadDialog != null) {
+                        simpleLoadDialog.dismiss();
+                    }
+                    refreshMapView();
+                }
+            },1000);
+
         }
 
         switch (taskBean.getExecuteStatus()) {
