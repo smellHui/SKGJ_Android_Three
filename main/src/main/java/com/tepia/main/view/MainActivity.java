@@ -10,27 +10,16 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.PowerManager;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.gaodelibrary.UtilsContextOfGaode;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
@@ -53,12 +42,9 @@ import com.tepia.main.model.map.ReservoirListResponse;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.model.worknotification.NotFeedBackCountResponse;
 import com.tepia.main.model.worknotification.WorkNotificationManager;
-import com.tepia.main.view.login.LoginActivity;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
-
 import com.tepia.main.view.main.map.MapArcgisFragment;
-
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -76,7 +62,7 @@ import cn.jpush.android.api.JPushInterface;
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
         private TabFragmentHost mTabHost;
-    private FragmentTabHost mTabHost1;
+//    private FragmentTabHost mTabHost;
 
     /**
      * 锁屏相关
