@@ -55,7 +55,8 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nsv_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/bg_main_color">
 
             <LinearLayout
@@ -199,6 +200,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:gravity="center"
+
             android:orientation="horizontal"
             android:weightSum="3">
 

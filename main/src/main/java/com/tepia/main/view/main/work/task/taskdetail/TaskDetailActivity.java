@@ -586,7 +586,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                         public void onClick(View view) {
                             if (adapterTaskItemList != null && adapterTaskItemList.getData() != null
                                     && !adapterTaskItemList.isDealFinish()
-                                    && adapterTaskItemList.getData().size() != 0) {
+                                    && !CollectionsUtil.isEmpty(adapterTaskItemList.getData())) {
                                 ARouter.getInstance().build(AppRoutePath.app_task_deal)
                                         .withString("workOrderId", id)
                                         .withInt("position", adapterTaskItemList.getFirstExePositoin())

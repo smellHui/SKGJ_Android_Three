@@ -129,6 +129,9 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
      * @return
      */
     public boolean isDealFinish() {
+        if (CollectionsUtil.isEmpty(getData())){
+            return false;
+        }
         for (TaskItemBean bean : getData()) {
             if (bean.getCompleteStatus() == null || !"0".equals(bean.getCompleteStatus())) {
                 if (!bean.isCommitLocal()) {
