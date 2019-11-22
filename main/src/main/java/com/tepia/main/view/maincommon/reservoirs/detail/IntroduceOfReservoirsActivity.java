@@ -39,12 +39,12 @@ import java.util.Map;
 /**
  * Created by      Android studio
  *
- * @author         :       ly(from Center Of Wuhan)
+ * @author :       ly(from Center Of Wuhan)
  * Date            :       2018-9-18
  * Version         :       1.0
  * 功能描述         :       水库简介
  **/
-public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorContract.View,ReserviorPresent> implements  ReserviorContract.View<IntroduceOfReservoirsBean> {
+public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorContract.View, ReserviorPresent> implements ReserviorContract.View<IntroduceOfReservoirsBean> {
 
     private LinearLayout baseLy;
     private FrameLayout moreorlessFy;
@@ -80,7 +80,7 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
                 if (isopen) {
                     initBaseLy();
 
-                }else {
+                } else {
                     isopen = true;
                     RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                             RelativeLayout.LayoutParams.MATCH_PARENT);
@@ -106,7 +106,6 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
     }
 
 
-
     @Override
     public void initData() {
 
@@ -125,11 +124,11 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
     /**
      * 初始化基本信息布局（默认收缩）
      */
-    private void initBaseLy(){
+    private void initBaseLy() {
         isopen = false;
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
-        layoutParams.height = ScreenUtil.dp2px(getBaseContext(),200);
+        layoutParams.height = ScreenUtil.dp2px(getBaseContext(), 200);
         baseLy.setLayoutParams(layoutParams);
         moreorlessTv.setText("查看更多");
     }
@@ -163,10 +162,10 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
 
     }
 
-    private  void zoomToScale(Point point,double scale){
-        if (scale<= 60000){
+    private void zoomToScale(Point point, double scale) {
+        if (scale <= 60000) {
             imgLayer.setVisible(true);
-        }else {
+        } else {
             imgLayer.setVisible(false);
         }
 //        mapView.zoomToScale(point,scale);
@@ -188,34 +187,34 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
         DictMapEntity dictMapEntity = DictMapManager.getInstance().getmDictMap();
         Map<String, String> map_Reservoirtype = dictMapEntity.getObject().getReservoir_type();
 
-        if(map_Reservoirtype != null) {
+        if (map_Reservoirtype != null) {
             binding.reservoirTypeTv.setText("水库类型：" + map_Reservoirtype.get(dataBean.getReservoirType()));
         }
-        binding.belongTv.setText("所属乡镇："+dataBean.getAreaName());
+        binding.belongTv.setText("所属乡镇：" + dataBean.getAreaName());
         String buildtime = dataBean.getBuildStartDate();
-        if(TextUtils.isEmpty(buildtime)){
+        if (TextUtils.isEmpty(buildtime)) {
             buildtime = getString(R.string.setting_t_null);
         }
         String endtime = dataBean.getBuildEndDate();
-        if(TextUtils.isEmpty(endtime)){
+        if (TextUtils.isEmpty(endtime)) {
             endtime = getString(R.string.setting_t_null);
         }
-        binding.buildStartDateTv.setText("兴建时间："+ buildtime);
-        binding.buildEndDateTv.setText("竣工时间："+ endtime);
-        binding.widthAndlengthTv.setText("坝高:"+dataBean.getDamHeight()+"m    |   坝长："+dataBean.getDamLength()+
-                "m    |   坝宽："+dataBean.getDamWidth()+"m");
-        binding.normalImpoundedLevelTv.setText("正常蓄水位："+dataBean.getNormalImpoundedLevel()+"m");
+        binding.buildStartDateTv.setText("兴建时间：" + buildtime);
+        binding.buildEndDateTv.setText("竣工时间：" + endtime);
+        binding.widthAndlengthTv.setText("坝高:" + dataBean.getDamHeight() + "m    |   坝长：" + dataBean.getDamLength() +
+                "m    |   坝宽：" + dataBean.getDamWidth() + "m");
+        binding.normalImpoundedLevelTv.setText("正常蓄水位：" + dataBean.getNormalImpoundedLevel() + "m");
 
 
         Map<String, String> map_Damtype = dictMapEntity.getObject().getDam_type();
-        if(map_Damtype.containsKey(dataBean.getDamType())) {
+        if (map_Damtype.containsKey(dataBean.getDamType())) {
             binding.damTypeTv.setText("大坝类型：" + map_Damtype.get(dataBean.getDamType()));
-        }else{
+        } else {
             binding.damTypeTv.setText("大坝类型：--");
         }
-        binding.damCrestElevationTv.setText("坝顶高程："+dataBean.getDamCrestElevation()+"m");
-        binding.damBotmMaxWidthTv.setText("坝底最大宽度："+dataBean.getDamBotmMaxWidth()+"m");
-        binding.capacityCoefficientTv.setText("库容系数："+dataBean.getCapacityCoefficient());
+        binding.damCrestElevationTv.setText("坝顶高程：" + dataBean.getDamCrestElevation() + "m");
+        binding.damBotmMaxWidthTv.setText("坝底最大宽度：" + dataBean.getDamBotmMaxWidth() + "m");
+        binding.capacityCoefficientTv.setText("库容系数：" + dataBean.getCapacityCoefficient());
 
         String mainFunctionStr = dataBean.getMainFunction();
         if (TextUtils.isEmpty(mainFunctionStr)) {
@@ -223,22 +222,22 @@ public class IntroduceOfReservoirsActivity extends MVPBaseActivity<ReserviorCont
         }
         binding.mainFunctionTv.setText(mainFunctionStr);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.reservoirProduceTv.setText(Html.fromHtml(dataBean.getReservoirProduce(),0));
-        }else{
-            binding.reservoirProduceTv.setText(Html.fromHtml(dataBean.getReservoirProduce()));
+            binding.reservoirProduceTv.setText(TextUtils.isEmpty(dataBean.getReservoirProduce()) ? "" : Html.fromHtml(dataBean.getReservoirProduce(), 0));
+        } else {
+            binding.reservoirProduceTv.setText(TextUtils.isEmpty(dataBean.getReservoirProduce()) ? "" : Html.fromHtml(dataBean.getReservoirProduce()));
 
         }
-        binding.reservoirAddressTv.setText(dataBean.getReservoirAddress()+"");
-        LogUtil.e("经度："+dataBean.getReservoirLongitude()+"，纬度："+dataBean.getReservoirLatitude());
+        binding.reservoirAddressTv.setText(dataBean.getReservoirAddress() + "");
+        LogUtil.e("经度：" + dataBean.getReservoirLongitude() + "，纬度：" + dataBean.getReservoirLatitude());
 
-        if(!TextUtils.isEmpty(dataBean.getReservoirLongitude()) && !TextUtils.isEmpty(dataBean.getReservoirLatitude())) {
-            try{
+        if (!TextUtils.isEmpty(dataBean.getReservoirLongitude()) && !TextUtils.isEmpty(dataBean.getReservoirLatitude())) {
+            try {
                 Point point1 = new Point(Double.parseDouble(dataBean.getReservoirLongitude()),
                         Double.parseDouble(dataBean.getReservoirLatitude()), SpatialReference.create(4326));
                 Map<String, Object> attrs = new HashMap<>(1);
-                arcgisLayout.addPic(R.drawable.m_reservior, point1,attrs);
-                arcgisLayout.setCenterPoint(point1, ArcgisLayout.maxScale);
-            }catch (NumberFormatException e){
+                arcgisLayout.addPic(R.drawable.m_reservior, point1, attrs);
+                arcgisLayout.setCenterPoint(point1, ArcgisLayout.maxScale*5);
+            } catch (NumberFormatException e) {
                 LogUtil.e(e.getMessage());
             }
 

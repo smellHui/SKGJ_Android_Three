@@ -115,7 +115,7 @@ public class TaskDealPresenter extends BasePresenterImpl<TaskDealContract.View> 
                                     bean.setExecuteResultType(exResult);
                                     bean.setExecuteResultDescription(exDesc);
                                     bean.update();
-                                    getTaskDetail(workOrderId,false,"");
+                                    getTaskDetail(workOrderId,true,"请稍候...");
                                 }
 
                             }

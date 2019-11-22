@@ -13,6 +13,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioGroup;
@@ -164,8 +165,10 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
     @Override
     protected void initRequestData() {
         if (taskItemBean == null || TextUtils.isEmpty(taskItemBean.getResultType())) {
+            Log.i(TaskItemDealFragment.this.getClass().getName(),"taskItemBeanIsNull");
             mPresenter.getTaskItemDetail(itemId, true, getString(R.string.data_loading));
         } else {
+            Log.i(TaskItemDealFragment.this.getClass().getName(),"taskItemBeanNotNull");
             refreshView(taskItemBean);
             mPresenter.getTaskItemDetail(itemId, false, "");
         }
@@ -565,10 +568,10 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
     public ReturnData getDealContent() {
         ReturnData returnData = new ReturnData();
         returnData.setFinish(false);
-        if (TextUtils.isEmpty(etDescStr)) {
-            ToastUtils.shortToast("请输入描述");
-            return returnData;
-        }
+//        if (TextUtils.isEmpty(etDescStr)) {
+//            ToastUtils.shortToast("请输入描述");
+//            return returnData;
+//        }
         if (TextUtils.isEmpty(executeResultType)) {
             ToastUtils.shortToast("请输入描述");
             return returnData;

@@ -132,6 +132,7 @@ public class AdapterTaskItemList extends BaseQuickAdapter<TaskItemBean, BaseView
         if (CollectionsUtil.isEmpty(getData())){
             return false;
         }
+        List<TaskItemBean> list = getData();
         for (TaskItemBean bean : getData()) {
             if (bean.getCompleteStatus() == null || !"0".equals(bean.getCompleteStatus())) {
                 if (!bean.isCommitLocal()) {

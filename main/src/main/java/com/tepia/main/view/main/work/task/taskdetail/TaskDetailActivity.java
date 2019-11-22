@@ -530,6 +530,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
         if (taskBean.getBizReservoirWorkOrderItems() != null) {
             SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(this,ResUtils.getString(R.string.data_loading),true);
             simpleLoadDialog.show();
+            adapterTaskItemList.setNewData(taskBean.getBizReservoirWorkOrderItems());
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

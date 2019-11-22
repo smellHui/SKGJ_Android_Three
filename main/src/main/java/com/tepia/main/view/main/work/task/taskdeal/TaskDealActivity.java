@@ -200,7 +200,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), currentPoint.getX() + "",
                                     currentPoint.getY() + "", data.getFiles(), data.getEndfiles(),
-                                    false, ResUtils.getString(R.string.data_saving));
+                                    true, ResUtils.getString(R.string.data_saving));
 
                             taskItemDealFragment.selectPhotosBefore.clear();
                             taskItemDealFragment.selectPhotosAfter.clear();
@@ -210,7 +210,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), "",
                                     "", data.getFiles(), data.getEndfiles(),
-                                    false, ResUtils.getString(R.string.data_saving));
+                                    true, ResUtils.getString(R.string.data_saving));
 
                             taskItemDealFragment.selectPhotosBefore.clear();
                             taskItemDealFragment.selectPhotosAfter.clear();

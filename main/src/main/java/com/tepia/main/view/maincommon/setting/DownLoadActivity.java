@@ -110,6 +110,7 @@ public class DownLoadActivity extends BaseActivity {
 //                startActivity(oIntent);
                   String localPath = parentPath+"/"+fileName;
                 Intent fileIntent = OpenFileUtils.openFile(localPath, OpenFileUtils.getUri(getApplicationContext(),localPath));
+//                Intent fileIntent = OpenFileUtils.getWordFileIntent(localPath, DownLoadActivity.this);
                 if (null==fileIntent){
                     ToastUtils.longToast("附件不能打开，请下载相关软件！");
                 }else {
