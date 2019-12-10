@@ -104,7 +104,7 @@ dependencies {
     implementation rootProject.ext.dependencies.Banner
 //    implementation rootProject.ext.dependencies.EventBus
     implementation rootProject.ext.dependencies.jpinyin
-    implementation rootProject.ext.dependencies.Pgyer
+//    implementation rootProject.ext.dependencies.Pgyer
     implementation rootProject.ext.dependencies.Tiny
     implementation rootProject.ext.dependencies.arcgisandroid
 //    implementation rootProject.ext.dependencies.GaodeLiabrary

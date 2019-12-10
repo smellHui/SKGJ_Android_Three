@@ -6,6 +6,7 @@ import android.os.Build;
 
 import com.example.gaodelibrary.UtilsContextOfGaode;
 import com.pgyersdk.crash.PgyCrashManager;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tepia.base.BaseApplication;
 import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
@@ -31,7 +32,7 @@ public class MyApplication extends BaseApplication {
         UtilsContextOfGaode.init(this);
 
         LitePal.initialize(this);
-
+        CrashReport.initCrashReport(getApplicationContext(), "bc876488f4", true);
 
     }
 

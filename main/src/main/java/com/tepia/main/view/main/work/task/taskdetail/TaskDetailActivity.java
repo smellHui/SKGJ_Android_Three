@@ -127,7 +127,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             public void run() {
                 initMapView2();
             }
-        },2000);
+        }, 2000);
 
         gpsCheck();
     }
@@ -246,7 +246,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
                                 }
                                 if (positionPoint != null) {
-                                    mBinding.alMapview.setCenterPoint(positionPoint,ArcgisLayout.maxScale*8);
+                                    mBinding.alMapview.setCenterPoint(positionPoint, ArcgisLayout.maxScale * 8);
                                     isFirstInitMap = false;
                                 } else {
                                     mBinding.alMapview.postDelayed(this, 500);
@@ -280,7 +280,6 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             }
         });*/
     }
-
 
 
     private void initListView() {
@@ -528,9 +527,9 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             mBinding.loTaskDesc.setVisibility(View.GONE);
         }
         if (taskBean.getBizReservoirWorkOrderItems() != null) {
-            SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(this,ResUtils.getString(R.string.data_loading),true);
+            SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(this, ResUtils.getString(R.string.data_loading), true);
             simpleLoadDialog.show();
-            adapterTaskItemList.setNewData(taskBean.getBizReservoirWorkOrderItems());
+//            adapterTaskItemList.setNewData(taskBean.getBizReservoirWorkOrderItems());
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -541,7 +540,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     }
                     refreshMapView();
                 }
-            },1000);
+            }, 1000);
 
         }
 
@@ -566,7 +565,22 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 mBinding.tvTaskExecStatus.setText(ResUtils.getString(R.string.text_task_status_zxz));
                 mBinding.tvDoTask.setEnabled(true);
                 mBinding.tvDoTask.setText("执行任务");
-                if (adapterTaskItemList != null && adapterTaskItemList.isDealFinish()) {
+                boolean isDealFinished = true;
+                List<TaskItemBean> taskItemBeans = taskBean.getBizReservoirWorkOrderItems();
+                if (CollectionsUtil.isEmpty(taskItemBeans)) {
+                    isDealFinished = false;
+                } else {
+                    for (TaskItemBean bean : taskItemBeans) {
+                        if (bean.getCompleteStatus() == null || !"0".equals(bean.getCompleteStatus())) {
+                            if (!bean.isCommitLocal()) {
+                                isDealFinished =  false;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (adapterTaskItemList != null && isDealFinished) {
                     mBinding.tvDoTask.setText("提交");
                     mBinding.tvDoTask.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -585,8 +599,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     mBinding.tvDoTask.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (adapterTaskItemList != null && adapterTaskItemList.getData() != null
-                                    && !adapterTaskItemList.isDealFinish()
+                            if (adapterTaskItemList != null && !adapterTaskItemList.isDealFinish()
                                     && !CollectionsUtil.isEmpty(adapterTaskItemList.getData())) {
                                 ARouter.getInstance().build(AppRoutePath.app_task_deal)
                                         .withString("workOrderId", id)
@@ -850,7 +863,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 }
 
                 mBinding.alMapview.addPolyline(exeline, SimpleLineSymbol.Style.SOLID, Color.RED, 6);
-                if (exeline != null && exeline.size() >= 2) {
+                if (exeline.size() >= 2) {
                     mBinding.alMapview.setMapViewVisibleExtent(exeline);
                     mBinding.alMapview.addPic(R.mipmap.ic_me_history_startpoint, exeline.get(0), new HashMap<>());
                     mBinding.alMapview.addPic(R.mipmap.ic_me_history_finishpoint, exeline.get(exeline.size() - 1), new HashMap<>());

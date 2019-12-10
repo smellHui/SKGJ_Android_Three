@@ -9,6 +9,7 @@ import com.taobao.sophix.SophixApplication;
 import com.taobao.sophix.SophixEntry;
 import com.taobao.sophix.SophixManager;
 import com.taobao.sophix.listener.PatchLoadStatusListener;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.tepia.base.utils.LogUtil;
 
 /**

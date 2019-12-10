@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
-import com.pgyersdk.update.PgyUpdateManager;
+//import com.pgyersdk.update.PgyUpdateManager;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
 import com.tepia.base.mvp.BasePresenterImpl;
@@ -278,7 +278,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implem
                         JPushInterface.stopPush(Utils.getContext());
                         //综合监控标志为置空
                         SPUtils.getInstance(Utils.getContext()).putBoolean(CacheConsts.haslook,false);
-                        PgyUpdateManager.unregister();
+//                        PgyUpdateManager.unregister();
                         AppManager.getInstance().finishAll();
                         TabMainFragmentFactory.getInstance().clearFragment();
                         ARouter.getInstance().build(AppRoutePath.appMain).navigation();

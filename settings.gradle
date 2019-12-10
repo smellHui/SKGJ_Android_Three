@@ -1,1 +1,1 @@
-include ':app', ':base', ':voice', ':main', ":photopicker"
+include ':app', ':base', ':voice', ':main', ":photopicker", ':updatelib'

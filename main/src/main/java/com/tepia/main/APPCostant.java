@@ -31,6 +31,12 @@ public class APPCostant {
      *
      */
     public static String API_SERVER_URL = "http://202.98.201.102:1341/";
+
+    /**
+     * APP更新所用地址
+     */
+    public static String API_APP_UPDATE = "http://202.98.201.70:8601/";
+
     /**
      * 图片服务器地址
      */

@@ -19,6 +19,7 @@ import retrofit2.http.Query;
  */
 
 interface UserHttpService {
+
     @FormUrlEncoded
     @POST("jwt/app/getToken")
     Observable<UserLoginResponse> login(@Field("logincode") String name,

@@ -20,8 +20,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.pgyersdk.javabean.AppBean;
-import com.pgyersdk.update.PgyUpdateManager;
+//import com.pgyersdk.javabean.AppBean;
+//import com.pgyersdk.update.PgyUpdateManager;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
 import com.tepia.base.utils.LogUtil;
@@ -38,7 +38,7 @@ import com.tepia.main.view.MainActivity;
 
 import cn.jpush.android.api.JPushInterface;
 
-import static com.pgyersdk.update.UpdateManagerListener.startDownloadTask;
+//import static com.pgyersdk.update.UpdateManagerListener.startDownloadTask;
 
 
 /**
@@ -48,7 +48,7 @@ import static com.pgyersdk.update.UpdateManagerListener.startDownloadTask;
 @Route(path = AppRoutePath.applogin)
 public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPresenter> implements LoginContract.View ,View.OnClickListener{
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
-    private AppBean appBean;
+//    private AppBean appBean;
 
     private EditText usernameEt;
     private EditText psEt;
@@ -86,7 +86,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
     @Override
     protected void onDestroy() {
-        PgyUpdateManager.unregister();
+//        PgyUpdateManager.unregister();
         super.onDestroy();
     }
 
@@ -190,7 +190,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
             if (grantResults.length >= 1) {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startDownloadTask(LoginActivity.this, appBean.getDownloadURL());
+//                    startDownloadTask(LoginActivity.this, appBean.getDownloadURL());
                 } else {
                     new AlertDialog.Builder(LoginActivity.this)
                             .setMessage("读写内存权限被拒绝,将导致定位功能无法正常使用，需要到设置页面手动授权")

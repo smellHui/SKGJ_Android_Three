@@ -7,22 +7,34 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allenliu.versionchecklib.callback.APKDownloadListener;
+import com.allenliu.versionchecklib.callback.OnCancelListener;
+import com.allenliu.versionchecklib.v2.AllenVersionChecker;
+import com.allenliu.versionchecklib.v2.builder.DownloadBuilder;
+import com.allenliu.versionchecklib.v2.builder.UIData;
+import com.allenliu.versionchecklib.v2.callback.RequestVersionListener;
 import com.example.gaodelibrary.UtilsContextOfGaode;
-import com.pgyersdk.javabean.AppBean;
-import com.pgyersdk.update.PgyUpdateManager;
-import com.pgyersdk.update.UpdateManagerListener;
+import com.google.gson.Gson;
+//import com.pgyersdk.javabean.AppBean;
+//import com.pgyersdk.update.PgyUpdateManager;
+//import com.pgyersdk.update.UpdateManagerListener;
 import com.taobao.sophix.SophixManager;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.http.LoadingSubject;
@@ -34,6 +46,7 @@ import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.base.utils.Utils;
 import com.tepia.base.view.BadgeView;
+import com.tepia.main.APPCostant;
 import com.tepia.main.CacheConsts;
 import com.tepia.main.R;
 import com.tepia.main.TabFragmentHost;
@@ -45,9 +58,11 @@ import com.tepia.main.model.worknotification.WorkNotificationManager;
 import com.tepia.main.view.main.MainContract;
 import com.tepia.main.view.main.MainPresenter;
 import com.tepia.main.view.main.map.MapArcgisFragment;
+import com.tepia.main.view.update.VersionInfoResponse;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import cn.jpush.android.api.JPushInterface;
@@ -61,7 +76,7 @@ import cn.jpush.android.api.JPushInterface;
 @Route(path = AppRoutePath.appMain)
 public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresenter> implements MainContract.View {
 
-        private TabFragmentHost mTabHost;
+    private TabFragmentHost mTabHost;
 //    private FragmentTabHost mTabHost;
 
     /**
@@ -117,7 +132,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                     fragments.get(i).getClass(), null);
         }
 
-        if(fragments.size() == 0){
+        if (fragments.size() == 0) {
             NullFragment nullFragment = new NullFragment();
             mTabHost.addTab(mTabHost.newTabSpec("设置").setIndicator(createIndicator(R.drawable.selector_tabbar_mine, "设置")),
                     nullFragment.getClass(), null);
@@ -166,59 +181,61 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         return view;
     }
 
-    private AppBean appBean;
+//    private AppBean appBean;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
 
     @Override
     public void initData() {
         valuestr = getIntent().getStringExtra("key");
         initTabMenu(valuestr);
-        PgyUpdateManager.register(this, new UpdateManagerListener() {
-            @Override
-            public void onNoUpdateAvailable() {
-                PgyUpdateManager.unregister();
-            }
-
-            @Override
-            public void onUpdateAvailable(String result) {
-                // 将新版本信息封装到AppBean中
-                PgyUpdateManager.unregister();
-                appBean = getAppBeanFromString(result);
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("更新")
-                        .setMessage("" + appBean.getReleaseNote())
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        })
-                        .setPositiveButton(
-                                "确定",
-                                new DialogInterface.OnClickListener() {
-
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        //android 6.0动态申请权限
-                                        if (ContextCompat.checkSelfPermission(Utils.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                                != PackageManager.PERMISSION_GRANTED) {
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-                                            }
-                                            ActivityCompat.requestPermissions(MainActivity.this,
-                                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-                                        } else {
-                                            startDownloadTask(MainActivity.this, appBean.getDownloadURL());
-
-                                        }
-                                    }
-                                }).show();
-
-            }
-        });
+        updateApp();
+//        PgyUpdateManager.register(this, new UpdateManagerListener() {
+//            @Override
+//            public void onNoUpdateAvailable() {
+//                PgyUpdateManager.unregister();
+//            }
+//
+//            @Override
+//            public void onUpdateAvailable(String result) {
+//                // 将新版本信息封装到AppBean中
+//                PgyUpdateManager.unregister();
+//                appBean = getAppBeanFromString(result);
+//                new AlertDialog.Builder(MainActivity.this)
+//                        .setTitle("更新")
+//                        .setMessage("" + appBean.getReleaseNote())
+//                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        })
+//                        .setPositiveButton(
+//                                "确定",
+//                                new DialogInterface.OnClickListener() {
+//
+//
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        //android 6.0动态申请权限
+//                                        if (ContextCompat.checkSelfPermission(Utils.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                                                != PackageManager.PERMISSION_GRANTED) {
+//                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                                                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+//                                            }
+//                                            ActivityCompat.requestPermissions(MainActivity.this,
+//                                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                                                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+//                                        } else {
+//                                            startDownloadTask(MainActivity.this, appBean.getDownloadURL());
+//
+//                                        }
+//                                    }
+//                                }).show();
+//
+//            }
+//        });
+//        mPresenter.getVersionInfo("9ED843B12FCF47F6BC2ECD1DD216A0E2");
     }
 
     private void initTabMenu(String valuestr) {
@@ -331,7 +348,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             boolean isShowMap = SPUtils.getInstance().getBoolean(CacheConsts.haslook, false);
-            if (mTabHost.getCurrentTab() == 2 && isShowMap==true) {
+            if (mTabHost.getCurrentTab() == 2 && isShowMap == true) {
                 //当前显示地图界面
                 if (MapArcgisFragment.status == 1) {
                     EventBus.getDefault().post(1);
@@ -372,7 +389,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     /**
      * 重连极光推送
      */
-    protected void resumePush(){
+    protected void resumePush() {
         // TODO: 2018/10/22 和视频会议连接在一起的极光推送。不要删除
         LogUtil.e("MainActivity", "极光推送before onresum状态getConnectionState：" + JPushInterface.getConnectionState(Utils.getContext()));
         LogUtil.e("MainActivity", "极光推送before onresum状态isPushStopped：" + JPushInterface.isPushStopped(Utils.getContext()));
@@ -397,8 +414,98 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         if (mTabHost != null) {
             mTabHost.removeAllViews();
         }
-        PgyUpdateManager.unregister();
+//        PgyUpdateManager.unregister();
+        //合适的地方关闭
+        AllenVersionChecker.getInstance().cancelAllMission();
     }
 
+    private VersionInfoResponse mBean;
+    private void updateApp() {
+        DownloadBuilder builder = AllenVersionChecker
+                .getInstance()
+                .requestVersion()
+                .setRequestUrl(APPCostant.API_APP_UPDATE + "app/bizAppInfo/checkNewVersionInfo?appId=6565488BBFC346B68DCB18A80A47BE9E")
+                .request(new RequestVersionListener() {
+                    @Nullable
+                    @Override
+                    public UIData onRequestVersionSuccess(DownloadBuilder downloadBuilder, String result) {
+                        VersionInfoResponse versionInfoResponse = new Gson().fromJson(result, VersionInfoResponse.class);
+                        mBean = versionInfoResponse;
+                        int versionCode = versionInfoResponse.getData().getAppVersionIndex();
+                        PackageManager pm = getPackageManager();
+                        try {
+                            PackageInfo packageInfo = pm.getPackageInfo(getPackageName(), 0);
+                            int localVersionCode = packageInfo.versionCode;
+                            // 线上版本大于本地版本则更新
+                            if (versionCode > localVersionCode) {
+                                UIData uiData = UIData.create();
+                                uiData.setTitle("版本更新");
+                                uiData.setDownloadUrl(versionInfoResponse.getData().getAppDownLoadUrl());
+                                uiData.setContent(versionInfoResponse.getData().getLevelDescpt());
+                                return uiData;
+                            }
+                        } catch (PackageManager.NameNotFoundException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+
+                        //获取包信息
+//                            V2.1.1可以根据服务器返回的结果，动态在此设置是否强制更新等
+//                            downloadBuilder.setForceUpdateListener(() -> {
+//                                forceUpdate();
+//                            });
+                        return null;
+//                            Toast.makeText(V2Activity.this, "request successful", Toast.LENGTH_SHORT).show();
+//                            return crateUIData();
+                    }
+
+                    @Override
+                    public void onRequestVersionFailure(String message) {
+
+                    }
+                }).setApkDownloadListener(new APKDownloadListener() {
+                    @Override
+                    public void onDownloading(int progress) {
+
+                    }
+
+                    @Override
+                    public void onDownloadSuccess(File file) {
+
+                    }
+
+                    @Override
+                    public void onDownloadFail() {
+                        ToastUtils.shortToast("下载失败！");
+                    }
+
+                    @Override
+                    public void installApk() {
+                        if (mBean != null){
+                            mPresenter.uploadDownloadActionCount("6565488BBFC346B68DCB18A80A47BE9E", mBean.getData().getAppVersionIndex());
+                        }
+                    }
+                });
+
+//            builder.setSilentDownload(true);
+        // 强制重新下载
+            builder.setForceRedownload(true);
+//            builder.setShowDownloadingDialog(false);
+//            builder.setShowNotification(false);
+//            builder.setNotificationBuilder(createCustomNotification());
+//            builder.setShowDownloadFailDialog(false);
+//            builder.setDirectDownload(true);
+//            builder.setShowNotification(false);
+//            builder.setShowDownloadingDialog(false);
+//            builder.setShowDownloadFailDialog(false);
+
+        builder.setOnCancelListener(new OnCancelListener() {
+            @Override
+            public void onCancel() {
+                Toast.makeText(MainActivity.this, "已取消更新", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.executeMission(this);
+    }
 
 }
