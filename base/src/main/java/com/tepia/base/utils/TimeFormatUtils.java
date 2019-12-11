@@ -106,6 +106,13 @@ public class TimeFormatUtils {
         String dateString = formatter.format(currentTime);
         return dateString;
     }
+
+    public static String getNowTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        Date currentTime = new Date();
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
     /**
      * 将长时间格式字符串转换为时间 yyyy-MM-dd HH:mm:ss
      *
@@ -483,6 +490,28 @@ public class TimeFormatUtils {
         return jj;
     }
 
-
+    public static String getWeek() {
+        String week = "";
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        int weekday = c.get(Calendar.DAY_OF_WEEK);
+        if (weekday == 1) {
+            week = "周日";
+        } else if (weekday == 2) {
+            week = "周一";
+        } else if (weekday == 3) {
+            week = "周二";
+        } else if (weekday == 4) {
+            week = "周三";
+        } else if (weekday == 5) {
+            week = "周四";
+        } else if (weekday == 6) {
+            week = "周五";
+        } else if (weekday == 7) {
+            week = "周六";
+        }
+        return week;
+    }
 
 }
