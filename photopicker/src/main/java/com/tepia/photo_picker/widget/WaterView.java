@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import com.tepia.photo_picker.entity.WaterBean;
  * Date:2019/12/11
  * Description:
  */
-public class WaterView extends LinearLayout {
+public class WaterView extends HorizontalScrollView {
 
     private TextView tv_time;
     private TextView tv_date;
