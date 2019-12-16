@@ -3,16 +3,19 @@ package com.tepia.photo_picker.utils;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.tepia.photo_picker.widget.WaterView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,12 +34,31 @@ public class BitmapUtils {
      * @param view 要处理的View
      * @return Bitmap
      */
-    public static Bitmap createBitmapFromView(View view) {
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+    public static Bitmap createBitmapFromView(HorizontalScrollView view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getChildAt(0).getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         return bitmap;
     }
+//    public static Bitmap createBitmapFromView(View view) {
+//        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+//        int src_w = bitmap.getWidth();
+//        int src_h = bitmap.getHeight();
+//        Matrix matrix = new Matrix();
+//        matrix.postScale(2f, 2f);
+//        Bitmap dstbmp = Bitmap.createBitmap(bitmap, 0, 0, src_w, src_h, matrix, true);
+//        Log.e("newWidth", "newWidth" + dstbmp.getWidth());
+//        Log.e("newHeight", "newHeight" + dstbmp.getHeight());
+//        Canvas canvas = new Canvas(dstbmp);
+//        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+//        layoutParams.width = src_w * 2;
+//        layoutParams.height = src_h * 2;
+//        view.setLayoutParams(layoutParams);
+//        view.draw(canvas);
+//        Log.e("newHeight", "view" + view.getWidth());
+//        Log.e("newHeight", "view" + view.getHeight());
+//        return dstbmp;
+//    }
 
 
     public static Bitmap createWaterMaskBitmap(Bitmap src, Bitmap watermark, float paddingLeft, float paddingTop) {
@@ -92,7 +114,7 @@ public class BitmapUtils {
 
     }
 
-    public static void addWaterOnPhoto(Activity activity, String photoPath, View waterView, SaveBitmapCallBack callBack){
+    public static void addWaterOnPhoto(Activity activity, String photoPath, HorizontalScrollView waterView, SaveBitmapCallBack callBack) {
         Glide.with(activity).asBitmap().load(photoPath).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {

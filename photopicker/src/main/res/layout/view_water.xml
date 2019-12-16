@@ -4,6 +4,7 @@
     android:id="@+id/view_water"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#000000"
     android:orientation="vertical"
     android:padding="24dp"
     android:visibility="visible"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="10:48"
             android:textColor="#ffffff"
-            android:textSize="54sp" />
+            android:textSize="108sp" />
 
         <View
             android:layout_width="4dp"
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="2019-12-02"
                 android:textColor="#ffffff"
-                android:textSize="24sp" />
+                android:textSize="48sp" />
 
             <TextView
                 android:id="@+id/tv_week"
@@ -51,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="周一"
                 android:textColor="#ffffff"
-                android:textSize="24sp" />
+                android:textSize="48sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -61,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="48sp"
         tools:text="水库名称" />
 
 </LinearLayout>
