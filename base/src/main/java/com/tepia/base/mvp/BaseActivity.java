@@ -265,18 +265,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (isShouldHideKeyboard(v, ev)) {
-                if (v.getWindowToken() != null) {
-                    hideKeyboard(v.getWindowToken());
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+//            View v = getCurrentFocus();
+//            if (isShouldHideKeyboard(v, ev)) {
+//                if (v.getWindowToken() != null) {
+//                    hideKeyboard(v.getWindowToken());
+//                }
+//            }
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
 
     /**
      * 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘，因为当用户点击EditText时则不能隐藏

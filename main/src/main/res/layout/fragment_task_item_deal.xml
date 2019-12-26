@@ -3,9 +3,15 @@
 
     <data></data>
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.tepia.photo_picker.widget.WaterView
+            android:id="@+id/waterview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,18 +34,18 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:background="@color/white"
                         android:orientation="vertical"
                         android:paddingLeft="16dp"
-                        android:layout_marginBottom="5dp"
                         android:paddingRight="16dp">
 
                         <TextView
                             android:id="@+id/tv_task_item_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
                             android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
                             android:background="@color/white"
                             android:text=""
                             android:textColor="@color/color_333"
@@ -83,10 +89,10 @@
                         android:layout_marginTop="2dp"
                         android:background="@color/color_white"
                         android:orientation="vertical"
-                        android:paddingBottom="10dp"
                         android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
                         android:paddingRight="15dp"
-                        android:paddingTop="10dp">
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:id="@+id/tv_itemname"
@@ -100,8 +106,8 @@
                             android:id="@+id/rg_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
                             android:layout_marginTop="30dp"
+                            android:layout_marginBottom="5dp"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -135,10 +141,10 @@
                             android:gravity="top|left"
                             android:hint="@string/text_task_deal_desc_hint"
                             android:minHeight="100dp"
-                            android:paddingBottom="10dp"
                             android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
                             android:paddingTop="10dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="10dp"
                             android:textColor="@color/color_333"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -155,10 +161,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingBottom="10dp"
                             android:paddingLeft="15dp"
+                            android:paddingTop="10dp"
                             android:paddingRight="15dp"
-                            android:paddingTop="10dp">
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:id="@+id/tv_before_hint"
@@ -188,6 +194,50 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lo_during"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_during_hint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/text_task_deal_up_image_bj_before_tip"
+                                android:textColor="@color/color_333"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tv_photo_num_during"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="0/5"
+                                android:textColor="@color/color_333"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_add_photo_during"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/lo_after"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -200,10 +250,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:paddingBottom="10dp"
                             android:paddingLeft="15dp"
+                            android:paddingTop="10dp"
                             android:paddingRight="15dp"
-                            android:paddingTop="10dp">
+                            android:paddingBottom="10dp">
 
                             <TextView
                                 android:id="@+id/tv_after_hint"
@@ -236,6 +286,6 @@
 
         </LinearLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
 
 </layout>

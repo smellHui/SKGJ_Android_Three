@@ -49,5 +49,5 @@ dependencies {
     // 图片加载
     implementation rootProject.ext.dependencies.glide
 
-    implementation project(':base')
+    implementation project(path: ':base')
 }

@@ -68,13 +68,17 @@ public class WeatherForecastPresenter extends BasePresenterImpl<WeatherForecastC
             public void onNext(Weather2Response weather2Response) {
                 if (weather2Response.getShowapi_res_code() == 0 && weather2Response.getShowapi_res_body().getRet_code() == 0) {
                     getWeatherbyHour24(weather2Response.getShowapi_res_body().getCityInfo().getC5());
-                    mView.getWeather2Success(weather2Response.getShowapi_res_body());
+                    if (mView != null){
+                        mView.getWeather2Success(weather2Response.getShowapi_res_body());
+                    }
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.getWeatherfail();
+                if (mView != null){
+                    mView.getWeatherfail();
+                }
             }
 
             @Override
@@ -101,7 +105,9 @@ public class WeatherForecastPresenter extends BasePresenterImpl<WeatherForecastC
 
             @Override
             public void onError(Throwable e) {
-                mView.getWeatherfail();
+                if (mView != null) {
+                    mView.getWeatherfail();
+                }
             }
 
             @Override

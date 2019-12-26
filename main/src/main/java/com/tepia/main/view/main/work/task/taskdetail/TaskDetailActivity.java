@@ -22,10 +22,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClientOption;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReference;
-import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.view.DrawStatus;
 import com.esri.arcgisruntime.mapping.view.DrawStatusChangedEvent;
 import com.esri.arcgisruntime.mapping.view.DrawStatusChangedListener;
@@ -37,10 +35,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseActivity;
-import com.tepia.base.utils.AppManager;
 import com.tepia.base.utils.DoubleClickUtil;
 import com.tepia.base.utils.LogUtil;
-import com.tepia.base.utils.NetUtil;
 import com.tepia.base.utils.ResUtils;
 import com.tepia.base.utils.SPUtils;
 import com.tepia.base.utils.ToastUtils;
@@ -58,15 +54,16 @@ import com.tepia.main.model.route.RoutepointDataManager;
 import com.tepia.main.model.task.bean.PeopleBean;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
+import com.tepia.main.model.task.bean.TaskItemConfigBean;
+import com.tepia.main.model.user.UserManager;
 import com.tepia.main.utils.LocationUtils;
 import com.tepia.main.utils.OSUtils;
 import com.tepia.main.utils.XiaomiDeviceUtil;
 import com.tepia.main.view.maincommon.setting.DownLoadActivity;
 
-import org.litepal.crud.DataSupport;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,7 +86,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     TaskBean taskBean;
 
 
-    private AdapterTaskItemList adapterTaskItemList;
+    private AdapterTaskDetailItemParent adapterTaskItemList;
     private ActivityTaskDetailBinding mBinding;
     private Point currentPoint;
     private boolean isFirstInitMap = false;
@@ -164,7 +161,7 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             //支持离线模式定位，并在有网时使用网络定位
             gaodeEntity.getLocationClient().setLocationOption(getDefaultOption(5000));
         }
-        if (taskBean != null && !TextUtils.isEmpty(taskBean.getExecuteStatus()) && com.tepia.main.model.user.UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
+        if (taskBean != null && !TextUtils.isEmpty(taskBean.getExecuteStatus()) && UserManager.getInstance().getUserBean().getData().getUserCode().equals(taskBean.getExecuteId())) {
             gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
                 @Override
                 public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
@@ -285,22 +282,36 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
     private void initListView() {
         mBinding.rvTaskItemList.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rvTaskItemList.setNestedScrollingEnabled(false);
-        adapterTaskItemList = new AdapterTaskItemList(getContext(), R.layout.lv_item_task_item_list, null);
-        mBinding.rvTaskItemList.setAdapter(adapterTaskItemList);
-        adapterTaskItemList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        adapterTaskItemList = new AdapterTaskDetailItemParent(R.layout.item_taskitem_parent, null,new AdapterTaskDetailItemChild.OnChildItemClickListener(){
+
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onClick(TaskItemBean bean) {
                 if ("1".equals(taskBean.getExecuteStatus())) {
                     ToastUtils.shortToast("请点击下方执行任务");
                 } else {
                     ARouter.getInstance().build(AppRoutePath.app_task_deal)
                             .withString("workOrderId", id)
-                            .withInt("position", position)
+                            .withString("itemid", bean.getItemId())
                             .withString("taskBean", new Gson().toJson(taskBean))
                             .navigation();
                 }
             }
         });
+        mBinding.rvTaskItemList.setAdapter(adapterTaskItemList);
+//        adapterTaskItemList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                if ("1".equals(taskBean.getExecuteStatus())) {
+//                    ToastUtils.shortToast("请点击下方执行任务");
+//                } else {
+//                    ARouter.getInstance().build(AppRoutePath.app_task_deal)
+//                            .withString("workOrderId", id)
+//                            .withInt("position", position)
+//                            .withString("taskBean", new Gson().toJson(taskBean))
+//                            .navigation();
+//                }
+//            }
+//        });
     }
 
 
@@ -335,6 +346,12 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
     @Override
     protected void initListener() {
+        mBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mBinding.ivChangeMapList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -533,11 +550,20 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
-                    adapterTaskItemList.setNewData(taskBean.getBizReservoirWorkOrderItems());
-                    if (simpleLoadDialog != null) {
-                        simpleLoadDialog.dismiss();
+                   List<TaskItemBean> taskItemBeans =  taskBean.getBizReservoirWorkOrderItems();
+                    LinkedHashMap<String, List<TaskItemBean>> groupList = groupTaskBeansByPositionId(taskItemBeans);
+                    List<TaskItemConfigBean> list = new ArrayList<>();
+                    for (String key : groupList.keySet()) {
+                        List<TaskItemBean> templist = groupList.get(key);
+                        TaskItemConfigBean reserVoirViewItem = new TaskItemConfigBean();
+                        String[] tittles = templist.get(0).getPositionTreeNames().split("/");
+                        reserVoirViewItem.setTittle(tittles[0]+"/"+tittles[1]);
+                        reserVoirViewItem.setList(templist);
+                        list.add(reserVoirViewItem);
                     }
+
+                    adapterTaskItemList.setNewData(list);
+                    simpleLoadDialog.dismiss();
                     refreshMapView();
                 }
             }, 1000);
@@ -549,6 +575,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 mBinding.tvTaskExecStatus.setText(ResUtils.getString(R.string.text_task_status_dzx));
                 mBinding.tvDoTask.setEnabled(true);
                 mBinding.tvDoTask.setText("执行任务");
+                // 隐藏底部按钮
+                mBinding.llSubmit.setVisibility(View.GONE);
                 mBinding.tvDoTask.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -565,6 +593,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 mBinding.tvTaskExecStatus.setText(ResUtils.getString(R.string.text_task_status_zxz));
                 mBinding.tvDoTask.setEnabled(true);
                 mBinding.tvDoTask.setText("执行任务");
+                // 隐藏底部按钮
+                mBinding.llSubmit.setVisibility(View.GONE);
                 boolean isDealFinished = true;
                 List<TaskItemBean> taskItemBeans = taskBean.getBizReservoirWorkOrderItems();
                 if (CollectionsUtil.isEmpty(taskItemBeans)) {
@@ -582,6 +612,8 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
 
                 if (adapterTaskItemList != null && isDealFinished) {
                     mBinding.tvDoTask.setText("提交");
+                    // 隐藏底部按钮
+                    mBinding.llSubmit.setVisibility(View.VISIBLE);
                     mBinding.tvDoTask.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -596,19 +628,21 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                     });
                 } else {
                     mBinding.tvDoTask.setText("执行任务");
+                    // 隐藏底部按钮
+                    mBinding.llSubmit.setVisibility(View.GONE);
                     mBinding.tvDoTask.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (adapterTaskItemList != null && !adapterTaskItemList.isDealFinish()
-                                    && !CollectionsUtil.isEmpty(adapterTaskItemList.getData())) {
-                                ARouter.getInstance().build(AppRoutePath.app_task_deal)
-                                        .withString("workOrderId", id)
-                                        .withInt("position", adapterTaskItemList.getFirstExePositoin())
-                                        .withString("taskBean", new Gson().toJson(taskBean))
-                                        .navigation();
-                            } else {
-                                ToastUtils.shortToast("没有任务项 不能执行任务");
-                            }
+//                            if (adapterTaskItemList != null && !adapterTaskItemList.isDealFinish()
+//                                    && !CollectionsUtil.isEmpty(adapterTaskItemList.getData())) {
+//                                ARouter.getInstance().build(AppRoutePath.app_task_deal)
+//                                        .withString("workOrderId", id)
+//                                        .withInt("position", adapterTaskItemList.getFirstExePositoin())
+//                                        .withString("taskBean", new Gson().toJson(taskBean))
+//                                        .navigation();
+//                            } else {
+//                                ToastUtils.shortToast("没有任务项 不能执行任务");
+//                            }
                         }
                     });
 
@@ -683,7 +717,34 @@ public class TaskDetailActivity extends MVPBaseActivity<TaskDetailContract.View,
                 mBinding.loEditAndSend.setVisibility(View.GONE);
                 break;
         }
+    }
 
+
+    /**
+     * 数据归类
+     * @param taskItemBeans
+     * @return
+     * @throws Exception
+     */
+    private LinkedHashMap<String, List<TaskItemBean>> groupTaskBeansByPositionId(List<TaskItemBean> taskItemBeans) {
+        LinkedHashMap<String, List<TaskItemBean>> resultMap = new LinkedHashMap<String, List<TaskItemBean>>();
+        try {
+            for (TaskItemBean taskItemBean : taskItemBeans) {
+                String[] keys = taskItemBean.getPositionTreeNames().split("/");
+                String key = keys[0].trim()+keys[1].trim();
+                //map中异常批次已存在，将该数据存放到同一个key（key存放的是异常批次）的map中
+                if (resultMap.containsKey(key)) {
+                    resultMap.get(key).add(taskItemBean);
+                } else {//map中不存在，新建key，用来存放数据
+                    List<TaskItemBean> tmpList = new ArrayList<TaskItemBean>();
+                    tmpList.add(taskItemBean);
+                    resultMap.put(key, tmpList);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultMap;
     }
 
     private void showTjDialog() {

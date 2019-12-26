@@ -62,10 +62,11 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 if (!TextUtils.isEmpty(com.tepia.main.model.user.UserManager.getInstance().getToken())
+                        && UserManager.getInstance().getUserBean() != null
                         && UserManager.getInstance().getDefaultReservoir() != null
                         && UserManager.getInstance().getMenuList() != null
                         && UserManager.getInstance().getLocalReservoirList() != null
-                        ) {
+                ) {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
                     SplashActivity.this.finish();

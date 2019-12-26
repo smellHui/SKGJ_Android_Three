@@ -109,6 +109,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         registerPowerReceiver();
         setNewBottom();
         resumePush();
+
     }
 
 

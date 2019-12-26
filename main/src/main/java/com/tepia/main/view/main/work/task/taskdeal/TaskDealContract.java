@@ -15,6 +15,8 @@ public class TaskDealContract {
         void getTaskDetailSucess(TaskBean data);
 
         void commitSucess();
+
+        void commitBack();
     }
 
     interface  Presenter extends BasePresenter<View> {

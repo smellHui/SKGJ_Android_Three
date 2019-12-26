@@ -38,7 +38,7 @@ import java.util.List;
 public class PhotoSelectAdapter extends RecyclerView.Adapter<PhotoSelectAdapter.PhotoViewHolder> {
 
     private Context mContext;
-    private ArrayList<String> photoPaths = new ArrayList<>();
+    private ArrayList<String> photoPaths;
     public final static int TYPE_ADD = 1;
     public final static int TYPE_PHOTO = 2;
     public final static int MAX = 5;
@@ -107,7 +107,7 @@ public class PhotoSelectAdapter extends RecyclerView.Adapter<PhotoSelectAdapter.
                                 .priority(Priority.HIGH)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE))
                         .into(holder.ivPhoto);
-                LogUtil.e("图片地址---------："+photoPaths.get(position));
+                LogUtil.e("图片地址---------：" + photoPaths.get(position));
                 if (!showType) {
                     holder.vSelected.setVisibility(View.VISIBLE);
                 }
@@ -135,8 +135,10 @@ public class PhotoSelectAdapter extends RecyclerView.Adapter<PhotoSelectAdapter.
                 holder.vSelected.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        photoPaths.remove(position);
+                        notifyDataSetChanged();
                         if (deleteListener != null) {
-                            deleteListener.ondelete(position - netDataUrl.size());
+                            deleteListener.ondelete(photoPaths == null ? 0 : photoPaths.size());
                         }
                     }
                 });
@@ -211,7 +213,7 @@ public class PhotoSelectAdapter extends RecyclerView.Adapter<PhotoSelectAdapter.
             }
             notifyDataSetChanged();
         } else {
-            if (netDataUrl.size() == data.size() && data.size() != 0) {
+            if (netDataUrl.size() == data.size()) {
                 boolean isEq = true;
                 for (int i = 0; i < data.size(); i++) {
                     if (netDataUrl.get(i).equals(data.get(i).getFilePath())) {
@@ -233,7 +235,7 @@ public class PhotoSelectAdapter extends RecyclerView.Adapter<PhotoSelectAdapter.
                     }
                     notifyDataSetChanged();
                 }
-            }else {
+            } else {
                 netDataUrl.clear();
                 for (ImageInfoBean bean : data) {
                     netDataUrl.add(bean.getFilePath());
@@ -275,7 +277,7 @@ public class PhotoSelectAdapter extends RecyclerView.Adapter<PhotoSelectAdapter.
     public interface DeleteListener {
         void ondelete(ImageInfoBean imageInfoBean);
 
-        void ondelete(int position);
+        void ondelete(int num);
     }
 
     public void setDeleteListener(DeleteListener deleteListener) {

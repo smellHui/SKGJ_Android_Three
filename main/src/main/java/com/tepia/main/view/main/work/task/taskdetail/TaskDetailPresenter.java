@@ -187,16 +187,21 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
                 TaskItemBean bean = localData.get(count);
                 List<String> files = new Gson().fromJson(bean.getBeforelist(), new TypeToken<List<String>>() {
                 }.getType());
+                List<String> duringfiles = new Gson().fromJson(bean.getDuringlist(), new TypeToken<List<String>>() {
+                }.getType());
                 List<String> endfiles = new Gson().fromJson(bean.getAfterlist(), new TypeToken<List<String>>() {
                 }.getType());
                 if (files == null) {
                     files = new ArrayList<>();
                 }
+                if (duringfiles == null) {
+                    duringfiles = new ArrayList<>();
+                }
                 if (endfiles == null) {
                     endfiles = new ArrayList<>();
                 }
                 appReservoirWorkOrderItemCommitOne(localData, count, bean.getWorkOrderId(), bean.getItemId(), bean.getExResult(), bean.getExDesc(), bean.getLgtd(),
-                        bean.getLttd(), bean.getExecuteDate(), files, endfiles, true, "正在提交第" + bean.getReservoirSuperviseSequence() + "项离线数据");
+                        bean.getLttd(), bean.getExecuteDate(), files, endfiles, duringfiles, true, "正在提交第" + bean.getReservoirSuperviseSequence() + "项离线数据");
             } else {
                 mView.appReservoirWorkOrderItemCommitOneByOneSuccess();
             }
@@ -214,10 +219,11 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
                                                    String executeDate,
                                                    List<String> files,
                                                    List<String> endfiles,
+                                                   List<String> duringfiles,
                                                    boolean isShow,
                                                    String msg) {
-        if (files.size() == 0 && endfiles.size() == 0) {
-            TaskManager.getInstance().appReservoirWorkOrderItemCommitOne(workOrderId, itemId, exResult, exDesc, lgtd, lttd, executeDate, files, endfiles)
+        if (files.size() == 0 && endfiles.size() == 0 && duringfiles.size() == 0) {
+            TaskManager.getInstance().appReservoirWorkOrderItemCommitOne(workOrderId, itemId, exResult, exDesc, lgtd, lttd, executeDate, files, endfiles, duringfiles)
                     .subscribe(new LoadingSubject<BaseResponse>(isShow, msg) {
                         @Override
                         protected void _onNext(BaseResponse response) {
@@ -230,6 +236,7 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
                                     bean.setExDesc("");
                                     bean.setAfterlist("");
                                     bean.setBeforelist("");
+                                    bean.setDuringlist("");
                                     bean.update();
                                 }
                                 appReservoirWorkOrderItemCommitOneByOne(localData, count + 1);
@@ -246,6 +253,7 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
             Tiny.FileCompressOptions options = new Tiny.FileCompressOptions();
             ArrayList<String> filelist = new ArrayList<>();
             filelist.addAll(files);
+            filelist.addAll(duringfiles);
             filelist.addAll(endfiles);
             Tiny.getInstance().source(filelist.toArray(new String[filelist.size()])).batchAsFile().withOptions(options).batchCompress(new FileBatchCallback() {
                 @Override
@@ -254,11 +262,14 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
                     if (isSuccess) {
                         ArrayList<String> beforelist = new ArrayList<String>();
                         ArrayList<String> afterlist = new ArrayList<String>();
+                        ArrayList<String> duringlist = new ArrayList<>();
                         ArrayList<String> tempslist = new ArrayList<>();
                         Collections.addAll(tempslist, outfile);
+
                         beforelist.addAll(tempslist.subList(0, files.size()));
-                        afterlist.addAll(tempslist.subList(files.size(), tempslist.size()));
-                        TaskManager.getInstance().appReservoirWorkOrderItemCommitOne(workOrderId, itemId, exResult, exDesc, lgtd, lttd, executeDate, beforelist, afterlist)
+                        duringlist.addAll(tempslist.subList(files.size(), files.size() + duringfiles.size()));
+                        afterlist.addAll(tempslist.subList(files.size() + duringfiles.size(), tempslist.size()));
+                        TaskManager.getInstance().appReservoirWorkOrderItemCommitOne(workOrderId, itemId, exResult, exDesc, lgtd, lttd, executeDate, beforelist, afterlist, duringlist)
                                 .subscribe(new LoadingSubject<BaseResponse>(isShow, msg) {
                                     @Override
                                     protected void _onNext(BaseResponse response) {
@@ -272,6 +283,7 @@ public class TaskDetailPresenter extends BasePresenterImpl<TaskDetailContract.Vi
                                                 bean.setExDesc("");
                                                 bean.setAfterlist("");
                                                 bean.setBeforelist("");
+                                                bean.setDuringlist("");
                                                 bean.update();
                                             }
                                             appReservoirWorkOrderItemCommitOneByOne(localData, count + 1);

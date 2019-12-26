@@ -33,7 +33,7 @@ import java.util.Locale;
 public class ImageCaptureManager {
 
     private final static String CAPTURED_PHOTO_PATH_KEY = "mCurrentPhotoPath";
-    public static final int REQUEST_TAKE_PHOTO = 1;
+    public static final int REQUEST_TAKE_PHOTO = 1001;
 
     private String mCurrentPhotoPath;
     private Context mContext;

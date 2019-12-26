@@ -14,7 +14,7 @@ public class TaskItemDealContract {
     interface View extends BaseView {
         void getTaskItemDetailSucess(TaskItemBean data);
 
-        void delFileSucess(ImageInfoBean imageInfoBean, boolean isbefore);
+        void delFileSucess(ImageInfoBean imageInfoBean, String isbefore);
     }
 
     interface  Presenter extends BasePresenter<View> {

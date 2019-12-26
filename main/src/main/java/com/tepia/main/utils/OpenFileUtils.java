@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.content.FileProvider;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -232,4 +235,37 @@ public class OpenFileUtils {
         }
         return uri;
     }
+
+    /**
+     * 生成文件路径和文件名
+     *
+     * @return
+     */
+    public static String getFileName() {
+        String saveDir = Environment.getExternalStorageDirectory() + "/SKGJPICS";
+        File dir = new File(saveDir);
+        if (!dir.exists()) {
+            dir.mkdir(); // 创建文件夹
+        }
+        //用日期作为文件名，确保唯一性
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        int num = (int) ((Math.random() * 9 + 1) * 100000);
+        String fileName = saveDir + "/" + formatter.format(date) + num + ".PNG";
+        return fileName;
+    }
+
+    public static Uri getUriForFile(Context context, File file) {
+        if (context == null || file == null) {
+            throw new NullPointerException();
+        }
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(context.getApplicationContext(), context.getPackageName()+".provider", file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
+        return uri;
+    }
+
 }

@@ -1,13 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
-    >
-  <item
-      android:id="@+id/delete"
-      android:title="删除"
-      android:icon="@drawable/picker_delete"
-      android:orderInCategory="100"
-      app:showAsAction="ifRoom"
-      />
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/picker_delete"
+        android:orderInCategory="100"
+        android:title="删除"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/save"
+        android:icon="@drawable/picker_save"
+        android:orderInCategory="100"
+        android:title="保存"
+        app:showAsAction="ifRoom" />
 </menu>

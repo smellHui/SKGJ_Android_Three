@@ -201,7 +201,8 @@ public class TaskManager {
                                                                        String lgtd,
                                                                        String lttd,
                                                                        List<String> files,
-                                                                       List<String> endfiles) {
+                                                                       List<String> endfiles,
+                                                                       List<String> duringfiles) {
         String token = UserManager.getInstance().getToken();
         Map<String, RequestBody> params = new HashMap<>();
         params.put("workOrderId", RetrofitManager.convertToRequestBody(workOrderId));
@@ -218,13 +219,20 @@ public class TaskManager {
         }
         List<MultipartBody.Part> beforePathList = RetrofitManager.filesToMultipartBodyParts("files", beforefileList);
 
+        List<File> duringfileList = new ArrayList<>();
+        for (int i=0;i<duringfiles.size();i++){
+            File file = new File(duringfiles.get(i));
+            duringfileList.add(file);
+        }
+        List<MultipartBody.Part> duringPathList = RetrofitManager.filesToMultipartBodyParts("filesIng", duringfileList);
+
         List<File> afterfileList = new ArrayList<>();
         for (int i = 0; i < endfiles.size(); i++) {
             File file = new File(endfiles.get(i));
             afterfileList.add(file);
         }
         List<MultipartBody.Part> afterPathList = RetrofitManager.filesToMultipartBodyParts("endfiles", afterfileList);
-        return mRetrofitService.appReservoirWorkOrderItemCommitOne(token, params, beforePathList, afterPathList)
+        return mRetrofitService.appReservoirWorkOrderItemCommitOne(token, params, beforePathList, afterPathList,duringPathList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -236,7 +244,8 @@ public class TaskManager {
                                                                        String lttd,
                                                                        String executeDate,
                                                                        List<String> files,
-                                                                       List<String> endfiles) {
+                                                                       List<String> endfiles,
+                                                                       List<String> duringfiles) {
         String token = UserManager.getInstance().getToken();
         Map<String, RequestBody> params = new HashMap<>();
         params.put("workOrderId", RetrofitManager.convertToRequestBody(workOrderId));
@@ -254,13 +263,20 @@ public class TaskManager {
         }
         List<MultipartBody.Part> beforePathList = RetrofitManager.filesToMultipartBodyParts("files", beforefileList);
 
+        List<File> duringfileList = new ArrayList<>();
+        for (int i=0;i<duringfiles.size();i++){
+            File file = new File(duringfiles.get(i));
+            duringfileList.add(file);
+        }
+        List<MultipartBody.Part> duringPathList = RetrofitManager.filesToMultipartBodyParts("filesIng", duringfileList);
+
         List<File> afterfileList = new ArrayList<>();
         for (int i = 0; i < endfiles.size(); i++) {
             File file = new File(endfiles.get(i));
             afterfileList.add(file);
         }
         List<MultipartBody.Part> afterPathList = RetrofitManager.filesToMultipartBodyParts("endfiles", afterfileList);
-        return mRetrofitService.appReservoirWorkOrderItemCommitOne(token, params, beforePathList, afterPathList)
+        return mRetrofitService.appReservoirWorkOrderItemCommitOne(token, params, beforePathList, afterPathList,duringPathList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -28,6 +28,29 @@
         </activity>
 
 
+        <meta-data
+            android:name="BaiduMobAd_STAT_ID"
+            android:value="5df43e4980" />
+
+        <!-- 渠道商编号 -->
+        <meta-data
+            android:name="Tepia"
+            android:value="Tepia" />
+
+        <!-- 是否获取基站位置信息 ,默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_CELL_LOCATION"
+            android:value="true" />
+
+        <!-- 是否获取GPS位置信息，默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_GPS_LOCATION"
+            android:value="true" />
+
+        <!-- 是否获取WIFI位置信息，默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_WIFI_LOCATION"
+            android:value="true" />
     </application>
 
 </manifest>

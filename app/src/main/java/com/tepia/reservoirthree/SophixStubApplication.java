@@ -29,6 +29,9 @@ public class SophixStubApplication extends SophixApplication {
     @Keep
     @SophixEntry(MyApplication.class)
     static class RealApplicationStub {}
+
+
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

@@ -8,10 +8,10 @@ ext {
             applicationId: "com.tepia.reservoirthree",
             compileSdkVersion: 28,
             buildToolsVersion: "28.0.3",
-            minSdkVersion    : 16,
+            minSdkVersion    : 17,
             targetSdkVersion : 27,
-            versionCode      : 144,
-            versionName      : "1.4.4"
+            versionCode      : 146,
+            versionName      : "1.4.6"
     ]
 
     libsVersion = [

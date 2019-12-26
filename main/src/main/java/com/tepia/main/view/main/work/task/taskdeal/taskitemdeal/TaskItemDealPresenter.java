@@ -22,12 +22,12 @@ import java.util.List;
 public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContract.View> implements TaskItemDealContract.Presenter {
 
     public void getTaskItemDetail(String itemId, boolean isShow, String msg) {
-        if (mView != null) {
-            List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
-            if (!CollectionsUtil.isEmpty(templist)) {
-                mView.getTaskItemDetailSucess(templist.get(0));
-            }
-        }
+//        if (mView != null) {
+//            List<TaskItemBean> templist = DataSupport.where("itemId=?", itemId).find(TaskItemBean.class);
+//            if (!CollectionsUtil.isEmpty(templist)) {
+//                mView.getTaskItemDetailSucess(templist.get(0));
+//            }
+//        }
         TaskManager.getInstance().getAppReservoirWorkOrderItemInfo(itemId).subscribe(new LoadingSubject<TaskItemDetailResponse>(isShow, msg) {
             @Override
             protected void _onNext(TaskItemDetailResponse taskDetailResponse) {
@@ -61,7 +61,7 @@ public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContrac
         });
     }
 
-    public void deleteImage(ImageInfoBean imageInfoBean, boolean isbefore, boolean isShow, String msg) {
+    public void deleteImage(ImageInfoBean imageInfoBean, String isbefore, boolean isShow, String msg) {
         TaskManager.getInstance().delFile(imageInfoBean.getFileId()).subscribe(new LoadingSubject<BaseResponse>(isShow, msg) {
             @Override
             protected void _onNext(BaseResponse response) {

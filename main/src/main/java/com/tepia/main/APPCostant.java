@@ -32,6 +32,8 @@ public class APPCostant {
      */
     public static String API_SERVER_URL = "http://202.98.201.102:1341/";
 
+//    public static String API_SERVER_URL="http://192.168.4.55:8765/";
+
     /**
      * APP更新所用地址
      */

@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 
+import com.baidu.mobstat.StatService;
 import com.example.gaodelibrary.UtilsContextOfGaode;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -33,7 +34,7 @@ public class MyApplication extends BaseApplication {
 
         LitePal.initialize(this);
         CrashReport.initCrashReport(getApplicationContext(), "bc876488f4", true);
-
+        StatService.start(this);
     }
 
 }

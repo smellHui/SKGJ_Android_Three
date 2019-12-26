@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.gson.Gson;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.MVPBaseFragment;
 import com.tepia.base.utils.ToastUtils;
@@ -26,14 +25,15 @@ import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.task.UnfinishedNumResponse;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
+import com.tepia.main.model.task.bean.TaskItemConfigBean;
 import com.tepia.main.model.task.bean.WorkOrderNumBean;
 import com.tepia.main.model.user.UserManager;
-import com.tepia.main.view.main.work.task.taskdetail.AdapterTaskItemList;
-import com.tepia.main.view.main.work.task2.taskedit.AdapterTaskItemConfig;
+import com.tepia.main.view.main.work.task2.taskedit.AdapterTaskItemParent;
 import com.tepia.main.view.maincommon.setting.ChoiceReservoirActivity;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +54,8 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
      * 被选择的运维类型
      */
     private String selectedYunWeiType;
-    private AdapterTaskItemConfig adapterTaskItemList;
+//    private AdapterTaskItemConfig adapterTaskItemList;
+    private AdapterTaskItemParent adapterTaskItemList;
     public String defaultYunweiType;
     private ArrayList<String> yunweiTypeStrs;
 
@@ -80,7 +81,7 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
         mBinding = DataBindingUtil.bind(view);
         initListener();
         mBinding.rvTaskItemList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterTaskItemList = new AdapterTaskItemConfig( R.layout.lv_item_task_item_config, null);
+        adapterTaskItemList = new AdapterTaskItemParent(R.layout.item_taskitem_parent, null);
         mBinding.rvTaskItemList.setAdapter(adapterTaskItemList);
         mBinding.tvStartYunwei.setText("开始运维");
         mBinding.loTaskNumPresent.setVisibility(View.GONE);
@@ -298,14 +299,59 @@ public class StartYunWeiFragment extends MVPBaseFragment<StartYunWeiContract.Vie
 
     @Override
     public void getItemListByReservoirIdSuccess(List<TaskItemBean> data) {
-        adapterTaskItemList.setNewData(data);
-        adapterTaskItemList.selectAll();
-        if (data == null && data.size() == 0) {
+        if (data != null){
+            LinkedHashMap<String, List<TaskItemBean>> groupList = groupTaskBeansByPositionId(data);
+            List<TaskItemConfigBean> list = new ArrayList<>();
+            for (String key : groupList.keySet()) {
+                List<TaskItemBean> templist = groupList.get(key);
+                TaskItemConfigBean reserVoirViewItem = new TaskItemConfigBean();
+                String[] tittles = templist.get(0).getPositionTreeNames().split("/");
+                reserVoirViewItem.setTittle(tittles[0]+"/"+tittles[1]);
+                reserVoirViewItem.setList(templist);
+                list.add(reserVoirViewItem);
+            }
+            adapterTaskItemList.setNewData(list);
+            adapterTaskItemList.selectAll();
+            if (data.size() == 0) {
+                adapterTaskItemList.getData().clear();
+                adapterTaskItemList.notifyDataSetChanged();
+                View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
+                adapterTaskItemList.setEmptyView(view);
+            }
+        }else {
             adapterTaskItemList.getData().clear();
             adapterTaskItemList.notifyDataSetChanged();
             View view = LayoutInflater.from(Utils.getContext()).inflate(R.layout.view_empty_list_view, null);
             adapterTaskItemList.setEmptyView(view);
         }
+
+
+    }
+
+    /**
+     * @param taskItemBeans
+     * @return
+     * @throws Exception
+     */
+    private LinkedHashMap<String, List<TaskItemBean>> groupTaskBeansByPositionId(List<TaskItemBean> taskItemBeans) {
+        LinkedHashMap<String, List<TaskItemBean>> resultMap = new LinkedHashMap<String, List<TaskItemBean>>();
+        try {
+            for (TaskItemBean taskItemBean : taskItemBeans) {
+                String[] keys = taskItemBean.getPositionTreeNames().split("/");
+                String key = keys[0].trim()+keys[1].trim();
+                //map中异常批次已存在，将该数据存放到同一个key（key存放的是异常批次）的map中
+                if (resultMap.containsKey(key)) {
+                    resultMap.get(key).add(taskItemBean);
+                } else {//map中不存在，新建key，用来存放数据
+                    List<TaskItemBean> tmpList = new ArrayList<TaskItemBean>();
+                    tmpList.add(taskItemBean);
+                    resultMap.put(key, tmpList);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultMap;
     }
 
     @Override

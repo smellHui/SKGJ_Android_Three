@@ -74,8 +74,10 @@ public class ThreePointTabFragment extends BaseCommonFragment{
                 OperationPlanBean.DataBean data = operationPlanBean.getData();
                 if (data==null){
                     dataList.clear();
-                    listAdapter.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
-                    listAdapter.notifyDataSetChanged();
+                    if (isAdded()){
+                        listAdapter.setEmptyView(EmptyLayoutUtil.show(getString(R.string.empty_tv)));
+                        listAdapter.notifyDataSetChanged();
+                    }
                 }else {
                     dataList.clear();
                     dataList.add(data);

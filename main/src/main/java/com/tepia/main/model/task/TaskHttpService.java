@@ -137,7 +137,8 @@ interface TaskHttpService {
     Observable<BaseResponse> appReservoirWorkOrderItemCommitOne(@Header("Authorization") String token,
                                                                 @PartMap Map<String, RequestBody> params,
                                                                 @Part List<MultipartBody.Part> beforePathList,
-                                                                @Part List<MultipartBody.Part> afterPathList);
+                                                                @Part List<MultipartBody.Part> afterPathList,
+                                                                @Part List<MultipartBody.Part> duringPathList);
 
 
     /**

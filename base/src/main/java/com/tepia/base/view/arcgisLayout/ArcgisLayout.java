@@ -221,16 +221,20 @@ public class ArcgisLayout extends RelativeLayout {
         mLocationDisplay.setAutoPanMode(LocationDisplay.AutoPanMode.OFF);
         mLocationDisplay.setShowLocation(false);//设置不显示定位图标
         mLocationDisplay.addLocationChangedListener(locationChangedEvent -> {
+
             //getMapLocation获取的点是基于当前地图坐标系的点
             //getPosition是获取基于GPS的位置信息，再获取的点是基于WGS84的经纬度坐标。
             LocationDataSource.Location location = locationChangedEvent.getLocation();
-            Point point = mLocationDisplay.getMapLocation();
+            if (location.getPosition() == null) {
+                return;
+            }
+//            Point point = mLocationDisplay.getMapLocation();
 //            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
             currentPoint = location.getPosition();
-            Point position = location.getPosition();
+//            Point position = location.getPosition();
 //            LogUtil.i(" LocationDataSource.Location:"+location.getPosition());
 //            LogUtil.i("point:"+point.toString());
-            Point locationPoint = transformationPoint(position.getX(), position.getY());
+            Point locationPoint = transformationPoint(currentPoint.getX(), currentPoint.getY());
             addLocationPic(locationOverlay, R.drawable.google_location, locationPoint);
 //            LogUtil.i("point:"+point.toString());
             if (onAddLocationChangedListener != null) {

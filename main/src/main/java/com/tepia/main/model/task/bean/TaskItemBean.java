@@ -1,5 +1,6 @@
 package com.tepia.main.model.task.bean;
 
+import android.graphics.ImageDecoder;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
@@ -87,6 +88,9 @@ public class TaskItemBean extends DataSupport implements Serializable {
     private String dicName;
     private List<ImageInfoBean> startImages;
     private List<ImageInfoBean> endImages;
+    private List<ImageInfoBean> ingImages;
+
+
 
     /**
      * 用于存储本地编辑的数据
@@ -99,6 +103,32 @@ public class TaskItemBean extends DataSupport implements Serializable {
     private String executeDate;
     private String beforelist;
     private String afterlist;
+    private String duringlist;
+
+    public List<ImageInfoBean> getIngImages() {
+
+        if (ingImages == null) {
+            List<ImageInfoBean> temp = DataSupport.where("itemId=? AND biztype=?", itemId + "", "ing").find(ImageInfoBean.class);
+            if (CollectionsUtil.isEmpty(temp)) {
+                ingImages = null;
+            } else {
+                ingImages = temp;
+            }
+        }
+        return ingImages;
+    }
+
+    public void setIngImages(List<ImageInfoBean> ingImages) {
+        this.ingImages = ingImages;
+    }
+
+    public String getDuringlist() {
+        return duringlist;
+    }
+
+    public void setDuringlist(String duringlist) {
+        this.duringlist = duringlist;
+    }
 
     public String getExecuteDate() {
         return executeDate;
@@ -531,6 +561,12 @@ public class TaskItemBean extends DataSupport implements Serializable {
                 bean.save();
             }
         }
+        if (!CollectionsUtil.isEmpty(ingImages)){
+            for (ImageInfoBean bean : ingImages){
+                bean.setItemId(itemId);
+                bean.save();
+            }
+        }
         return ret;
     }
 
@@ -547,6 +583,12 @@ public class TaskItemBean extends DataSupport implements Serializable {
         }
         if (!CollectionsUtil.isEmpty(endImages)) {
             for (ImageInfoBean bean : endImages) {
+                bean.setItemId(itemId);
+                bean.save();
+            }
+        }
+        if (!CollectionsUtil.isEmpty(ingImages)){
+            for(ImageInfoBean bean : ingImages){
                 bean.setItemId(itemId);
                 bean.save();
             }

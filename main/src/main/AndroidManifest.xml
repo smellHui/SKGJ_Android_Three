@@ -410,6 +410,9 @@
         </service>
 
         <activity android:name=".view.maincommon.setting.contacts.ContactsNewActivity"></activity>
+        <activity
+            android:name=".view.main.work.task.taskdeal.NewTaskDealActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

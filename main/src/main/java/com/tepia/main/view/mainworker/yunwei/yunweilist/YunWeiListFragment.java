@@ -193,11 +193,11 @@ public class YunWeiListFragment extends MVPBaseFragment<YunWeiListContract.View,
         mBinding.tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (selectedResrvoir == null) {
+               ReservoirBean reservoirBean =  UserManager.getInstance().getDefaultReservoir();
+                if (reservoirBean == null) {
                     mPresenter.getPatrolWorkOrderList("", selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
                 } else {
-                    mPresenter.getPatrolWorkOrderList(selectedResrvoir.getReservoirId(), selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
+                    mPresenter.getPatrolWorkOrderList(reservoirBean.getReservoirId(), selectedYunWeiType, mBinding.tvSelectMonth.getText().toString());
                 }
 
             }

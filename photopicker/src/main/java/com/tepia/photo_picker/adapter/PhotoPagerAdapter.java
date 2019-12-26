@@ -2,8 +2,11 @@ package com.tepia.photo_picker.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +79,14 @@ public class PhotoPagerAdapter extends PagerAdapter {
             ((Activity) context).onBackPressed();
           }
         }
+      }
+    });
+    imageView.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View v) {
+        Bitmap bitmap =((BitmapDrawable)((ImageView)v).getDrawable()).getBitmap();
+        Log.i("ss","");
+        return false;
       }
     });
 

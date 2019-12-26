@@ -2,6 +2,7 @@ package com.tepia.main.view.main.work.task.taskdeal;
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.widget.FrameLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClientOption;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReference;
@@ -22,6 +25,10 @@ import com.esri.arcgisruntime.mapping.view.DrawStatus;
 import com.esri.arcgisruntime.mapping.view.DrawStatusChangedEvent;
 import com.esri.arcgisruntime.mapping.view.DrawStatusChangedListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
+import com.example.gaodelibrary.GPSUtil;
+import com.example.gaodelibrary.GaodeEntity;
+import com.example.gaodelibrary.OnGaodeLibraryListen;
 import com.google.gson.Gson;
 import com.gyf.barlibrary.ImmersionBar;
 import com.tepia.base.AppRoutePath;
@@ -39,12 +46,16 @@ import com.tepia.base.view.dialog.loading.SimpleLoadDialog;
 import com.tepia.main.R;
 import com.tepia.main.common.KeyboardLayout;
 import com.tepia.main.databinding.ActivityTaskDeal2Binding;
+import com.tepia.main.model.route.RoutepointDataBean;
+import com.tepia.main.model.route.RoutepointDataManager;
+import com.tepia.main.model.task.LatLngAndAddressBean;
 import com.tepia.main.model.task.bean.PositionNamesBean;
 import com.tepia.main.model.task.bean.TaskBean;
 import com.tepia.main.model.task.bean.TaskItemBean;
 import com.tepia.main.model.user.UserManager;
 import com.tepia.main.view.main.work.task.taskdeal.taskitemdeal.TaskItemDealFragment;
 import com.tepia.main.view.main.work.task.taskdetail.AdapterPositionTitle;
+import com.tepia.main.view.main.work.task2.taskdetail.TaskDetailActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,10 +90,18 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
      */
     private Point currentPoint;
     private boolean isFirstInitMap = false;
-    private int initCount;
     private CommonFragmentPagerAdapter adapter;
     private Point positionPoint;
 
+    private String city;
+
+    public LatLngAndAddressBean getAddress(){
+        LatLngAndAddressBean bean = new LatLngAndAddressBean();
+        bean.setCity(city);
+        bean.setPoint(positionPoint);
+        bean.setReservoirName(taskBean.getReservoirName());
+        return bean;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +126,57 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
                 initMapView();
             }
         }, 2000);
+        getGaoDeLocation();
+    }
+
+    /**
+     * 高德地图定位
+     */
+    private GaodeEntity gaodeEntity;
+
+    private void getGaoDeLocation() {
+//        gaodeEntity = new GaodeEntity(getContext());
+//        MapView mapView = new MapView(this);
+//        gaodeEntity = new GaodeEntity(this, mapView.getMap(),TaskDetailActivity.class, R.mipmap.logo);
+        gaodeEntity = new GaodeEntity(this, TaskDetailActivity.class, R.mipmap.logo);
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        //高德地图说明，来自高德android开发常见问题：
+        //GPS模块无法计算出定位结果的情况多发生在卫星信号被阻隔时，在室内环境卫星信号会被墙体、玻璃窗阻隔反射，在“城市峡谷”（高楼林立的狭长街道）地段卫星信号也会损失比较多。
+        ////强依赖GPS模块的定位模式——如定位SDK的仅设备定位模式，需要在室外环境进行，多用于行车、骑行、室外运动等场景。
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Device_Sensors);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        /*mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setInterval(interval);//可选，设置定位间隔。默认为2秒
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差*/
+        mOption.setGpsFirst(true);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+        mOption.setInterval(10*60*1000);//可选，设置定位间隔。默认为2秒
+        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
+        mOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
+//        mOption.setOnceLocationLatest(true);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
+        gaodeEntity.setLocationOption(mOption);
+        gaodeEntity.setLocationListen(new OnGaodeLibraryListen.LocationListen() {
+            @Override
+            public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
+                if (gaodeEntity != null) {
+//                    double[] temp = GPSUtil.gcj02_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+//                    double latitude = temp[0];//坐标经度
+//                    double longitude = temp[1];//坐标纬度
+//                    LogUtil.e(TaskDetailActivity.class.getName(),"经度："+longitude);
+//
+//                    if (latitude == 0 || longitude == 0) {
+//                        return;
+//                    }
+                    city = aMapLocation.getCity();
+                    gaodeEntity.closeLocation();
+                }
+            }
+        });
+        gaodeEntity.startLocation();
     }
 
     private void initMapView() {
@@ -199,21 +269,23 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
 //                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), currentPoint.getX() + "",
-                                    currentPoint.getY() + "", data.getFiles(), data.getEndfiles(),
+                                    currentPoint.getY() + "", data.getFiles(), data.getEndfiles(),data.getDuringfiles(),
                                     true, ResUtils.getString(R.string.data_saving));
 
-                            taskItemDealFragment.selectPhotosBefore.clear();
-                            taskItemDealFragment.selectPhotosAfter.clear();
+//                            taskItemDealFragment.selectPhotosBefore.clear();
+//                            taskItemDealFragment.selectPhotosAfter.clear();
+//                            taskItemDealFragment.selectPhotosDuring.clear();
                         } else {
 
 //                            LoadingDialog.with(getContext()).setMessage(ResUtils.getString(R.string.data_saving)).show();
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), "",
-                                    "", data.getFiles(), data.getEndfiles(),
+                                    "", data.getFiles(), data.getEndfiles(),data.getDuringfiles(),
                                     true, ResUtils.getString(R.string.data_saving));
 
-                            taskItemDealFragment.selectPhotosBefore.clear();
-                            taskItemDealFragment.selectPhotosAfter.clear();
+//                            taskItemDealFragment.selectPhotosBefore.clear();
+//                            taskItemDealFragment.selectPhotosAfter.clear();
+//                            taskItemDealFragment.selectPhotosDuring.clear();
                         }
                     }
                 } else {
@@ -300,6 +372,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
 
     private void initViewPager() {
         adapter = new CommonFragmentPagerAdapter(getSupportFragmentManager());
+        List<TaskItemBean> temp = taskBean.getBizReservoirWorkOrderItems();
         for (TaskItemBean bean : taskBean.getBizReservoirWorkOrderItems()) {
 
             adapter.addFragment(TaskItemDealFragment.newInstance(taskBean, workOrderId, bean.getItemId(), bean, taskBean.getExecuteStatus()));
@@ -520,6 +593,11 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
     }
 
     @Override
+    public void commitBack() {
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mBinding.alMapview.onMapResume();
@@ -536,6 +614,7 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
         super.onDestroy();
 //        gaodeEntity.stopTrace();
         mBinding.alMapview.onMapDestroy();
+        gaodeEntity.closeLocation();
     }
 
 
@@ -581,5 +660,4 @@ public class TaskDealActivity extends MVPBaseActivity<TaskDealContract.View, Tas
 
         }
     }
-
 }
