@@ -52,6 +52,7 @@ import com.tepia.main.view.main.work.task2.taskdetail.TaskDetailActivity;
 import com.yanzhenjie.permission.target.SupportFragmentTarget;
 
 import org.greenrobot.eventbus.util.ErrorDialogManager;
+import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,6 +83,11 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
 
     private TaskBean taskBean;
     private ScrollLayout.OnScrollChangedListener mOnScrollChangedListener;
+
+    /**
+     * 进度条
+     */
+    private SimpleLoadDialog simpleLoadDialog;
     /**
      * 当前位置
      */
@@ -95,7 +101,7 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
     public LatLngAndAddressBean getAddress() {
         LatLngAndAddressBean bean = new LatLngAndAddressBean();
         bean.setCity(city);
-        bean.setPoint(positionPoint);
+        bean.setPoint(currentPoint);
         bean.setReservoirName(taskBean == null ? "" : taskBean.getReservoirName());
         return bean;
     }
@@ -124,6 +130,7 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
     @Override
     public void initView() {
         setStatusBarTextDark();
+        simpleLoadDialog = new SimpleLoadDialog(NewTaskDealActivity.this,"正在上传...",false);
         mBinding = DataBindingUtil.bind(mRootView);
         ImmersionBar.setTitleBar(this, mBinding.loTitle);
         initScrllLayout();
@@ -171,14 +178,6 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
             @Override
             public void getCurrentGaodeLocation(AMapLocation aMapLocation) {
                 if (gaodeEntity != null) {
-//                    double[] temp = GPSUtil.gcj02_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-//                    double latitude = temp[0];//坐标经度
-//                    double longitude = temp[1];//坐标纬度
-//                    LogUtil.e(TaskDetailActivity.class.getName(),"经度："+longitude);
-//
-//                    if (latitude == 0 || longitude == 0) {
-//                        return;
-//                    }
                     city = aMapLocation.getCity();
                     gaodeEntity.closeLocation();
                 }
@@ -272,12 +271,12 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
                 if (DoubleClickUtil.isFastDoubleClick()) {
                     return;
                 }
-//                int itemCur = mBinding.viewPager.getCurrentItem();
-//                TaskItemDealFragment taskItemDealFragment = (TaskItemDealFragment) ((CommonFragmentPagerAdapter) mBinding.viewPager.getAdapter())
-//                        .getItem(itemCur);
                 if ("2".equals(taskBean.getExecuteStatus()) && (taskBean.getExecuteId() != null && taskBean.getExecuteId().equals(UserManager.getInstance().getUserBean().getData().getUserCode()))) {
                     TaskItemDealFragment.ReturnData data = mFragment.getDealContent();
                     if (data.isFinish()) {
+                        if (simpleLoadDialog != null){
+                            simpleLoadDialog.show();
+                        }
                         if (currentPoint != null) {
                             mPresenter.appReservoirWorkOrderItemCommitOne(data.getWorkOrderId(),
                                     data.getItemId(), data.getExResult(), data.getExDesc(), currentPoint.getX() + "",
@@ -297,55 +296,12 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
 
             }
         });
-//        mBinding.tvPre.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (DoubleClickUtil.isFastDoubleClick()) {
-//                    return;
-//                }
-//                prePage();
-//            }
-//        });
     }
 
 
-    private void nextPage() {
-//        int count = mBinding.viewPager.getCurrentItem();
-//        if (count + 1 < taskBean.getBizReservoirWorkOrderItems().size()) {
-//            position = mBinding.viewPager.getCurrentItem() + 1;
-//            mBinding.viewPager.setCurrentItem(mBinding.viewPager.getCurrentItem() + 1);
-
-        initPositoinTitle(taskBean.getBizReservoirWorkOrderItems().get(position).getPositionTreeNames());
-        initBottomBtn(taskBean);
-//        } else {
-//            finish();
-//        }
-    }
 
     @Override
     protected void initRequestData() {
-//        setStatusBarTextDark();
-//        if (taskBean == null) {
-//            taskBean = new Gson().fromJson(temp, TaskBean.class);
-//        }
-//        SimpleLoadDialog simpleLoadDialog = new SimpleLoadDialog(this,ResUtils.getString(R.string.data_loading),true);
-//        simpleLoadDialog.show();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (simpleLoadDialog != null) {
-//                    simpleLoadDialog.dismiss();
-//                }
-//                if (taskBean != null) {
-//                    refreshView(taskBean);
-//                    if (taskBean == null) {
-//                        mPresenter.getTaskDetail(workOrderId, true, getString(R.string.data_loading));
-//                    } else {
-//                        mPresenter.getTaskDetail(workOrderId, false, "");
-//                    }
-//                }
-//            }
-//        },1000);
 
     }
 
@@ -355,7 +311,7 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
             return;
         }
 
-        initPositoinTitle(taskItemBeanList.get(position).getPositionTreeNames());
+        initPositoinTitle();
 
         initFragment();
         initBottomBtn(taskBean);
@@ -431,15 +387,6 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
         mOnScrollChangedListener = new ScrollLayout.OnScrollChangedListener() {
             @Override
             public void onScrollProgressChanged(float currentProgress) {
-//                if (currentProgress >= 0) {
-//                    float precent = 255 * currentProgress;
-//                    if (precent > 255) {
-//                        precent = 255;
-//                    } else if (precent < 0) {
-//                        precent = 0;
-//                    }
-//                    mBinding.scrollDownLayout.getBackground().setAlpha(255 - (int) precent);
-//                }
                 if (mBinding.tvFoot.getVisibility() == View.VISIBLE) {
                     mBinding.tvFoot.setVisibility(View.GONE);
                 }
@@ -519,7 +466,6 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
     }
 
     private void initBottomBtn(TaskBean taskBean) {
-//        mBinding.numTv.setText((position + 1) + "/" + taskBean.getBizReservoirWorkOrderItems().size());
         switch (taskBean.getExecuteStatus()) {
             case "1":
                 mBinding.tvSaveAndNext.setText("退出");
@@ -540,9 +486,9 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
         }
     }
 
-    private void initPositoinTitle(String treeNames) {
-//        mBinding.tvItemCount.setText(taskBean.getBizReservoirWorkOrderItems().get(position).getReservoirSuperviseSequence() + "");
-//        mBinding.tvItemCount.setText(position + 1 + "");
+    private void initPositoinTitle() {
+        TaskItemBean taskItemBean = DataSupport.where("itemId=?", itemId).findFirst(TaskItemBean.class);
+        String treeNames = taskItemBean.getPositionTreeNames();
         if (TextUtils.isEmpty(treeNames)) {
             return;
         }
@@ -573,6 +519,9 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
 
     @Override
     public void commitBack() {
+        if (simpleLoadDialog!= null){
+            simpleLoadDialog.dismiss();
+        }
         finish();
     }
 
@@ -594,6 +543,9 @@ public class NewTaskDealActivity extends MVPBaseActivity<TaskDealContract.View, 
 //        gaodeEntity.stopTrace();
         mBinding.alMapview.onMapDestroy();
         gaodeEntity.closeLocation();
+        if (simpleLoadDialog!= null){
+            simpleLoadDialog.dismiss();
+        }
     }
 
 

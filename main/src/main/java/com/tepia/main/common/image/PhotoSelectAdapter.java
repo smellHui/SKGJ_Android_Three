@@ -135,6 +135,13 @@ public class PhotoSelectAdapter extends RecyclerView.Adapter<PhotoSelectAdapter.
                 holder.vSelected.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String url = photoPaths.get(position);
+                        for (int i=0;i<localData.size();i++){
+                            if (url.equals(localData.get(i))){
+                                localData.remove(i);
+                                break;
+                            }
+                        }
                         photoPaths.remove(position);
                         notifyDataSetChanged();
                         if (deleteListener != null) {

@@ -58,6 +58,8 @@ import org.litepal.crud.DataSupport;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -328,7 +330,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                         before.add(temp);
                     }
                 }
-                if (listtemp.size() == 0){
+                if (listtemp.size() == 0) {
                     for (String temp : list) {
                         if (!before.contains(temp)) {
                             before.add(temp);
@@ -356,7 +358,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                         during.add(temp);
                     }
                 }
-                if (listtemp.size() ==0){
+                if (listtemp.size() == 0) {
                     for (String temp : list) {
                         if (!during.contains(temp)) {
                             during.add(temp);
@@ -382,7 +384,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                         after.add(temp);
                     }
                 }
-                if (listtemp.size() ==0){
+                if (listtemp.size() == 0) {
                     for (String temp : list) {
                         if (!after.contains(temp)) {
                             after.add(temp);
@@ -479,8 +481,9 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
             photoRecycleViewAdapterBefore = new PhotoSelectAdapter(getContext());
             mBinding.rvAddPhotoBefore.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
             mBinding.rvAddPhotoBefore.setAdapter(photoRecycleViewAdapterBefore);
-            if (!TextUtils.isEmpty(taskItemBean.getBeforelist())){
-                ArrayList<String> beforelist = new Gson().fromJson(taskItemBean.getBeforelist(), new TypeToken<ArrayList<String>>(){}.getType());
+            if (!TextUtils.isEmpty(taskItemBean.getBeforelist())) {
+                ArrayList<String> beforelist = new Gson().fromJson(taskItemBean.getBeforelist(), new TypeToken<ArrayList<String>>() {
+                }.getType());
                 photoRecycleViewAdapterBefore.setLocalData(beforelist);
             }
 //            photoRecycleViewAdapterBefore.setLocalData(selectPhotosBefore);
@@ -519,7 +522,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                             before.add(temp);
                         }
                     }
-                    taskItemBean.setBeforelist(new Gson().toJson(before));
+//                    taskItemBean.setBeforelist(new Gson().toJson(before));
 //                    taskItemBean.save();
                     mBinding.tvPhotoNumBefore.setText(num + "/5");
                 }
@@ -551,8 +554,9 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
             photoRecycleViewAdapterDuring = new PhotoSelectAdapter(getContext());
             mBinding.rvAddPhotoDuring.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
             mBinding.rvAddPhotoDuring.setAdapter(photoRecycleViewAdapterDuring);
-            if (!TextUtils.isEmpty(taskItemBean.getDuringlist())){
-                ArrayList<String> duringlist = new Gson().fromJson(taskItemBean.getDuringlist(), new TypeToken<ArrayList<String>>(){}.getType());
+            if (!TextUtils.isEmpty(taskItemBean.getDuringlist())) {
+                ArrayList<String> duringlist = new Gson().fromJson(taskItemBean.getDuringlist(), new TypeToken<ArrayList<String>>() {
+                }.getType());
                 photoRecycleViewAdapterDuring.setLocalData(duringlist);
             }
 //            photoRecycleViewAdapterDuring.setLocalData(selectPhotosDuring);
@@ -591,7 +595,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                             during.add(temp);
                         }
                     }
-                    taskItemBean.setDuringlist(new Gson().toJson(during));
+//                    taskItemBean.setDuringlist(new Gson().toJson(during));
 //                    taskItemBean.save();
                     mBinding.tvPhotoNumDuring.setText(num + "/5");
                 }
@@ -620,6 +624,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                         PhotoPreview.builder()
                                 .setPhotos(photoRecycleViewAdapterDuring.getPhotoPaths())
                                 .setCurrentItem(position)
+                                .setShowDeleteButton(false)
                                 .start(getBaseActivity(), TaskItemDealFragment.this, taskItemBean.getReservoirSuperviseSequence());
                     }
 
@@ -631,8 +636,9 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
             photoRecycleViewAdapterAfter = new PhotoSelectAdapter(getContext());
             mBinding.rvAddPhotoAfter.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
             mBinding.rvAddPhotoAfter.setAdapter(photoRecycleViewAdapterAfter);
-            if (!TextUtils.isEmpty(taskItemBean.getAfterlist())){
-                ArrayList<String> afterlist = new Gson().fromJson(taskItemBean.getAfterlist(), new TypeToken<ArrayList<String>>(){}.getType());
+            if (!TextUtils.isEmpty(taskItemBean.getAfterlist())) {
+                ArrayList<String> afterlist = new Gson().fromJson(taskItemBean.getAfterlist(), new TypeToken<ArrayList<String>>() {
+                }.getType());
                 photoRecycleViewAdapterAfter.setLocalData(afterlist);
             }
 //            photoRecycleViewAdapterAfter.setLocalData(selectPhotosAfter);
@@ -671,7 +677,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                             after.add(temp);
                         }
                     }
-                    taskItemBean.setAfterlist(new Gson().toJson(after));
+//                    taskItemBean.setAfterlist(new Gson().toJson(after));
 //                    taskItemBean.save();
                     mBinding.tvPhotoAfterNum.setText(num + "/5");
                 }
@@ -701,6 +707,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                         PhotoPreview.builder()
                                 .setPhotos(photoRecycleViewAdapterAfter.getPhotoPaths())
                                 .setCurrentItem(position)
+                                .setShowDeleteButton(false)
                                 .start(getBaseActivity(), TaskItemDealFragment.this, taskItemBean.getReservoirSuperviseSequence());
                     }
 
@@ -813,8 +820,18 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
             String path = captureManager.getCurrentPhotoPath();
             WaterView waterView = mBinding.waterview;
             LatLngAndAddressBean latLngAndAddressBean = ((NewTaskDealActivity) getActivity()).getAddress();
-            String x = latLngAndAddressBean.getPoint() == null ? "" : latLngAndAddressBean.getPoint().getX() + "";
-            String y = latLngAndAddressBean.getPoint() == null ? "" : latLngAndAddressBean.getPoint().getY() + "";
+            String x = "";
+            String y = "";
+            if (latLngAndAddressBean.getPoint() != null) {
+                try {
+                    BigDecimal bgx = new BigDecimal(latLngAndAddressBean.getPoint().getX()).setScale(6, RoundingMode.HALF_UP);
+                    x = bgx.toString();
+                    BigDecimal bgy = new BigDecimal(latLngAndAddressBean.getPoint().getY()).setScale(6, RoundingMode.HALF_UP);
+                    y = bgy.toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             WaterBean bean = new WaterBean(latLngAndAddressBean.getReservoirName(), latLngAndAddressBean.getCity(), x, y);
             waterView.setData(bean);
             BitmapUtils.addWaterOnPhoto(getActivity(), path, mBinding.waterview, new BitmapUtils.SaveBitmapCallBack() {
@@ -1088,6 +1105,9 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
         window.findViewById(R.id.bt_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isAdded()){
+                    return;
+                }
                 String state = Environment.getExternalStorageState(); //拿到sdcard是否可用的状态码Manifest.permission.CAMERA
                 if (state.equals(Environment.MEDIA_MOUNTED)) {   //如果可用
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -1114,13 +1134,16 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                 if ("before".equals(isBefore)) {
                     List<String> listtemp = photoRecycleViewAdapterBefore.getPhotoPaths();
                     ArrayList<String> before = new ArrayList<>();
+                    ArrayList<String> net_before = new ArrayList<>();
                     for (String temp : listtemp) {
                         if (!temp.contains("http")) {
                             before.add(temp);
+                        } else {
+                            net_before.add(temp);
                         }
                     }
                     PhotoPicker.builder()
-                            .setPhotoCount(5 - listtemp.size())
+                            .setPhotoCount(before.size() + (5 - listtemp.size()))
                             .setShowCamera(false)
                             .setPreviewEnabled(true)
                             .setSelected(before)
@@ -1134,7 +1157,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                         }
                     }
                     PhotoPicker.builder()
-                            .setPhotoCount(5 - listtemp.size())
+                            .setPhotoCount(during.size() + 5 - listtemp.size())
                             .setShowCamera(false)
                             .setPreviewEnabled(true)
                             .setSelected(during)
@@ -1148,7 +1171,7 @@ public class TaskItemDealFragment extends MVPBaseFragment<TaskItemDealContract.V
                         }
                     }
                     PhotoPicker.builder()
-                            .setPhotoCount(5 - listtemp.size())
+                            .setPhotoCount(after.size() + 5 - listtemp.size())
                             .setShowCamera(false)
                             .setPreviewEnabled(true)
                             .setSelected(after)

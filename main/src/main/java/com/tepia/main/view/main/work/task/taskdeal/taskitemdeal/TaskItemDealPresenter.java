@@ -67,8 +67,8 @@ public class TaskItemDealPresenter extends BasePresenterImpl<TaskItemDealContrac
             protected void _onNext(BaseResponse response) {
                 if (response.getCode() == 0) {
                     if (mView != null) {
-                        mView.delFileSucess(imageInfoBean, isbefore);
                         imageInfoBean.delete();
+                        mView.delFileSucess(imageInfoBean, isbefore);
                     }
                 }
             }
