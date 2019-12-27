@@ -52,6 +52,15 @@ public class DictMapEntity {
         private List<NameValueBean> de_type;
         private List<NameValueBean> meType;
         private List<NameValueBean> de_status;
+        private List<NameValueBean> feedback_type;
+
+        public List<NameValueBean> getFeedback_type() {
+            return feedback_type;
+        }
+
+        public void setFeedback_type(List<NameValueBean> feedback_type) {
+            this.feedback_type = feedback_type;
+        }
 
         public List<NameValueBean> getDe_status() {
             return de_status;
@@ -319,6 +328,15 @@ public class DictMapEntity {
          */
         private Map<String,String> de_type;
         private Map<String,String> de_status;
+        private Map<String,String> feedback_type;
+
+        public Map<String, String> getFeedback_type() {
+            return feedback_type;
+        }
+
+        public void setFeedback_type(Map<String, String> feedback_type) {
+            this.feedback_type = feedback_type;
+        }
 
         public Map<String, String> getDe_status() {
             return de_status;

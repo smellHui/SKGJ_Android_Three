@@ -17,7 +17,12 @@ import com.tepia.main.databinding.ActivityWorkOrderQuestionListBinding;
 import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.view.mainworker.report.EmergenceShowDetailActivity;
+import com.tepia.main.view.mainworker.report.Wrap.FeedbackEvent;
 import com.tepia.main.view.mainworker.report.adapter.AdapterEmergency;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -55,6 +60,7 @@ public class WorkOrderQuestionListActivity extends MVPBaseActivity<WorkOrderQues
             intent.setClass(getContext(),EmergenceShowDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(ConfigConsts.emergence,adapterShuiweiReservoirs.getData().get(position).getProblemId());
+            bundle.putString("problemStatus", adapterShuiweiReservoirs.getData().get(position).getProblemStatus());
             intent.putExtras(bundle);
             startActivity(intent);
 
@@ -64,6 +70,7 @@ public class WorkOrderQuestionListActivity extends MVPBaseActivity<WorkOrderQues
 
     @Override
     public void initData() {
+        EventBus.getDefault().register(this);
         workOrderId = getIntent().getStringExtra("workOrderId");
     }
 
@@ -80,5 +87,16 @@ public class WorkOrderQuestionListActivity extends MVPBaseActivity<WorkOrderQues
     @Override
     public void getProblemListSuccess(EmergenceListBean waterLevelResponse) {
        adapterShuiweiReservoirs.setNewData(waterLevelResponse.getData().getList());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void feedBackEvent(FeedbackEvent feedbackEvent){
+        initRequestData();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

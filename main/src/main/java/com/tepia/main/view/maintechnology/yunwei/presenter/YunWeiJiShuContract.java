@@ -34,6 +34,8 @@ public class YunWeiJiShuContract {
 
         void getDetailedProblemInfoByProblemId(String problemId);
 
+        void getDetailedProblemFeedbackByProblemId(String problemId);
+
         void listStPpthRByReservoir(String reservoirId, String startDate, String endDate, String currentPage, String pageSize, boolean isshowloading);
 
         void getAdminWorkOrderList(String reservoirId, String operationType, String queryDate, String currentPage, String pageSize, boolean isShowLoading);

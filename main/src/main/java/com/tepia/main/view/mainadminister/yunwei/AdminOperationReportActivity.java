@@ -11,31 +11,33 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.tepia.base.AppRoutePath;
 import com.tepia.base.mvp.BaseActivity;
-import com.tepia.base.utils.LogUtil;
 import com.tepia.base.utils.ToastUtils;
 import com.tepia.main.ConfigConsts;
 import com.tepia.main.R;
 import com.tepia.main.model.jishu.admin.AdminWorkOrderResponse;
 import com.tepia.main.model.jishu.yunwei.OperationReportListResponse;
 import com.tepia.main.utils.EmptyLayoutUtil;
-import com.tepia.main.view.maintechnology.yunwei.JiShuReportDetailActivity;
 import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAdapter;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.report.EmergenceShowDetailActivity;
-import com.tepia.main.view.mainworker.report.EmergencyReportActivity;
+import com.tepia.main.view.mainworker.report.Wrap.FeedbackEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 /**
-  * Created by      Android studio
-  *
-  * @author :wwj (from Center Of Wuhan)
-  * Date    :2018/10/9
-  * Version :1.0
-  * 功能描述 :行政运维具体月份上报
+ * Created by      Android studio
+ *
+ * @author :wwj (from Center Of Wuhan)
+ * Date    :2018/10/9
+ * Version :1.0
+ * 功能描述 :行政运维具体月份上报
  **/
 @Route(path = AppRoutePath.app_admin_operation_report)
 public class AdminOperationReportActivity extends BaseActivity {
@@ -69,11 +71,11 @@ public class AdminOperationReportActivity extends BaseActivity {
         Intent intent = getIntent();
         item = (AdminWorkOrderResponse.DataBean.ListBean) intent.getSerializableExtra("item");
         String finishState = intent.getStringExtra("finishState");
-        if (finishState!=null){
-            if ("1".equals(finishState)){
+        if (finishState != null) {
+            if ("1".equals(finishState)) {
                 //已处理
                 problemStatus = "5";
-            }else if ("2".equals(finishState)){
+            } else if ("2".equals(finishState)) {
                 //未处理
                 problemStatus = "4";
             }
@@ -91,7 +93,7 @@ public class AdminOperationReportActivity extends BaseActivity {
             first = true;
             isloadmore = false;
             if (mPresenter != null) {
-                mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),problemStatus,false);
+                mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), problemStatus, false);
             }
         });
         /*srl.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -102,7 +104,7 @@ public class AdminOperationReportActivity extends BaseActivity {
     }
 
 
-    private int getDayOfMonth(int year,int month){
+    private int getDayOfMonth(int year, int month) {
         Calendar c = Calendar.getInstance();
         c.set(year, month, 0); //输入类型为int类型
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
@@ -112,15 +114,15 @@ public class AdminOperationReportActivity extends BaseActivity {
 
 
     private void initRequestResponse() {
-        if (item!=null){
+        if (item != null) {
             tvReservoir.setText(item.getReservoirName());
             tvStartDate.setText(item.getDate());
             String date = item.getDate();
             String[] split = date.split("-");
-            if (split.length==2){
+            if (split.length == 2) {
                 int dayOfMonth = getDayOfMonth(Integer.valueOf(split[0]), Integer.valueOf(split[1]));
-                startDate = date+"-01 00:00:00";
-                endDate = date+"-"+dayOfMonth+" 23:59:59";
+                startDate = date + "-01 00:00:00";
+                endDate = date + "-" + dayOfMonth + " 23:59:59";
             }
             reservoirId = item.getReservoirId();
             rvAdapter.setEnableLoadMore(false);
@@ -128,7 +130,7 @@ public class AdminOperationReportActivity extends BaseActivity {
             isloadmore = false;
             first = true;
             if (mPresenter != null) {
-                mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),problemStatus,true);
+                mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), problemStatus, true);
             }
         }
     }
@@ -145,17 +147,18 @@ public class AdminOperationReportActivity extends BaseActivity {
                 isloadmore = true;
                 //加载更多数据
                 loadDataOrMore(false);
-            },1000);
-        },rv);
+            }, 1000);
+        }, rv);
         rvAdapter.setOnItemClickListener((adapter, view, position) -> {
 //            LogUtil.i("position:"+position);
 //            Intent bundle = new Intent(AdminOperationReportActivity.this,JiShuReportDetailActivity.class);
 //            bundle.putExtra("item",dataList.get(position));
 //            startActivity(bundle);
             Intent intent = new Intent();
-            intent.setClass(this,EmergenceShowDetailActivity.class);
+            intent.setClass(this, EmergenceShowDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(ConfigConsts.emergence,dataList.get(position).getProblemId());
+            bundle.putString(ConfigConsts.emergence, dataList.get(position).getProblemId());
+            bundle.putString("problemStatus", dataList.get(position).getProblemStatus());
             intent.putExtras(bundle);
             startActivity(intent);
         });
@@ -185,7 +188,7 @@ public class AdminOperationReportActivity extends BaseActivity {
                     }
                     rvAdapter.setEnableLoadMore(true);
                     srl.setRefreshing(false);
-                    if (pages==1){
+                    if (pages == 1) {
                         //只有一页
                         rvAdapter.loadMoreEnd();
                         return;
@@ -226,7 +229,7 @@ public class AdminOperationReportActivity extends BaseActivity {
 
     private void loadDataOrMore(boolean isShowLoading) {
         if (mPresenter != null) {
-            mPresenter.getProblemList(reservoirId,"",startDate,endDate,String.valueOf(currentPage),String.valueOf(pageSize),problemStatus,false);
+            mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), problemStatus, false);
         }
     }
 
@@ -238,5 +241,22 @@ public class AdminOperationReportActivity extends BaseActivity {
     @Override
     protected void initRequestData() {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void feedBackEvent(FeedbackEvent feedbackEvent){
+        rvAdapter.setEnableLoadMore(false);
+        currentPage = 1;
+        first = true;
+        isloadmore = false;
+        if (mPresenter != null) {
+            mPresenter.getProblemList(reservoirId, "", startDate, endDate, String.valueOf(currentPage), String.valueOf(pageSize), problemStatus, false);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

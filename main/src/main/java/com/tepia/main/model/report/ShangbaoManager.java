@@ -1,13 +1,10 @@
 package com.tepia.main.model.report;
 
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 
 import com.tepia.base.http.BaseResponse;
 import com.tepia.base.http.RetrofitManager;
-import com.tepia.base.utils.LogUtil;
+import com.tepia.base.view.floatview.CollectionsUtil;
 import com.tepia.main.APPCostant;
 import com.tepia.main.model.user.UserManager;
 
@@ -142,6 +139,7 @@ public class ShangbaoManager {
 
     /**
      * 应急上报反馈
+     *
      * @param problemId
      * @param excuteDes
      * @return
@@ -149,6 +147,36 @@ public class ShangbaoManager {
     public Observable<BaseResponse> feedback(String problemId, String excuteDes) {
         String token = UserManager.getInstance().getToken();
         return mRetrofitService.feedback(token, problemId, excuteDes)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseResponse> uploadFeedback(String problemId, String feedbackType, String feedbackContent, List<String> selectPhotos, List<String> files) {
+        Map<String, RequestBody> params = new HashMap<>();
+        if (CollectionsUtil.isNotEmpty(problemId))
+            params.put("problemId", RetrofitManager.convertToRequestBody(problemId));
+        if (CollectionsUtil.isNotEmpty(feedbackType))
+            params.put("feedbackType", RetrofitManager.convertToRequestBody(feedbackType));
+        if (CollectionsUtil.isNotEmpty(feedbackContent))
+            params.put("feedbackContent", RetrofitManager.convertToRequestBody(feedbackContent));
+        List<File> photoList = new ArrayList<>();
+        if (CollectionsUtil.isNotEmpty(selectPhotos)) {
+            for (int i = 0; i < selectPhotos.size(); i++) {
+                File file = new File(selectPhotos.get(i));
+                photoList.add(file);
+            }
+        }
+        List<File> fileList = new ArrayList<>();
+        if (CollectionsUtil.isNotEmpty(files)) {
+            for (int i = 0; i < files.size(); i++) {
+                File file = new File(files.get(i));
+                fileList.add(file);
+            }
+        }
+        List<MultipartBody.Part> imagesList = RetrofitManager.filesToMultipartBodyParts("feedbackImg", photoList);
+        List<MultipartBody.Part> fileLists = RetrofitManager.filesToMultipartBodyParts("feedbackFile", fileList);
+        String token = UserManager.getInstance().getToken();
+        return mRetrofitService.uploadFeedback(token, params, fileLists, imagesList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

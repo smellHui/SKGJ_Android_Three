@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
@@ -13,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="#eaedef" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -43,8 +41,8 @@
                     android:id="@+id/et_plan_name"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="3"
                     android:background="@null"
                     android:focusable="true"
@@ -53,13 +51,13 @@
                     android:hint="请输入培训主题"
                     android:inputType="text"
                     android:lines="1"
+                    android:maxLength="20"
                     android:maxLines="1"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
                     android:singleLine="true"
                     android:text=""
                     android:textColor="#5f6166"
-                    android:maxLength="20"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -91,8 +89,8 @@
                     android:id="@+id/tv_date"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="3"
                     android:background="@null"
                     android:drawableRight="@drawable/s_right"
@@ -136,8 +134,8 @@
                     android:id="@+id/et_plan_position"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="3"
                     android:background="@null"
                     android:focusable="true"
@@ -146,13 +144,13 @@
                     android:hint="请输入培训地点"
                     android:inputType="text"
                     android:lines="1"
+                    android:maxLength="200"
                     android:maxLines="1"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
                     android:singleLine="true"
                     android:text=""
                     android:textColor="#5f6166"
-                    android:maxLength="200"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -184,8 +182,8 @@
                     android:id="@+id/et_organizeCompany"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="3"
                     android:background="@null"
                     android:focusable="true"
@@ -194,13 +192,13 @@
                     android:hint="请输入培训组织"
                     android:inputType="text"
                     android:lines="1"
+                    android:maxLength="50"
                     android:maxLines="1"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
                     android:singleLine="true"
                     android:text=""
                     android:textColor="#000000"
-                    android:maxLength="50"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -232,8 +230,8 @@
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="3"
                     android:background="@null"
                     android:focusable="true"
@@ -285,10 +283,10 @@
                     android:background="@color/color_white"
                     android:gravity="top"
                     android:hint="请输入培训内容"
+                    android:maxLength="200"
                     android:paddingLeft="5dp"
                     android:text=""
                     android:textColor="#5f6166"
-                    android:maxLength="200"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -343,8 +341,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/left_15"
-                android:layout_marginRight="@dimen/left_15"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/left_15"
                 android:background="@drawable/jianjie_fujian_bg"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -365,13 +363,15 @@
                     android:textColor="#b2b9c7"
                     android:textSize="15sp" />
             </LinearLayout>
+
             <android.support.v7.widget.RecyclerView
 
                 android:id="@+id/rv_file_pick"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp" />
+
             <View style="@style/LineH" />
 
             <View style="@style/LineH" />
@@ -383,8 +383,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="70dp"
-                android:layout_marginRight="70dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginRight="70dp"
                 android:background="@drawable/selector_loginout_btn"
                 android:text="提交"
                 android:textColor="@color/white" />

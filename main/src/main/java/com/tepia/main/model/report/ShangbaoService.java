@@ -31,9 +31,10 @@ import retrofit2.http.Query;
 public interface ShangbaoService {
     /**
      * 上报水位接口
+     *
      * @param token
      * @param reservoirId
-     * @param rz 水位
+     * @param rz          水位
      * @return
      */
     @FormUrlEncoded
@@ -46,9 +47,10 @@ public interface ShangbaoService {
 
     /**
      * 查询应急情况列表
+     *
      * @param token
-     * @param reservoirId 水库id
-     * @param workOrderId 工单id（巡查列表跳转需传入）
+     * @param reservoirId   水库id
+     * @param workOrderId   工单id（巡查列表跳转需传入）
      * @param problemStatus 问题状态（4-未完成  5-已完成）
      * @param startDate
      * @param endDate
@@ -58,19 +60,20 @@ public interface ShangbaoService {
      */
     @GET("app/workOrderTrp/getProblemList")
     Observable<EmergenceListBean> getProblemList(@Header("Authorization") String token,
-                                           @Query("reservoirId") String reservoirId,
-                                           @Query("workOrderId") String workOrderId,
-                                           @Query("problemStatus") String problemStatus,
-                                           @Query("startDate") String startDate,
-                                           @Query("endDate") String endDate,
-                                           @Query("currentPage") String currentPage,
-                                           @Query("pageSize") String pageSize
+                                                 @Query("reservoirId") String reservoirId,
+                                                 @Query("workOrderId") String workOrderId,
+                                                 @Query("problemStatus") String problemStatus,
+                                                 @Query("startDate") String startDate,
+                                                 @Query("endDate") String endDate,
+                                                 @Query("currentPage") String currentPage,
+                                                 @Query("pageSize") String pageSize
 
     );
 
 
     /**
      * 上报应急情况
+     *
      * @param token
      * @param parts
      * @param pathList
@@ -86,6 +89,7 @@ public interface ShangbaoService {
 
     /**
      * 应急上报反馈
+     *
      * @param token
      * @param problemId
      * @param excuteDes
@@ -94,7 +98,23 @@ public interface ShangbaoService {
     @FormUrlEncoded
     @POST("app/appProblemInfo/feedback")
     Observable<BaseResponse> feedback(@Header("Authorization") String token,
-                                             @Field("problemId") String problemId,
-                                             @Field("excuteDes") String excuteDes
+                                      @Field("problemId") String problemId,
+                                      @Field("excuteDes") String excuteDes
     );
+
+    /**
+     * 提交问题的反馈信息
+     *
+     * @param token
+     * @return
+     */
+    @Multipart
+    @POST("app/bizProblemFeedback/commitProblemFeedback")
+    Observable<BaseResponse> uploadFeedback(@Header("Authorization") String token,
+                                            @PartMap Map<String, RequestBody> parts,
+                                            @Part List<MultipartBody.Part> pathList,
+                                            @Part List<MultipartBody.Part> photoList
+    );
+
+
 }

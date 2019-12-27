@@ -35,6 +35,11 @@ import com.tepia.main.view.maintechnology.yunwei.adapter.MyOperationReportListAd
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuContract;
 import com.tepia.main.view.maintechnology.yunwei.presenter.YunWeiJiShuPresenter;
 import com.tepia.main.view.mainworker.report.EmergenceShowDetailActivity;
+import com.tepia.main.view.mainworker.report.Wrap.FeedbackEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -81,6 +86,7 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
         localReservoirList = UserManager.getInstance().getLocalReservoirList();
     }
 
@@ -444,6 +450,17 @@ public class OperationReportFragment extends MVPBaseFragment<YunWeiJiShuContract
                 }
             });
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void feedBackEvent(FeedbackEvent feedbackEvent){
+        search();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

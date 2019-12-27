@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/alldetailly_dimen"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/bg_btn_detail_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/jianjiemarginleft"
+        android:text="--"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/littleTitleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginRight="@dimen/jianjiemarginleft"
+        android:text="--"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/peixunRec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+
+        android:id="@+id/rerserviorNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:drawableLeft="@drawable/peixun_zuzhi1"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="水库名称：--"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/jianjietextsize" />
+
+    <TextView
+        android:id="@+id/nameTv"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:drawableLeft="@drawable/peixun_didian1"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="上报人：--"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/jianjietextsize" />
+
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:drawableLeft="@drawable/peixun_time1"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="上报时间：--"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/jianjietextsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="@dimen/jianjiemarginleft"
+        android:background="#ebedee" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:gravity="center"
+        android:text="应急情况描述"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/descriptionTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginRight="@dimen/jianjiemarginleft"
+        android:layout_marginBottom="@dimen/jianjiemarginbottom"
+        android:text="--"
+        android:textColor="#999999"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/jianjiemarginleft"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="@dimen/jianjiemarginleft"
+        android:background="#ebedee" />
+
+    <LinearLayout
+        android:id="@+id/vedioLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:gravity="center"
+            android:text="现场视频"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/videoIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/icon_empty" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/jianjiemarginleft"
+            android:background="#ebedee" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/showfeedbackLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/jianjiemarginleft"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="@dimen/jianjiemarginbottom"
+            android:gravity="center"
+            android:text="反馈详情"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

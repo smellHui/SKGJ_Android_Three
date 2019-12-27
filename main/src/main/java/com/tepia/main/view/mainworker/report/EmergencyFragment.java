@@ -24,7 +24,12 @@ import com.tepia.main.model.detai.ReservoirBean;
 import com.tepia.main.model.report.EmergenceListBean;
 import com.tepia.main.utils.EmptyLayoutUtil;
 import com.tepia.main.utils.TimePickerDialogUtil;
+import com.tepia.main.view.mainworker.report.Wrap.FeedbackEvent;
 import com.tepia.main.view.mainworker.report.adapter.AdapterEmergency;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,7 +74,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
 
     @Override
     protected void initData() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -158,6 +163,7 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
             intent.setClass(getBaseActivity(), EmergenceShowDetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(ConfigConsts.emergence, dataList.get(position).getProblemId());
+            bundle.putString("problemStatus", dataList.get(position).getProblemStatus());
             intent.putExtras(bundle);
             startActivity(intent);
 
@@ -320,4 +326,14 @@ public class EmergencyFragment extends MVPBaseFragment<ReportContract.View, Repo
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void feedBackEvent(FeedbackEvent feedbackEvent){
+        refresh(true);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

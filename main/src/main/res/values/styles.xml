@@ -82,4 +82,16 @@
         <item name="android:textColor">#97a2ae</item>
     </style>-->
 
+    <style name="input_edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">66dp</item>
+        <item name="android:background">@drawable/bg_border_stroke_8</item>
+        <item name="android:gravity">top</item>
+        <item name="android:textColor">@color/color_475162</item>
+        <item name="android:textColorHint">@color/color_999999</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:hint">请输入反馈意见</item>
+        <item name="android:padding">8dp</item>
+    </style>
 </resources>
